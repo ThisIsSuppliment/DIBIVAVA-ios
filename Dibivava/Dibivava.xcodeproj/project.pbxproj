@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7C0601BA2A666753004FB30B /* Supplement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0601B92A666753004FB30B /* Supplement.swift */; };
+		7C0601BC2A66676C004FB30B /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0601BB2A66676C004FB30B /* API.swift */; };
 		7C6091B92A6588C40062FF01 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6091B82A6588C40062FF01 /* AppDelegate.swift */; };
 		7C6091BB2A6588C40062FF01 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6091BA2A6588C40062FF01 /* SceneDelegate.swift */; };
 		7C6091C22A6588C50062FF01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C6091C12A6588C50062FF01 /* Assets.xcassets */; };
@@ -38,6 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7C0601B92A666753004FB30B /* Supplement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Supplement.swift; sourceTree = "<group>"; };
+		7C0601BB2A66676C004FB30B /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		7C6091B52A6588C40062FF01 /* Dibivava.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dibivava.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C6091B82A6588C40062FF01 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7C6091BA2A6588C40062FF01 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -80,6 +84,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7C0601B72A666705004FB30B /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				7C0601BB2A66676C004FB30B /* API.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		7C0601B82A666729004FB30B /* Entites */ = {
+			isa = PBXGroup;
+			children = (
+				7C0601B92A666753004FB30B /* Supplement.swift */,
+			);
+			path = Entites;
+			sourceTree = "<group>";
+		};
 		7C6091AC2A6588C40062FF01 = {
 			isa = PBXGroup;
 			children = (
@@ -104,6 +124,8 @@
 			isa = PBXGroup;
 			children = (
 				7C6091F72A658CC80062FF01 /* Application */,
+				7C0601B82A666729004FB30B /* Entites */,
+				7C0601B72A666705004FB30B /* Network */,
 				7C6091E82A6588E30062FF01 /* Presentation */,
 				7C6091F82A6591010062FF01 /* Resource */,
 			);
@@ -337,9 +359,11 @@
 			files = (
 				7C6091F22A658B370062FF01 /* HomeViewModel.swift in Sources */,
 				7C6091B92A6588C40062FF01 /* AppDelegate.swift in Sources */,
+				7C0601BA2A666753004FB30B /* Supplement.swift in Sources */,
 				7C6091EE2A658A090062FF01 /* SupplementDetailViewController.swift in Sources */,
 				7C6091F62A658BA90062FF01 /* SupplementDetailViewModel.swift in Sources */,
 				7C6091BB2A6588C40062FF01 /* SceneDelegate.swift in Sources */,
+				7C0601BC2A66676C004FB30B /* API.swift in Sources */,
 				7C6091EC2A6589DE0062FF01 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
