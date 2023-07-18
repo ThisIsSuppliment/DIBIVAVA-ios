@@ -22,8 +22,7 @@ class HomeViewController: UIViewController {
         $0.showsHorizontalScrollIndicator = false
     }
     private let hotLabel = UILabel().then{
-        let text = "지금 뜨고있는 건강 보조제들!"
-        let range = (text as NSString).range(of: "뜨고있는")
+        $0.text = "지금 뜨고있는 건강 보조제들!"
         $0.font = .pretendard(.ExtraBold, size: 18)
         $0.textColor = .black
     }
