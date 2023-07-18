@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		09FEB4272A66A6F000DD1CC5 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 09FEB4262A66A6F000DD1CC5 /* SnapKit */; };
+		09FEB42A2A66A6FB00DD1CC5 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 09FEB4292A66A6FB00DD1CC5 /* Alamofire */; };
+		09FEB42D2A66A73500DD1CC5 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 09FEB42C2A66A73500DD1CC5 /* RxSwift */; };
+		09FEB4302A66A74500DD1CC5 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 09FEB42F2A66A74500DD1CC5 /* Then */; };
+		09FEB4332A66ABD400DD1CC5 /* ImageSlideshow in Frameworks */ = {isa = PBXBuildFile; productRef = 09FEB4322A66ABD400DD1CC5 /* ImageSlideshow */; };
+		09FEB4352A66ABD400DD1CC5 /* ImageSlideshow/Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 09FEB4342A66ABD400DD1CC5 /* ImageSlideshow/Alamofire */; };
+		09FEB4372A66ABD400DD1CC5 /* ImageSlideshow/Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 09FEB4362A66ABD400DD1CC5 /* ImageSlideshow/Kingfisher */; };
+		09FEB43A2A66AFE300DD1CC5 /* Fonts+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FEB4392A66AFE300DD1CC5 /* Fonts+.swift */; };
+		09FEB43C2A66AFED00DD1CC5 /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FEB43B2A66AFED00DD1CC5 /* Color+.swift */; };
 		7C0601BA2A666753004FB30B /* Supplement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0601B92A666753004FB30B /* Supplement.swift */; };
 		7C0601BC2A66676C004FB30B /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0601BB2A66676C004FB30B /* API.swift */; };
 		7C6091B92A6588C40062FF01 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6091B82A6588C40062FF01 /* AppDelegate.swift */; };
@@ -40,6 +49,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		09FEB4392A66AFE300DD1CC5 /* Fonts+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Fonts+.swift"; sourceTree = "<group>"; };
+		09FEB43B2A66AFED00DD1CC5 /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
+		09FEB43D2A66C86A00DD1CC5 /* SUIT-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-Medium.ttf"; sourceTree = "<group>"; };
+		09FEB43E2A66C86A00DD1CC5 /* SUIT-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-ExtraBold.ttf"; sourceTree = "<group>"; };
+		09FEB43F2A66C86A00DD1CC5 /* SUIT-Heavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-Heavy.ttf"; sourceTree = "<group>"; };
+		09FEB4402A66C86A00DD1CC5 /* SUIT-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-Regular.ttf"; sourceTree = "<group>"; };
+		09FEB4412A66C86A00DD1CC5 /* SUIT-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-Light.ttf"; sourceTree = "<group>"; };
+		09FEB4422A66C86A00DD1CC5 /* SUIT-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-SemiBold.ttf"; sourceTree = "<group>"; };
+		09FEB4432A66C86A00DD1CC5 /* SUIT-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-Thin.ttf"; sourceTree = "<group>"; };
+		09FEB4442A66C86A00DD1CC5 /* SUIT-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-Bold.ttf"; sourceTree = "<group>"; };
+		09FEB4452A66C86A00DD1CC5 /* SUIT-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-ExtraLight.ttf"; sourceTree = "<group>"; };
 		7C0601B92A666753004FB30B /* Supplement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Supplement.swift; sourceTree = "<group>"; };
 		7C0601BB2A66676C004FB30B /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		7C6091B52A6588C40062FF01 /* Dibivava.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dibivava.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -64,6 +84,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09FEB42D2A66A73500DD1CC5 /* RxSwift in Frameworks */,
+				09FEB4372A66ABD400DD1CC5 /* ImageSlideshow/Kingfisher in Frameworks */,
+				09FEB4332A66ABD400DD1CC5 /* ImageSlideshow in Frameworks */,
+				09FEB4272A66A6F000DD1CC5 /* SnapKit in Frameworks */,
+				09FEB42A2A66A6FB00DD1CC5 /* Alamofire in Frameworks */,
+				09FEB4352A66ABD400DD1CC5 /* ImageSlideshow/Alamofire in Frameworks */,
+				09FEB4302A66A74500DD1CC5 /* Then in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +111,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		09FEB4382A66AFD200DD1CC5 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				09FEB4392A66AFE300DD1CC5 /* Fonts+.swift */,
+				09FEB43B2A66AFED00DD1CC5 /* Color+.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
 		7C0601B72A666705004FB30B /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -220,6 +256,16 @@
 		7C6091F82A6591010062FF01 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				09FEB4442A66C86A00DD1CC5 /* SUIT-Bold.ttf */,
+				09FEB43E2A66C86A00DD1CC5 /* SUIT-ExtraBold.ttf */,
+				09FEB4452A66C86A00DD1CC5 /* SUIT-ExtraLight.ttf */,
+				09FEB43F2A66C86A00DD1CC5 /* SUIT-Heavy.ttf */,
+				09FEB4412A66C86A00DD1CC5 /* SUIT-Light.ttf */,
+				09FEB43D2A66C86A00DD1CC5 /* SUIT-Medium.ttf */,
+				09FEB4402A66C86A00DD1CC5 /* SUIT-Regular.ttf */,
+				09FEB4422A66C86A00DD1CC5 /* SUIT-SemiBold.ttf */,
+				09FEB4432A66C86A00DD1CC5 /* SUIT-Thin.ttf */,
+				09FEB4382A66AFD200DD1CC5 /* Util */,
 				7C6091C12A6588C50062FF01 /* Assets.xcassets */,
 				7C6091C32A6588C50062FF01 /* LaunchScreen.storyboard */,
 				7C6091C62A6588C50062FF01 /* Info.plist */,
@@ -243,6 +289,15 @@
 			dependencies = (
 			);
 			name = Dibivava;
+			packageProductDependencies = (
+				09FEB4262A66A6F000DD1CC5 /* SnapKit */,
+				09FEB4292A66A6FB00DD1CC5 /* Alamofire */,
+				09FEB42C2A66A73500DD1CC5 /* RxSwift */,
+				09FEB42F2A66A74500DD1CC5 /* Then */,
+				09FEB4322A66ABD400DD1CC5 /* ImageSlideshow */,
+				09FEB4342A66ABD400DD1CC5 /* ImageSlideshow/Alamofire */,
+				09FEB4362A66ABD400DD1CC5 /* ImageSlideshow/Kingfisher */,
+			);
 			productName = Dibivava;
 			productReference = 7C6091B52A6588C40062FF01 /* Dibivava.app */;
 			productType = "com.apple.product-type.application";
@@ -315,6 +370,13 @@
 				Base,
 			);
 			mainGroup = 7C6091AC2A6588C40062FF01;
+			packageReferences = (
+				09FEB4252A66A6F000DD1CC5 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				09FEB4282A66A6FB00DD1CC5 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				09FEB42B2A66A73500DD1CC5 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				09FEB42E2A66A74500DD1CC5 /* XCRemoteSwiftPackageReference "Then" */,
+				09FEB4312A66ABD400DD1CC5 /* XCRemoteSwiftPackageReference "ImageSlideshow" */,
+			);
 			productRefGroup = 7C6091B62A6588C40062FF01 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -358,6 +420,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7C6091F22A658B370062FF01 /* HomeViewModel.swift in Sources */,
+				09FEB43C2A66AFED00DD1CC5 /* Color+.swift in Sources */,
 				7C6091B92A6588C40062FF01 /* AppDelegate.swift in Sources */,
 				7C0601BA2A666753004FB30B /* Supplement.swift in Sources */,
 				7C6091EE2A658A090062FF01 /* SupplementDetailViewController.swift in Sources */,
@@ -365,6 +428,7 @@
 				7C6091BB2A6588C40062FF01 /* SceneDelegate.swift in Sources */,
 				7C0601BC2A66676C004FB30B /* API.swift in Sources */,
 				7C6091EC2A6589DE0062FF01 /* HomeViewController.swift in Sources */,
+				09FEB43A2A66AFE300DD1CC5 /* Fonts+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -696,6 +760,87 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		09FEB4252A66A6F000DD1CC5 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		09FEB4282A66A6FB00DD1CC5 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		09FEB42B2A66A73500DD1CC5 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
+		09FEB42E2A66A74500DD1CC5 /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+		09FEB4312A66ABD400DD1CC5 /* XCRemoteSwiftPackageReference "ImageSlideshow" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/zvonicek/ImageSlideshow";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		09FEB4262A66A6F000DD1CC5 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 09FEB4252A66A6F000DD1CC5 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		09FEB4292A66A6FB00DD1CC5 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 09FEB4282A66A6FB00DD1CC5 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		09FEB42C2A66A73500DD1CC5 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 09FEB42B2A66A73500DD1CC5 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		09FEB42F2A66A74500DD1CC5 /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 09FEB42E2A66A74500DD1CC5 /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
+		};
+		09FEB4322A66ABD400DD1CC5 /* ImageSlideshow */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 09FEB4312A66ABD400DD1CC5 /* XCRemoteSwiftPackageReference "ImageSlideshow" */;
+			productName = ImageSlideshow;
+		};
+		09FEB4342A66ABD400DD1CC5 /* ImageSlideshow/Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 09FEB4312A66ABD400DD1CC5 /* XCRemoteSwiftPackageReference "ImageSlideshow" */;
+			productName = ImageSlideshow/Alamofire;
+		};
+		09FEB4362A66ABD400DD1CC5 /* ImageSlideshow/Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 09FEB4312A66ABD400DD1CC5 /* XCRemoteSwiftPackageReference "ImageSlideshow" */;
+			productName = ImageSlideshow/Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7C6091AD2A6588C40062FF01 /* Project object */;
 }
