@@ -14,12 +14,17 @@ import RxSwift
 
 class HomeViewController: UIViewController {
     private let HomeViewmodel = HomeViewModel()
-    
+    private var searchresult: [Supplement] = []
+    private let searchAPI = SearchAPI()
+
     private let contentView = UIView().then{
         $0.backgroundColor = .white
         }
     private let scrollView = UIScrollView()
-
+    private let searchTableview = UITableView(frame: CGRect.zero, style: .grouped).then{
+        $0.backgroundColor = .white
+        $0.register(SearchTableViewCell.self, forCellReuseIdentifier: SearchTableViewCell.identifier)
+    }
     private let recommendCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
         $0.register(recommendCollectionViewCell.self, forCellWithReuseIdentifier: recommendCollectionViewCell.identifier)
         let layout = UICollectionViewFlowLayout()
@@ -30,10 +35,15 @@ class HomeViewController: UIViewController {
         $0.showsHorizontalScrollIndicator = false
     }
     private let hotLabel = UILabel().then{
-        $0.text = "지금 뜨고있는 건강 보조제들!"
+        $0.text = "지금 뜨고있는 건강기능식품들!"
         $0.font = .pretendard(.ExtraBold, size: 18)
         $0.textColor = .black
+        let attributedStr = NSMutableAttributedString(string: $0.text!)
+        attributedStr.addAttribute(.foregroundColor, value: UIColor.mainred, range: ($0.text! as NSString).range(of: "뜨고있는"))
+        $0.attributedText = attributedStr
+
     }
+
     private let vitaLabel = UILabel().then{
         $0.text = "영양소들의 역할을 확인해봐요!"
         $0.font = .pretendard(.ExtraBold, size: 18)
@@ -61,6 +71,11 @@ class HomeViewController: UIViewController {
 
     }
     private func layout(){
+        self.searchTableview.snp.makeConstraints{
+            $0.top.equalTo(searchbar.snp.bottom).offset(0)
+            $0.leading.trailing.equalToSuperview().offset(0)
+            $0.bottom.equalToSuperview()
+        }
         self.vitaLabel.snp.makeConstraints{
             $0.top.equalTo(bannerSlide.snp.bottom).offset(31)
             $0.leading.equalToSuperview().offset(16)
@@ -106,22 +121,30 @@ class HomeViewController: UIViewController {
         self.contentView.addSubview(hotLabel)
         self.contentView.addSubview(recommendCollectionView)
         self.contentView.addSubview(vitaLabel)
+        self.contentView.addSubview(searchTableview)
+
     }
     private func configure(){
         self.view.backgroundColor = .white
         self.recommendCollectionView.dataSource = self
         self.recommendCollectionView.delegate = self
         self.searchbar.delegate = self
+        self.searchTableview.delegate = self
+        self.searchTableview.dataSource = self
+        self.searchTableview.isHidden = true
+        setupHideKeyboardOnTap()
+
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configure()
         self.addsubView()
         self.layout()
+    
     }
     override func viewWillAppear(_ animated: Bool) {
-        
     }
+
    
 }
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -149,6 +172,13 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let popup = PopUpViewController()
         popup.modalPresentationStyle = .overFullScreen
         popup.modalTransitionStyle = .crossDissolve
+        popup.infoLabel.text = HomeViewmodel.supplementdes(indexPath: indexPath.row)
+        popup.nameLabel.text = HomeViewmodel.supplementKor(indexPath: indexPath.row)
+        popup.recommaneLabel.text = HomeViewmodel.supplementre(indexPath: indexPath.row)! + " 많이 들어있는 건강기능식품들"
+        let attributedStr = NSMutableAttributedString(string: popup.recommaneLabel.text!)
+        attributedStr.addAttribute(.foregroundColor, value: UIColor.mainred, range: (popup.recommaneLabel.text! as NSString).range(of: "많이"))
+        popup.recommaneLabel.attributedText = attributedStr
+
         self.present(popup,animated: true,completion: nil)
     }
 }
@@ -159,5 +189,50 @@ extension HomeViewController: UISearchBarDelegate {
         popup.modalPresentationStyle = .overFullScreen
         popup.modalTransitionStyle = .crossDissolve
         self.present(popup,animated: true,completion: nil)
+    }
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText == ""{
+        self.searchTableview.isHidden = true
+        }else{
+            self.searchTableview.isHidden = false
+            self.searchAPI.getSearchResult(name: searchText) { response in
+                switch response {
+                case .success(let searchresponse):
+                    self.searchresult = searchresponse
+                    self.searchTableview.reloadData()
+                    if self.searchresult.count == 0 {
+                        self.searchTableview.isHidden = true
+                    }
+                case .failure(let error):
+                    print("/search 오류:\(error)")
+                }
+            }
+        }
+        }
+}
+extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return searchresult.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: SearchTableViewCell.identifier, for: indexPath) as! SearchTableViewCell
+        cell.nameLabel.text = searchresult[indexPath.row].name
+        cell.companyLabel.text = "[" + searchresult[indexPath.row].company + "]"
+        return cell
+    }
+}
+extension HomeViewController {
+    // ViewController에서 해당 함수 실행
+    func setupHideKeyboardOnTap() {
+        self.view.addGestureRecognizer(self.endEditingRecognizer())
+        self.navigationController?.navigationBar.addGestureRecognizer(self.endEditingRecognizer())
+    }
+    
+    // 다른곳에서는 쓸 일이 없으므로 private
+    private func endEditingRecognizer() -> UIGestureRecognizer {
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(self.view.endEditing(_:)))
+        tap.cancelsTouchesInView = false
+        return tap
     }
 }

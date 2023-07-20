@@ -19,6 +19,8 @@
 		090E82422A67D80400944DC2 /* SUIT-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 090E82392A67D80300944DC2 /* SUIT-Bold.ttf */; };
 		090E82432A67D80400944DC2 /* SUIT-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 090E823A2A67D80300944DC2 /* SUIT-Medium.ttf */; };
 		090E82442A67D80400944DC2 /* SUIT-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 090E823B2A67D80400944DC2 /* SUIT-SemiBold.ttf */; };
+		0977E2842A690FF00007DCFA /* SearchAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0977E2832A690FF00007DCFA /* SearchAPI.swift */; };
+		0977E2862A6938900007DCFA /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0977E2852A6938900007DCFA /* SearchTableViewCell.swift */; };
 		09F8BADE2A682D920087DDA9 /* SearchresultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F8BADD2A682D920087DDA9 /* SearchresultViewController.swift */; };
 		09FEB4272A66A6F000DD1CC5 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 09FEB4262A66A6F000DD1CC5 /* SnapKit */; };
 		09FEB42A2A66A6FB00DD1CC5 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 09FEB4292A66A6FB00DD1CC5 /* Alamofire */; };
@@ -74,6 +76,8 @@
 		090E82392A67D80300944DC2 /* SUIT-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SUIT-Bold.ttf"; path = "../../../../nanez-iOS/Na'nez/Resource/SUIT-Bold.ttf"; sourceTree = "<group>"; };
 		090E823A2A67D80300944DC2 /* SUIT-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SUIT-Medium.ttf"; path = "../../../../nanez-iOS/Na'nez/Resource/SUIT-Medium.ttf"; sourceTree = "<group>"; };
 		090E823B2A67D80400944DC2 /* SUIT-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SUIT-SemiBold.ttf"; path = "../../../../nanez-iOS/Na'nez/Resource/SUIT-SemiBold.ttf"; sourceTree = "<group>"; };
+		0977E2832A690FF00007DCFA /* SearchAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAPI.swift; sourceTree = "<group>"; };
+		0977E2852A6938900007DCFA /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		09F8BADD2A682D920087DDA9 /* SearchresultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchresultViewController.swift; sourceTree = "<group>"; };
 		09FEB4392A66AFE300DD1CC5 /* Fonts+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Fonts+.swift"; sourceTree = "<group>"; };
 		09FEB43B2A66AFED00DD1CC5 /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
@@ -149,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				7C0601BB2A66676C004FB30B /* API.swift */,
+				0977E2832A690FF00007DCFA /* SearchAPI.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -244,6 +249,7 @@
 			children = (
 				7C6091EB2A6589DE0062FF01 /* HomeViewController.swift */,
 				090E822D2A678B1600944DC2 /* recommendCollectionViewCell.swift */,
+				0977E2852A6938900007DCFA /* SearchTableViewCell.swift */,
 				090E822F2A6791E400944DC2 /* PopUpViewController.swift */,
 			);
 			path = View;
@@ -462,6 +468,7 @@
 				7C6091B92A6588C40062FF01 /* AppDelegate.swift in Sources */,
 				090E82322A67CB9D00944DC2 /* HomeSupplement.swift in Sources */,
 				7C0601BA2A666753004FB30B /* Supplement.swift in Sources */,
+				0977E2842A690FF00007DCFA /* SearchAPI.swift in Sources */,
 				7C6091EE2A658A090062FF01 /* SupplementDetailViewController.swift in Sources */,
 				090E822E2A678B1600944DC2 /* recommendCollectionViewCell.swift in Sources */,
 				7C6091F62A658BA90062FF01 /* SupplementDetailViewModel.swift in Sources */,
@@ -469,6 +476,7 @@
 				090E82302A6791E400944DC2 /* PopUpViewController.swift in Sources */,
 				7C6091BB2A6588C40062FF01 /* SceneDelegate.swift in Sources */,
 				7C0601BC2A66676C004FB30B /* API.swift in Sources */,
+				0977E2862A6938900007DCFA /* SearchTableViewCell.swift in Sources */,
 				7C6091EC2A6589DE0062FF01 /* HomeViewController.swift in Sources */,
 				09FEB43A2A66AFE300DD1CC5 /* Fonts+.swift in Sources */,
 			);
