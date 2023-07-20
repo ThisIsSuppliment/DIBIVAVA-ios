@@ -6,3 +6,6 @@
 //
 
 import Foundation
+struct APIConstants {
+    static let baseURL = "https://eurq0k5xej.execute-api.ap-northeast-2.amazonaws.com/dev/"
+}
