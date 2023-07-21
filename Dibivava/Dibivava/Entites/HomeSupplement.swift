@@ -143,4 +143,26 @@ enum supplementImg: Int{
             return UIColor(rgb: 0xDCC7FF)
         }
     }
+    var recommendSupId: [Int] {
+        switch self {
+        case .Supplement1:
+            return [3219,2675,5001]
+        case .Supplement2:
+            return [5529,6322,6794]
+        case .Supplement3:
+            return [2521,1457,1832]
+        case .Supplement4:
+            return [2507,4526,3858]
+        case .Supplement5:
+            return [4715,3750,11352]
+        case .Supplement6:
+            return [5658,10770,11866]
+        case .Supplement7:
+            return [6026,2374,3389]
+        case .Supplement8:
+            return [802,856,5189]
+        case .Supplement9:
+            return [3872,5658,10770]
+        }
+    }
 }

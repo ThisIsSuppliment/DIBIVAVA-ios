@@ -16,6 +16,7 @@ class HomeViewController: UIViewController {
     private let HomeViewmodel = HomeViewModel()
     private var searchresult: [Supplement] = []
     private let searchAPI = SearchAPI()
+    
 
     private let contentView = UIView().then{
         $0.backgroundColor = .white
@@ -59,6 +60,7 @@ class HomeViewController: UIViewController {
             ImageSource(image: UIImage(named: "s4")!),
             ImageSource(image: UIImage(named: "s5")!)
         ])
+        $0.backgroundColor = UIColor(rgb: 0xDADEDE)
     }
     private let searchbar = UISearchBar().then{
         $0.searchTextField.borderStyle = .none
@@ -142,10 +144,6 @@ class HomeViewController: UIViewController {
         self.layout()
     
     }
-    override func viewWillAppear(_ animated: Bool) {
-    }
-
-   
 }
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -178,7 +176,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let attributedStr = NSMutableAttributedString(string: popup.recommaneLabel.text!)
         attributedStr.addAttribute(.foregroundColor, value: UIColor.mainred, range: (popup.recommaneLabel.text! as NSString).range(of: "많이"))
         popup.recommaneLabel.attributedText = attributedStr
-
+        
         self.present(popup,animated: true,completion: nil)
     }
 }
@@ -194,7 +192,6 @@ extension HomeViewController: UISearchBarDelegate {
         if searchText == ""{
         self.searchTableview.isHidden = true
         }else{
-            self.searchTableview.isHidden = false
             self.searchAPI.getSearchResult(name: searchText) { response in
                 switch response {
                 case .success(let searchresponse):
@@ -202,6 +199,9 @@ extension HomeViewController: UISearchBarDelegate {
                     self.searchTableview.reloadData()
                     if self.searchresult.count == 0 {
                         self.searchTableview.isHidden = true
+                    }
+                    else{
+                        self.searchTableview.isHidden = false
                     }
                 case .failure(let error):
                     print("/search 오류:\(error)")
@@ -219,7 +219,12 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         let cell = tableView.dequeueReusableCell(withIdentifier: SearchTableViewCell.identifier, for: indexPath) as! SearchTableViewCell
         cell.nameLabel.text = searchresult[indexPath.row].name
         cell.companyLabel.text = "[" + searchresult[indexPath.row].company + "]"
+        cell.suplementId = searchresult[indexPath.row].supplementId
         return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.dequeueReusableCell(withIdentifier: SearchTableViewCell.identifier, for: indexPath) as! SearchTableViewCell
+            //cell.suplementId 추천검색어 이부분입니다!
     }
 }
 extension HomeViewController {
