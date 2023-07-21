@@ -9,6 +9,7 @@ import UIKit
 
 class SearchTableViewCell: UITableViewCell {
     static let identifier = "SearchTableViewCell"
+    public var suplementId:Int?
     public var companyLabel = UILabel().then{
         $0.text = "회사"
         $0.textColor = UIColor(rgb: 0x333333)
