@@ -9,6 +9,19 @@
 /* Begin PBXBuildFile section */
 		7C0601BA2A666753004FB30B /* Supplement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0601B92A666753004FB30B /* Supplement.swift */; };
 		7C0601BC2A66676C004FB30B /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0601BB2A66676C004FB30B /* API.swift */; };
+		7C4221C02A6697FA00F5F53F /* SupplementDetailLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4221BF2A6697FA00F5F53F /* SupplementDetailLayout.swift */; };
+		7C6068292A66F64D003B414B /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 7C6068282A66F64D003B414B /* RxCocoa */; };
+		7C60682B2A66F64D003B414B /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7C60682A2A66F64D003B414B /* RxSwift */; };
+		7C60682E2A66F65F003B414B /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7C60682D2A66F65F003B414B /* SnapKit */; };
+		7C6068312A66F672003B414B /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 7C6068302A66F672003B414B /* Alamofire */; };
+		7C6068342A66F682003B414B /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 7C6068332A66F682003B414B /* Then */; };
+		7C6068362A66F8C9003B414B /* ComponentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6068352A66F8C9003B414B /* ComponentCollectionViewCell.swift */; };
+		7C6068382A66FABB003B414B /* SupplementDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6068372A66FABB003B414B /* SupplementDetailView.swift */; };
+		7C60683A2A66FF0A003B414B /* ComponentSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6068392A66FF0A003B414B /* ComponentSectionHeaderView.swift */; };
+		7C60683C2A670143003B414B /* ComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C60683B2A670143003B414B /* ComponentView.swift */; };
+		7C60683E2A67CB6C003B414B /* FunctionalityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C60683D2A67CB6C003B414B /* FunctionalityCollectionViewCell.swift */; };
+		7C6068402A67CC06003B414B /* FunctionalityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C60683F2A67CC06003B414B /* FunctionalityView.swift */; };
+		7C6068422A67EA8B003B414B /* ComponentCountingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6068412A67EA8B003B414B /* ComponentCountingView.swift */; };
 		7C6091B92A6588C40062FF01 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6091B82A6588C40062FF01 /* AppDelegate.swift */; };
 		7C6091BB2A6588C40062FF01 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6091BA2A6588C40062FF01 /* SceneDelegate.swift */; };
 		7C6091C22A6588C50062FF01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C6091C12A6588C50062FF01 /* Assets.xcassets */; };
@@ -20,6 +33,7 @@
 		7C6091EE2A658A090062FF01 /* SupplementDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6091ED2A658A090062FF01 /* SupplementDetailViewController.swift */; };
 		7C6091F22A658B370062FF01 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6091F12A658B370062FF01 /* HomeViewModel.swift */; };
 		7C6091F62A658BA90062FF01 /* SupplementDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6091F52A658BA90062FF01 /* SupplementDetailViewModel.swift */; };
+		7C8217392A69B928001DB57D /* SupplementNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8217382A69B928001DB57D /* SupplementNetworkService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +56,14 @@
 /* Begin PBXFileReference section */
 		7C0601B92A666753004FB30B /* Supplement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Supplement.swift; sourceTree = "<group>"; };
 		7C0601BB2A66676C004FB30B /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		7C4221BF2A6697FA00F5F53F /* SupplementDetailLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementDetailLayout.swift; sourceTree = "<group>"; };
+		7C6068352A66F8C9003B414B /* ComponentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentCollectionViewCell.swift; sourceTree = "<group>"; };
+		7C6068372A66FABB003B414B /* SupplementDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementDetailView.swift; sourceTree = "<group>"; };
+		7C6068392A66FF0A003B414B /* ComponentSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentSectionHeaderView.swift; sourceTree = "<group>"; };
+		7C60683B2A670143003B414B /* ComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentView.swift; sourceTree = "<group>"; };
+		7C60683D2A67CB6C003B414B /* FunctionalityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionalityCollectionViewCell.swift; sourceTree = "<group>"; };
+		7C60683F2A67CC06003B414B /* FunctionalityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionalityView.swift; sourceTree = "<group>"; };
+		7C6068412A67EA8B003B414B /* ComponentCountingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentCountingView.swift; sourceTree = "<group>"; };
 		7C6091B52A6588C40062FF01 /* Dibivava.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dibivava.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C6091B82A6588C40062FF01 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7C6091BA2A6588C40062FF01 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -57,6 +79,7 @@
 		7C6091ED2A658A090062FF01 /* SupplementDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementDetailViewController.swift; sourceTree = "<group>"; };
 		7C6091F12A658B370062FF01 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		7C6091F52A658BA90062FF01 /* SupplementDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementDetailViewModel.swift; sourceTree = "<group>"; };
+		7C8217382A69B928001DB57D /* SupplementNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementNetworkService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +87,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C6068342A66F682003B414B /* Then in Frameworks */,
+				7C60682E2A66F65F003B414B /* SnapKit in Frameworks */,
+				7C6068312A66F672003B414B /* Alamofire in Frameworks */,
+				7C60682B2A66F64D003B414B /* RxSwift in Frameworks */,
+				7C6068292A66F64D003B414B /* RxCocoa in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,6 +200,7 @@
 			children = (
 				7C6091F32A658B400062FF01 /* ViewModel */,
 				7C6091F42A658B480062FF01 /* View */,
+				7C8217382A69B928001DB57D /* SupplementNetworkService.swift */,
 			);
 			path = SupplementDetailScene;
 			sourceTree = "<group>";
@@ -204,6 +233,14 @@
 			isa = PBXGroup;
 			children = (
 				7C6091ED2A658A090062FF01 /* SupplementDetailViewController.swift */,
+				7C4221BF2A6697FA00F5F53F /* SupplementDetailLayout.swift */,
+				7C6068352A66F8C9003B414B /* ComponentCollectionViewCell.swift */,
+				7C6068372A66FABB003B414B /* SupplementDetailView.swift */,
+				7C6068392A66FF0A003B414B /* ComponentSectionHeaderView.swift */,
+				7C60683B2A670143003B414B /* ComponentView.swift */,
+				7C60683D2A67CB6C003B414B /* FunctionalityCollectionViewCell.swift */,
+				7C60683F2A67CC06003B414B /* FunctionalityView.swift */,
+				7C6068412A67EA8B003B414B /* ComponentCountingView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -243,6 +280,13 @@
 			dependencies = (
 			);
 			name = Dibivava;
+			packageProductDependencies = (
+				7C6068282A66F64D003B414B /* RxCocoa */,
+				7C60682A2A66F64D003B414B /* RxSwift */,
+				7C60682D2A66F65F003B414B /* SnapKit */,
+				7C6068302A66F672003B414B /* Alamofire */,
+				7C6068332A66F682003B414B /* Then */,
+			);
 			productName = Dibivava;
 			productReference = 7C6091B52A6588C40062FF01 /* Dibivava.app */;
 			productType = "com.apple.product-type.application";
@@ -315,6 +359,12 @@
 				Base,
 			);
 			mainGroup = 7C6091AC2A6588C40062FF01;
+			packageReferences = (
+				7C6068272A66F64C003B414B /* XCRemoteSwiftPackageReference "RxSwift" */,
+				7C60682C2A66F65F003B414B /* XCRemoteSwiftPackageReference "SnapKit" */,
+				7C60682F2A66F672003B414B /* XCRemoteSwiftPackageReference "Alamofire" */,
+				7C6068322A66F682003B414B /* XCRemoteSwiftPackageReference "Then" */,
+			);
 			productRefGroup = 7C6091B62A6588C40062FF01 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -358,10 +408,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				7C6091F22A658B370062FF01 /* HomeViewModel.swift in Sources */,
+				7C6068402A67CC06003B414B /* FunctionalityView.swift in Sources */,
+				7C4221C02A6697FA00F5F53F /* SupplementDetailLayout.swift in Sources */,
+				7C6068382A66FABB003B414B /* SupplementDetailView.swift in Sources */,
 				7C6091B92A6588C40062FF01 /* AppDelegate.swift in Sources */,
 				7C0601BA2A666753004FB30B /* Supplement.swift in Sources */,
 				7C6091EE2A658A090062FF01 /* SupplementDetailViewController.swift in Sources */,
 				7C6091F62A658BA90062FF01 /* SupplementDetailViewModel.swift in Sources */,
+				7C60683C2A670143003B414B /* ComponentView.swift in Sources */,
+				7C8217392A69B928001DB57D /* SupplementNetworkService.swift in Sources */,
+				7C6068362A66F8C9003B414B /* ComponentCollectionViewCell.swift in Sources */,
+				7C60683E2A67CB6C003B414B /* FunctionalityCollectionViewCell.swift in Sources */,
+				7C6068422A67EA8B003B414B /* ComponentCountingView.swift in Sources */,
+				7C60683A2A66FF0A003B414B /* ComponentSectionHeaderView.swift in Sources */,
 				7C6091BB2A6588C40062FF01 /* SceneDelegate.swift in Sources */,
 				7C0601BC2A66676C004FB30B /* API.swift in Sources */,
 				7C6091EC2A6589DE0062FF01 /* HomeViewController.swift in Sources */,
@@ -696,6 +755,69 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7C6068272A66F64C003B414B /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
+		7C60682C2A66F65F003B414B /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		7C60682F2A66F672003B414B /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		7C6068322A66F682003B414B /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7C6068282A66F64D003B414B /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7C6068272A66F64C003B414B /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		7C60682A2A66F64D003B414B /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7C6068272A66F64C003B414B /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		7C60682D2A66F65F003B414B /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7C60682C2A66F65F003B414B /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		7C6068302A66F672003B414B /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7C60682F2A66F672003B414B /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		7C6068332A66F682003B414B /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7C6068322A66F682003B414B /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7C6091AD2A6588C40062FF01 /* Project object */;
 }
