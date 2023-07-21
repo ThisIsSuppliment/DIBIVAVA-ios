@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window?.backgroundColor = .white
         self.window?.makeKeyAndVisible()
         
-        self.window?.rootViewController = HomeViewController()
+        self.window?.rootViewController = SupplementDetailViewController()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

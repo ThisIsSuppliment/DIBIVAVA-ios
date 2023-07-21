@@ -27,7 +27,7 @@ enum SupplementDetailLayout {
                 heightDimension: .absolute(35)
             )
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            item.contentInsets = .init(top: 0, leading: 0, bottom: 5, trailing: 0)
+//            item.contentInsets = .init(top: 0, leading: 0, bottom: 5, trailing: 0)
             
             let groupSize = NSCollectionLayoutSize(
                 widthDimension: .estimated(100),
@@ -35,7 +35,7 @@ enum SupplementDetailLayout {
             )
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
                                                            subitems: [item])
-            group.interItemSpacing = .fixed(10)
+//            group.interItemSpacing = .fixed(10)
             
             let section = NSCollectionLayoutSection(group: group)
             section.orthogonalScrollingBehavior = .continuous

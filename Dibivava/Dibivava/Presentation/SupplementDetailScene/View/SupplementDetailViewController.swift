@@ -39,6 +39,19 @@ class SupplementDetailViewController: UIViewController {
         self.configureSubviews()
         self.configureConstraints()
         self.bind()
+        
+        // Mock
+//        self.supplementDetailView.nameLabel.text = "고려홍삼분말캡슐"
+//        self.supplementDetailView.companyLabel.text = "고려인삼과학주식회사"
+//        self.supplementDetailView.descriptionLabel.text = "제조일로부터 36개월까지 | 1일 3회"
+//        self.supplementDetailView.apply(["면역기능", "혈행개선", "기억력 개선", "피로개선", "항산화"])
+//
+//        self.componentView.main.countLabel.text = "1개"
+//        self.componentView.sub.countLabel.text = "1개"
+//        self.componentView.add.countLabel.text = "1개"
+//        self.componentView.applySnapshot([ "main": ["홍삼분말"],
+//                                           "sub": ["정제수"],
+//                                           "add": ["가티검"]])
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -66,7 +79,7 @@ private extension SupplementDetailViewController {
         }
 
         self.componentView.snp.makeConstraints { make in
-            make.top.equalTo(self.supplementDetailView.snp.bottom).offset(10)
+            make.top.equalTo(self.supplementDetailView.snp.bottom).offset(8)
             make.horizontalEdges.width.equalToSuperview()
             make.height.greaterThanOrEqualTo(scrollView)
             make.bottom.equalToSuperview().priority(.low)
@@ -77,7 +90,8 @@ private extension SupplementDetailViewController {
         self.viewModel.supplementDetail
             .drive(onNext: { [weak self] items in
                 guard let self,
-                      let items = items
+                      let items = items,
+                      let imageURL = items.imageURL
                 else {
                     return
                 }
@@ -102,7 +116,12 @@ private extension SupplementDetailViewController {
                 }
                 print(">>>>> functionality", items.name, items.functionality.forEach({print("- " + $0 + "\n") }))
                 print(">>>>> 결과", tmpFunctionality)
-                self.supplementDetailView.apply(tmpFunctionality)
+                self.supplementDetailView.apply(tmpFunctionality + ["면역기능", "혈행개선"])
+                
+                // 이미지 추가
+                print("<<<<<<<<<<<<<<<<<<<", imageURL)
+                guard let url = URL(string: imageURL) else { return }
+                self.supplementDetailView.imageView.load(url: url)
             })
             .disposed(by: self.disposeBag)
         
@@ -120,5 +139,21 @@ private extension SupplementDetailViewController {
                 self.componentView.applySnapshot(component)
             })
             .disposed(by: disposeBag)
+    }
+}
+
+
+// 추후 수정
+extension UIImageView {
+    func load(url: URL) {
+        DispatchQueue.global().async { [weak self] in
+            if let data = try? Data(contentsOf: url) {
+                if let image = UIImage(data: data) {
+                    DispatchQueue.main.async {
+                        self?.image = image
+                    }
+                }
+            }
+        }
     }
 }

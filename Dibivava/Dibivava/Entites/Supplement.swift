@@ -23,6 +23,7 @@ struct SupplementDetail: Codable {
     let functionality: [String]
     let mainMaterial: String
     let subMaterial, additive: [String]
+    let imageURL: String?
     let createdAt, updatedAt: String
 
     enum CodingKeys: String, CodingKey {
@@ -34,5 +35,6 @@ struct SupplementDetail: Codable {
         case mainMaterial = "main_material"
         case subMaterial = "sub_material"
         case additive, createdAt, updatedAt
+        case imageURL = "image_link"
     }
 }

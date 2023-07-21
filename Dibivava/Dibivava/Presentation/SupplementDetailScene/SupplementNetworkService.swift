@@ -17,7 +17,7 @@ protocol SupplementNetworkService {
 final class DefaultSupplementNetworkService: SupplementNetworkService {
     func requestSupplement(by id: Int) -> Single<SupplementDTO> {
         Single<SupplementDTO>.create { single in
-            let urlString = "https://eurq0k5xej.execute-api.ap-northeast-2.amazonaws.com/dev/getSupplementById?id=\(id)"
+            let urlString = "https://mp1878zrkj.execute-api.ap-northeast-2.amazonaws.com/dev/getSupplementById?id=\(id)"
             let urlComponent = URLComponents(string: urlString)
             guard let url = urlComponent?.url else { return Disposables.create() }
 
@@ -52,7 +52,7 @@ final class DefaultSupplementNetworkService: SupplementNetworkService {
     
     func request(with id: String) -> Single<String> {
         return Single<String>.create { single in
-            let urlString = "https://eurq0k5xej.execute-api.ap-northeast-2.amazonaws.com/dev/getMaterialById?id=\(id)"
+            let urlString = "https://mp1878zrkj.execute-api.ap-northeast-2.amazonaws.com/dev/getMaterialById?id=\(id)"
             let urlComponent = URLComponents(string: urlString)
             guard let url = urlComponent?.url else { return Disposables.create() }
 

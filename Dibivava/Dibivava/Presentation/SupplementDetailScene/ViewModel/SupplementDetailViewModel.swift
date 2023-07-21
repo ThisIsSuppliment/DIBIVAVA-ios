@@ -46,7 +46,7 @@ class DefaultSupplementDetailViewModel: SupplementDetailViewModel {
     }
     
     func viewWillAppear(id: Int) {
-        self.supplementNetworkService.requestSupplement(by: 12) // id Test
+        self.supplementNetworkService.requestSupplement(by: 5107) // id Test
             .subscribe(onSuccess: { [weak self] supplement in
                 guard let self
                 else {
