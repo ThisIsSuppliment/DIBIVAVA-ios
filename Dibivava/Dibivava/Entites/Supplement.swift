@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct Supplement: Hashable {
-    let name: String
-}
+//struct Supplement: Hashable {
+//    let name: String
+//}
 
 struct SupplementDTO: Codable {
     let message: String
