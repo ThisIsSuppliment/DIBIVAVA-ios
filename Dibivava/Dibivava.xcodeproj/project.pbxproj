@@ -54,6 +54,7 @@
 		7CC952602A6A6FCE00E2F739 /* SUIT-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7CC952572A6A6FCE00E2F739 /* SUIT-Bold.ttf */; };
 		7CC952612A6A6FCE00E2F739 /* SUIT-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7CC952582A6A6FCE00E2F739 /* SUIT-Medium.ttf */; };
 		7CC952622A6A6FCE00E2F739 /* SUIT-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7CC952592A6A6FCE00E2F739 /* SUIT-Thin.ttf */; };
+		7CC952642A6A743A00E2F739 /* Additive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC952632A6A743A00E2F739 /* Additive.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,6 +118,7 @@
 		7CC952572A6A6FCE00E2F739 /* SUIT-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-Bold.ttf"; sourceTree = "<group>"; };
 		7CC952582A6A6FCE00E2F739 /* SUIT-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-Medium.ttf"; sourceTree = "<group>"; };
 		7CC952592A6A6FCE00E2F739 /* SUIT-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-Thin.ttf"; sourceTree = "<group>"; };
+		7CC952632A6A743A00E2F739 /* Additive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Additive.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -262,6 +264,7 @@
 				7C6091F32A658B400062FF01 /* ViewModel */,
 				7C6091F42A658B480062FF01 /* View */,
 				7C8217382A69B928001DB57D /* SupplementNetworkService.swift */,
+				7CC952632A6A743A00E2F739 /* Additive.swift */,
 			);
 			path = SupplementDetailScene;
 			sourceTree = "<group>";
@@ -522,6 +525,7 @@
 				09F8BADE2A682D920087DDA9 /* SearchresultViewController.swift in Sources */,
 				090E82302A6791E400944DC2 /* PopUpViewController.swift in Sources */,
 				7C6091BB2A6588C40062FF01 /* SceneDelegate.swift in Sources */,
+				7CC952642A6A743A00E2F739 /* Additive.swift in Sources */,
 				7C0601BC2A66676C004FB30B /* API.swift in Sources */,
 				0977E2862A6938900007DCFA /* SearchTableViewCell.swift in Sources */,
 				7C6091EC2A6589DE0062FF01 /* HomeViewController.swift in Sources */,

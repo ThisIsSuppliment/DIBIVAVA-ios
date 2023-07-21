@@ -22,10 +22,10 @@ class SupplementDetailViewController: UIViewController {
     private var viewModel: SupplementDetailViewModel
     private let disposeBag = DisposeBag()
     
-    init() {
+    init(supplementDetailViewModel: SupplementDetailViewModel) {
         self.supplementDetailView = SupplementDetailView()
         self.componentView = ComponentView()
-        self.viewModel = DefaultSupplementDetailViewModel()
+        self.viewModel = supplementDetailViewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -55,7 +55,7 @@ class SupplementDetailViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.viewModel.viewWillAppear(id: 10)
+        self.viewModel.viewWillAppear()
     }
 }
 

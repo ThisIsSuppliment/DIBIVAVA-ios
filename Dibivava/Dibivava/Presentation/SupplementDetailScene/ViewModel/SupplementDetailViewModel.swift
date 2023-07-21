@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 
 protocol SupplementDetailViewModelInput {
-    func viewWillAppear(id: Int)
+    func viewWillAppear()
 }
 
 protocol SupplementDetailViewModelOutput {
@@ -29,7 +29,10 @@ class DefaultSupplementDetailViewModel: SupplementDetailViewModel {
     
     private let supplementNetworkService: SupplementNetworkService
     
-    init() {
+    private var id: Int
+    
+    init(id: Int) {
+        self.id = id
         self.supplementNetworkService = DefaultSupplementNetworkService()
     }
     
@@ -45,8 +48,8 @@ class DefaultSupplementDetailViewModel: SupplementDetailViewModel {
         return self.componentRelay.asDriver(onErrorJustReturn: [:])
     }
     
-    func viewWillAppear(id: Int) {
-        self.supplementNetworkService.requestSupplement(by: 5107) // id Test
+    func viewWillAppear() {
+        self.supplementNetworkService.requestSupplement(by: self.id) // id Test
             .subscribe(onSuccess: { [weak self] supplement in
                 guard let self
                 else {
