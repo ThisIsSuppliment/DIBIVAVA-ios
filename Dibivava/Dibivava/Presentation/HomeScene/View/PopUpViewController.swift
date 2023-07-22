@@ -6,8 +6,14 @@
 //
 
 import UIKit
+import Kingfisher
+import RxSwift
+import Alamofire
 
 class PopUpViewController: UIViewController {
+    public var getId:[Int] = []
+    private let sapi = SearchAPI()
+  
     private let contentView = UIView().then{
         $0.backgroundColor = .white
         $0.layer.cornerRadius = 20
@@ -71,7 +77,7 @@ class PopUpViewController: UIViewController {
             $0.top.equalToSuperview().offset(120)
             $0.centerX.equalToSuperview()
             $0.height.equalTo(490)
-            $0.width.equalTo(327)
+            $0.width.equalTo(350)
 
         }
         self.nameLabel.snp.makeConstraints{
@@ -103,6 +109,47 @@ class PopUpViewController: UIViewController {
         self.addsubView()
         self.layout()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        
+    }
+    func downloadAndResizeImage(from urlString: String, targetSize: CGSize, completion: @escaping (UIImage?) -> Void) {
+        AF.request(urlString).responseData { response in
+            switch response.result {
+            case .success(let data):
+                if let image = UIImage(data: data) {
+                    let resizedImage = self.resizeImage(image: image, targetSize: targetSize)
+                    completion(resizedImage)
+                } else {
+                    completion(nil)
+                }
+            case .failure(_):
+                completion(nil)
+            }
+        }
+    }
+
+    func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage? {
+        let size = image.size
+
+        let widthRatio  = targetSize.width  / size.width
+        let heightRatio = targetSize.height / size.height
+
+        let newSize: CGSize
+        if widthRatio > heightRatio {
+            newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
+        } else {
+            newSize = CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
+        }
+
+        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
+
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        image.draw(in: rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return newImage
+    }
 }
 extension PopUpViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -112,6 +159,18 @@ extension PopUpViewController: UICollectionViewDataSource, UICollectionViewDeleg
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: recommendCollectionViewCell.identifier, for: indexPath) as! recommendCollectionViewCell
         cell.innerLabel.isHidden = true
+        self.sapi.getSupplementID(id: self.getId[indexPath.row]) { response in
+            switch response {
+            case .success(let searchresponse):
+                cell.nameLabel.font = .pretendard(.Light, size: 7)
+                cell.nameLabel.text = searchresponse.result.name
+                let url = URL(string: searchresponse.result.imageURL!)
+                cell.Img.contentMode = .scaleAspectFit
+                cell.Img.kf.setImage(with:url)
+            case .failure(let error):
+                print("/search 오류:\(error)")
+            }
+        }
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

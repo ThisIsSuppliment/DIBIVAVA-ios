@@ -19,32 +19,8 @@ struct Supplement: Codable {
         case company
     }
 }
-struct SupplementID: Codable {
-    let supplementID: Int
-    let name: String
-    let company: String
-    let expireDate: String
-    let intakeMethod: String
-    let functionality: [String]
-    let mainMaterial: String
-    let subMaterial: [String]
-    let additive: [String]
-    let createdAt: String
-    let updatedAt: String
 
-    enum CodingKeys: String, CodingKey {
-        case supplementID = "supplement_id"
-        case name, company
-        case expireDate = "expire_date"
-        case intakeMethod = "intake_method"
-        case functionality
-        case mainMaterial = "main_material"
-        case subMaterial = "sub_material"
-        case additive
-        case createdAt = "createdAt"
-        case updatedAt = "updatedAt"
-    }
-}
+
 
 struct SearchAPIResponse: Codable {
     let message: String
@@ -63,6 +39,22 @@ class SearchAPI{
                   case .failure(let error):
                       completion(.failure(error))
                       print(error)
+                  }
+        }
+    }
+    
+    func getSupplementID(id:Int,completion: @escaping (Result<SupplementDTO, Error>) -> Void){
+        let url = APIConstants.baseURL + "getSupplementById"
+        let parameters: Parameters = [
+            "id": id,
+        ]
+        AF.request(url, parameters: parameters).responseDecodable(of: SupplementDTO.self) { response in
+                  switch response.result {
+                  case .success(let response):
+                      completion(.success(response))
+                  case .failure(let error):
+                      completion(.failure(error))
+                      print("/getSupplementById" , error)
                   }
         }
     }

@@ -12,6 +12,7 @@ import UIKit
 class HomeViewModel{
     private let searchAPI = SearchAPI()
     public var result: [Supplement] = []
+
     public func supplementImg(indexPath: Int)-> UIImage? {
         guard let supplement = Dibivava.supplementImg(rawValue: indexPath) else {
             return nil
