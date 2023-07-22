@@ -22,10 +22,10 @@ class SupplementDetailViewController: UIViewController {
     private var viewModel: SupplementDetailViewModel
     private let disposeBag = DisposeBag()
     
-    init() {
+    init(supplementDetailViewModel: SupplementDetailViewModel) {
         self.supplementDetailView = SupplementDetailView()
         self.componentView = ComponentView()
-        self.viewModel = DefaultSupplementDetailViewModel()
+        self.viewModel = supplementDetailViewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -39,23 +39,10 @@ class SupplementDetailViewController: UIViewController {
         self.configureSubviews()
         self.configureConstraints()
         self.bind()
-        
-        // Mock
-//        self.supplementDetailView.nameLabel.text = "고려홍삼분말캡슐"
-//        self.supplementDetailView.companyLabel.text = "고려인삼과학주식회사"
-//        self.supplementDetailView.descriptionLabel.text = "제조일로부터 36개월까지 | 1일 3회"
-//        self.supplementDetailView.apply(["면역기능", "혈행개선", "기억력 개선", "피로개선", "항산화"])
-//
-//        self.componentView.main.countLabel.text = "1개"
-//        self.componentView.sub.countLabel.text = "1개"
-//        self.componentView.add.countLabel.text = "1개"
-//        self.componentView.applySnapshot([ "main": ["홍삼분말"],
-//                                           "sub": ["정제수"],
-//                                           "add": ["가티검"]])
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.viewModel.viewWillAppear(id: 10)
+        self.viewModel.viewWillAppear()
     }
 }
 
@@ -157,3 +144,16 @@ extension UIImageView {
         }
     }
 }
+
+// Mock
+//        self.supplementDetailView.nameLabel.text = "고려홍삼분말캡슐"
+//        self.supplementDetailView.companyLabel.text = "고려인삼과학주식회사"
+//        self.supplementDetailView.descriptionLabel.text = "제조일로부터 36개월까지 | 1일 3회"
+//        self.supplementDetailView.apply(["면역기능", "혈행개선", "기억력 개선", "피로개선", "항산화"])
+//
+//        self.componentView.main.countLabel.text = "1개"
+//        self.componentView.sub.countLabel.text = "1개"
+//        self.componentView.add.countLabel.text = "1개"
+//        self.componentView.applySnapshot([ "main": ["홍삼분말"],
+//                                           "sub": ["정제수"],
+//                                           "add": ["가티검"]])
