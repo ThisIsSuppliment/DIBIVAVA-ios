@@ -225,7 +225,17 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.dequeueReusableCell(withIdentifier: SearchTableViewCell.identifier, for: indexPath) as! SearchTableViewCell
-            //cell.suplementId 추천검색어 이부분입니다!
+        
+        // 화면 전환
+        self.searchAPI.getSupplementID(id: searchresult[indexPath.row].supplementId) { response in
+            print(response)
+        }
+        let vc = SupplementDetailViewController(supplementDetailViewModel: DefaultSupplementDetailViewModel(
+            id:searchresult[indexPath.row].supplementId ,
+            supplementNetworkService: DefaultSupplementNetworkService())
+        )
+//        present(vc, animated: false)
+        self.navigationController?.pushViewController(vc, animated: false)
     }
 }
 extension HomeViewController {
@@ -242,3 +252,10 @@ extension HomeViewController {
         return tap
     }
 }
+//
+//self.searchAPI.getSupplementID(id: searchresult[indexPath.row].supplementId) { response in
+//          print(response)
+//      }
+//     let vc = SupplementDetailViewController(supplementDetailViewModel: DefaultSupplementDetailViewModel(
+//          id:searchresult[indexPath.row].supplementId , supplementNetworkService: DefaultSupplementNetworkService()))
+//      present(vc, animated: false)
