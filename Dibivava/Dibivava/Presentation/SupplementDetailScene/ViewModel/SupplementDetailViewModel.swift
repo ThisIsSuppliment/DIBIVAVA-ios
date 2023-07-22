@@ -31,9 +31,10 @@ class DefaultSupplementDetailViewModel: SupplementDetailViewModel {
     
     private var id: Int
     
-    init(id: Int) {
+    init(id: Int,
+         supplementNetworkService: SupplementNetworkService) {
         self.id = id
-        self.supplementNetworkService = DefaultSupplementNetworkService()
+        self.supplementNetworkService = supplementNetworkService
     }
     
     var supplementDetail: Driver<SupplementDetail?> {
