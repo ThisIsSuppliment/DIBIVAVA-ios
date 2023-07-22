@@ -176,7 +176,8 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let attributedStr = NSMutableAttributedString(string: popup.recommaneLabel.text!)
         attributedStr.addAttribute(.foregroundColor, value: UIColor.mainred, range: (popup.recommaneLabel.text! as NSString).range(of: "많이"))
         popup.recommaneLabel.attributedText = attributedStr
-        
+        popup.getId = HomeViewmodel.supplementId(indexPath: indexPath.row)!
+        print(HomeViewmodel.supplementId(indexPath: indexPath.row)!)
         self.present(popup,animated: true,completion: nil)
     }
 }

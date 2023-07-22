@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		09017D382A6B6E0000A8528A /* PopupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09017D372A6B6E0000A8528A /* PopupViewModel.swift */; };
 		090E822E2A678B1600944DC2 /* recommendCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090E822D2A678B1600944DC2 /* recommendCollectionViewCell.swift */; };
 		090E82302A6791E400944DC2 /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090E822F2A6791E400944DC2 /* PopUpViewController.swift */; };
 		090E82322A67CB9D00944DC2 /* HomeSupplement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090E82312A67CB9D00944DC2 /* HomeSupplement.swift */; };
@@ -74,6 +75,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		09017D372A6B6E0000A8528A /* PopupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewModel.swift; sourceTree = "<group>"; };
 		090E822D2A678B1600944DC2 /* recommendCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = recommendCollectionViewCell.swift; sourceTree = "<group>"; };
 		090E822F2A6791E400944DC2 /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
 		090E82312A67CB9D00944DC2 /* HomeSupplement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSupplement.swift; sourceTree = "<group>"; };
@@ -281,6 +283,7 @@
 			isa = PBXGroup;
 			children = (
 				7C6091F12A658B370062FF01 /* HomeViewModel.swift */,
+				09017D372A6B6E0000A8528A /* PopupViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -502,6 +505,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7C6091F22A658B370062FF01 /* HomeViewModel.swift in Sources */,
+				09017D382A6B6E0000A8528A /* PopupViewModel.swift in Sources */,
 				7C6068402A67CC06003B414B /* FunctionalityView.swift in Sources */,
 				7C4221C02A6697FA00F5F53F /* SupplementDetailLayout.swift in Sources */,
 				7C6068382A66FABB003B414B /* SupplementDetailView.swift in Sources */,

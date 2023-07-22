@@ -28,10 +28,10 @@ class recommendCollectionViewCell: UICollectionViewCell {
            $0.backgroundColor = .clear
        }
     public var nameLabel = UILabel().then{
-        $0.text = "비타민"
+        $0.text = "불러오기 실패"
         $0.textColor = UIColor(rgb: 0x424242)
         $0.font = .pretendard(.Bold, size: 14)
-        $0.numberOfLines = 2
+        $0.sizeToFit()
     }
     private func layout(){
         self.nameLabel.snp.makeConstraints{
@@ -45,6 +45,8 @@ class recommendCollectionViewCell: UICollectionViewCell {
         self.Img.snp.makeConstraints{
             $0.centerX.equalToSuperview()
             $0.centerY.equalToSuperview()
+            $0.top.equalToSuperview()
+            $0.bottom.equalToSuperview()
         }
         self.roundview.snp.makeConstraints{
             $0.top.equalToSuperview()
