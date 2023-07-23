@@ -71,10 +71,11 @@ extension DefaultSupplementDetailViewModel: SupplementDetailViewModel {
                         // component
                         let main = supplement.result.mainMaterial ?? "없음"
                         let subMaterial = supplement.result.subMaterial ?? ["없음"]
+                        let add = additives.count == 0 ? ["없음"] : additives
                         
                         let tmp = [ "main": main.split(separator: ",").map {String($0)},
                                     "sub": subMaterial,
-                                    "add": additives]
+                                    "add": add]
                                                 
                         self.componentRelay.accept(tmp)
                         

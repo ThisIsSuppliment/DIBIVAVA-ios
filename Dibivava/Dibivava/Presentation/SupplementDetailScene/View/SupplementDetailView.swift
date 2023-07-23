@@ -87,7 +87,7 @@ private extension SupplementDetailView {
         self.functionalityView.snp.makeConstraints { make in
             make.top.equalTo(self.labelStack.snp.bottom).offset(10)
             make.horizontalEdges.width.equalToSuperview()
-            make.height.equalTo(self.functionalityView.collectionView.snp.height)
+//            make.height.equalTo(self.functionalityView.collectionView.snp.height)
             make.bottom.equalToSuperview().priority(.low)
         }
     }

@@ -118,17 +118,25 @@ private extension SupplementDetailViewController {
         self.viewModel.component
             .drive(onNext: { [weak self] component in
                 guard let self,
-                      let component = component
+                      let component = component,
+                      let main = component["main"],
+                      let sub = component["sub"],
+                      let add = component["add"]
                 else {
                     return
                 }
-                self.componentView.main.countLabel.text = "\(component["main"]?.count ?? 0)개"
-                self.componentView.sub.countLabel.text = "\(component["sub"]?.count ?? 0)개"
-                self.componentView.add.countLabel.text = "\(component["add"]?.count ?? 0)개"
                 
-                self.componentView.main.count = component["main"]?.count
-                self.componentView.sub.count = component["sub"]?.count
-                self.componentView.add.count = component["add"]?.count
+                let numOfMain = main == ["없음"] ? 0 : main.count
+                let numOfSub = sub == ["없음"] ? 0 : sub.count
+                let numOfAdd = add == ["없음"] ? 0 : add.count
+                
+                self.componentView.main.countLabel.text = "\(numOfMain)개"
+                self.componentView.sub.countLabel.text = "\(numOfSub)개"
+                self.componentView.add.countLabel.text = "\(numOfAdd)개"
+                
+                self.componentView.main.count = numOfMain
+                self.componentView.sub.count = numOfSub
+                self.componentView.add.count = numOfAdd
                 
                 self.componentView.applySnapshot(component)
             })
