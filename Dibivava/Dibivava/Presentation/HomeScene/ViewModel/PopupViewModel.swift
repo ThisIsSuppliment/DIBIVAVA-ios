@@ -23,23 +23,25 @@ class PopupViewModel {
     func viewWillAppear(id: Int) {
         self.supplementNetworkService.requestSupplement(by: 5107)
             .subscribe(onSuccess: { [weak self] supplement in
-                guard let self
+                guard let self,
+                      let additive = supplement.result.additive
                 else {
                     return
                 }
             
-                self.supplementNetworkService.requestMaterial(by: supplement.result.additive)
+                self.supplementNetworkService.requestMaterial(by: additive)
                     .subscribe(onSuccess: { [weak self] additives in
-                        guard let self
+                        guard let self,
+                              let subMaterial = supplement.result.subMaterial,
+                              let main = supplement.result.mainMaterial
                         else {
                             return
                         }
 
                         // component
-                        let tmp = [ "main": supplement.result.mainMaterial.split(separator: ",").map { String($0) },
-                                    "sub": supplement.result.subMaterial,
+                        let tmp = [ "main": main.split(separator: ",").map { String($0)},
+                                    "sub": subMaterial,
                                     "add": additives]
-                        
                         
                         self.componentRelay.accept(tmp)
                         

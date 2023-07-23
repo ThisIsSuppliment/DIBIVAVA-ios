@@ -21,7 +21,7 @@ protocol SupplementDetailViewModelOutput {
 
 protocol SupplementDetailViewModel: SupplementDetailViewModelInput, SupplementDetailViewModelOutput {}
 
-class DefaultSupplementDetailViewModel: SupplementDetailViewModel {
+class DefaultSupplementDetailViewModel {
     private let disposeBag = DisposeBag()
     private let supplementDetailRelay = PublishRelay<SupplementDetail?>()
     private let materialDetailRelay = PublishRelay<[MaterialDetail]?>()
@@ -36,7 +36,9 @@ class DefaultSupplementDetailViewModel: SupplementDetailViewModel {
         self.id = id
         self.supplementNetworkService = supplementNetworkService
     }
-    
+}
+
+extension DefaultSupplementDetailViewModel: SupplementDetailViewModel {
     var supplementDetail: Driver<SupplementDetail?> {
         return self.supplementDetailRelay.asDriver(onErrorJustReturn: nil)
     }
@@ -50,13 +52,15 @@ class DefaultSupplementDetailViewModel: SupplementDetailViewModel {
     }
     
     func viewWillAppear() {
-        self.supplementNetworkService.requestSupplement(by: self.id) // id Test
+        self.supplementNetworkService.requestSupplement(by: self.id)
             .subscribe(onSuccess: { [weak self] supplement in
                 guard let self
                 else {
                     return
                 }
-            
+                
+                self.supplementDetailRelay.accept(supplement.result)
+                
                 self.supplementNetworkService.requestMaterial(by: supplement.result.additive)
                     .subscribe(onSuccess: { [weak self] additives in
                         guard let self
@@ -65,51 +69,24 @@ class DefaultSupplementDetailViewModel: SupplementDetailViewModel {
                         }
 
                         // component
-                        let tmp = [ "main": supplement.result.mainMaterial.split(separator: ",").map { String($0) },
-                                    "sub": supplement.result.subMaterial,
-                                    "add": additives]
+                        let main = supplement.result.mainMaterial ?? "없음"
+                        let subMaterial = supplement.result.subMaterial ?? ["없음"]
+                        let add = additives.count == 0 ? ["없음"] : additives
                         
-                        
+                        let tmp = [ "main": main.split(separator: ",").map {String($0)},
+                                    "sub": subMaterial,
+                                    "add": add]
+                                                
                         self.componentRelay.accept(tmp)
                         
-                        self.supplementDetailRelay.accept(supplement.result)
                     }, onFailure: {
                         print("Error: Fetch Additives - \($0)")
                     })
                     .disposed(by: self.disposeBag)
-                
-                
-                
+    
             }, onFailure: {
                 print("Error: Fetch supplementDetail - \($0)")
             })
             .disposed(by: self.disposeBag)
     }
 }
-//self.supplementNetworkService.requestMaterial(by: supplement.result.additive)
-//    .subscribe(onSuccess: { [weak self] additives in
-//        guard let self
-//        else {
-//            return
-//        }
-//        print("22", additives)
-//        self.materialDetailRelay.accept(additives)
-//    }, onFailure: {
-//        print("Error: Fetch Additives - \($0)")
-//    })
-//    .disposed(by: self.disposeBag)
-
-
-//func viewWillAppear(id: Int) {
-//    self.supplementNetworkService.requestSupplement(by: 10)
-//        .subscribe(onCompleted: { [weak self] supplement in
-//            guard let self
-//            else {
-//                return
-//            }
-//            self.supplementDetailRelay.accept(supplement.result)
-//        }, onFailure: {
-//            print("Error: Fetch supplementDetail - \($0)")
-//        })
-//        .disposed(by: self.disposeBag)
-//}

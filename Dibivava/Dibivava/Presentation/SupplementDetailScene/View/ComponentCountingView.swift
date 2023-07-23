@@ -29,8 +29,22 @@ final class ComponentCountingView: UIView {
     
     let imageView: UIImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
-        $0.image = UIImage(named: "5개") // 후추 수정
-//        $0.backgroundColor = .yellow // 후추 수정
+    }
+    
+    var count: Int? {
+        didSet {
+            guard let count = count
+            else{
+                self.imageView.image = UIImage(named: "0개")
+                return
+            }
+                
+            if count <= 5 {
+                self.imageView.image = UIImage(named: "5개")
+            } else {
+                self.imageView.image = UIImage(named: "10개")
+            }
+        }
     }
     
     private let functionalityView: FunctionalityView = FunctionalityView()

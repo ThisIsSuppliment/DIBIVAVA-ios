@@ -11,7 +11,7 @@ import RxSwift
 
 protocol SupplementNetworkService {
     func requestSupplement(by id: Int) -> Single<SupplementDTO>
-    func requestMaterial(by id: [String]) -> Single<[String]>
+    func requestMaterial(by id: [String]?) -> Single<[String]>
 }
 
 final class DefaultSupplementNetworkService: SupplementNetworkService {
@@ -42,7 +42,12 @@ final class DefaultSupplementNetworkService: SupplementNetworkService {
         }
     }
     
-    func requestMaterial(by idList: [String]) -> Single<[String]> {
+    func requestMaterial(by idList: [String]?) -> Single<[String]> {
+        guard let idList = idList
+        else {
+            return Single.just([])
+        }
+        
         let result = idList.map { id in
             return request(with: id)
         }

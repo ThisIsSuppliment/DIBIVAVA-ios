@@ -57,7 +57,6 @@ final class ComponentView: UIView, UICollectionViewDelegate {
     
     let add: ComponentCountingView = ComponentCountingView().then {
         $0.titleLabel.text = "첨가물"
-        $0.imageView.image = UIImage(named: "10개")
     }
     
     lazy var collectionView: UICollectionView = UICollectionView(
@@ -146,7 +145,7 @@ private extension ComponentView {
             make.top.equalTo(self.componentCountingStackView.snp.bottom)
             make.horizontalEdges.equalToSuperview()
 //            make.height.greaterThanOrEqualTo(800)
-            make.bottom.equalToSuperview().priority(.low)
+            make.bottom.equalToSuperview() //.priority(.low)
         }
     }
 
