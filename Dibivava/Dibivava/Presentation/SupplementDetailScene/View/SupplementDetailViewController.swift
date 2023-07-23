@@ -100,8 +100,8 @@ private extension SupplementDetailViewController {
                         }
                     }
                 }
-                print(">>>>> functionality", items.functionality?.forEach({print("- " + $0 + "\n") }))
-                print(">>>>> 결과", tmpFunctionality)
+//                print(">>>>> functionality", items.functionality?.forEach({print("- " + $0 + "\n") }))
+//                print(">>>>> 결과", tmpFunctionality)
                 self.supplementDetailView.apply(Set(tmpFunctionality).map {String($0)})
                 
                 // 이미지 추가
