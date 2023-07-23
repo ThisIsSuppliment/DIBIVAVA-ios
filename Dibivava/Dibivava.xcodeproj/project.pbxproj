@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		09017D382A6B6E0000A8528A /* PopupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09017D372A6B6E0000A8528A /* PopupViewModel.swift */; };
+		09017D3B2A6BCA3600A8528A /* SafeAreaBrush in Frameworks */ = {isa = PBXBuildFile; productRef = 09017D3A2A6BCA3600A8528A /* SafeAreaBrush */; };
+		09017D3C2A6BCED000A8528A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C6091C12A6588C50062FF01 /* Assets.xcassets */; };
+		09017D3E2A6CC3E400A8528A /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09017D3D2A6CC3E400A8528A /* IntroViewController.swift */; };
 		090E822E2A678B1600944DC2 /* recommendCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090E822D2A678B1600944DC2 /* recommendCollectionViewCell.swift */; };
 		090E82302A6791E400944DC2 /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090E822F2A6791E400944DC2 /* PopUpViewController.swift */; };
 		090E82322A67CB9D00944DC2 /* HomeSupplement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090E82312A67CB9D00944DC2 /* HomeSupplement.swift */; };
@@ -34,7 +37,6 @@
 		7C6068422A67EA8B003B414B /* ComponentCountingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6068412A67EA8B003B414B /* ComponentCountingView.swift */; };
 		7C6091B92A6588C40062FF01 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6091B82A6588C40062FF01 /* AppDelegate.swift */; };
 		7C6091BB2A6588C40062FF01 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6091BA2A6588C40062FF01 /* SceneDelegate.swift */; };
-		7C6091C22A6588C50062FF01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C6091C12A6588C50062FF01 /* Assets.xcassets */; };
 		7C6091C52A6588C50062FF01 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C6091C32A6588C50062FF01 /* LaunchScreen.storyboard */; };
 		7C6091D02A6588C50062FF01 /* DibivavaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6091CF2A6588C50062FF01 /* DibivavaTests.swift */; };
 		7C6091DA2A6588C50062FF01 /* DibivavaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6091D92A6588C50062FF01 /* DibivavaUITests.swift */; };
@@ -77,6 +79,7 @@
 
 /* Begin PBXFileReference section */
 		09017D372A6B6E0000A8528A /* PopupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewModel.swift; sourceTree = "<group>"; };
+		09017D3D2A6CC3E400A8528A /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
 		090E822D2A678B1600944DC2 /* recommendCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = recommendCollectionViewCell.swift; sourceTree = "<group>"; };
 		090E822F2A6791E400944DC2 /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
 		090E82312A67CB9D00944DC2 /* HomeSupplement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSupplement.swift; sourceTree = "<group>"; };
@@ -128,6 +131,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09017D3B2A6BCA3600A8528A /* SafeAreaBrush in Frameworks */,
 				09FEB4372A66ABD400DD1CC5 /* ImageSlideshow/Kingfisher in Frameworks */,
 				09FEB4332A66ABD400DD1CC5 /* ImageSlideshow in Frameworks */,
 				09FEB4272A66A6F000DD1CC5 /* SnapKit in Frameworks */,
@@ -278,6 +282,7 @@
 				090E822D2A678B1600944DC2 /* recommendCollectionViewCell.swift */,
 				0977E2852A6938900007DCFA /* SearchTableViewCell.swift */,
 				090E822F2A6791E400944DC2 /* PopUpViewController.swift */,
+				09017D3D2A6CC3E400A8528A /* IntroViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -376,6 +381,7 @@
 				09FEB4362A66ABD400DD1CC5 /* ImageSlideshow/Kingfisher */,
 				7CC9524D2A6A6F3B00E2F739 /* RxSwift */,
 				7CC9524F2A6A6F4300E2F739 /* RxCocoa */,
+				09017D3A2A6BCA3600A8528A /* SafeAreaBrush */,
 			);
 			productName = Dibivava;
 			productReference = 7C6091B52A6588C40062FF01 /* Dibivava.app */;
@@ -455,6 +461,7 @@
 				09FEB42B2A66A73500DD1CC5 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				09FEB42E2A66A74500DD1CC5 /* XCRemoteSwiftPackageReference "Then" */,
 				09FEB4312A66ABD400DD1CC5 /* XCRemoteSwiftPackageReference "ImageSlideshow" */,
+				09017D392A6BCA3600A8528A /* XCRemoteSwiftPackageReference "SafeAreaBrush" */,
 			);
 			productRefGroup = 7C6091B62A6588C40062FF01 /* Products */;
 			projectDirPath = "";
@@ -474,12 +481,12 @@
 			files = (
 				7CC952602A6A6FCE00E2F739 /* SUIT-Bold.ttf in Resources */,
 				7CC9525B2A6A6FCE00E2F739 /* SUIT-Regular.ttf in Resources */,
+				09017D3C2A6BCED000A8528A /* Assets.xcassets in Resources */,
 				7CC952612A6A6FCE00E2F739 /* SUIT-Medium.ttf in Resources */,
 				7CC9525D2A6A6FCE00E2F739 /* SUIT-ExtraLight.ttf in Resources */,
 				7CC9525E2A6A6FCE00E2F739 /* SUIT-Heavy.ttf in Resources */,
 				7C6091C52A6588C50062FF01 /* LaunchScreen.storyboard in Resources */,
 				7CC9525F2A6A6FCE00E2F739 /* SUIT-Light.ttf in Resources */,
-				7C6091C22A6588C50062FF01 /* Assets.xcassets in Resources */,
 				7CC9525C2A6A6FCE00E2F739 /* SUIT-SemiBold.ttf in Resources */,
 				7CC9525A2A6A6FCE00E2F739 /* SUIT-ExtraBold.ttf in Resources */,
 				7CC952622A6A6FCE00E2F739 /* SUIT-Thin.ttf in Resources */,
@@ -530,6 +537,7 @@
 				090E82302A6791E400944DC2 /* PopUpViewController.swift in Sources */,
 				7C6091BB2A6588C40062FF01 /* SceneDelegate.swift in Sources */,
 				7CC952642A6A743A00E2F739 /* Additive.swift in Sources */,
+				09017D3E2A6CC3E400A8528A /* IntroViewController.swift in Sources */,
 				7C0601BC2A66676C004FB30B /* API.swift in Sources */,
 				0977E2862A6938900007DCFA /* SearchTableViewCell.swift in Sources */,
 				7C6091EC2A6589DE0062FF01 /* HomeViewController.swift in Sources */,
@@ -867,6 +875,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		09017D392A6BCA3600A8528A /* XCRemoteSwiftPackageReference "SafeAreaBrush" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WallabyStuff/SafeAreaBrush";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		09FEB4252A66A6F000DD1CC5 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -910,6 +926,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		09017D3A2A6BCA3600A8528A /* SafeAreaBrush */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 09017D392A6BCA3600A8528A /* XCRemoteSwiftPackageReference "SafeAreaBrush" */;
+			productName = SafeAreaBrush;
+		};
 		09FEB4262A66A6F000DD1CC5 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 09FEB4252A66A6F000DD1CC5 /* XCRemoteSwiftPackageReference "SnapKit" */;
