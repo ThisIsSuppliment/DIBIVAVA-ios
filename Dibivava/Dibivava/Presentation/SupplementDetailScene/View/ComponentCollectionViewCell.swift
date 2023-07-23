@@ -15,13 +15,11 @@ final class ComponentCollectionViewCell: UICollectionViewCell {
     private let titleLabel: UILabel = UILabel().then {
         $0.textColor = .black
         $0.textAlignment = .center
-        $0.text = "건강기능 식품 성분 이름"
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-//        self.backgroundColor = .orange // 추후 삭제
         configureSubviews()
         configureConstraints()
         
@@ -49,7 +47,8 @@ private extension ComponentCollectionViewCell {
     
     func configureConstraints() {
         self.titleLabel.snp.makeConstraints { make in
-            make.center.equalToSuperview()
+            make.horizontalEdges.equalToSuperview().inset(10)
+            make.centerY.equalToSuperview()
         }
     }
 }

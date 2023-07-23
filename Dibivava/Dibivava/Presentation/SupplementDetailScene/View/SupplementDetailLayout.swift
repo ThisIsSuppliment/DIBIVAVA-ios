@@ -51,10 +51,9 @@ enum SupplementDetailLayout {
             // 새로 배치
             let itemSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
-                heightDimension: .estimated(40)
+                heightDimension: .estimated(50)
             )
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
-//            item.contentInsets = .init(top: 10, leading: 5, bottom: 10, trailing: 5)
             
             let groupSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
@@ -65,24 +64,6 @@ enum SupplementDetailLayout {
                 subitems: [item]
             )
             group.interItemSpacing = .fixed(10)
-            
-            // 5개씩 가로 배치
-//            let itemSize = NSCollectionLayoutSize(
-//                widthDimension: .fractionalWidth(1.0),
-//                heightDimension: .absolute(40)
-//            )
-//
-//            let item = NSCollectionLayoutItem(layoutSize: itemSize)
-//            item.contentInsets = .init(top: 0, leading: 5, bottom: 10, trailing: 5)
-//
-//            let groupSize = NSCollectionLayoutSize(
-//                widthDimension: .fractionalWidth(0.9),
-//                heightDimension: .estimated(300)
-//            )
-//
-//            let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize,
-//                                                         repeatingSubitem: item,
-//                                                         count: 5)
 
             let sectionHeaderSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
@@ -92,12 +73,10 @@ enum SupplementDetailLayout {
                 layoutSize: sectionHeaderSize,
                 elementKind: UICollectionView.elementKindSectionHeader,
                 alignment: .top)
-            
             sectionHeader.pinToVisibleBounds = false
             
             let section = NSCollectionLayoutSection(group: group)
             section.boundarySupplementaryItems = [sectionHeader]
-//            section.orthogonalScrollingBehavior = .groupPaging
             section.contentInsets = .init(top: 0, leading: 16, bottom: -10, trailing: 16)
             section.interGroupSpacing = 10
             return section
