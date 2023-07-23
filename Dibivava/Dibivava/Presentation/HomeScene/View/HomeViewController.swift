@@ -266,6 +266,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             id:searchresult[indexPath.row].supplementId ,
             supplementNetworkService: DefaultSupplementNetworkService())
         )
+        self.navigationController?.navigationBar.tintColor = UIColor.black
+        self.navigationController?.navigationBar.topItem?.title = ""
+        self.searchTableview.isHidden = true
+        self.topView.backgroundColor = UIColor(rgb: 0xE5ECEC)
+        self.fillSafeArea(position: .top, color: UIColor(rgb: 0xE5ECEC))
+        self.logoImgView.isHidden = false
+        self.searchbar.text = ""
         self.navigationController?.pushViewController(vc, animated: false)
     }
 }

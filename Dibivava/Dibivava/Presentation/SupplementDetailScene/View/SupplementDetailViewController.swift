@@ -35,7 +35,7 @@ class SupplementDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.view.backgroundColor = .white
         self.configureSubviews()
         self.configureConstraints()
         self.bind()
