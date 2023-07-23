@@ -60,10 +60,5 @@ class HomeViewModel{
         }
         return result
     }
-    public func supplementId(indexPath: Int)-> [Int]? {
-        guard let supplement = Dibivava.supplementImg(rawValue: indexPath) else {
-            return nil
-        }
-        return supplement.recommendSupId
-    }
+
 }

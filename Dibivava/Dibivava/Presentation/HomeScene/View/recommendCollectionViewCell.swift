@@ -7,19 +7,22 @@
 
 import UIKit
 
+
 class recommendCollectionViewCell: UICollectionViewCell {
     static let identifier = "recommendCollectionViewCell"
+    private let clcikImg = UIImageView().then{
+        $0.backgroundColor = .clear
+        $0.contentMode = .scaleAspectFit
+        $0.layer.masksToBounds = true //chevron.right
+        $0.image = UIImage(systemName: "chevron.right")
+        $0.tintColor = .darkGray
+    }
     public var Img = UIImageView().then{
         $0.backgroundColor = .clear
         $0.contentMode = .scaleAspectFit
         $0.layer.masksToBounds = true
     }
-    public var innerLabel = UILabel().then{
-        $0.text = "asdasd"
-        $0.textColor = UIColor(rgb: 0x424242)
-        $0.font = .pretendard(.Regular, size: 14)
-        $0.numberOfLines = 2
-    }
+
     public let roundview = UIView().then{
            $0.layer.cornerRadius = 20
            $0.layer.masksToBounds = true
@@ -34,19 +37,21 @@ class recommendCollectionViewCell: UICollectionViewCell {
         $0.sizeToFit()
     }
     private func layout(){
-        self.nameLabel.snp.makeConstraints{
-            $0.top.equalTo(self.roundview.snp.bottom).offset(9)
-            $0.centerX.equalToSuperview()
+        self.clcikImg.snp.makeConstraints{
+            $0.centerY.equalToSuperview()
+            $0.trailing.equalToSuperview().offset(-20)
+
+            $0.height.equalTo(30)
+            $0.width.equalTo(30)
         }
-        self.innerLabel.snp.makeConstraints{
-            $0.top.equalTo(self.Img.snp.bottom).offset(0)
+        self.nameLabel.snp.makeConstraints{
+            $0.bottom.equalToSuperview().offset(-10)
             $0.centerX.equalToSuperview()
         }
         self.Img.snp.makeConstraints{
             $0.centerX.equalToSuperview()
-            $0.centerY.equalToSuperview()
-            $0.top.equalToSuperview()
-            $0.bottom.equalToSuperview()
+            $0.top.equalToSuperview().offset(10)
+            $0.height.equalTo(70)
         }
         self.roundview.snp.makeConstraints{
             $0.top.equalToSuperview()
@@ -57,9 +62,9 @@ class recommendCollectionViewCell: UICollectionViewCell {
     }
     private func addSubView(){
         self.addSubview(roundview)
-        self.addSubview(nameLabel)
         self.roundview.addSubview(Img)
-        self.roundview.addSubview(innerLabel)
+        self.roundview.addSubview(nameLabel)
+        self.roundview.addSubview(clcikImg)
     }
     override init(frame: CGRect) {
         super.init(frame: .zero)

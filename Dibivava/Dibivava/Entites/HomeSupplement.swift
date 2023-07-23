@@ -21,10 +21,10 @@ enum supplementImg: Int{
     
     var image: UIImage {
         switch self {
-        case .Supplement1: return UIImage(named: "A") ?? UIImage()
-        case .Supplement2: return UIImage(named: "B") ?? UIImage()
-        case .Supplement3: return UIImage(named: "C") ?? UIImage()
-        case .Supplement4: return UIImage(named: "D") ?? UIImage()
+        case .Supplement1: return UIImage(named: "1") ?? UIImage()
+        case .Supplement2: return UIImage(named: "2a") ?? UIImage()
+        case .Supplement3: return UIImage(named: "2b") ?? UIImage()
+        case .Supplement4: return UIImage(named: "3") ?? UIImage()
         case .Supplement5: return UIImage(named: "Fe") ?? UIImage()
         case .Supplement6 : return UIImage(named: "Ma") ?? UIImage()
         case .Supplement7 : return UIImage(named: "U") ?? UIImage()
@@ -35,13 +35,13 @@ enum supplementImg: Int{
     var kor: String {
         switch self {
         case .Supplement1:
-            return "비타민 A"
+            return "1군 발암물질"
         case .Supplement2:
-            return "비타민 B"
+            return "2A군 발암물질"
         case .Supplement3:
-            return "비타민 C"
+            return "2B군 발암물질"
         case .Supplement4:
-            return "비타민 D"
+            return "3군 발암물질"
         case .Supplement5:
             return "철분"
         case .Supplement6:
@@ -57,13 +57,13 @@ enum supplementImg: Int{
     var rekor: String {
         switch self {
         case .Supplement1:
-            return "비타민 A가"
+            return "1군 발암물질이"
         case .Supplement2:
-            return "비타민 B가"
+            return "2A군 발암물질이"
         case .Supplement3:
-            return "비타민 C가"
+            return "2B군 발암물질이"
         case .Supplement4:
-            return "비타민 D가"
+            return "3군 발암물질이"
         case .Supplement5:
             return "철분이"
         case .Supplement6:
@@ -79,13 +79,13 @@ enum supplementImg: Int{
     var eng: String {
         switch self {
         case .Supplement1:
-            return "Vitamin A"
+            return "간흡충,헬리코박터 파일로리, 오피스토르키스 비베리니, 주혈흡충 혈종, 알코올, 알루미늄, 아레카 너트, 베텔 퀴드... 등"
         case .Supplement2:
-            return "Vitamin B"
+            return "안드로겐(단백동화) 스테로이드, 바이오매스, 아스파탐, 질소 머스터드 등..."
         case .Supplement3:
-            return "Vitamin C"
+        return "코코넛 오일, 벤조페논, 카라기난, 쿠멘, 스타이렌, 블랙탑 등..."
         case .Supplement4:
-            return "Vitamin D"
+            return "염산, 하이드로 퀴논, 니트로 톨루엔, 니트 로빈, 오렌지 I, 파 툴린등..."
         case .Supplement5:
             return "Iron"
         case .Supplement6:
@@ -101,13 +101,13 @@ enum supplementImg: Int{
     var des: String {
         switch self {
         case .Supplement1:
-        return "지용성 비타민으로서 생물의 성장과 발달, 생식, 상피세포의 분화, 세포 분열, 유전자 조절 및 면역 반응 등에 다양하게 활용되는 레티노이드(retinoid) 화합물의 집합이다. 레티노이드는 '망막'을 의미하는 '레티나(retina)'에서 유래한 이름인데 전통적으로 비타민A의 섭취가 눈에 도움을 준다는 효능에 따른 것이다. 실제로 비타민A는 안구의 시야 인식 기작에 관여하며 결핍 시 안구건조증과 야맹증, 실명의 원인이 된다."
+        return "WHO IARC의 발암물질 분류 방식은 얼마나 확실히 암을 유발하는가에 따라서 나뉩니다. 1군의 경우는 정적발암물질로써, 사람 및 동물을 대상으로 한 연구에서 암을 일으킨다는 충분한 증거가 있는 경우입니다. 담배, 술 등이 대표적인 예입니다."
         case .Supplement2:
-            return "비타민B 복합체(Vitamin B-complex) 또는 비타민B 군(群)은 비타민C(아스코르브산)를 제외한 수용성 비타민(극성 비타민)을 분류하는 집합이다. 비타민B에 속하는 비타민들은 주로 체내에서 세포의 물질 대사를 돕는 조효소의 역할을 한다. "
+            return "2A군의 경우는 발암 추정(Probable)물질로써, 사람 대상의 연구에서 제한적인 증거가 나온경우와 동물 실험에서 충분한 증거가 있을 때 분류되는 등급입니다. "
         case .Supplement3:
-            return " 수용성 비타민의 하나로 콜라겐 합성 및 세포 내 에너지 대사의 조효소로 사용되며, 항산화 작용을 하는 강력한 환원제이다. 거의 모든 동물 및 식물군에 포함되어 있으나 포유동물 중 인간이나 침팬지 등의 유인원 계열은 이를 체내에서 합성할 수 없어 외부로부터 섭취해야 한다."
+            return "2B군의 경우는 발암 가능(Possible)물질로써, 사람 대상 연구 와 동물 실험에서 제한적인 증거가 있는 경우 분류되는 등급입니다."
         case .Supplement4:
-            return "지용성 비타민의 한 종류. 칼슘 대사를 조절하여 체내 칼슘 농도의 항상성과 뼈의 건강을 유지하는 데 관여하고 세포의 증식 및 분화의 조절, 면역기능 등에 관여하는 것으로 알려져 있다. 부족 시 구루병, 골연화증, 골다공증의 위험이 높아지는 것으로 알려져 있다."
+            return "3군은 발암물질로 분류할 수 없어 인체에 암을 유발한다는 과학적 증거가 불충분한 경우입니다."
         case .Supplement5:
             return "적혈구 내의 헤모글로빈을 구성하는 중요한 성분입니다. 철분이 부족해지면 헤모글로빈의 생산과 골수에서의 적혈구 생산이 줄어듭니다. 그 결과 폐에서 산소와 결합할 헤모글로빈이 부족해지므로, 각 조직으로 산소가 충분히 공급되지 못합니다."
         case .Supplement6:
@@ -124,9 +124,9 @@ enum supplementImg: Int{
     var fontColor: UIColor {
         switch self{
         case .Supplement1:
-            return UIColor(rgb: 0xDCACCE)
+            return UIColor(rgb: 0xFA6363)
         case .Supplement2:
-            return UIColor(rgb: 0xF1B78E)
+            return UIColor(rgb: 0xFFB783)
         case .Supplement3:
             return UIColor(rgb: 0xEFDA67)
         case .Supplement4:
@@ -143,26 +143,5 @@ enum supplementImg: Int{
             return UIColor(rgb: 0xDCC7FF)
         }
     }
-    var recommendSupId: [Int] {
-        switch self {
-        case .Supplement1:
-            return [3219,2675,5001]
-        case .Supplement2:
-            return [5529,6322,6794]
-        case .Supplement3:
-            return [2521,1457,1832]
-        case .Supplement4:
-            return [2507,4526,3858]
-        case .Supplement5:
-            return [4715,3750,11352]
-        case .Supplement6:
-            return [5658,10770,11866]
-        case .Supplement7:
-            return [6026,2374,3389]
-        case .Supplement8:
-            return [802,856,5189]
-        case .Supplement9:
-            return [3872,5658,10770]
-        }
-    }
+
 }
