@@ -12,7 +12,6 @@ final class SupplementDetailView: UIView {
     let imageView: UIImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
         $0.image = UIImage(named: "noresult")
-//        $0.backgroundColor = .yellow
     }
 
     private let labelStack: UIStackView = UIStackView().then {
@@ -76,7 +75,6 @@ private extension SupplementDetailView {
         self.imageView.snp.makeConstraints { make in
             make.top.equalToSuperview()
 //            make.horizontalEdges.equalToSuperview()
-//            make.height.equalTo(200) // 추후 수정
             make.centerX.equalToSuperview()
             make.size.equalTo(200)
         }

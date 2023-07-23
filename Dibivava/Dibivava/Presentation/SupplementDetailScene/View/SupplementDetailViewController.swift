@@ -77,15 +77,14 @@ private extension SupplementDetailViewController {
         self.viewModel.supplementDetail
             .drive(onNext: { [weak self] items in
                 guard let self,
-                      let items = items,
-                      let imageURL = items.imageURL
+                      let items = items
                 else {
                     return
                 }
-
+                
                 self.supplementDetailView.nameLabel.text = items.name
-                self.supplementDetailView.companyLabel.text = items.company
-                self.supplementDetailView.descriptionLabel.text = items.expireDate + " | " + items.intakeMethod
+                self.supplementDetailView.companyLabel.text = items.company ?? "제조사를 알수없습니다."
+                self.supplementDetailView.descriptionLabel.text = (items.expireDate  ?? "제조일부터의 유통기한을 알수없습니다.") + " | " + (items.intakeMethod ?? "섭취량를 알수없습니다.")
                 
                 // VM으로 이동
                 // 단어 후보 추가해야함
@@ -94,20 +93,23 @@ private extension SupplementDetailViewController {
                 
                 var tmpFunctionality: [String] = []
                 
-                for f in items.functionality {
+                for f in items.functionality ?? [] {
                     for functionality in functionalityList{
                         if f.contains(functionality) {
                             tmpFunctionality.append(functionality)
                         }
                     }
                 }
-                print(">>>>> functionality", items.name, items.functionality.forEach({print("- " + $0 + "\n") }))
+                print(">>>>> functionality", items.functionality?.forEach({print("- " + $0 + "\n") }))
                 print(">>>>> 결과", tmpFunctionality)
-                self.supplementDetailView.apply(tmpFunctionality + ["면역기능", "혈행개선"])
+                self.supplementDetailView.apply(Set(tmpFunctionality).map {String($0)})
                 
                 // 이미지 추가
-                print("<<<<<<<<<<<<<<<<<<<", imageURL)
-                guard let url = URL(string: imageURL) else { return }
+                guard let imageURL = items.imageURL,
+                      let url = URL(string: imageURL)
+                else {
+                    return
+                }
                 self.supplementDetailView.imageView.load(url: url)
             })
             .disposed(by: self.disposeBag)
@@ -123,6 +125,11 @@ private extension SupplementDetailViewController {
                 self.componentView.main.countLabel.text = "\(component["main"]?.count ?? 0)개"
                 self.componentView.sub.countLabel.text = "\(component["sub"]?.count ?? 0)개"
                 self.componentView.add.countLabel.text = "\(component["add"]?.count ?? 0)개"
+                
+                self.componentView.main.count = component["main"]?.count
+                self.componentView.sub.count = component["sub"]?.count
+                self.componentView.add.count = component["add"]?.count
+                
                 self.componentView.applySnapshot(component)
             })
             .disposed(by: disposeBag)
@@ -144,16 +151,3 @@ extension UIImageView {
         }
     }
 }
-
-// Mock
-//        self.supplementDetailView.nameLabel.text = "고려홍삼분말캡슐"
-//        self.supplementDetailView.companyLabel.text = "고려인삼과학주식회사"
-//        self.supplementDetailView.descriptionLabel.text = "제조일로부터 36개월까지 | 1일 3회"
-//        self.supplementDetailView.apply(["면역기능", "혈행개선", "기억력 개선", "피로개선", "항산화"])
-//
-//        self.componentView.main.countLabel.text = "1개"
-//        self.componentView.sub.countLabel.text = "1개"
-//        self.componentView.add.countLabel.text = "1개"
-//        self.componentView.applySnapshot([ "main": ["홍삼분말"],
-//                                           "sub": ["정제수"],
-//                                           "add": ["가티검"]])

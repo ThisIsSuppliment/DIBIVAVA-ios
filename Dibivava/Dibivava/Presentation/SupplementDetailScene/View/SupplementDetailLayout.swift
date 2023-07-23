@@ -40,7 +40,7 @@ enum SupplementDetailLayout {
             let section = NSCollectionLayoutSection(group: group)
             section.orthogonalScrollingBehavior = .continuous
             section.interGroupSpacing = 10
-            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
+            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10) //?
             
             return section
         }
@@ -54,7 +54,7 @@ enum SupplementDetailLayout {
                 heightDimension: .estimated(40)
             )
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            item.contentInsets = .init(top: 10, leading: 5, bottom: 10, trailing: 5)
+//            item.contentInsets = .init(top: 10, leading: 5, bottom: 10, trailing: 5)
             
             let groupSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),

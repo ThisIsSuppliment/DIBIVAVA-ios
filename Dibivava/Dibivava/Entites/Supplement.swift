@@ -19,12 +19,12 @@ struct SupplementDTO: Codable {
 // MARK: - SupplementDetail
 struct SupplementDetail: Codable {
     let supplementID: Int
-    let name, company, expireDate, intakeMethod: String
-    let functionality: [String]
-    let mainMaterial: String
-    let subMaterial, additive: [String]
+    let name, company, expireDate, intakeMethod: String?
+    let functionality: [String]?
+    let mainMaterial: String?
+    let subMaterial, additive: [String]?
     let imageURL: String?
-    let createdAt, updatedAt: String
+    let createdAt, updatedAt: String?
 
     enum CodingKeys: String, CodingKey {
         case supplementID = "supplement_id"
