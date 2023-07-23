@@ -35,6 +35,7 @@ class SearchAPI{
         AF.request(url, parameters: parameters).responseDecodable(of: SearchAPIResponse.self) { response in
                   switch response.result {
                   case .success(let response):
+                      print(response)
                       completion(.success(response.result))
                   case .failure(let error):
                       completion(.failure(error))
