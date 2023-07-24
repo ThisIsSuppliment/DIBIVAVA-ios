@@ -69,8 +69,8 @@ private extension SupplementDetailViewController {
         }
 
         self.componentView.snp.makeConstraints { make in
-            make.top.equalTo(self.supplementDetailView.snp.bottom).offset(8)
-            make.horizontalEdges.width.equalToSuperview()
+            make.top.equalTo(self.supplementDetailView.snp.bottom).offset(7)
+            make.horizontalEdges.equalToSuperview()
             make.height.greaterThanOrEqualTo(scrollView)
             make.bottom.equalToSuperview().priority(.low)
         }
@@ -140,8 +140,20 @@ private extension SupplementDetailViewController {
                 self.componentView.add.count = numOfAdd
             })
             .disposed(by: self.disposeBag)
+        
+        self.componentView.heightChanged
+            .subscribe(onNext: { [weak self] height in
+                self?.updateScrollViewContentSize()
+            })
+            .disposed(by: disposeBag)
 
-
+        updateScrollViewContentSize()
+    }
+    
+    func updateScrollViewContentSize() {
+        let totalHeight = supplementDetailView.frame.height + componentView.frame.height + 7
+        
+        scrollView.contentSize = CGSize(width: view.bounds.width, height: totalHeight)
     }
 }
 

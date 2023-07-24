@@ -76,6 +76,7 @@ final class ComponentView: UIView, UICollectionViewDelegate {
     ).then {
         $0.delegate = self
         $0.allowsMultipleSelection = true
+        $0.isScrollEnabled = false
         $0.register(
             ComponentCollectionViewCell.self,
             forCellWithReuseIdentifier: ComponentCollectionViewCell.identifier
@@ -85,13 +86,19 @@ final class ComponentView: UIView, UICollectionViewDelegate {
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: ComponentSectionHeaderView.identifier
         )
-        $0.isScrollEnabled = false
     }
     
     // MARK: - Property
     
-    private let disposeBag: DisposeBag = DisposeBag()
     private var dataSource: DataSource?
+    private var heightConstraint: Constraint?
+    
+    private let disposeBag: DisposeBag = DisposeBag()
+    private let heightChangedSubject = PublishSubject<CGFloat>()
+    
+    var heightChanged: Observable<CGFloat> {
+        return heightChangedSubject.asObservable()
+    }
     
     // MARK: - Init
     
@@ -102,6 +109,7 @@ final class ComponentView: UIView, UICollectionViewDelegate {
         self.configureSubView()
         self.configureConstraints()
         self.configureDataSource()
+        self.observeCollectionViewContentSize()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -121,6 +129,10 @@ final class ComponentView: UIView, UICollectionViewDelegate {
         }
         
         self.dataSource?.apply(snapshot, animatingDifferences: false)
+                
+        self.collectionView.snp.updateConstraints { make in
+            make.height.greaterThanOrEqualTo(self.collectionView.contentSize.height)
+        }
     }
 }
 
@@ -143,19 +155,19 @@ private extension ComponentView {
     
     func configureConstraints() {
         self.titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(10)
+            make.top.equalToSuperview().inset(15)
             make.horizontalEdges.equalToSuperview().inset(10)
         }
         
         self.componentCountingStackView.snp.makeConstraints { make in
-            make.top.equalTo(self.titleLabel.snp.bottom).offset(10)
+            make.top.equalTo(self.titleLabel.snp.bottom).offset(15)
             make.centerX.equalToSuperview()
         }
         
         self.collectionView.snp.makeConstraints { make in
             make.top.equalTo(self.componentCountingStackView.snp.bottom)
             make.horizontalEdges.equalToSuperview()
-            make.height.greaterThanOrEqualTo(900)
+            make.height.greaterThanOrEqualTo(self.collectionView.contentSize.height)
             make.bottom.equalToSuperview().priority(.low)
         }
     }
@@ -187,9 +199,26 @@ private extension ComponentView {
             }
             
             let section = self.dataSource?.snapshot().sectionIdentifiers[indexPath.section]
-            headerView.configure(title: section?.inKorean ?? "", count: 10) // 추후 수정
+            headerView.configure(title: section?.inKorean ?? "") // 추후 수정
             
             return headerView
         }
+    }
+    
+    func observeCollectionViewContentSize() {
+        self.collectionView.rx.observe(CGSize.self, "contentSize")
+            .subscribe(onNext: { [weak self] size in
+                guard let size = size
+                else {
+                    return
+                }
+                self?.collectionViewContentSizeDidChange(size: size)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    func collectionViewContentSizeDidChange(size: CGSize) {
+        self.heightConstraint?.update(offset: size.height)
+        self.heightChangedSubject.onNext(size.height)
     }
 }
