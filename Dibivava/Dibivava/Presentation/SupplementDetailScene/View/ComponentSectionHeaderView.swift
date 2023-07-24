@@ -19,18 +19,11 @@ final class ComponentSectionHeaderView: UICollectionReusableView {
         $0.font = UIFont.boldSystemFont(ofSize: 18)
     }
     
-    private lazy var countLabel = UILabel().then {
-        $0.textColor = .lightGray
-        $0.textAlignment = .center
-    }
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         self.addSubview()
         self.configureConstraints()
-        
-//        self.backgroundColor = .blue // 추후 삭제
     }
 
     @available(*, unavailable)
@@ -38,13 +31,12 @@ final class ComponentSectionHeaderView: UICollectionReusableView {
         fatalError("init(coder:) is called.")
     }
     
-    func configure(title: String, count: Int) {
+    func configure(title: String) {
         self.titleLabel.text = title
-        self.countLabel.text = "\(count) 개"
     }
     
     private func addSubview() {
-        [titleLabel, countLabel].forEach {
+        [titleLabel].forEach {
             self.addSubview($0)
         }
     }
