@@ -30,7 +30,6 @@ class FunctionalityView: UIView, UICollectionViewDelegate {
             FunctionalityCollectionViewCell.self,
             forCellWithReuseIdentifier: FunctionalityCollectionViewCell.identifier
         )
-//        $0.isScrollEnabled = false
     }
     
     // MARK: - Property
@@ -55,6 +54,12 @@ class FunctionalityView: UIView, UICollectionViewDelegate {
     // MARK: - Public Method
     
     func applySnapshot(_ functionalities: [String]) {
+        if functionalities.isEmpty {
+            return
+        }
+        collectionView.snp.makeConstraints { make in
+            make.height.equalTo(40)
+        }
         var snapshot = Snapshot()
         snapshot.appendSections([.main])
         snapshot.appendItems(functionalities)
@@ -76,8 +81,8 @@ private extension FunctionalityView {
     
     func configureConstraints() {
         self.collectionView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-            make.height.equalTo(40)
+            make.top.horizontalEdges.equalToSuperview()
+//            make.height.equalTo(40)
         }
     }
 
