@@ -17,15 +17,18 @@ import Kingfisher
 class HomeViewController: UIViewController {
     private let HomeViewmodel = HomeViewModel()
     private var searchresult: [Supplement] = []
+    private var searchInfo: [SupplementDTO] = []
     private let searchAPI = SearchAPI()
     private let searhbarSV = UIStackView().then{
         $0.axis = .vertical
         $0.distribution = .fill
+        $0.backgroundColor = .clear
     }
     private let logoImgView = UIImageView().then{
         $0.contentMode = .scaleAspectFit
         $0.layer.cornerRadius = 10
         $0.layer.masksToBounds = true
+        $0.backgroundColor = .clear
         $0.image = UIImage(named:"ㄲㄲㅃㅃ")
     }
     private let topView = UIView().then{
@@ -33,13 +36,14 @@ class HomeViewController: UIViewController {
         $0.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         $0.layer.cornerRadius = 15
         $0.layer.masksToBounds = true
+        $0.backgroundColor = UIColor(rgb: 0xE5ECEC)
     }
     private let contentView = UIView().then{
         $0.backgroundColor = .white
         }
     private let scrollView = UIScrollView()
     private let searchTableview = UITableView(frame: CGRect.zero, style: .grouped).then{
-        $0.backgroundColor = .white
+        $0.backgroundColor = UIColor(red: 0, green: 0, blue: 0,alpha: 0.4)
         $0.register(SearchTableViewCell.self, forCellReuseIdentifier: SearchTableViewCell.identifier)
     }
     private let recommendCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
@@ -80,7 +84,7 @@ class HomeViewController: UIViewController {
         self.searhbarSV.snp.makeConstraints{
             $0.trailing.equalToSuperview().offset(-16)
             $0.leading.equalToSuperview().offset(16)
-            $0.top.equalToSuperview().offset(5)
+            $0.top.equalToSuperview().offset(0)
         }
         self.logoImgView.snp.makeConstraints{
             $0.height.equalTo(70)
@@ -90,11 +94,10 @@ class HomeViewController: UIViewController {
             $0.leading.trailing.equalToSuperview().offset(0)
             $0.height.equalTo(125)
         }
-        self.searchTableview.snp.makeConstraints{
-            $0.top.equalTo(topView.snp.bottom).offset(-90)
-            $0.leading.trailing.equalToSuperview().offset(0)
-            $0.bottom.equalToSuperview()
-        }
+    self.searchTableview.snp.makeConstraints{
+        $0.leading.bottom.trailing.equalToSuperview().offset(0)
+        $0.top.equalTo(searchbar.snp.bottom)
+    }
         recommendCollectionView.snp.makeConstraints{
             $0.top.equalTo(self.hotLabel.snp.bottom).offset(15)
             $0.leading.equalToSuperview().offset(20)
@@ -102,7 +105,7 @@ class HomeViewController: UIViewController {
             $0.height.equalTo(700)
         }
         self.hotLabel.snp.makeConstraints{
-            $0.top.equalToSuperview().offset(15)
+            $0.top.equalToSuperview().offset(25)
             $0.leading.equalToSuperview().offset(16)
         }
         self.searchbar.snp.makeConstraints{
@@ -111,15 +114,13 @@ class HomeViewController: UIViewController {
 
         self.scrollView.snp.makeConstraints{
             $0.top.equalTo(topView.snp.bottom).offset(0)
-
-           // $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             $0.left.right.bottom.equalToSuperview()
         }
         self.contentView.snp.makeConstraints{
             $0.top.equalToSuperview()
             $0.width.equalToSuperview().offset(0)
             $0.edges.equalToSuperview().offset(0)
-            $0.height.equalTo(700)
+            $0.height.equalTo(670)
         }
         
     }
@@ -128,10 +129,10 @@ class HomeViewController: UIViewController {
         scrollView.addSubview(contentView)
         self.contentView.addSubview(hotLabel)
         self.contentView.addSubview(recommendCollectionView)
-        self.contentView.addSubview(searchTableview)
         self.view.addSubview(topView)
         self.searhbarSV.addArrangedSubview(logoImgView)
         self.searhbarSV.addArrangedSubview(searchbar)
+        self.view.addSubview(searchTableview)
         self.topView.addSubview(searhbarSV)
         self.searchTableview.bringSubviewToFront(self.view)
     }
@@ -144,7 +145,8 @@ class HomeViewController: UIViewController {
         self.searchTableview.dataSource = self
         self.searchTableview.isHidden = true
         setupHideKeyboardOnTap()
-        fillSafeArea(position: .top, color: UIColor(rgb: 0xE5ECEC))
+       fillSafeArea(position: .top, color: UIColor(rgb: 0xE5ECEC))
+        self.navigationController?.navigationBar.isHidden = true
 
     }
     override func viewDidLoad() {
@@ -155,11 +157,30 @@ class HomeViewController: UIViewController {
 
 
     }
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = true
+    }
     override func viewDidAppear(_ animated: Bool) {
         if UserDefaults.standard.bool(forKey: "key") != true {
             let vc = IntroViewController()
              vc.modalPresentationStyle = .overFullScreen
              self.present(vc,animated: false,completion: nil)
+        }
+        self.searchAPI.getSearchResult(name: ".") { response in
+            switch response {
+            case .success(let searchresponse):
+                print("깨움")
+            case .failure(let error):
+                print("/search 오류:\(error)")
+            }
+        }
+        self.searchAPI.getSupplementName(name: "고려홍삼사포닌골드") { response in
+            switch response {
+            case .success(let searchresponse):
+                print(searchresponse)
+            case .failure(let error):
+                print("/name 오류:\(error)")
+            }
         }
     }
 }
@@ -178,7 +199,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
             let cellWidth: CGFloat = (collectionView.bounds.width - layout.minimumInteritemSpacing) / 1
-            let cellHeight: CGFloat = (collectionView.bounds.height - layout.minimumLineSpacing) / 5
+            let cellHeight: CGFloat = (collectionView.bounds.height - layout.minimumLineSpacing) / 5.3
                 return CGSize(width: cellWidth, height: cellHeight)
             }
         return CGSize(width: 0, height: 0)
@@ -189,22 +210,51 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         popup.modalTransitionStyle = .crossDissolve
         popup.infoLabel.text = HomeViewmodel.supplementdes(indexPath: indexPath.row)
         popup.nameLabel.text = HomeViewmodel.supplementKor(indexPath: indexPath.row)
-        popup.recommaneLabel.text = HomeViewmodel.supplementre(indexPath: indexPath.row)! + " 들어있는 첨가제들!"
+        popup.recommaneLabel.text = HomeViewmodel.supplementre(indexPath: indexPath.row)! + " 지정된 첨가제들!"
         popup.listLabel.text = HomeViewmodel.supplementEng(indexPath: indexPath.row)
         let attributedStr = NSMutableAttributedString(string: popup.recommaneLabel.text!)
-        attributedStr.addAttribute(.foregroundColor, value: UIColor.mainred, range: (popup.recommaneLabel.text! as NSString).range(of: "들어있는"))
+        attributedStr.addAttribute(.foregroundColor, value: UIColor.mainred, range: (popup.recommaneLabel.text! as NSString).range(of: "지정된"))
         popup.recommaneLabel.attributedText = attributedStr
         self.present(popup,animated: true,completion: nil)
     }
 }
 extension HomeViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        self.searchbar.text = ""
-        let popup = SearchresultViewController()
-        popup.modalPresentationStyle = .overFullScreen
-        popup.modalTransitionStyle = .crossDissolve
-        self.present(popup,animated: true,completion: nil)
-        
+        if self.searchbar.text == ""{
+            let popup = SearchresultViewController()
+            popup.modalPresentationStyle = .overFullScreen
+            popup.modalTransitionStyle = .crossDissolve
+            self.present(popup,animated: true,completion: nil)
+        }
+        else
+        {
+            self.searchAPI.getSupplementName(name: self.searchbar.text ?? "") { response in
+                switch response {
+                case .success(let searchresponse):
+                    let vc = SupplementDetailViewController(supplementDetailViewModel: DefaultSupplementDetailViewModel(
+                        id:searchresponse.result.supplementID ,
+                        supplementNetworkService: DefaultSupplementNetworkService())
+                    )
+                    self.navigationController?.navigationBar.tintColor = UIColor.black
+                    self.navigationController?.navigationBar.topItem?.title = ""
+                    self.searchTableview.isHidden = true
+                    self.topView.backgroundColor = UIColor(rgb: 0xE5ECEC)
+                    self.fillSafeArea(position: .top, color: UIColor(rgb: 0xE5ECEC))
+                    self.logoImgView.isHidden = false
+                    self.searchbar.text = ""
+                    self.navigationController?.pushViewController(vc, animated: false)
+                case .failure(let error):
+                    print("/name 오류:\(error)")
+                }
+            }
+        }
+        if self.searchresult.count == 0 {
+            self.searchbar.text = ""
+            let popup = SearchresultViewController()
+            popup.modalPresentationStyle = .overFullScreen
+            popup.modalTransitionStyle = .crossDissolve
+            self.present(popup,animated: true,completion: nil)
+        }
     }
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText == ""{
@@ -251,15 +301,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         cell.nameLabel.text = searchresult[indexPath.row].name
         cell.companyLabel.text = "[" + searchresult[indexPath.row].company + "]"
         cell.suplementId = searchresult[indexPath.row].supplementId
-    
-        print(searchresult[indexPath.row].supplementId)
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // 화면 전환
-        self.searchAPI.getSupplementID(id: searchresult[indexPath.row].supplementId) { response in
-            print(response)
-        }
         let vc = SupplementDetailViewController(supplementDetailViewModel: DefaultSupplementDetailViewModel(
             id:searchresult[indexPath.row].supplementId ,
             supplementNetworkService: DefaultSupplementNetworkService())
@@ -272,6 +317,15 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         self.logoImgView.isHidden = false
         self.searchbar.text = ""
         self.navigationController?.pushViewController(vc, animated: false)
+    }
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor.clear
+        return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0
     }
 }
 extension HomeViewController {

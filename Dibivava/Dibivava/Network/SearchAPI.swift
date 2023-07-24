@@ -59,5 +59,20 @@ class SearchAPI{
                   }
         }
     }
+    func getSupplementName(name:String,completion: @escaping (Result<SupplementDTO, Error>) -> Void){
+        let url = APIConstants.baseURL + "getSupplementByName"
+        let parameters: Parameters = [
+            "name": name,
+        ]
+        AF.request(url, parameters: parameters).responseDecodable(of: SupplementDTO.self) { response in
+                  switch response.result {
+                  case .success(let response):
+                      completion(.success(response))
+                  case .failure(let error):
+                      completion(.failure(error))
+                      print("/getSupplementByName" , error)
+                  }
+        }
+    }
 
 }
