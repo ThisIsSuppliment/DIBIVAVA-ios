@@ -152,9 +152,12 @@ class HomeViewController: UIViewController {
         self.configure()
         self.addsubView()
         self.layout()
-
-
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = true
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         if UserDefaults.standard.bool(forKey: "key") != true {
             let vc = IntroViewController()

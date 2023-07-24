@@ -44,6 +44,8 @@ class SupplementDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.viewModel.viewWillAppear()
+        
+        self.navigationController?.navigationBar.isHidden = false
     }
 }
 
