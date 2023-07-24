@@ -7,6 +7,7 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 import SnapKit
 
 class SupplementDetailViewController: UIViewController {
@@ -115,35 +116,32 @@ private extension SupplementDetailViewController {
             .disposed(by: self.disposeBag)
         
         
-        self.viewModel.component
-            .drive(onNext: { [weak self] component in
-                guard let self,
-                      let component = component,
-                      let main = component["main"],
-                      let sub = component["sub"],
-                      let add = component["add"]
+        self.viewModel.materialDriver
+            .compactMap { $0 }
+            .drive(onNext: { [weak self] material in
+                guard let self
                 else {
                     return
                 }
-                
-                let numOfMain = main == ["없음"] ? 0 : main.count
-                let numOfSub = sub == ["없음"] ? 0 : sub.count
-                let numOfAdd = add == ["없음"] ? 0 : add.count
-                
-                self.componentView.main.countLabel.text = "\(numOfMain)개"
-                self.componentView.sub.countLabel.text = "\(numOfSub)개"
-                self.componentView.add.countLabel.text = "\(numOfAdd)개"
-                
+                self.componentView.applySnapshot(material)
+            })
+            .disposed(by: self.disposeBag)
+        
+        Driver.zip(self.viewModel.numOfMainMaterial, self.viewModel.numOfSubMaterial, self.viewModel.numOfAddMaterial)
+            .drive(onNext: { [weak self] (numOfMain, numOfSub, numOfAdd) in
+                guard let self
+                else {
+                    return
+                }
                 self.componentView.main.count = numOfMain
                 self.componentView.sub.count = numOfSub
                 self.componentView.add.count = numOfAdd
-                
-                self.componentView.applySnapshot(component)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: self.disposeBag)
+
+
     }
 }
-
 
 // 추후 수정
 extension UIImageView {

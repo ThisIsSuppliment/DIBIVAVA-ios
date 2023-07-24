@@ -35,11 +35,16 @@ final class ComponentCountingView: UIView {
         didSet {
             guard let count = count
             else{
+                self.countLabel.text = "0개"
                 self.imageView.image = UIImage(named: "0개")
                 return
             }
-                
-            if count <= 5 {
+            
+            self.countLabel.text = "\(count)개"
+            
+            if count == 0 {
+                self.imageView.image = UIImage(named: "0개")
+            } else if count <= 5 {
                 self.imageView.image = UIImage(named: "5개")
             } else {
                 self.imageView.image = UIImage(named: "10개")

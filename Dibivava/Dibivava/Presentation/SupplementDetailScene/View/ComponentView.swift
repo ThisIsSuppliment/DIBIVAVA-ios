@@ -13,11 +13,11 @@ import RxCocoa
 
 
 final class ComponentView: UIView, UICollectionViewDelegate {
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, String>
-    typealias DataSource = UICollectionViewDiffableDataSource<Section, String>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Material>
+    typealias DataSource = UICollectionViewDiffableDataSource<Section, Material>
     
     enum Section: String, CaseIterable {
-        case add
+        case addictive
         case main
         case sub
         
@@ -27,8 +27,19 @@ final class ComponentView: UIView, UICollectionViewDelegate {
                 return "기능성 원료"
             case .sub:
                 return "부원료"
-            case .add:
+            case .addictive:
                 return "첨가물"
+            }
+        }
+        
+        var materialType: MaterialType {
+            switch self {
+            case .main:
+                return .main
+            case .sub:
+                return .sub
+            case .addictive:
+                return .addictive
             }
         }
     }
@@ -99,13 +110,13 @@ final class ComponentView: UIView, UICollectionViewDelegate {
     
     // MARK: - Public Method
     
-    func applySnapshot(_ ComponentByCategory: [String: [String]]) {
+    func applySnapshot(_ materialByType: [MaterialType: [Material]]) {
         var snapshot = Snapshot()
         
-        for type in Section.allCases {
-            if let Components = ComponentByCategory[type.rawValue] {
-                snapshot.appendSections([type])
-                snapshot.appendItems(Components)
+        for section in Section.allCases {
+            if let materials = materialByType[section.materialType] {
+                snapshot.appendSections([section])
+                snapshot.appendItems(materials)
             }
         }
         
@@ -144,8 +155,8 @@ private extension ComponentView {
         self.collectionView.snp.makeConstraints { make in
             make.top.equalTo(self.componentCountingStackView.snp.bottom)
             make.horizontalEdges.equalToSuperview()
-//            make.height.greaterThanOrEqualTo(800)
-            make.bottom.equalToSuperview() //.priority(.low)
+            make.height.greaterThanOrEqualTo(900)
+            make.bottom.equalToSuperview().priority(.low)
         }
     }
 
@@ -156,7 +167,7 @@ private extension ComponentView {
                 for: indexPath
             ) as! ComponentCollectionViewCell
             
-            cell.configure(title: item)
+            cell.configure(title: item.name ?? "없음")
             
             return cell
         }

@@ -77,7 +77,7 @@ enum SupplementDetailLayout {
             
             let section = NSCollectionLayoutSection(group: group)
             section.boundarySupplementaryItems = [sectionHeader]
-            section.contentInsets = .init(top: 0, leading: 16, bottom: -10, trailing: 16)
+            section.contentInsets = .init(top: 0, leading: 16, bottom: 0, trailing: 16)
             section.interGroupSpacing = 10
             return section
         }
