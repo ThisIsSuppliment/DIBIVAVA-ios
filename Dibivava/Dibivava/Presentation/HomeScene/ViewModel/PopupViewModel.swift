@@ -18,7 +18,6 @@ class PopupViewModel {
 
     init() {
         self.supplementNetworkService = DefaultSupplementNetworkService()
-
     }
     func viewWillAppear(id: Int) {
         self.supplementNetworkService.requestSupplement(by: 5107)

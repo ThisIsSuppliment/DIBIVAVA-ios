@@ -69,7 +69,7 @@ class PopUpViewController: UIViewController {
             $0.height.equalTo(48)
         }
         self.contentView.snp.makeConstraints{
-            $0.top.equalToSuperview().offset(120)
+            $0.centerY.equalToSuperview()
             $0.centerX.equalToSuperview()
             $0.height.equalTo(370)
             $0.width.equalTo(300)
