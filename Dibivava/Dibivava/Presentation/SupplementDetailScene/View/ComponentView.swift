@@ -132,7 +132,7 @@ private extension ComponentView {
     }
     
     func configureSubView() {
-        [main, sub, add].forEach {
+        [add, main, sub].forEach {
             self.componentCountingStackView.addArrangedSubview($0)
         }
         
