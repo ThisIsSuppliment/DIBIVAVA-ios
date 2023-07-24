@@ -100,6 +100,7 @@ private extension SupplementDetailViewController {
                         }
                     }
                 }
+
                 self.supplementDetailView.apply(Set(tmpFunctionality).map {String($0)})
                 
                 // 이미지 추가
