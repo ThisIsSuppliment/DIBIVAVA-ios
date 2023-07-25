@@ -19,14 +19,14 @@ final class ComponentCollectionViewCell: UICollectionViewCell {
         $0.textAlignment = .left
     }
     
-//    private let rankLabel: BasePaddingLabel = BasePaddingLabel().then {
-//        $0.textColor = .black
-//        $0.textAlignment = .center
-//        $0.layer.borderColor = UIColor.black.cgColor
-//        $0.layer.borderWidth = 0.25
-//        $0.layer.cornerRadius = 10
-//        $0.clipsToBounds = true
-//    }
+    private let rankLabel: BasePaddingLabel = BasePaddingLabel().then {
+        $0.textColor = .black
+        $0.textAlignment = .center
+        $0.layer.borderColor = UIColor.black.cgColor
+        $0.layer.borderWidth = 0.25
+        $0.layer.cornerRadius = 10
+        $0.clipsToBounds = true
+    }
     
     private let termLabel: UILabel = UILabel().then {
         $0.textColor = .black
@@ -82,7 +82,7 @@ final class ComponentCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         self.titleLabel.text = ""
-//        self.rankLabel.text = ""
+        self.rankLabel.text = ""
         self.termLabel.text = ""
 //        self.termDescriptionLabel.text = ""
         self.isExpanded = false
@@ -95,11 +95,11 @@ final class ComponentCollectionViewCell: UICollectionViewCell {
         self.titleLabel.text = title
         
         if isAdd {
-//            self.rankLabel.text = "2-B"
+            self.rankLabel.text = "2-B"
             self.termLabel.text = terms
 //            self.termDescriptionLabel.text = "########################################### \n 222222222222222222222222222222222222222222"
         } else if !isAdd {
-//            self.rankLabel.text = ""
+            self.rankLabel.text = ""
 //            self.toggleButton.isHidden = true
 //            self.titleLabel.snp.updateConstraints { make in
 //                make.trailing.equalTo(self.rankLabel.snp.leading).offset(10)
@@ -118,7 +118,7 @@ private extension ComponentCollectionViewCell {
 //        [titleLabel, toggleButton, rankLabel, termLabel, termDescriptionLabel].forEach {
 //            self.contentView.addSubview($0)
 //        }
-        [titleLabel, termLabel].forEach {
+        [titleLabel, rankLabel, termLabel].forEach {
             self.contentView.addSubview($0)
         }
     }
@@ -127,8 +127,7 @@ private extension ComponentCollectionViewCell {
         self.titleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(10)
             make.leading.equalToSuperview().inset(10)
-//            make.trailing.equalTo(self.rankLabel.snp.leading).offset(-10)
-            make.trailing.equalToSuperview().inset(10)
+            make.trailing.equalTo(self.rankLabel.snp.leading).offset(-10)
         }
         
 //        self.toggleButton.snp.makeConstraints { make in
@@ -137,10 +136,10 @@ private extension ComponentCollectionViewCell {
 //            make.trailing.equalToSuperview()
 //        }
       
-//        self.rankLabel.snp.makeConstraints { make in
-//            make.top.equalToSuperview().inset(10)
-//            make.trailing.equalToSuperview().inset(10)
-//        }
+        self.rankLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(10)
+            make.trailing.equalToSuperview().inset(10)
+        }
         
         self.termLabel.snp.makeConstraints { make in
             make.top.equalTo(self.titleLabel.snp.bottom).offset(10)
