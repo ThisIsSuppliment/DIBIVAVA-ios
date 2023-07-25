@@ -82,7 +82,6 @@ private extension FunctionalityView {
     func configureConstraints() {
         self.collectionView.snp.makeConstraints { make in
             make.top.horizontalEdges.equalToSuperview()
-//            make.height.equalTo(40)
         }
     }
 

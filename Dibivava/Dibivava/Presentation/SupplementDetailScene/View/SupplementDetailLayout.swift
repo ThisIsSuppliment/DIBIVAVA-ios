@@ -49,15 +49,15 @@ enum SupplementDetailLayout {
             // 새로 배치
             let itemSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
-                heightDimension: .estimated(50)
+                heightDimension: .estimated(70)
             )
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
             
             let groupSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
-                heightDimension: .estimated(100)
+                heightDimension: .estimated(140)
             )
-            let group = NSCollectionLayoutGroup.vertical(
+            let group = NSCollectionLayoutGroup.horizontal(
                 layoutSize: groupSize,
                 subitems: [item]
             )
