@@ -19,6 +19,15 @@ class HomeViewController: UIViewController {
     private var searchresult: [Supplement] = []
     private var searchInfo: [SupplementDTO] = []
     private let searchAPI = SearchAPI()
+    private let warningLabel = UILabel().then{
+        $0.text = "-[성분 정보 출저] 건강기능식품: 식품안전나라/ 건강기능식품 품목제조신고(원재료), 건강기능식품 기능성원료인정현황,  Ames, Bruce N; Gold, Lois Swirsky (2000).  “Paracelsus to parascience: The environmental cancer distraction”.  《Mutation Research/Fundamental and Molecular Mechanisms of Mutagenesis》 447: 3 - 본 정보는 참고용으로, 법적 책임을 지지 않습니다. - 본 정보는 참고용으로만 제공되며 개별적인 상황에 따라 반드시 의료전문가와 상담하여야합니다.어떠한 경우에도 본 앱의 내용을 근거로 한 자체 진단 또는                 치료를 시도해서는 안됩니다."
+        $0.font = .pretendard(.Light, size: 12)
+        $0.textColor = UIColor(rgb: 0x878787)
+        $0.numberOfLines = 0
+    }
+    private let warningView = UIView().then{
+        $0.backgroundColor = UIColor(rgb: 0xE5ECEC)
+    }
     private let searhbarSV = UIStackView().then{
         $0.axis = .vertical
         $0.distribution = .fill
@@ -53,7 +62,7 @@ class HomeViewController: UIViewController {
         $0.collectionViewLayout = layout
         $0.decelerationRate = .fast
         $0.backgroundColor = .clear
-        $0.showsHorizontalScrollIndicator = false
+        $0.isScrollEnabled = false
     }
     private let hotLabel = UILabel().then{
         $0.text = "WHO IARC 발암유발물질 기준"
@@ -81,6 +90,15 @@ class HomeViewController: UIViewController {
 
     }
     private func layout(){
+        self.warningLabel.snp.makeConstraints{
+            $0.top.leading.trailing.bottom.equalToSuperview()
+
+        }
+        self.warningView.snp.makeConstraints{
+            $0.top.equalTo(recommendCollectionView.snp.bottom).offset(0)
+            $0.leading.trailing.bottom.equalToSuperview()
+            
+        }
         self.searhbarSV.snp.makeConstraints{
             $0.trailing.equalToSuperview().offset(-16)
             $0.leading.equalToSuperview().offset(16)
@@ -102,7 +120,7 @@ class HomeViewController: UIViewController {
             $0.top.equalTo(self.hotLabel.snp.bottom).offset(15)
             $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview().offset(-16)
-            $0.height.equalTo(700)
+            $0.height.equalTo(600)
         }
         self.hotLabel.snp.makeConstraints{
             $0.top.equalToSuperview().offset(25)
@@ -120,7 +138,7 @@ class HomeViewController: UIViewController {
             $0.top.equalToSuperview()
             $0.width.equalToSuperview().offset(0)
             $0.edges.equalToSuperview().offset(0)
-            $0.height.equalTo(670)
+            $0.height.equalTo(820)
         }
         
     }
@@ -135,6 +153,8 @@ class HomeViewController: UIViewController {
         self.view.addSubview(searchTableview)
         self.topView.addSubview(searhbarSV)
         self.searchTableview.bringSubviewToFront(self.view)
+        self.contentView.addSubview(warningView)
+        self.warningView.addSubview(warningLabel)
     }
     private func configure(){
         self.view.backgroundColor = .white
@@ -147,6 +167,7 @@ class HomeViewController: UIViewController {
         setupHideKeyboardOnTap()
        fillSafeArea(position: .top, color: UIColor(rgb: 0xE5ECEC))
         self.navigationController?.navigationBar.isHidden = true
+        fillSafeArea(position: .bottom, color: UIColor(rgb: 0xE5ECEC))
 
     }
     override func viewDidLoad() {
@@ -197,7 +218,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
             let cellWidth: CGFloat = (collectionView.bounds.width - layout.minimumInteritemSpacing) / 1
-            let cellHeight: CGFloat = (collectionView.bounds.height - layout.minimumLineSpacing) / 5.3
+            let cellHeight: CGFloat = (collectionView.bounds.height - layout.minimumLineSpacing) / 4.1
                 return CGSize(width: cellWidth, height: cellHeight)
             }
         return CGSize(width: 0, height: 0)
