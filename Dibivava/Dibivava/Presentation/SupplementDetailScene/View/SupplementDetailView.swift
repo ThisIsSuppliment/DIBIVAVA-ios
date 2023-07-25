@@ -74,7 +74,6 @@ private extension SupplementDetailView {
     func configureConstraints() {                
         self.imageView.snp.makeConstraints { make in
             make.top.equalToSuperview()
-//            make.horizontalEdges.equalToSuperview()
             make.centerX.equalToSuperview()
             make.size.equalTo(200)
         }
@@ -87,7 +86,7 @@ private extension SupplementDetailView {
         self.functionalityView.snp.makeConstraints { make in
             make.top.equalTo(self.labelStack.snp.bottom).offset(10)
             make.horizontalEdges.width.equalToSuperview()
-//            make.height.equalTo(self.functionalityView.collectionView.snp.height)
+            make.height.equalTo(self.functionalityView.collectionView.snp.height)
             make.bottom.equalToSuperview().priority(.low)
         }
     }

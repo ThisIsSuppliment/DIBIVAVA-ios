@@ -44,6 +44,8 @@
 		7C6091EE2A658A090062FF01 /* SupplementDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6091ED2A658A090062FF01 /* SupplementDetailViewController.swift */; };
 		7C6091F22A658B370062FF01 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6091F12A658B370062FF01 /* HomeViewModel.swift */; };
 		7C6091F62A658BA90062FF01 /* SupplementDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6091F52A658BA90062FF01 /* SupplementDetailViewModel.swift */; };
+		7C6300782A6D616B00C31E93 /* MaterialResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6300772A6D616B00C31E93 /* MaterialResponse.swift */; };
+		7C63007A2A6F684A00C31E93 /* BasePaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6300792A6F684A00C31E93 /* BasePaddingLabel.swift */; };
 		7C8217392A69B928001DB57D /* SupplementNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8217382A69B928001DB57D /* SupplementNetworkService.swift */; };
 		7CC9524E2A6A6F3B00E2F739 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7CC9524D2A6A6F3B00E2F739 /* RxSwift */; };
 		7CC952502A6A6F4300E2F739 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 7CC9524F2A6A6F4300E2F739 /* RxCocoa */; };
@@ -111,6 +113,8 @@
 		7C6091ED2A658A090062FF01 /* SupplementDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementDetailViewController.swift; sourceTree = "<group>"; };
 		7C6091F12A658B370062FF01 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		7C6091F52A658BA90062FF01 /* SupplementDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementDetailViewModel.swift; sourceTree = "<group>"; };
+		7C6300772A6D616B00C31E93 /* MaterialResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialResponse.swift; sourceTree = "<group>"; };
+		7C6300792A6F684A00C31E93 /* BasePaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePaddingLabel.swift; sourceTree = "<group>"; };
 		7C8217382A69B928001DB57D /* SupplementNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementNetworkService.swift; sourceTree = "<group>"; };
 		7CC952512A6A6FCE00E2F739 /* SUIT-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-ExtraBold.ttf"; sourceTree = "<group>"; };
 		7CC952522A6A6FCE00E2F739 /* SUIT-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-Regular.ttf"; sourceTree = "<group>"; };
@@ -249,6 +253,7 @@
 				09F8BADC2A682D780087DDA9 /* SearchScene */,
 				7C6091E92A6588EA0062FF01 /* HomeScene */,
 				7C6091EA2A6589AE0062FF01 /* SupplementDetailScene */,
+				7C6300792A6F684A00C31E93 /* BasePaddingLabel.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -269,6 +274,7 @@
 				7C6091F42A658B480062FF01 /* View */,
 				7C8217382A69B928001DB57D /* SupplementNetworkService.swift */,
 				7CC952632A6A743A00E2F739 /* Additive.swift */,
+				7C6300772A6D616B00C31E93 /* MaterialResponse.swift */,
 			);
 			path = SupplementDetailScene;
 			sourceTree = "<group>";
@@ -517,9 +523,11 @@
 				7C6068382A66FABB003B414B /* SupplementDetailView.swift in Sources */,
 				09FEB43C2A66AFED00DD1CC5 /* Color+.swift in Sources */,
 				7C6091B92A6588C40062FF01 /* AppDelegate.swift in Sources */,
+				7C63007A2A6F684A00C31E93 /* BasePaddingLabel.swift in Sources */,
 				090E82322A67CB9D00944DC2 /* HomeSupplement.swift in Sources */,
 				7C0601BA2A666753004FB30B /* Supplement.swift in Sources */,
 				0977E2842A690FF00007DCFA /* SearchAPI.swift in Sources */,
+				7C6300782A6D616B00C31E93 /* MaterialResponse.swift in Sources */,
 				7C6091EE2A658A090062FF01 /* SupplementDetailViewController.swift in Sources */,
 				090E822E2A678B1600944DC2 /* recommendCollectionViewCell.swift in Sources */,
 				7C6091F62A658BA90062FF01 /* SupplementDetailViewModel.swift in Sources */,

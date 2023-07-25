@@ -154,8 +154,6 @@ class HomeViewController: UIViewController {
         self.configure()
         self.addsubView()
         self.layout()
-
-
     }
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = true

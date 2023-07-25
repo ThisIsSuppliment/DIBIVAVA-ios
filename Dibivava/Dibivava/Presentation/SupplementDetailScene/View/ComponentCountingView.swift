@@ -35,11 +35,16 @@ final class ComponentCountingView: UIView {
         didSet {
             guard let count = count
             else{
+                self.countLabel.text = "0개"
                 self.imageView.image = UIImage(named: "0개")
                 return
             }
-                
-            if count <= 5 {
+            
+            self.countLabel.text = "\(count)개"
+            
+            if count == 0 {
+                self.imageView.image = UIImage(named: "0개")
+            } else if count <= 5 {
                 self.imageView.image = UIImage(named: "5개")
             } else {
                 self.imageView.image = UIImage(named: "10개")
@@ -67,7 +72,7 @@ final class ComponentCountingView: UIView {
 
 private extension ComponentCountingView {
     func configureSubviews() {
-        [countLabel, imageView, titleLabel].forEach {
+        [titleLabel, countLabel, imageView].forEach {
             self.labelStack.addArrangedSubview($0)
         }
         
@@ -78,7 +83,8 @@ private extension ComponentCountingView {
     
     func configureConstraints() {
         self.imageView.snp.makeConstraints { make in
-            make.size.equalTo(100)
+            make.width.equalTo(100)
+            make.height.equalTo(100)
         }
         
         self.labelStack.snp.makeConstraints { make in

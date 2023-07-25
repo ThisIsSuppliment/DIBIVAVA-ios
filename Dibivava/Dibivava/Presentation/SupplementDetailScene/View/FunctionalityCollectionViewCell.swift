@@ -47,7 +47,8 @@ private extension FunctionalityCollectionViewCell {
     
     func configureConstraints() {
         self.titleLabel.snp.makeConstraints { make in
-            make.center.equalToSuperview() //.inset(20)
+            make.horizontalEdges.equalToSuperview().inset(10)
+            make.centerY.equalToSuperview()
         }
     }
 }
