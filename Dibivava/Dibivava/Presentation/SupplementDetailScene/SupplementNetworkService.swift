@@ -67,7 +67,7 @@ final class DefaultSupplementNetworkService: SupplementNetworkService {
                     do{
                         let decoder = JSONDecoder()
                         let decodedData = try decoder.decode(MaterialResponse.self, from: data)
-                        print("<!######", decodedData.result.level)
+                        print("######첨가제 등급", decodedData.result.level)
                         single(.success(decodedData.result))
                     }catch{
                         single(.failure(NetworkError.failedDecode))

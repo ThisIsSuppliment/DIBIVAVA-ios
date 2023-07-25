@@ -33,11 +33,11 @@ final class ComponentCollectionViewCell: UICollectionViewCell {
         $0.textAlignment = .left
     }
     
-//    private let termDescriptionLabel: UILabel = UILabel().then {
-//        $0.textColor = .black
-//        $0.textAlignment = .left
-//        $0.numberOfLines = 0
-//    }
+    private let termDescriptionLabel: UILabel = UILabel().then {
+        $0.textColor = .black
+        $0.textAlignment = .left
+        $0.numberOfLines = 0
+    }
     
 //    private let toggleButton: UIButton = UIButton().then {
 //        let normalImage = UIImage(systemName: "chevron.left")
@@ -84,27 +84,29 @@ final class ComponentCollectionViewCell: UICollectionViewCell {
         self.titleLabel.text = ""
         self.rankLabel.text = ""
         self.termLabel.text = ""
-//        self.termDescriptionLabel.text = ""
+        self.termDescriptionLabel.text = ""
         self.isExpanded = false
         self.titleLabel.textAlignment = .left
         self.heightConstraint = nil
     }
     
     func configure(title: String, isAdd: Bool, terms: String, level: String?) {
-        print(title, isAdd, terms)
+//        print(title, isAdd, terms)
         self.titleLabel.text = title
         
         if isAdd {
-            self.rankLabel.text = level ?? ""
+            if let level = level {
+                self.rankLabel.text = "\(level)군"
+            }
             self.termLabel.text = terms
-//            self.termDescriptionLabel.text = "########################################### \n 222222222222222222222222222222222222222222"
+            self.termDescriptionLabel.text = ""//"########################################### \n 222222222222222222222222222222222222222222"
         } else if !isAdd {
             self.rankLabel.text = ""
 //            self.toggleButton.isHidden = true
-//            self.titleLabel.snp.updateConstraints { make in
-//                make.trailing.equalTo(self.rankLabel.snp.leading).offset(10)
-//            }
             self.titleLabel.textAlignment = .center
+            self.titleLabel.snp.updateConstraints { make in
+                make.trailing.equalTo(self.rankLabel.snp.leading).offset(10)
+            }
             
             self.titleLabel.snp.makeConstraints { make in
                 make.center.equalToSuperview()
