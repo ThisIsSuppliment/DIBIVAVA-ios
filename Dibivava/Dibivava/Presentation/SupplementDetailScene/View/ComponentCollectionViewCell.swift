@@ -98,17 +98,21 @@ final class ComponentCollectionViewCell: UICollectionViewCell {
             if let level = level {
                 switch level {
                 case "1":
-                    self.rankLabel.layer.borderColor = UIColor.red.cgColor
-                    self.rankLabel.textColor = .red
+//                    self.rankLabel.layer.borderColor = UIColor.orange.cgColor
+//                    self.rankLabel.textColor = UIColor(rgb: 0xFA6363)
+                    self.rankLabel.backgroundColor = UIColor(rgb: 0xFA6363)
                 case "2A":
-                    self.rankLabel.layer.borderColor = UIColor.orange.cgColor
-                    self.rankLabel.textColor = .orange
+//                    self.rankLabel.layer.borderColor = UIColor.orange.cgColor
+//                    self.rankLabel.textColor = .orange
+                    self.rankLabel.backgroundColor = UIColor(rgb: 0xFFB783)
                 case "2B":
-                    self.rankLabel.layer.borderColor = UIColor.yellow.cgColor
-                    self.rankLabel.textColor = .yellow
+//                    self.rankLabel.layer.borderColor = UIColor.yellow.cgColor
+//                    self.rankLabel.textColor = .yellow
+                    self.rankLabel.backgroundColor =  UIColor(rgb: 0xEFDA67)
                 case "3":
-                    self.rankLabel.layer.borderColor = UIColor.green.cgColor
-                    self.rankLabel.textColor = .green
+//                    self.rankLabel.layer.borderColor = UIColor.green.cgColor
+//                    self.rankLabel.textColor = .green
+                    self.rankLabel.backgroundColor = UIColor(rgb: 0x90CA9D)
                 default:
                     print("알 수 없는 등급")
                 }
