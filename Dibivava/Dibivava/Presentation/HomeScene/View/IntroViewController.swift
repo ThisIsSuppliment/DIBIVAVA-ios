@@ -10,7 +10,7 @@ import ImageSlideshow
 
 class IntroViewController: UIViewController {
     private let introslide = ImageSlideshow().then{
-        $0.contentScaleMode = .scaleAspectFit
+        $0.contentScaleMode = .scaleAspectFill
         $0.slideshowInterval = 5
         $0.setImageInputs([
             ImageSource(image: UIImage(named: "1p")!),
@@ -32,7 +32,7 @@ class IntroViewController: UIViewController {
             $0.bottom.equalToSuperview().offset(-10)
         }
         self.introslide.snp.makeConstraints{
-            $0.top.trailing.leading.bottom.equalToSuperview()
+            $0.edges.equalToSuperview()
         }
 
     }
@@ -41,7 +41,7 @@ class IntroViewController: UIViewController {
         self.introslide.addSubview(closeBtn)
     }
     private func configure(){
-        self.view.backgroundColor = UIColor(red: 0, green: 0, blue: 0,alpha: 0.6)
+        self.view.backgroundColor = UIColor.darkGray
         self.view.isOpaque = false
         self.closeBtn.addTarget(self, action: #selector(closeBtnClick), for: .touchUpInside)
         UserDefaults.standard.setValue(true, forKey: "key")

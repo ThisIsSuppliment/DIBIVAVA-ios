@@ -57,13 +57,13 @@ enum supplementImg: Int{
     var rekor: String {
         switch self {
         case .Supplement1:
-            return "1군 발암물질이"
+            return "1군 발암물질로"
         case .Supplement2:
-            return "2A군 발암물질이"
+            return "2A군 발암물질로"
         case .Supplement3:
-            return "2B군 발암물질이"
+            return "2B군 발암물질로"
         case .Supplement4:
-            return "3군 발암물질이"
+            return "3군 발암물질로"
         case .Supplement5:
             return "철분이"
         case .Supplement6:
