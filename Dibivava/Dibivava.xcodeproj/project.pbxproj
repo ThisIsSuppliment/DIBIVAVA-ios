@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		09017D382A6B6E0000A8528A /* PopupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09017D372A6B6E0000A8528A /* PopupViewModel.swift */; };
 		09017D3B2A6BCA3600A8528A /* SafeAreaBrush in Frameworks */ = {isa = PBXBuildFile; productRef = 09017D3A2A6BCA3600A8528A /* SafeAreaBrush */; };
 		09017D3C2A6BCED000A8528A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C6091C12A6588C50062FF01 /* Assets.xcassets */; };
 		09017D3E2A6CC3E400A8528A /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09017D3D2A6CC3E400A8528A /* IntroViewController.swift */; };
@@ -78,7 +77,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		09017D372A6B6E0000A8528A /* PopupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewModel.swift; sourceTree = "<group>"; };
 		09017D3D2A6CC3E400A8528A /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
 		090E822D2A678B1600944DC2 /* recommendCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = recommendCollectionViewCell.swift; sourceTree = "<group>"; };
 		090E822F2A6791E400944DC2 /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
@@ -291,7 +289,6 @@
 			isa = PBXGroup;
 			children = (
 				7C6091F12A658B370062FF01 /* HomeViewModel.swift */,
-				09017D372A6B6E0000A8528A /* PopupViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -515,7 +512,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7C6091F22A658B370062FF01 /* HomeViewModel.swift in Sources */,
-				09017D382A6B6E0000A8528A /* PopupViewModel.swift in Sources */,
 				7C6068402A67CC06003B414B /* FunctionalityView.swift in Sources */,
 				7C4221C02A6697FA00F5F53F /* SupplementDetailLayout.swift in Sources */,
 				7C6068382A66FABB003B414B /* SupplementDetailView.swift in Sources */,

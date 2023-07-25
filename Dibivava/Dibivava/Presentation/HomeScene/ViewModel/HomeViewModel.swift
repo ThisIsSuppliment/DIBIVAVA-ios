@@ -49,16 +49,6 @@ class HomeViewModel{
         }
         return supplement.fontColor
     }
-    public func searchSup(name:String) -> [Supplement]{
-        self.searchAPI.getSearchResult(name: name) { response in
-            switch response {
-            case .success(let searchresponse):
-                self.result = searchresponse
-            case .failure(let error):
-                print("/search 오류:\(error)")
-            }
-        }
-        return result
-    }
+
 
 }

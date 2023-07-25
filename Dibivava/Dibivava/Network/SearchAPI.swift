@@ -27,10 +27,11 @@ struct SearchAPIResponse: Codable {
     let result: [Supplement]
 }
 class SearchAPI{
-    func getSearchResult(name:String,completion: @escaping (Result<[Supplement], Error>) -> Void){
+    func getSearchResult(name:String,limit:Int,completion: @escaping (Result<[Supplement], Error>) -> Void){
         let url = APIConstants.baseURL + "search"
         let parameters: Parameters = [
             "name": name,
+            "limit": limit,
         ]
         AF.request(url, parameters: parameters).responseDecodable(of: SearchAPIResponse.self) { response in
                   switch response.result {

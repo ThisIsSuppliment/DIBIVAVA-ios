@@ -166,7 +166,7 @@ class HomeViewController: UIViewController {
              vc.modalPresentationStyle = .overFullScreen
              self.present(vc,animated: false,completion: nil)
         }
-        self.searchAPI.getSearchResult(name: ".") { response in
+        self.searchAPI.getSearchResult(name: ".",limit: 0) { response in
             switch response {
             case .success(let searchresponse):
                 print("깨움")
@@ -265,7 +265,7 @@ extension HomeViewController: UISearchBarDelegate {
                 
 
         }else{
-            self.searchAPI.getSearchResult(name: searchText) { response in
+            self.searchAPI.getSearchResult(name: searchText,limit: 10) { response in
                 switch response {
                 case .success(let searchresponse):
                     self.searchresult = searchresponse
@@ -284,8 +284,11 @@ extension HomeViewController: UISearchBarDelegate {
                         self.logoImgView.isHidden = true
         
                     }
-                case .failure(let error):
-                    print("/search 오류:\(error)")
+                case .failure:
+                    self.searchTableview.isHidden = true
+                    self.topView.backgroundColor = UIColor(rgb: 0xE5ECEC)
+                    self.fillSafeArea(position: .top, color: UIColor(rgb: 0xE5ECEC))
+                    self.logoImgView.isHidden = false
                 }
             }
         }
