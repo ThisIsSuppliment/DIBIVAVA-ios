@@ -96,6 +96,22 @@ final class ComponentCollectionViewCell: UICollectionViewCell {
         
         if isAdd {
             if let level = level {
+                switch level {
+                case "1":
+                    self.rankLabel.layer.borderColor = UIColor.red.cgColor
+                    self.rankLabel.textColor = .red
+                case "2A":
+                    self.rankLabel.layer.borderColor = UIColor.orange.cgColor
+                    self.rankLabel.textColor = .orange
+                case "2B":
+                    self.rankLabel.layer.borderColor = UIColor.yellow.cgColor
+                    self.rankLabel.textColor = .yellow
+                case "3":
+                    self.rankLabel.layer.borderColor = UIColor.green.cgColor
+                    self.rankLabel.textColor = .green
+                default:
+                    print("알 수 없는 등급")
+                }
                 self.rankLabel.text = "\(level)군"
             }
             self.termLabel.text = terms
