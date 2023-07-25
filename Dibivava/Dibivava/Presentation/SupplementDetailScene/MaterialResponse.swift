@@ -19,12 +19,14 @@ struct MaterialDTO: Codable {
     let termIds: [String]
     let createdAt: String
     let updatedAt: String
+    let level: String?
     
     enum CodingKeys: String, CodingKey {
         case materialId = "material_id"
         case category, name
         case termIds = "term_ids"
         case createdAt, updatedAt
+        case level = "who_iarc_level"
     }
 }
 
@@ -34,7 +36,8 @@ extension MaterialDTO {
         Material(id: self.materialId,
                  category: self.category,
                  name: self.name,
-                 terms: self.termIds)
+                 terms: self.termIds,
+                 level: self.level)
     }
 }
 
@@ -43,15 +46,18 @@ struct Material: Hashable {
     let category: String
     let name: String?
     let terms: [String]?
+    let level: String?
     
     init(id: Int? = nil,
          category: String,
          name: String? = nil,
-         terms: [String]? = nil
+         terms: [String]? = nil,
+         level: String? = nil
     ) {
         self.id = id
         self.category = category
         self.name = name
         self.terms = terms
+        self.level = level
     }
 }

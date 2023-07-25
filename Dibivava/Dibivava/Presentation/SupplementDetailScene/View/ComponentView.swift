@@ -209,7 +209,8 @@ private extension ComponentView {
             
             cell.configure(title: item.name ?? "없음",
                            isAdd: item.category == "additive" && item.name != nil,
-                           terms: item.terms?.joined(separator: " | ") ?? "")
+                           terms: item.terms?.joined(separator: " | ") ?? "",
+                           level: item.level)
             
             return cell
         }

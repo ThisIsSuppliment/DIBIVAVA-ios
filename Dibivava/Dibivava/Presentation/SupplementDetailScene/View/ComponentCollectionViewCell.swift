@@ -90,12 +90,12 @@ final class ComponentCollectionViewCell: UICollectionViewCell {
         self.heightConstraint = nil
     }
     
-    func configure(title: String, isAdd: Bool, terms: String) {
+    func configure(title: String, isAdd: Bool, terms: String, level: String?) {
         print(title, isAdd, terms)
         self.titleLabel.text = title
         
         if isAdd {
-            self.rankLabel.text = "2-B"
+            self.rankLabel.text = level ?? ""
             self.termLabel.text = terms
 //            self.termDescriptionLabel.text = "########################################### \n 222222222222222222222222222222222222222222"
         } else if !isAdd {
