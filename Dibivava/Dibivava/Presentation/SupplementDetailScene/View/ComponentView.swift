@@ -126,7 +126,6 @@ final class ComponentView: UIView, UICollectionViewDelegate {
         self.configureSubView()
         self.configureConstraints()
         self.configureDataSource()
-        self.collectionView.alpha = 0.0
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -149,11 +148,6 @@ final class ComponentView: UIView, UICollectionViewDelegate {
                 
         self.collectionView.snp.updateConstraints { make in
             make.height.greaterThanOrEqualTo(self.collectionView.contentSize.height)
-        }
-        
-        // 추후 수정
-        UIView.animate(withDuration: 2.0) {
-            self.collectionView.alpha = 1.0
         }
     }
 }

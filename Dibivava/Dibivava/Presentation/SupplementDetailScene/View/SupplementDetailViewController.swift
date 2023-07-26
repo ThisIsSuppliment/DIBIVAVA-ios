@@ -17,6 +17,11 @@ class SupplementDetailViewController: UIViewController {
         $0.backgroundColor = .systemGroupedBackground
     }
     
+    private let indicatorView: UIActivityIndicatorView = UIActivityIndicatorView(style: .large).then {
+        $0.color = .gray
+        $0.backgroundColor = .white
+    }
+    
     private let supplementDetailView: SupplementDetailView
     private let componentView: ComponentView
     
@@ -36,6 +41,7 @@ class SupplementDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.view.backgroundColor = .white
         self.configureSubviews()
         self.configureConstraints()
@@ -43,6 +49,7 @@ class SupplementDetailViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.indicatorView.startAnimating()
         self.viewModel.viewWillAppear()
         self.navigationController?.navigationBar.isHidden = false
     }
@@ -54,10 +61,16 @@ private extension SupplementDetailViewController {
             self.scrollView.addSubview($0)
         }
         
-        self.view.addSubview(scrollView)
+        [scrollView, indicatorView].forEach {
+            self.view.addSubview($0)
+        }
     }
     
     func configureConstraints() {
+        self.indicatorView.snp.makeConstraints { make in
+            make.edges.equalTo(self.view.safeAreaLayoutGuide)
+        }
+        
         self.scrollView.snp.makeConstraints { make in
             make.edges.equalTo(self.view.safeAreaLayoutGuide)
         }
@@ -124,6 +137,7 @@ private extension SupplementDetailViewController {
                 else {
                     return
                 }
+                self.indicatorView.stopAnimating()
                 self.componentView.applySnapshot(material)
             })
             .disposed(by: self.disposeBag)
