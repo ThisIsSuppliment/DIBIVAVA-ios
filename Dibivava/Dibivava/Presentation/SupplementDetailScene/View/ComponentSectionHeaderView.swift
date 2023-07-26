@@ -16,7 +16,7 @@ final class ComponentSectionHeaderView: UICollectionReusableView {
     private lazy var titleLabel = UILabel().then {
         $0.textColor = .black
         $0.textAlignment = .left
-        $0.font = .pretendard(.ExtraBold, size: 18)
+        $0.font = .pretendard(.SemiBold, size: 18)
     }
     
     override init(frame: CGRect) {
