@@ -91,13 +91,12 @@ class HomeViewController: UIViewController {
     }
     private func layout(){
         self.warningLabel.snp.makeConstraints{
-            $0.top.leading.trailing.bottom.equalToSuperview()
+            $0.top.bottom.equalToSuperview()
             $0.horizontalEdges.equalToSuperview().inset(10)
         }
         self.warningView.snp.makeConstraints{
             $0.top.equalTo(recommendCollectionView.snp.bottom).offset(0)
             $0.leading.trailing.bottom.equalToSuperview()
-            
         }
         self.searhbarSV.snp.makeConstraints{
             $0.trailing.equalToSuperview().offset(-16)
@@ -112,11 +111,11 @@ class HomeViewController: UIViewController {
             $0.leading.trailing.equalToSuperview().offset(0)
             $0.height.equalTo(125)
         }
-    self.searchTableview.snp.makeConstraints{
-        $0.leading.bottom.trailing.equalToSuperview().offset(0)
-        $0.top.equalTo(searchbar.snp.bottom)
-    }
-        recommendCollectionView.snp.makeConstraints{
+        self.searchTableview.snp.makeConstraints{
+            $0.leading.bottom.trailing.equalToSuperview().offset(0)
+            $0.top.equalTo(searchbar.snp.bottom)
+        }
+        self.recommendCollectionView.snp.makeConstraints{
             $0.top.equalTo(self.hotLabel.snp.bottom).offset(15)
             $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview().offset(-16)
@@ -185,20 +184,12 @@ class HomeViewController: UIViewController {
              vc.modalPresentationStyle = .overFullScreen
              self.present(vc,animated: false,completion: nil)
         }
-        self.searchAPI.getSearchResult(name: ".",limit: 0) { response in
+        self.searchAPI.getSearchResult(name: "D",limit: 0) { response in
             switch response {
-            case .success(let searchresponse):
+            case .success(_):
                 print("깨움")
             case .failure(let error):
                 print("/search 오류:\(error)")
-            }
-        }
-        self.searchAPI.getSupplementName(name: "고려홍삼사포닌골드") { response in
-            switch response {
-            case .success(let searchresponse):
-                print(searchresponse)
-            case .failure(let error):
-                print("/name 오류:\(error)")
             }
         }
     }
