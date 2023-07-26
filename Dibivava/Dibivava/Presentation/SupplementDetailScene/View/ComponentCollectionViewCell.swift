@@ -21,6 +21,7 @@ final class ComponentCollectionViewCell: UICollectionViewCell {
     private let titleLabel: UILabel = UILabel().then {
         $0.textColor = .black
         $0.textAlignment = .left
+        $0.font = .pretendard(.Regular, size: 17)
     }
     
     private let rankLabel: BasePaddingLabel = BasePaddingLabel().then {
@@ -28,13 +29,13 @@ final class ComponentCollectionViewCell: UICollectionViewCell {
         $0.textAlignment = .center
         $0.layer.cornerRadius = 10
         $0.clipsToBounds = true
-        $0.font = UIFont.systemFont(ofSize: 15)
+        $0.font = .pretendard(.Regular, size: 15)
     }
     
     private let termLabel: UILabel = UILabel().then {
         $0.textColor = .black
         $0.textAlignment = .left
-        $0.font = UIFont.systemFont(ofSize: 12)
+        $0.font = .pretendard(.Regular, size: 12)
         $0.numberOfLines = 1
     }
     
