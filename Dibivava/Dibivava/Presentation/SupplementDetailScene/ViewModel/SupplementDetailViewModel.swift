@@ -16,7 +16,7 @@ protocol SupplementDetailViewModelInput {
 protocol SupplementDetailViewModelOutput {
     var supplementDetail: Driver<SupplementDTO?> { get }
     var materialDriver: Driver<[MaterialType:[Material]]?> { get }
-    var numOfMainMaterial: Driver<Int> { get }
+    var numOfMainMaterial: Driver<Int?> { get }
     var numOfSubMaterial: Driver<Int?> { get }
     var numOfAddMaterial: Driver<Int?> { get }
 }
@@ -24,26 +24,26 @@ protocol SupplementDetailViewModelOutput {
 protocol SupplementDetailViewModel: SupplementDetailViewModelInput, SupplementDetailViewModelOutput {}
 
 class DefaultSupplementDetailViewModel {
-    private let disposeBag = DisposeBag()
-    private let supplementDetailRelay = PublishRelay<SupplementDTO?>()
-    private let termsRelay: BehaviorRelay<[String: String]> = .init(value: [:])
-    private let materialDetailRelay = PublishRelay<[Material]?>()
-    private let materialRelay: BehaviorRelay<[MaterialType:[Material]]?> = .init(value: [.main: [], .sub: [], .addictive: []])
-    private let numOfMainMaterialRelay = PublishRelay<Int>()
-    private let numOfSubMaterialRelay = PublishRelay<Int?>()
-    private let numOfAdditiveRelay = PublishRelay<Int?>()
-    
+    private var id: Int
     private let supplementNetworkService: SupplementNetworkService
     
-    private var id: Int
+    private let supplementDetailRelay: PublishRelay<SupplementDTO?> = .init()
+    private let termsRelay: BehaviorRelay<[String: String]> = .init(value: [:])
+    private let materialRelay: BehaviorRelay<[MaterialType:[Material]]?> = .init(value: [.main: [], .sub: [], .addictive: []])
+    private let numOfMainMaterialRelay: PublishRelay<Int?> = .init()
+    private let numOfSubMaterialRelay: PublishRelay<Int?> = .init()
+    private let numOfAdditiveRelay: PublishRelay<Int?> = .init()
+    
     private var material: [MaterialType:[Material]]
+    private let disposeBag = DisposeBag()
     
     init(id: Int,
-         supplementNetworkService: SupplementNetworkService) {
+         supplementNetworkService: SupplementNetworkService
+    ) {
         self.id = id
         self.material = [:]
         self.supplementNetworkService = supplementNetworkService
-        self.fetchTerm()
+        self.fetchTerms()
     }
 }
 
@@ -56,7 +56,7 @@ extension DefaultSupplementDetailViewModel: SupplementDetailViewModel {
         return self.materialRelay.asDriver(onErrorJustReturn: nil)
     }
     
-    var numOfMainMaterial: Driver<Int> {
+    var numOfMainMaterial: Driver<Int?> {
         return self.numOfMainMaterialRelay.asDriver(onErrorJustReturn: 0)
     }
     
@@ -71,7 +71,9 @@ extension DefaultSupplementDetailViewModel: SupplementDetailViewModel {
     func viewWillAppear() {
         self.fetchSupplement(with: self.id)
     }
-    
+}
+
+private extension DefaultSupplementDetailViewModel {
     func fetchSupplement(with id: Int) {
         self.supplementNetworkService.requestSupplement(by: id)
             .subscribe(onSuccess: { [weak self] supplement in
@@ -123,7 +125,7 @@ extension DefaultSupplementDetailViewModel: SupplementDetailViewModel {
             .disposed(by: self.disposeBag)
     }
     
-    func fetchTerm() {
+    func fetchTerms() {
         self.supplementNetworkService.fetchTermDescription()
             .subscribe(onSuccess: { [weak self] terms in
                 guard let self
@@ -135,13 +137,5 @@ extension DefaultSupplementDetailViewModel: SupplementDetailViewModel {
                 self.termsRelay.accept(tmp)
             })
             .disposed(by: self.disposeBag)
-    }
-}
-
-extension String {
-    func toMaterial(with materialType: MaterialType, termsDescription: String? = nil) -> Material {
-        Material(category: materialType.rawValue,
-                 name: self,
-                 termsDescription: termsDescription)
     }
 }
