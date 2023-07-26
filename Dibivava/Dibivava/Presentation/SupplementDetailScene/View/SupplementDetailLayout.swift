@@ -47,21 +47,47 @@ enum SupplementDetailLayout {
     private func createComponentLayout(itemCount: Int) -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { (sectionNumber, env) -> NSCollectionLayoutSection? in
             // 새로 배치
-//            let itemSize = NSCollectionLayoutSize(
-//                widthDimension: .fractionalWidth(1.0),
-//                heightDimension: .estimated(70)
-//            )
-//            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+            let itemSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .estimated(70)
+            )
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+
+            let groupSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .estimated(70)
+            )
+            let group = NSCollectionLayoutGroup.horizontal(
+                layoutSize: groupSize,
+                subitems: [item]
+            )
+
+            let sectionHeaderSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .absolute(50))
+
+            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+                layoutSize: sectionHeaderSize,
+                elementKind: UICollectionView.elementKindSectionHeader,
+                alignment: .top)
+            sectionHeader.pinToVisibleBounds = false
+
+            let section = NSCollectionLayoutSection(group: group)
+            section.boundarySupplementaryItems = [sectionHeader]
+            section.contentInsets = .init(top: 0, leading: 16, bottom: 10, trailing: 16)
+            section.interGroupSpacing = 10
+            
+//            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+//                                                  heightDimension: .estimated(100))
+//            let itme = NSCollectionLayoutItem(layoutSize: itemSize)
+//            // estimated를 사용하게 되면 contentInsets으로 조절하면 값이 무시가 됩니다.
+//            itme.edgeSpacing = NSCollectionLayoutEdgeSpacing(leading: nil, top: .fixed(20), trailing: nil, bottom: nil)
 //
-//            let groupSize = NSCollectionLayoutSize(
-//                widthDimension: .fractionalWidth(1.0),
-//                heightDimension: .estimated(300)
-//            )
-//            let group = NSCollectionLayoutGroup.horizontal(
-//                layoutSize: groupSize,
-//                subitems: [item]
-//            )
-////            group.interItemSpacing = .fixed(10)
+//            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+//                                                   heightDimension: .estimated(100))
+//            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
+//                                                           subitems: [itme])
+//            group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20)
 //
 //            let sectionHeaderSize = NSCollectionLayoutSize(
 //                widthDimension: .fractionalWidth(1.0),
@@ -75,33 +101,6 @@ enum SupplementDetailLayout {
 //
 //            let section = NSCollectionLayoutSection(group: group)
 //            section.boundarySupplementaryItems = [sectionHeader]
-//            section.contentInsets = .init(top: 0, leading: 16, bottom: 10, trailing: 16)
-//            section.interGroupSpacing = 10
-            
-            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                  heightDimension: .estimated(100))
-            let itme = NSCollectionLayoutItem(layoutSize: itemSize)
-            // estimated를 사용하게 되면 contentInsets으로 조절하면 값이 무시가 됩니다.
-            itme.edgeSpacing = NSCollectionLayoutEdgeSpacing(leading: nil, top: .fixed(20), trailing: nil, bottom: nil)
-            
-            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                   heightDimension: .estimated(100))
-            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
-                                                           subitems: [itme])
-            group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20)
-            
-            let sectionHeaderSize = NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1.0),
-                heightDimension: .absolute(50))
-
-            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-                layoutSize: sectionHeaderSize,
-                elementKind: UICollectionView.elementKindSectionHeader,
-                alignment: .top)
-            sectionHeader.pinToVisibleBounds = false
-
-            let section = NSCollectionLayoutSection(group: group)
-            section.boundarySupplementaryItems = [sectionHeader]
             
             return section
         }

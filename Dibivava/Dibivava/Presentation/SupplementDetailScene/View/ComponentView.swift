@@ -251,7 +251,6 @@ extension ComponentView: ComponentCollectionViewCellDelegate {
         
         switch sender {
         case true:
-            print(">>>", indexPath)
             item.numberOfLines = 0
             
             if snapshot.indexOfItem(item) == nil {
@@ -263,7 +262,6 @@ extension ComponentView: ComponentCollectionViewCellDelegate {
             dataSource?.apply(snapshot, animatingDifferences: false)
 
         case false:
-            print(">>>", indexPath)
             item.numberOfLines = 1
             
             if snapshot.indexOfItem(item) == nil {

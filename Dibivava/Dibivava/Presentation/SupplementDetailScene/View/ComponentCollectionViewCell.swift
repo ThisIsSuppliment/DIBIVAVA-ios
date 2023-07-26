@@ -17,7 +17,7 @@ protocol ComponentCollectionViewCellDelegate: AnyObject {
 
 final class ComponentCollectionViewCell: UICollectionViewCell {
     static let identifier: String = String(describing: ComponentCollectionViewCell.self)
-    weak var delegate: ComponentCollectionViewCellDelegate?
+    
     private let titleLabel: UILabel = UILabel().then {
         $0.textColor = .black
         $0.textAlignment = .left
@@ -32,17 +32,11 @@ final class ComponentCollectionViewCell: UICollectionViewCell {
         $0.clipsToBounds = true
     }
     
-    let termLabel: UILabel = UILabel().then {
+    private let termLabel: UILabel = UILabel().then {
         $0.textColor = .black
         $0.textAlignment = .left
         $0.numberOfLines = 1
     }
-    
-//    private let termDescriptionLabel: UILabel = UILabel().then {
-//        $0.textColor = .black
-//        $0.textAlignment = .left
-//        $0.numberOfLines = 1
-//    }
     
     private let toggleButton: UIButton = UIButton().then {
         let normalImage = UIImage(systemName: "chevron.left")
@@ -52,17 +46,14 @@ final class ComponentCollectionViewCell: UICollectionViewCell {
         $0.setImage(selectedImage, for: .selected)
     }
     
-    private var heightConstraint: Constraint?
-    
-//    private var isExpanded = false
+    weak var delegate: ComponentCollectionViewCellDelegate?
+    let disposeBag: DisposeBag = DisposeBag()
     var isExpanded = false {
            didSet {
                termLabel.numberOfLines = isExpanded ? 0 : 1
            }
        }
     
-    let disposeBag: DisposeBag = DisposeBag()
-
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -85,10 +76,8 @@ final class ComponentCollectionViewCell: UICollectionViewCell {
         self.titleLabel.text = ""
         self.rankLabel.text = ""
         self.termLabel.text = ""
-//        self.termDescriptionLabel.text = ""
         self.isExpanded = false
         self.titleLabel.textAlignment = .left
-        self.heightConstraint = nil
     }
     
     func configure(title: String, isAdd: Bool, terms: String, level: String?) {
@@ -111,7 +100,6 @@ final class ComponentCollectionViewCell: UICollectionViewCell {
                 self.rankLabel.text = "\(level)군"
             }
             self.termLabel.text = terms + "\n222222222222222222222222222222222222222222"
-//            self.termDescriptionLabel.text = "222222222222222222222222222222222222222222"
         } else if !isAdd {
             self.rankLabel.text = ""
             self.toggleButton.isHidden = true
@@ -135,7 +123,6 @@ private extension ComponentCollectionViewCell {
     }
     
     func configureConstraints() {
-        heightConstraint?.deactivate()
         self.titleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(10)
             make.leading.equalToSuperview().inset(10)
@@ -159,64 +146,20 @@ private extension ComponentCollectionViewCell {
             make.trailing.equalTo(self.toggleButton.snp.leading).offset(-10)
             make.bottom.equalToSuperview().inset(10)
         }
-        
-//        self.termDescriptionLabel.snp.makeConstraints { make in
-//            make.leading.equalToSuperview().inset(10)
-//            make.trailing.equalTo(self.toggleButton.snp.leading).inset(10)
-//            make.top.equalTo(termLabel.snp.bottom).offset(10)
-//            descriptionHeightConstraint = make.height.equalTo(0).constraint
-//        }
-        
-//        self.snp.makeConstraints { make in
-//            heightConstraint = make.height.equalTo(self.contentView.frame.height).constraint
-//        }
     }
     
     func bind() {
         self.toggleButton.rx.tap
             .subscribe(onNext: { [weak self] in
-//                self?.toggleHeight()
                 guard let self else { return }
-                print("tappp")
-                self.isExpanded.toggle()
-                self.toggleButton.isSelected.toggle()
-                self.delegate?.showHideButtonTapped(self, sender: self.isExpanded)
+                self.toggleHeight()
             })
             .disposed(by: disposeBag)
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     func toggleHeight() {
         self.isExpanded.toggle()
         self.toggleButton.isSelected.toggle()
-        print(self.isExpanded, self.toggleButton.isSelected)
-//        UIView.animate(withDuration: 0.3) { [weak self] in
-//            guard let self = self else { return }
-//            print(self.isExpanded, self.termDescriptionLabel.intrinsicContentSize.height, self.contentView.frame.height)
-//
-//            self.descriptionHeightConstraint?.update(offset: self.isExpanded ? self.termDescriptionLabel.intrinsicContentSize.height : 0)
-//            self.heightConstraint?.update(offset: self.isExpanded ? self.termDescriptionLabel.intrinsicContentSize.height + self.contentView.frame.height : self.contentView.frame.height)
-//            self.layoutIfNeeded()
-
-            //
-//            self.heightConstraint?.deactivate()
-//            self.layoutIfNeeded()
-//
-//            self.descriptionHeightConstraint?.update(offset: self.isExpanded ? self.termDescriptionLabel.intrinsicContentSize.height : 0)
-//
-//            // contentView의 높이를 조정
-//            self.heightConstraint?.update(offset: self.isExpanded ? self.termDescriptionLabel.intrinsicContentSize.height + 110.66666666666666 : 70)
-//
-//            // contentView의 높이 제약 조건을 활성화
-//            self.heightConstraint?.activate()
-//
-//            self.layoutIfNeeded()
+        self.delegate?.showHideButtonTapped(self, sender: self.isExpanded)
     }
 }
