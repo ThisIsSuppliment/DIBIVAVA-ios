@@ -35,6 +35,7 @@ final class ComponentCollectionViewCell: UICollectionViewCell {
     private let termLabel: UILabel = UILabel().then {
         $0.textColor = .black
         $0.textAlignment = .left
+        $0.font = UIFont.systemFont(ofSize: 12)
         $0.numberOfLines = 1
     }
     
@@ -99,7 +100,7 @@ final class ComponentCollectionViewCell: UICollectionViewCell {
                 }
                 self.rankLabel.text = "\(level)군"
             }
-            self.termLabel.text = terms + "\n222222222222222222222222222222222222222222"
+            self.termLabel.text = terms
         } else if !isAdd {
             self.rankLabel.text = ""
             self.toggleButton.isHidden = true

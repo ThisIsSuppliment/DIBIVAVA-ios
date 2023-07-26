@@ -211,10 +211,14 @@ private extension ComponentView {
                 withReuseIdentifier: ComponentCollectionViewCell.identifier,
                 for: indexPath
             ) as! ComponentCollectionViewCell
+            
+            let nameOfTerms = item.terms?.joined(separator: " | ") ?? ""
+            let descriptionOfTerms = item.termsDescription ?? ""
+
             cell.delegate = self
             cell.configure(title: item.name ?? "없음",
                            isAdd: item.category == "additive" && item.name != nil,
-                           terms: item.terms?.joined(separator: " | ") ?? "",
+                           terms: nameOfTerms + "\n" + descriptionOfTerms,
                            level: item.level)
             
             return cell

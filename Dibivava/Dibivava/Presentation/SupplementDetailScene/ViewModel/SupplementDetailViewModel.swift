@@ -26,6 +26,7 @@ protocol SupplementDetailViewModel: SupplementDetailViewModelInput, SupplementDe
 class DefaultSupplementDetailViewModel {
     private let disposeBag = DisposeBag()
     private let supplementDetailRelay = PublishRelay<SupplementDetail?>()
+    private let termsRelay: BehaviorRelay<[String: String]> = .init(value: [:])
     private let materialDetailRelay = PublishRelay<[Material]?>()
     private let materialRelay: BehaviorRelay<[MaterialType:[Material]]?> = .init(value: [.main: [], .sub: [], .addictive: []])
     private let numOfMainMaterialRelay = PublishRelay<Int>()
@@ -42,6 +43,7 @@ class DefaultSupplementDetailViewModel {
         self.id = id
         self.material = [:]
         self.supplementNetworkService = supplementNetworkService
+        self.fetchTerm()
     }
 }
 
@@ -104,12 +106,33 @@ extension DefaultSupplementDetailViewModel: SupplementDetailViewModel {
                 }
 
                 self.numOfAdditiveRelay.accept(additives?.count)
-                
-                self.material[.addictive] = additives?.map { $0.toMaterial() } ?? [Material(category: "add")]
+                                
+                let additivesWithTermDescription = additives?.map {
+                    $0.toMaterial(
+                        termDescription: $0.termIds.map {
+                            "[\($0)]: " + (self.termsRelay.value[$0] ?? "설명 중비중")
+                        }.joined(separator: "\n")
+                    )
+                }
+                self.material[.addictive] = additivesWithTermDescription ?? [Material(category: "add")]
                 self.materialRelay.accept(self.material)
 
             }, onFailure: {
                 print("Error: Fetch Additives - \($0)")
+            })
+            .disposed(by: self.disposeBag)
+    }
+    
+    func fetchTerm() {
+        self.supplementNetworkService.fetchTermDescription()
+            .subscribe(onSuccess: { [weak self] terms in
+                guard let self
+                else {
+                    return
+                }
+                var tmp: [String: String] = [:]
+                terms.forEach { tmp[$0.name] = $0.description }
+                self.termsRelay.accept(tmp)
             })
             .disposed(by: self.disposeBag)
     }
@@ -122,7 +145,9 @@ enum MaterialType: String {
 }
 
 extension String {
-    func toMaterial(with materialType: MaterialType) -> Material {
-        Material(category: materialType.rawValue, name: self)
+    func toMaterial(with materialType: MaterialType, termsDescription: String? = nil) -> Material {
+        Material(category: materialType.rawValue,
+                 name: self,
+                 termsDescription: termsDescription)
     }
 }
