@@ -49,13 +49,13 @@ enum SupplementDetailLayout {
             // 새로 배치
             let itemSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
-                heightDimension: .estimated(70)
+                heightDimension: .estimated(100)
             )
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
             let groupSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
-                heightDimension: .estimated(70)
+                heightDimension: .estimated(100)
             )
             let group = NSCollectionLayoutGroup.horizontal(
                 layoutSize: groupSize,
@@ -79,14 +79,14 @@ enum SupplementDetailLayout {
             
 //            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
 //                                                  heightDimension: .estimated(100))
-//            let itme = NSCollectionLayoutItem(layoutSize: itemSize)
-//            // estimated를 사용하게 되면 contentInsets으로 조절하면 값이 무시가 됩니다.
-//            itme.edgeSpacing = NSCollectionLayoutEdgeSpacing(leading: nil, top: .fixed(20), trailing: nil, bottom: nil)
+//            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+//
+//            item.edgeSpacing = NSCollectionLayoutEdgeSpacing(leading: nil, top: .fixed(20), trailing: nil, bottom: nil)
 //
 //            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
 //                                                   heightDimension: .estimated(100))
 //            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
-//                                                           subitems: [itme])
+//                                                           subitems: [item])
 //            group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20)
 //
 //            let sectionHeaderSize = NSCollectionLayoutSize(

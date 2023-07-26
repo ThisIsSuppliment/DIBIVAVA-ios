@@ -152,7 +152,7 @@ final class ComponentView: UIView, UICollectionViewDelegate {
         }
         
         // 추후 수정
-        UIView.animate(withDuration: 1.5) {
+        UIView.animate(withDuration: 2.0) {
             self.collectionView.alpha = 1.0
         }
     }
@@ -218,7 +218,7 @@ private extension ComponentView {
             cell.delegate = self
             cell.configure(title: item.name ?? "없음",
                            isAdd: item.category == "additive" && item.name != nil,
-                           terms: nameOfTerms + "\n" + descriptionOfTerms,
+                           terms: nameOfTerms + "\n\n" + descriptionOfTerms,
                            level: item.level)
             
             return cell
@@ -248,33 +248,13 @@ private extension ComponentView {
 
 extension ComponentView: ComponentCollectionViewCellDelegate {
     func showHideButtonTapped(_ cell: ComponentCollectionViewCell, sender: Bool) {
-        guard let indexPath = collectionView.indexPath(for: cell),
-              var snapshot = dataSource?.snapshot(),
-              var item = dataSource?.itemIdentifier(for: indexPath)
+        guard var snapshot = dataSource?.snapshot()
         else { return }
         
-        switch sender {
-        case true:
-            item.numberOfLines = 0
-            
-            if snapshot.indexOfItem(item) == nil {
-                snapshot.appendItems([item])
-            } else {
-                snapshot.reloadItems([item])
-            }
-
-            dataSource?.apply(snapshot, animatingDifferences: false)
-
-        case false:
-            item.numberOfLines = 1
-            
-            if snapshot.indexOfItem(item) == nil {
-                snapshot.appendItems([item])
-            } else {
-                snapshot.reloadItems([item])
-            }
-
-            dataSource?.apply(snapshot, animatingDifferences: false)
+        dataSource?.apply(snapshot, animatingDifferences: false)
+        
+        self.collectionView.snp.updateConstraints { make in
+            make.height.greaterThanOrEqualTo(self.collectionView.contentSize.height)
         }
     }
 }

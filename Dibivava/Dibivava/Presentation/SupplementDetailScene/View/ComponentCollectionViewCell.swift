@@ -23,7 +23,7 @@ final class ComponentCollectionViewCell: UICollectionViewCell {
         $0.textAlignment = .left
     }
     
-    private let rankLabel: BasePaddingLabel = BasePaddingLabel().then {
+    private let rankLabel: BasePaddingLabel = BasePaddingLabel(padding: UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)).then {
         $0.textColor = .black
         $0.textAlignment = .center
         $0.layer.borderColor = UIColor.black.cgColor
@@ -48,12 +48,14 @@ final class ComponentCollectionViewCell: UICollectionViewCell {
     }
     
     weak var delegate: ComponentCollectionViewCellDelegate?
-    let disposeBag: DisposeBag = DisposeBag()
+    
+    private let disposeBag: DisposeBag = DisposeBag()
+    
     var isExpanded = false {
-           didSet {
-               termLabel.numberOfLines = isExpanded ? 0 : 1
-           }
+       didSet {
+           termLabel.numberOfLines = isExpanded ? 0 : 1
        }
+   }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -78,7 +80,6 @@ final class ComponentCollectionViewCell: UICollectionViewCell {
         self.rankLabel.text = ""
         self.termLabel.text = ""
         self.isExpanded = false
-        self.titleLabel.textAlignment = .left
     }
     
     func configure(title: String, isAdd: Bool, terms: String, level: String?) {
@@ -86,6 +87,8 @@ final class ComponentCollectionViewCell: UICollectionViewCell {
         
         if isAdd {
             if let level = level {
+                self.rankLabel.text = "\(level)군"
+                
                 switch level {
                 case "1":
                     self.rankLabel.backgroundColor = UIColor(rgb: 0xFA6363)
@@ -98,13 +101,13 @@ final class ComponentCollectionViewCell: UICollectionViewCell {
                 default:
                     print("알 수 없는 등급")
                 }
-                self.rankLabel.text = "\(level)군"
             }
+            self.toggleButton.isHidden = false
             self.termLabel.text = terms
         } else if !isAdd {
-            self.rankLabel.text = ""
             self.toggleButton.isHidden = true
             self.titleLabel.textAlignment = .center
+            
             self.titleLabel.snp.updateConstraints { make in
                 make.trailing.equalTo(self.rankLabel.snp.leading).offset(10)
             }
@@ -131,7 +134,7 @@ private extension ComponentCollectionViewCell {
         }
         
         self.toggleButton.snp.makeConstraints { make in
-            make.size.equalTo(20)
+            make.size.equalTo(15)
             make.trailing.equalToSuperview().inset(10)
             make.bottom.equalToSuperview().inset(10)
         }
@@ -142,7 +145,7 @@ private extension ComponentCollectionViewCell {
         }
         
         self.termLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.titleLabel.snp.bottom).offset(10)
+            make.top.equalTo(self.titleLabel.snp.bottom).offset(20)
             make.leading.equalTo(self.titleLabel.snp.leading)
             make.trailing.equalTo(self.toggleButton.snp.leading).offset(-10)
             make.bottom.equalToSuperview().inset(10)
