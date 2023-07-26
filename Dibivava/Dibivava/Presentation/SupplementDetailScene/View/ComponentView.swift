@@ -126,7 +126,6 @@ final class ComponentView: UIView, UICollectionViewDelegate {
         self.configureSubView()
         self.configureConstraints()
         self.configureDataSource()
-//        self.observeCollectionViewContentSize()
         self.collectionView.alpha = 0.0
     }
     
@@ -195,7 +194,7 @@ private extension ComponentView {
         }
         
         self.resourceLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.collectionView.snp.bottom).offset(12)
+            make.top.equalTo(self.collectionView.snp.bottom).offset(50)
             make.horizontalEdges.equalToSuperview().inset(20)
         }
         
@@ -212,7 +211,7 @@ private extension ComponentView {
                 withReuseIdentifier: ComponentCollectionViewCell.identifier,
                 for: indexPath
             ) as! ComponentCollectionViewCell
-            
+            cell.delegate = self
             cell.configure(title: item.name ?? "없음",
                            isAdd: item.category == "additive" && item.name != nil,
                            terms: item.terms?.joined(separator: " | ") ?? "",
@@ -241,21 +240,39 @@ private extension ComponentView {
             return headerView
         }
     }
-    
-    func observeCollectionViewContentSize() {
-        self.collectionView.rx.observe(CGSize.self, "contentSize")
-            .subscribe(onNext: { [weak self] size in
-                guard let size = size
-                else {
-                    return
-                }
-                self?.collectionViewContentSizeDidChange(size: size)
-            })
-            .disposed(by: disposeBag)
-    }
-    
-    func collectionViewContentSizeDidChange(size: CGSize) {
-        self.heightConstraint?.update(offset: size.height)
-        self.heightChangedSubject.onNext(size.height)
+}
+
+extension ComponentView: ComponentCollectionViewCellDelegate {
+    func showHideButtonTapped(_ cell: ComponentCollectionViewCell, sender: Bool) {
+        guard let indexPath = collectionView.indexPath(for: cell),
+              var snapshot = dataSource?.snapshot(),
+              var item = dataSource?.itemIdentifier(for: indexPath)
+        else { return }
+        
+        switch sender {
+        case true:
+            print(">>>", indexPath)
+            item.numberOfLines = 0
+            
+            if snapshot.indexOfItem(item) == nil {
+                snapshot.appendItems([item])
+            } else {
+                snapshot.reloadItems([item])
+            }
+
+            dataSource?.apply(snapshot, animatingDifferences: false)
+
+        case false:
+            print(">>>", indexPath)
+            item.numberOfLines = 1
+            
+            if snapshot.indexOfItem(item) == nil {
+                snapshot.appendItems([item])
+            } else {
+                snapshot.reloadItems([item])
+            }
+
+            dataSource?.apply(snapshot, animatingDifferences: false)
+        }
     }
 }

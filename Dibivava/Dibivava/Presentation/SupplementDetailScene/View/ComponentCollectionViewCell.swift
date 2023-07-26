@@ -11,9 +11,13 @@ import RxCocoa
 import SnapKit
 import Then
 
+protocol ComponentCollectionViewCellDelegate: AnyObject {
+    func showHideButtonTapped(_ cell: ComponentCollectionViewCell, sender: Bool)
+}
+
 final class ComponentCollectionViewCell: UICollectionViewCell {
     static let identifier: String = String(describing: ComponentCollectionViewCell.self)
-    
+    weak var delegate: ComponentCollectionViewCellDelegate?
     private let titleLabel: UILabel = UILabel().then {
         $0.textColor = .black
         $0.textAlignment = .left
@@ -28,39 +32,36 @@ final class ComponentCollectionViewCell: UICollectionViewCell {
         $0.clipsToBounds = true
     }
     
-    private let termLabel: UILabel = UILabel().then {
+    let termLabel: UILabel = UILabel().then {
         $0.textColor = .black
         $0.textAlignment = .left
+        $0.numberOfLines = 1
     }
     
-    private let termDescriptionLabel: UILabel = UILabel().then {
-        $0.textColor = .black
-        $0.textAlignment = .left
-        $0.numberOfLines = 0
-    }
-    
-//    private let toggleButton: UIButton = UIButton().then {
-//        let normalImage = UIImage(systemName: "chevron.left")
-//        $0.setImage(normalImage, for: .normal)
-//
-//        let selectedImage = UIImage(systemName: "chevron.down")
-//        $0.setImage(selectedImage, for: .selected)
+//    private let termDescriptionLabel: UILabel = UILabel().then {
+//        $0.textColor = .black
+//        $0.textAlignment = .left
+//        $0.numberOfLines = 1
 //    }
     
+    private let toggleButton: UIButton = UIButton().then {
+        let normalImage = UIImage(systemName: "chevron.left")
+        $0.setImage(normalImage, for: .normal)
+
+        let selectedImage = UIImage(systemName: "chevron.down")
+        $0.setImage(selectedImage, for: .selected)
+    }
+    
     private var heightConstraint: Constraint?
-    private var isExpanded = false
     
-    private let toggleButtonTapRelay = PublishRelay<Void>()
+//    private var isExpanded = false
+    var isExpanded = false {
+           didSet {
+               termLabel.numberOfLines = isExpanded ? 0 : 1
+           }
+       }
+    
     let disposeBag: DisposeBag = DisposeBag()
-    var toggleButtonTapped: ControlEvent<Void> {
-        return ControlEvent(events: toggleButtonTapRelay.asObservable())
-    }
-    private var descriptionHeightConstraint: Constraint?
-    private let heightChangedSubject = PublishSubject<CGFloat>()
-    
-    var heightChanged: Observable<CGFloat> {
-        return heightChangedSubject.asObservable()
-    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -84,45 +85,36 @@ final class ComponentCollectionViewCell: UICollectionViewCell {
         self.titleLabel.text = ""
         self.rankLabel.text = ""
         self.termLabel.text = ""
-        self.termDescriptionLabel.text = ""
+//        self.termDescriptionLabel.text = ""
         self.isExpanded = false
         self.titleLabel.textAlignment = .left
         self.heightConstraint = nil
     }
     
     func configure(title: String, isAdd: Bool, terms: String, level: String?) {
-//        print(title, isAdd, terms)
         self.titleLabel.text = title
         
         if isAdd {
             if let level = level {
                 switch level {
                 case "1":
-//                    self.rankLabel.layer.borderColor = UIColor.orange.cgColor
-//                    self.rankLabel.textColor = UIColor(rgb: 0xFA6363)
                     self.rankLabel.backgroundColor = UIColor(rgb: 0xFA6363)
                 case "2A":
-//                    self.rankLabel.layer.borderColor = UIColor.orange.cgColor
-//                    self.rankLabel.textColor = .orange
                     self.rankLabel.backgroundColor = UIColor(rgb: 0xFFB783)
                 case "2B":
-//                    self.rankLabel.layer.borderColor = UIColor.yellow.cgColor
-//                    self.rankLabel.textColor = .yellow
                     self.rankLabel.backgroundColor =  UIColor(rgb: 0xEFDA67)
                 case "3":
-//                    self.rankLabel.layer.borderColor = UIColor.green.cgColor
-//                    self.rankLabel.textColor = .green
                     self.rankLabel.backgroundColor = UIColor(rgb: 0x90CA9D)
                 default:
                     print("알 수 없는 등급")
                 }
                 self.rankLabel.text = "\(level)군"
             }
-            self.termLabel.text = terms
-            self.termDescriptionLabel.text = ""//"########################################### \n 222222222222222222222222222222222222222222"
+            self.termLabel.text = terms + "\n222222222222222222222222222222222222222222"
+//            self.termDescriptionLabel.text = "222222222222222222222222222222222222222222"
         } else if !isAdd {
             self.rankLabel.text = ""
-//            self.toggleButton.isHidden = true
+            self.toggleButton.isHidden = true
             self.titleLabel.textAlignment = .center
             self.titleLabel.snp.updateConstraints { make in
                 make.trailing.equalTo(self.rankLabel.snp.leading).offset(10)
@@ -137,26 +129,24 @@ final class ComponentCollectionViewCell: UICollectionViewCell {
 
 private extension ComponentCollectionViewCell {
     func configureSubviews() {
-//        [titleLabel, toggleButton, rankLabel, termLabel, termDescriptionLabel].forEach {
-//            self.contentView.addSubview($0)
-//        }
-        [titleLabel, rankLabel, termLabel].forEach {
+        [titleLabel, toggleButton, rankLabel, termLabel].forEach {
             self.contentView.addSubview($0)
         }
     }
     
     func configureConstraints() {
+        heightConstraint?.deactivate()
         self.titleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(10)
             make.leading.equalToSuperview().inset(10)
             make.trailing.equalTo(self.rankLabel.snp.leading).offset(-10)
         }
         
-//        self.toggleButton.snp.makeConstraints { make in
-//            make.size.equalTo(50)
-//            make.centerY.equalTo(self.termLabel.snp.centerY)
-//            make.trailing.equalToSuperview()
-//        }
+        self.toggleButton.snp.makeConstraints { make in
+            make.size.equalTo(20)
+            make.trailing.equalToSuperview().inset(10)
+            make.bottom.equalToSuperview().inset(10)
+        }
       
         self.rankLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(10)
@@ -166,42 +156,67 @@ private extension ComponentCollectionViewCell {
         self.termLabel.snp.makeConstraints { make in
             make.top.equalTo(self.titleLabel.snp.bottom).offset(10)
             make.leading.equalTo(self.titleLabel.snp.leading)
-//            make.trailing.equalTo(self.toggleButton.snp.leading).offset(-20)
-            make.trailing.equalToSuperview().inset(10)
-//            make.height.equalTo(self.termLabel.intrinsicContentSize.height)
+            make.trailing.equalTo(self.toggleButton.snp.leading).offset(-10)
+            make.bottom.equalToSuperview().inset(10)
         }
         
 //        self.termDescriptionLabel.snp.makeConstraints { make in
-//            make.leading.trailing.equalToSuperview().inset(10)
+//            make.leading.equalToSuperview().inset(10)
+//            make.trailing.equalTo(self.toggleButton.snp.leading).inset(10)
 //            make.top.equalTo(termLabel.snp.bottom).offset(10)
-//            make.bottom.equalToSuperview().inset(10)
 //            descriptionHeightConstraint = make.height.equalTo(0).constraint
+//        }
+        
+//        self.snp.makeConstraints { make in
+//            heightConstraint = make.height.equalTo(self.contentView.frame.height).constraint
 //        }
     }
     
     func bind() {
-//        self.toggleButton.rx.tap
-//            .bind(to: toggleButtonTapRelay)
-//            .disposed(by: disposeBag)
-        
-//        self.toggleButton.rx.tap
-//            .subscribe(onNext: { [weak self] in
+        self.toggleButton.rx.tap
+            .subscribe(onNext: { [weak self] in
 //                self?.toggleHeight()
-//            })
-//            .disposed(by: disposeBag)
+                guard let self else { return }
+                print("tappp")
+                self.isExpanded.toggle()
+                self.toggleButton.isSelected.toggle()
+                self.delegate?.showHideButtonTapped(self, sender: self.isExpanded)
+            })
+            .disposed(by: disposeBag)
     }
     
+    
+    
+    
+    
+    
+    
+    
+    
     func toggleHeight() {
-//        print("++ toggleHeight")
-//        isExpanded.toggle()
+        self.isExpanded.toggle()
+        self.toggleButton.isSelected.toggle()
+        print(self.isExpanded, self.toggleButton.isSelected)
 //        UIView.animate(withDuration: 0.3) { [weak self] in
 //            guard let self = self else { return }
-////                self.snp.updateConstraints { make in
-////                    make.height.equalTo(self.isExpanded ? 140 : 70)
-////                }
+//            print(self.isExpanded, self.termDescriptionLabel.intrinsicContentSize.height, self.contentView.frame.height)
 //
 //            self.descriptionHeightConstraint?.update(offset: self.isExpanded ? self.termDescriptionLabel.intrinsicContentSize.height : 0)
-//            self.contentView.layoutIfNeeded()
-//        }
+//            self.heightConstraint?.update(offset: self.isExpanded ? self.termDescriptionLabel.intrinsicContentSize.height + self.contentView.frame.height : self.contentView.frame.height)
+//            self.layoutIfNeeded()
+
+            //
+//            self.heightConstraint?.deactivate()
+//            self.layoutIfNeeded()
+//
+//            self.descriptionHeightConstraint?.update(offset: self.isExpanded ? self.termDescriptionLabel.intrinsicContentSize.height : 0)
+//
+//            // contentView의 높이를 조정
+//            self.heightConstraint?.update(offset: self.isExpanded ? self.termDescriptionLabel.intrinsicContentSize.height + 110.66666666666666 : 70)
+//
+//            // contentView의 높이 제약 조건을 활성화
+//            self.heightConstraint?.activate()
+//
+//            self.layoutIfNeeded()
     }
 }

@@ -47,6 +47,7 @@ struct Material: Hashable {
     let name: String?
     let terms: [String]?
     let level: String?
+    var numberOfLines: Int
     
     init(id: Int? = nil,
          category: String,
@@ -59,5 +60,6 @@ struct Material: Hashable {
         self.name = name
         self.terms = terms
         self.level = level
+        self.numberOfLines = 1
     }
 }
