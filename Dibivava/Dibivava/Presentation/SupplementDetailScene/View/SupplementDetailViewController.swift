@@ -41,6 +41,7 @@ class SupplementDetailViewController: UIViewController {
         self.configureConstraints()
         self.bind()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         self.viewModel.viewWillAppear()
         self.navigationController?.navigationBar.isHidden = false
@@ -152,20 +153,5 @@ private extension SupplementDetailViewController {
         let totalHeight = supplementDetailView.frame.height + componentView.frame.height + 7
         
         scrollView.contentSize = CGSize(width: view.bounds.width, height: totalHeight)
-    }
-}
-
-// 추후 수정
-extension UIImageView {
-    func load(url: URL) {
-        DispatchQueue.global().async { [weak self] in
-            if let data = try? Data(contentsOf: url) {
-                if let image = UIImage(data: data) {
-                    DispatchQueue.main.async {
-                        self?.image = image
-                    }
-                }
-            }
-        }
     }
 }
