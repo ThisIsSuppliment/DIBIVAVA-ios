@@ -8,7 +8,7 @@
 import Foundation
 
 struct Material: Hashable {
-    let id: Int?
+    let id: String?
     let category: String
     let name: String?
     let terms: [String]?
@@ -16,7 +16,7 @@ struct Material: Hashable {
     var numberOfLines: Int
     var termsDescription: String?
     
-    init(id: Int? = nil,
+    init(id: String? = UUID().uuidString,
          category: String,
          name: String? = nil,
          terms: [String]? = nil,

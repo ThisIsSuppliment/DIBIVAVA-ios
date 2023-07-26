@@ -22,7 +22,7 @@ class FunctionalityCollectionViewCell: UICollectionViewCell {
         
         self.layer.borderColor = UIColor.lightGray.cgColor
         self.layer.borderWidth = 0.25
-        self.layer.cornerRadius = 10.0
+        self.layer.cornerRadius = 20.0
         self.clipsToBounds = true
         
         configureSubviews()
