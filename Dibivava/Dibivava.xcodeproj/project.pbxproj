@@ -46,8 +46,8 @@
 		7C6091F62A658BA90062FF01 /* SupplementDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6091F52A658BA90062FF01 /* SupplementDetailViewModel.swift */; };
 		7C6300782A6D616B00C31E93 /* MaterialResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6300772A6D616B00C31E93 /* MaterialResponse.swift */; };
 		7C63007A2A6F684A00C31E93 /* BasePaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6300792A6F684A00C31E93 /* BasePaddingLabel.swift */; };
-		7C63007C2A71042C00C31E93 /* TermsDescription.json in Resources */ = {isa = PBXBuildFile; fileRef = 7C63007B2A71042C00C31E93 /* TermsDescription.json */; };
 		7C63007E2A71055C00C31E93 /* TermDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C63007D2A71055C00C31E93 /* TermDTO.swift */; };
+		7C6300822A71382500C31E93 /* TermsDescription.json in Resources */ = {isa = PBXBuildFile; fileRef = 7C6300812A71382500C31E93 /* TermsDescription.json */; };
 		7C8217392A69B928001DB57D /* SupplementNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8217382A69B928001DB57D /* SupplementNetworkService.swift */; };
 		7CC9524E2A6A6F3B00E2F739 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7CC9524D2A6A6F3B00E2F739 /* RxSwift */; };
 		7CC952502A6A6F4300E2F739 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 7CC9524F2A6A6F4300E2F739 /* RxCocoa */; };
@@ -117,8 +117,8 @@
 		7C6091F52A658BA90062FF01 /* SupplementDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementDetailViewModel.swift; sourceTree = "<group>"; };
 		7C6300772A6D616B00C31E93 /* MaterialResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialResponse.swift; sourceTree = "<group>"; };
 		7C6300792A6F684A00C31E93 /* BasePaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePaddingLabel.swift; sourceTree = "<group>"; };
-		7C63007B2A71042C00C31E93 /* TermsDescription.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TermsDescription.json; sourceTree = "<group>"; };
 		7C63007D2A71055C00C31E93 /* TermDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermDTO.swift; sourceTree = "<group>"; };
+		7C6300812A71382500C31E93 /* TermsDescription.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TermsDescription.json; sourceTree = "<group>"; };
 		7C8217382A69B928001DB57D /* SupplementNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementNetworkService.swift; sourceTree = "<group>"; };
 		7CC952512A6A6FCE00E2F739 /* SUIT-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-ExtraBold.ttf"; sourceTree = "<group>"; };
 		7CC952522A6A6FCE00E2F739 /* SUIT-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-Regular.ttf"; sourceTree = "<group>"; };
@@ -340,6 +340,7 @@
 		7C6091F82A6591010062FF01 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				7C6300812A71382500C31E93 /* TermsDescription.json */,
 				7CC952572A6A6FCE00E2F739 /* SUIT-Bold.ttf */,
 				7CC952512A6A6FCE00E2F739 /* SUIT-ExtraBold.ttf */,
 				7CC952542A6A6FCE00E2F739 /* SUIT-ExtraLight.ttf */,
@@ -353,7 +354,6 @@
 				7C6091C12A6588C50062FF01 /* Assets.xcassets */,
 				7C6091C32A6588C50062FF01 /* LaunchScreen.storyboard */,
 				7C6091C62A6588C50062FF01 /* Info.plist */,
-				7C63007B2A71042C00C31E93 /* TermsDescription.json */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -490,13 +490,13 @@
 			files = (
 				7CC952602A6A6FCE00E2F739 /* SUIT-Bold.ttf in Resources */,
 				7CC9525B2A6A6FCE00E2F739 /* SUIT-Regular.ttf in Resources */,
-				7C63007C2A71042C00C31E93 /* TermsDescription.json in Resources */,
 				09017D3C2A6BCED000A8528A /* Assets.xcassets in Resources */,
 				7CC952612A6A6FCE00E2F739 /* SUIT-Medium.ttf in Resources */,
 				7CC9525D2A6A6FCE00E2F739 /* SUIT-ExtraLight.ttf in Resources */,
 				7CC9525E2A6A6FCE00E2F739 /* SUIT-Heavy.ttf in Resources */,
 				7C6091C52A6588C50062FF01 /* LaunchScreen.storyboard in Resources */,
 				7CC9525F2A6A6FCE00E2F739 /* SUIT-Light.ttf in Resources */,
+				7C6300822A71382500C31E93 /* TermsDescription.json in Resources */,
 				7CC9525C2A6A6FCE00E2F739 /* SUIT-SemiBold.ttf in Resources */,
 				7CC9525A2A6A6FCE00E2F739 /* SUIT-ExtraBold.ttf in Resources */,
 				7CC952622A6A6FCE00E2F739 /* SUIT-Thin.ttf in Resources */,
