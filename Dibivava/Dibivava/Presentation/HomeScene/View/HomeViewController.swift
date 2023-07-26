@@ -22,7 +22,7 @@ class HomeViewController: UIViewController {
     private let warningLabel = UITextView().then{
         $0.font = .pretendard(.Light, size: 12)
         $0.textColor = UIColor(rgb: 0x878787)
-        $0.text = "[주의사항]\n- 본 정보는 참고용으로, 법적 책임을 지지 않습니다.\n- 본 정보는 참고용으로만 제공되며 개별적인 상황에 따라 반드시 의료 전문가와 상담하여야 합니다. 어떠한 경우에도 본 앱의 내용을 근거로 한 자체 진단 또는 치료를 시도해서는 안 됩니다.\n\n[정보 출처]\n- 건강기능식품, 건강기능식품 품목제조신고(원재료), 건강기능식품 기능성원료인정현황, 건강기능식품 개별인정형 정보, 식품첨가물의기준및규격: 식품의약품안전처[https://www.foodsafetykorea.go.kr/]\n- 생리활성기능: 질병관리청 국가건강정보포털[https://health.kdca.go.kr/]\n발암물질: Wikipedia [https://ko.wikipedia.org/wiki/%EB%B0%9C%EC%95%94%EB%AC%BC%EC%A7%88]"
+        $0.text = "[주의사항]\n- 본 정보는 참고용으로, 법적 책임을 지지 않습니다.\n- 본 정보는 참고용으로만 제공되며 개별적인 상황에 따라 반드시 의료 전문가와 상담하여야 합니다. 어떠한 경우에도 본 앱의 내용을 근거로 한 자체 진단 또는 치료를 시도해서는 안 됩니다.\n\n[정보 출처]\n- 건강기능식품, 건강기능식품 품목제조신고(원재료), 건강기능식품 기능성원료인정현황, 건강기능식품 개별인정형 정보, 식품첨가물의기준및규격: 식품의약품안전처[https://www.foodsafetykorea.go.kr/]\n- 생리활성기능: 질병관리청 국가건강정보포털[https://health.kdca.go.kr/]\n- 발암물질: Wikipedia [https://ko.wikipedia.org/wiki/%EB%B0%9C%EC%95%94%EB%AC%BC%EC%A7%88]"
         $0.isEditable = false
         $0.isSelectable = true
         $0.dataDetectorTypes = .link
@@ -132,7 +132,6 @@ class HomeViewController: UIViewController {
         self.searchbar.snp.makeConstraints{
             $0.height.equalTo(42)
         }
-
         self.scrollView.snp.makeConstraints{
             $0.top.equalTo(topView.snp.bottom).offset(0)
             $0.left.right.bottom.equalToSuperview()
@@ -143,11 +142,12 @@ class HomeViewController: UIViewController {
             $0.edges.equalToSuperview().offset(0)
             $0.height.equalTo(900)
         }
-        
     }
     private func addsubView(){
         self.view.addSubview(scrollView)
-        scrollView.addSubview(contentView)
+        self.warningView.addSubview(warningLabel)
+        self.contentView.addSubview(warningView)
+        self.scrollView.addSubview(contentView)
         self.contentView.addSubview(hotLabel)
         self.contentView.addSubview(recommendCollectionView)
         self.view.addSubview(topView)
@@ -157,7 +157,6 @@ class HomeViewController: UIViewController {
         self.topView.addSubview(searhbarSV)
         self.searchTableview.bringSubviewToFront(self.view)
         self.contentView.addSubview(warningView)
-        self.warningView.addSubview(warningLabel)
     }
     private func configure(){
         self.view.backgroundColor = .white
