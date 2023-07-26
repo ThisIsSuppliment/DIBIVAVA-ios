@@ -39,6 +39,8 @@ final class ComponentCollectionViewCell: UICollectionViewCell {
     }
     
     private let toggleButton: UIButton = UIButton().then {
+        $0.tintColor = .darkGray
+
         let normalImage = UIImage(systemName: "chevron.down")
         $0.setImage(normalImage, for: .normal)
 
