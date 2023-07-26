@@ -105,6 +105,7 @@ final class ComponentCollectionViewCell: UICollectionViewCell {
             }
             self.toggleButton.isHidden = false
             self.termLabel.text = terms
+            self.termLabel.setLineSpacing(spacing: 4.0)
         } else if !isAdd {
             self.toggleButton.isHidden = true
             self.titleLabel.textAlignment = .center
@@ -135,7 +136,7 @@ private extension ComponentCollectionViewCell {
         }
         
         self.toggleButton.snp.makeConstraints { make in
-            make.size.equalTo(15)
+            make.size.equalTo(20)
             make.trailing.equalToSuperview().inset(10)
             make.bottom.equalToSuperview().inset(10)
         }

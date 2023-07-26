@@ -110,7 +110,7 @@ extension DefaultSupplementDetailViewModel: SupplementDetailViewModel {
                 let additivesWithTermDescription = additives?.map {
                     $0.toMaterial(
                         termDescription: $0.termIds.map {
-                            "\($0) - " + (self.termsRelay.value[$0] ?? "설명 중비중")
+                            "\($0) - " + (self.termsRelay.value[$0] ?? "설명 중비중") + "\n"
                         }.joined(separator: "\n")
                     )
                 }
