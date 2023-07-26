@@ -151,7 +151,7 @@ private extension ComponentCollectionViewCell {
             make.top.equalTo(self.titleLabel.snp.bottom).offset(20)
             make.leading.equalTo(self.titleLabel.snp.leading)
             make.trailing.equalTo(self.toggleButton.snp.leading).offset(-15)
-            make.bottom.equalToSuperview().inset(10)
+            make.bottom.equalToSuperview().inset(10).priority(.low)
         }
     }
     

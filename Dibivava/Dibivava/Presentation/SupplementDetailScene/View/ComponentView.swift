@@ -53,17 +53,17 @@ final class ComponentView: UIView, UICollectionViewDelegate {
     }
     
     let medicalDisclaimerLabel: UILabel = UILabel().then {
-        $0.textColor = .darkGray
         $0.textAlignment = .left
-        $0.font = UIFont.systemFont(ofSize: 14)
+        $0.font = .pretendard(.Light, size: 12)
+        $0.textColor = UIColor(rgb: 0x878787)
         $0.numberOfLines = 0
         $0.text = "- 본 정보는 참고용으로, 법적 책임을 지지 않습니다.\n- 본 정보는 참고용으로만 제공되며 개별적인 상황에 따라 반드시 의료 전문가와 상담하여야 합니다. 어떠한 경우에도 본 앱의 내용을 근거로 한 자체 진단 또는 치료를 시도해서는 안 됩니다."
     }
     
     let resourceLabel: UILabel = UILabel().then {
-        $0.textColor = .darkGray
         $0.textAlignment = .left
-        $0.font = UIFont.systemFont(ofSize: 14)
+        $0.font = .pretendard(.Light, size: 12)
+        $0.textColor = UIColor(rgb: 0x878787)
         $0.numberOfLines = 0
         $0.text = "- [성분 정보 출처] 건강기능식품: 식품안전나라/ 건강기능식품 품목제조신고(원재료), 건강기능식품 기능성원료인정현황, 건강기능식품 개별인정형 정보, 건강기능식품GMP 지정 현황: 식품의약품안전처 공공데이터활용/ 식품첨가물의기준및규격: 식품의약품안전처/ 생리활성기능: 질병관리청 국가건강정보포털"
     }
