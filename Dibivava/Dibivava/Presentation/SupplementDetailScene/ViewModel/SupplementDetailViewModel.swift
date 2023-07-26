@@ -14,7 +14,7 @@ protocol SupplementDetailViewModelInput {
 }
 
 protocol SupplementDetailViewModelOutput {
-    var supplementDetail: Driver<SupplementDetail?> { get }
+    var supplementDetail: Driver<SupplementDTO?> { get }
     var materialDriver: Driver<[MaterialType:[Material]]?> { get }
     var numOfMainMaterial: Driver<Int> { get }
     var numOfSubMaterial: Driver<Int?> { get }
@@ -25,7 +25,7 @@ protocol SupplementDetailViewModel: SupplementDetailViewModelInput, SupplementDe
 
 class DefaultSupplementDetailViewModel {
     private let disposeBag = DisposeBag()
-    private let supplementDetailRelay = PublishRelay<SupplementDetail?>()
+    private let supplementDetailRelay = PublishRelay<SupplementDTO?>()
     private let termsRelay: BehaviorRelay<[String: String]> = .init(value: [:])
     private let materialDetailRelay = PublishRelay<[Material]?>()
     private let materialRelay: BehaviorRelay<[MaterialType:[Material]]?> = .init(value: [.main: [], .sub: [], .addictive: []])
@@ -48,7 +48,7 @@ class DefaultSupplementDetailViewModel {
 }
 
 extension DefaultSupplementDetailViewModel: SupplementDetailViewModel {
-    var supplementDetail: Driver<SupplementDetail?> {
+    var supplementDetail: Driver<SupplementDTO?> {
         return self.supplementDetailRelay.asDriver(onErrorJustReturn: nil)
     }
     
@@ -110,7 +110,7 @@ extension DefaultSupplementDetailViewModel: SupplementDetailViewModel {
                 let additivesWithTermDescription = additives?.map {
                     $0.toMaterial(
                         termDescription: $0.termIds.map {
-                            "\($0) - " + (self.termsRelay.value[$0] ?? "설명 중비중")
+                            "\($0) - " + (self.termsRelay.value[$0] ?? "설명 중비중") + "\n"
                         }.joined(separator: "\n")
                     )
                 }
@@ -136,12 +136,6 @@ extension DefaultSupplementDetailViewModel: SupplementDetailViewModel {
             })
             .disposed(by: self.disposeBag)
     }
-}
-
-enum MaterialType: String {
-    case main
-    case sub
-    case addictive
 }
 
 extension String {

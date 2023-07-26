@@ -48,7 +48,7 @@ final class ComponentView: UIView, UICollectionViewDelegate {
     let titleLabel: UILabel = UILabel().then {
         $0.textColor = .black
         $0.textAlignment = .left
-        $0.font = UIFont.boldSystemFont(ofSize: 18)
+        $0.font = .pretendard(.ExtraBold, size: 18)
         $0.text = "이런 성분들이 있어요!"
     }
     

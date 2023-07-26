@@ -24,21 +24,21 @@ final class SupplementDetailView: UIView {
         $0.textColor = .black
         $0.textAlignment = .center
         $0.text = " "
-        $0.font = UIFont.systemFont(ofSize: 18)
+        $0.font = .pretendard(.Regular, size: 18)
     }
     
     let companyLabel: UILabel = UILabel().then {
         $0.textColor = .systemGray
         $0.textAlignment = .center
         $0.text = " "
-        $0.font = UIFont.systemFont(ofSize: 14)
+        $0.font = .pretendard(.Regular, size: 14)
     }
     
     let descriptionLabel: UILabel = UILabel().then {
         $0.textColor = .black
         $0.textAlignment = .center
         $0.text = " "
-        $0.font = UIFont.systemFont(ofSize: 14)
+        $0.font = .pretendard(.Regular, size: 14)
     }
     
     private let functionalityView: FunctionalityView = FunctionalityView()
