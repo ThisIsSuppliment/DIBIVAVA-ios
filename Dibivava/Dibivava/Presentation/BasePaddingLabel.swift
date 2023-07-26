@@ -9,7 +9,7 @@ import UIKit
 
 class BasePaddingLabel: UILabel {
     
-    private var padding = UIEdgeInsets(top: 2.0, left: 4.0, bottom: 2.0, right: 4.0)
+    private var padding = UIEdgeInsets(top: 2.0, left: 8.0, bottom: 2.0, right: 8.0)
     
     convenience init(padding: UIEdgeInsets) {
         self.init()
@@ -21,7 +21,6 @@ class BasePaddingLabel: UILabel {
         else {
             return
         }
-        print(2)
         super.drawText(in: rect.inset(by: padding))
     }
     

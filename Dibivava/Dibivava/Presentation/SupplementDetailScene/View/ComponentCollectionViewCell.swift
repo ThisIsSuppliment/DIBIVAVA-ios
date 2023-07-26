@@ -23,13 +23,12 @@ final class ComponentCollectionViewCell: UICollectionViewCell {
         $0.textAlignment = .left
     }
     
-    private let rankLabel: BasePaddingLabel = BasePaddingLabel(padding: UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)).then {
+    private let rankLabel: BasePaddingLabel = BasePaddingLabel().then {
         $0.textColor = .black
         $0.textAlignment = .center
-        $0.layer.borderColor = UIColor.black.cgColor
-        $0.layer.borderWidth = 0.25
         $0.layer.cornerRadius = 10
         $0.clipsToBounds = true
+        $0.font = UIFont.systemFont(ofSize: 15)
     }
     
     private let termLabel: UILabel = UILabel().then {
@@ -40,10 +39,10 @@ final class ComponentCollectionViewCell: UICollectionViewCell {
     }
     
     private let toggleButton: UIButton = UIButton().then {
-        let normalImage = UIImage(systemName: "chevron.left")
+        let normalImage = UIImage(systemName: "chevron.down")
         $0.setImage(normalImage, for: .normal)
 
-        let selectedImage = UIImage(systemName: "chevron.down")
+        let selectedImage = UIImage(systemName: "chevron.up")
         $0.setImage(selectedImage, for: .selected)
     }
     
@@ -87,7 +86,7 @@ final class ComponentCollectionViewCell: UICollectionViewCell {
         
         if isAdd {
             if let level = level {
-                self.rankLabel.text = "\(level)군"
+                self.rankLabel.text = level
                 
                 switch level {
                 case "1":
@@ -141,13 +140,13 @@ private extension ComponentCollectionViewCell {
       
         self.rankLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(10)
-            make.trailing.equalToSuperview().inset(10)
+            make.trailing.equalTo(self.toggleButton.snp.trailing)
         }
         
         self.termLabel.snp.makeConstraints { make in
             make.top.equalTo(self.titleLabel.snp.bottom).offset(20)
             make.leading.equalTo(self.titleLabel.snp.leading)
-            make.trailing.equalTo(self.toggleButton.snp.leading).offset(-10)
+            make.trailing.equalTo(self.toggleButton.snp.leading).offset(-15)
             make.bottom.equalToSuperview().inset(10)
         }
     }

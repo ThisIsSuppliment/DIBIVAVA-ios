@@ -212,7 +212,7 @@ private extension ComponentView {
                 for: indexPath
             ) as! ComponentCollectionViewCell
             
-            let nameOfTerms = item.terms?.joined(separator: " | ") ?? ""
+            let nameOfTerms = item.terms?.joined(separator: "  ") ?? ""
             let descriptionOfTerms = item.termsDescription ?? ""
 
             cell.delegate = self
