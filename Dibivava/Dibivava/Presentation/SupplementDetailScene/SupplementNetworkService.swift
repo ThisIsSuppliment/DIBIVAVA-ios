@@ -12,9 +12,38 @@ import RxSwift
 protocol SupplementNetworkService {
     func requestSupplement(by id: Int) -> Single<SupplementDTO>
     func requestMaterial(by id: [String]?) -> Single<[MaterialDTO]?>
+    func fetchTermDescription() -> Single<[TermDTO]>
 }
 
 final class DefaultSupplementNetworkService: SupplementNetworkService {
+    func fetchTermDescription() -> Single<[TermDTO]> {
+        Single<[TermDTO]>.create { single in
+            guard let fileURL = Bundle.main.url(
+                forResource: "TermsDescription",
+                withExtension: "json")
+            else {
+                return Disposables.create()
+            }
+            AF.request(fileURL).responseData { response in
+                switch response.result {
+                case .success(let data):
+                    do{
+                        let decoder = JSONDecoder()
+                        let decodedData = try decoder.decode([TermDTO].self, from: data)
+                        single(.success(decodedData))
+                    }catch{
+                        single(.failure(NetworkError.failedDecode))
+                        return
+                    }
+                case .failure(_):
+                    single(.failure(NetworkError.invalidResponse))
+                    return
+                }
+            }
+            return Disposables.create()
+        }
+    }
+    
     func requestSupplement(by id: Int) -> Single<SupplementDTO> {
         Single<SupplementDTO>.create { single in
             let urlString = "https://mp1878zrkj.execute-api.ap-northeast-2.amazonaws.com/dev/getSupplementById?id=\(id)"

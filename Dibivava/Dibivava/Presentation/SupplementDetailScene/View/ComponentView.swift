@@ -126,7 +126,6 @@ final class ComponentView: UIView, UICollectionViewDelegate {
         self.configureSubView()
         self.configureConstraints()
         self.configureDataSource()
-//        self.observeCollectionViewContentSize()
         self.collectionView.alpha = 0.0
     }
     
@@ -153,7 +152,7 @@ final class ComponentView: UIView, UICollectionViewDelegate {
         }
         
         // 추후 수정
-        UIView.animate(withDuration: 1.5) {
+        UIView.animate(withDuration: 2.0) {
             self.collectionView.alpha = 1.0
         }
     }
@@ -195,7 +194,7 @@ private extension ComponentView {
         }
         
         self.resourceLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.collectionView.snp.bottom).offset(12)
+            make.top.equalTo(self.collectionView.snp.bottom).offset(50)
             make.horizontalEdges.equalToSuperview().inset(20)
         }
         
@@ -213,9 +212,13 @@ private extension ComponentView {
                 for: indexPath
             ) as! ComponentCollectionViewCell
             
+            let nameOfTerms = item.terms?.joined(separator: "  ") ?? ""
+            let descriptionOfTerms = item.termsDescription ?? ""
+
+            cell.delegate = self
             cell.configure(title: item.name ?? "없음",
                            isAdd: item.category == "additive" && item.name != nil,
-                           terms: item.terms?.joined(separator: " | ") ?? "",
+                           terms: nameOfTerms + "\n\n" + descriptionOfTerms,
                            level: item.level)
             
             return cell
@@ -241,21 +244,17 @@ private extension ComponentView {
             return headerView
         }
     }
-    
-    func observeCollectionViewContentSize() {
-        self.collectionView.rx.observe(CGSize.self, "contentSize")
-            .subscribe(onNext: { [weak self] size in
-                guard let size = size
-                else {
-                    return
-                }
-                self?.collectionViewContentSizeDidChange(size: size)
-            })
-            .disposed(by: disposeBag)
-    }
-    
-    func collectionViewContentSizeDidChange(size: CGSize) {
-        self.heightConstraint?.update(offset: size.height)
-        self.heightChangedSubject.onNext(size.height)
+}
+
+extension ComponentView: ComponentCollectionViewCellDelegate {
+    func showHideButtonTapped(_ cell: ComponentCollectionViewCell, sender: Bool) {
+        guard var snapshot = dataSource?.snapshot()
+        else { return }
+        
+        dataSource?.apply(snapshot, animatingDifferences: false)
+        
+        self.collectionView.snp.updateConstraints { make in
+            make.height.greaterThanOrEqualTo(self.collectionView.contentSize.height)
+        }
     }
 }

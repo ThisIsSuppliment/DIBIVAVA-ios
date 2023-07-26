@@ -46,6 +46,8 @@
 		7C6091F62A658BA90062FF01 /* SupplementDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6091F52A658BA90062FF01 /* SupplementDetailViewModel.swift */; };
 		7C6300782A6D616B00C31E93 /* MaterialResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6300772A6D616B00C31E93 /* MaterialResponse.swift */; };
 		7C63007A2A6F684A00C31E93 /* BasePaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6300792A6F684A00C31E93 /* BasePaddingLabel.swift */; };
+		7C63007C2A71042C00C31E93 /* TermsDescription.json in Resources */ = {isa = PBXBuildFile; fileRef = 7C63007B2A71042C00C31E93 /* TermsDescription.json */; };
+		7C63007E2A71055C00C31E93 /* TermDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C63007D2A71055C00C31E93 /* TermDTO.swift */; };
 		7C8217392A69B928001DB57D /* SupplementNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8217382A69B928001DB57D /* SupplementNetworkService.swift */; };
 		7CC9524E2A6A6F3B00E2F739 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7CC9524D2A6A6F3B00E2F739 /* RxSwift */; };
 		7CC952502A6A6F4300E2F739 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 7CC9524F2A6A6F4300E2F739 /* RxCocoa */; };
@@ -115,6 +117,8 @@
 		7C6091F52A658BA90062FF01 /* SupplementDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementDetailViewModel.swift; sourceTree = "<group>"; };
 		7C6300772A6D616B00C31E93 /* MaterialResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialResponse.swift; sourceTree = "<group>"; };
 		7C6300792A6F684A00C31E93 /* BasePaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePaddingLabel.swift; sourceTree = "<group>"; };
+		7C63007B2A71042C00C31E93 /* TermsDescription.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TermsDescription.json; sourceTree = "<group>"; };
+		7C63007D2A71055C00C31E93 /* TermDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermDTO.swift; sourceTree = "<group>"; };
 		7C8217382A69B928001DB57D /* SupplementNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementNetworkService.swift; sourceTree = "<group>"; };
 		7CC952512A6A6FCE00E2F739 /* SUIT-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-ExtraBold.ttf"; sourceTree = "<group>"; };
 		7CC952522A6A6FCE00E2F739 /* SUIT-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-Regular.ttf"; sourceTree = "<group>"; };
@@ -275,6 +279,7 @@
 				7C8217382A69B928001DB57D /* SupplementNetworkService.swift */,
 				7CC952632A6A743A00E2F739 /* Additive.swift */,
 				7C6300772A6D616B00C31E93 /* MaterialResponse.swift */,
+				7C63007D2A71055C00C31E93 /* TermDTO.swift */,
 			);
 			path = SupplementDetailScene;
 			sourceTree = "<group>";
@@ -348,6 +353,7 @@
 				7C6091C12A6588C50062FF01 /* Assets.xcassets */,
 				7C6091C32A6588C50062FF01 /* LaunchScreen.storyboard */,
 				7C6091C62A6588C50062FF01 /* Info.plist */,
+				7C63007B2A71042C00C31E93 /* TermsDescription.json */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -484,6 +490,7 @@
 			files = (
 				7CC952602A6A6FCE00E2F739 /* SUIT-Bold.ttf in Resources */,
 				7CC9525B2A6A6FCE00E2F739 /* SUIT-Regular.ttf in Resources */,
+				7C63007C2A71042C00C31E93 /* TermsDescription.json in Resources */,
 				09017D3C2A6BCED000A8528A /* Assets.xcassets in Resources */,
 				7CC952612A6A6FCE00E2F739 /* SUIT-Medium.ttf in Resources */,
 				7CC9525D2A6A6FCE00E2F739 /* SUIT-ExtraLight.ttf in Resources */,
@@ -534,6 +541,7 @@
 				7C60683C2A670143003B414B /* ComponentView.swift in Sources */,
 				7C8217392A69B928001DB57D /* SupplementNetworkService.swift in Sources */,
 				7C6068362A66F8C9003B414B /* ComponentCollectionViewCell.swift in Sources */,
+				7C63007E2A71055C00C31E93 /* TermDTO.swift in Sources */,
 				7C60683E2A67CB6C003B414B /* FunctionalityCollectionViewCell.swift in Sources */,
 				7C6068422A67EA8B003B414B /* ComponentCountingView.swift in Sources */,
 				7C60683A2A66FF0A003B414B /* ComponentSectionHeaderView.swift in Sources */,

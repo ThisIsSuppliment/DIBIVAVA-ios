@@ -32,12 +32,13 @@ struct MaterialDTO: Codable {
 
 
 extension MaterialDTO {
-    func toMaterial() -> Material {
+    func toMaterial(termDescription: String?) -> Material {
         Material(id: self.materialId,
                  category: self.category,
                  name: self.name,
                  terms: self.termIds,
-                 level: self.level)
+                 level: self.level,
+                 termsDescription: termDescription)
     }
 }
 
@@ -47,17 +48,22 @@ struct Material: Hashable {
     let name: String?
     let terms: [String]?
     let level: String?
+    var numberOfLines: Int
+    var termsDescription: String?
     
     init(id: Int? = nil,
          category: String,
          name: String? = nil,
          terms: [String]? = nil,
-         level: String? = nil
+         level: String? = nil,
+         termsDescription: String? = nil
     ) {
         self.id = id
         self.category = category
         self.name = name
         self.terms = terms
         self.level = level
+        self.numberOfLines = 1
+        self.termsDescription = termsDescription
     }
 }
