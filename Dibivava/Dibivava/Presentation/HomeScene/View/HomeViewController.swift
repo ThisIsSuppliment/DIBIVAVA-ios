@@ -28,6 +28,7 @@ class HomeViewController: UIViewController {
         $0.dataDetectorTypes = .link
         $0.textContainer.maximumNumberOfLines = 0
         $0.backgroundColor = .clear
+        $0.isScrollEnabled = false
     }
     private let warningView = UIView().then{
         $0.backgroundColor = UIColor(rgb: 0xE5ECEC)
