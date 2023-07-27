@@ -67,6 +67,7 @@ final class ComponentView: UIView, UICollectionViewDelegate {
         $0.text = "[정보 출처]\n- 건강기능식품, 건강기능식품 품목제조신고(원재료), 건강기능식품 기능성원료인정현황, 건강기능식품 개별인정형 정보, 식품첨가물의기준및규격, 건강기능식품GMP 지정 현황: 식품의약품안전처[https://www.foodsafetykorea.go.kr/]\n- 생리활성기능: 질병관리청 국가건강정보포털[https://health.kdca.go.kr/]"
         $0.isEditable = false
         $0.isSelectable = true
+        $0.isScrollEnabled = false
         $0.dataDetectorTypes = .link
         $0.textContainer.maximumNumberOfLines = 0
     }
