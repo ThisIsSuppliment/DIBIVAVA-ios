@@ -54,6 +54,16 @@ final class SupplementDetailView: UIView {
             self.imageView.load(url: url)
         }
     }
+    
+    var isGMP: Int? = 0 {
+        didSet {
+            guard let isGMP = isGMP
+            else {
+                return
+            }
+            self.gmpView.isHidden = isGMP == 0 ? true : false
+        }
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)

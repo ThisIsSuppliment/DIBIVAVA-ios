@@ -101,6 +101,8 @@ private extension SupplementDetailViewController {
                     return
                 }
                 
+//                self.supplementDetailView.isGMP = items.gmpCheck
+//                self.supplementDetailView.imageURL = items.imageURL
                 self.supplementDetailView.nameLabel.text = items.name
                 self.supplementDetailView.companyLabel.text = items.company ?? "제조사를 알수없습니다."
                 self.supplementDetailView.descriptionLabel.text = (items.expireDate  ?? "제조일부터의 유통기한을 알수없습니다.") + " | " + (items.intakeMethod ?? "섭취량를 알수없습니다.")
