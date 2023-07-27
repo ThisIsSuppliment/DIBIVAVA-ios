@@ -63,6 +63,7 @@ class HomeViewController: UIViewController {
         $0.decelerationRate = .fast
         $0.backgroundColor = .clear
         $0.isScrollEnabled = false
+        layout.minimumLineSpacing = 30
     }
     private let hotLabel = UILabel().then{
         $0.text = "WHO IARC 발암유발물질 기준"
@@ -218,7 +219,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
             let cellWidth: CGFloat = (collectionView.bounds.width - layout.minimumInteritemSpacing) / 1
-            let cellHeight: CGFloat = (collectionView.bounds.height - layout.minimumLineSpacing) / 4.1
+            let cellHeight: CGFloat = (collectionView.bounds.height - layout.minimumLineSpacing) / 5
                 return CGSize(width: cellWidth, height: cellHeight)
             }
         return CGSize(width: 0, height: 0)
