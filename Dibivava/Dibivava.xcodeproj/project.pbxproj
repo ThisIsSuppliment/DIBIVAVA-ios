@@ -253,6 +253,7 @@
 		7C6091B72A6588C40062FF01 /* Dibivava */ = {
 			isa = PBXGroup;
 			children = (
+				7C6091C32A6588C50062FF01 /* LaunchScreen.storyboard */,
 				7C23FF262A7258E700F047A6 /* ImageCache */,
 				7C6091F72A658CC80062FF01 /* Application */,
 				7C0601B82A666729004FB30B /* Entites */,
@@ -378,7 +379,6 @@
 				7CC952592A6A6FCE00E2F739 /* SUIT-Thin.ttf */,
 				09FEB4382A66AFD200DD1CC5 /* Util */,
 				7C6091C12A6588C50062FF01 /* Assets.xcassets */,
-				7C6091C32A6588C50062FF01 /* LaunchScreen.storyboard */,
 				7C6091C62A6588C50062FF01 /* Info.plist */,
 			);
 			path = Resource;

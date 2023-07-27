@@ -35,13 +35,13 @@ enum supplementImg: Int{
     var kor: String {
         switch self {
         case .Supplement1:
-            return "1군 발암물질"
+            return "1군 발암유발물질"
         case .Supplement2:
-            return "2A군 발암물질"
+            return "2A군 발암추정물질"
         case .Supplement3:
-            return "2B군 발암물질"
+            return "2B군 발암가능물질"
         case .Supplement4:
-            return "3군 발암물질"
+            return "3군 미분류 발암유발물질"
         case .Supplement5:
             return "철분"
         case .Supplement6:
@@ -57,13 +57,13 @@ enum supplementImg: Int{
     var rekor: String {
         switch self {
         case .Supplement1:
-            return "1군 발암물질로"
+            return "1군 발암유발물질로"
         case .Supplement2:
-            return "2A군 발암물질로"
+            return "2A군 발암추정물질로"
         case .Supplement3:
-            return "2B군 발암물질로"
+            return "2B군 발암가능물질로"
         case .Supplement4:
-            return "3군 발암물질로"
+            return "3군 미분류 발암유발물질로"
         case .Supplement5:
             return "철분이"
         case .Supplement6:
@@ -79,13 +79,13 @@ enum supplementImg: Int{
     var eng: String {
         switch self {
         case .Supplement1:
-            return "간흡충,헬리코박터 파일로리, 오피스토르키스 비베리니, 주혈흡충 혈종, 알코올, 알루미늄, 아레카 너트, 베텔 퀴드... 등"
+            return "2-나프틸아민, 4-아미노바이페닐, 벤지딘 등 127개"
         case .Supplement2:
-            return "안드로겐(단백동화) 스테로이드, 바이오매스, 아스파탐, 질소 머스터드 등..."
+            return "글리시돌, 다이아지논, 글리포세이트 등 95개"
         case .Supplement3:
-        return "코코넛 오일, 벤조페논, 카라기난, 쿠멘, 스타이렌, 블랙탑 등..."
+        return "아스파탐, 이산화티타늄, 카라기난 등 323개"
         case .Supplement4:
-            return "염산, 하이드로 퀴논, 니트로 톨루엔, 니트 로빈, 오렌지 I, 파 툴린등..."
+            return "식용색소황색제5호, 식용색소녹색제3호, 사카린 등 500개"
         case .Supplement5:
             return "Iron"
         case .Supplement6:

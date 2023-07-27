@@ -36,7 +36,7 @@ class PopUpViewController: UIViewController {
     }
     public var recommaneLabel = UILabel().then{
         $0.text = "비타민 A가 많이 들어있는 보조제들!"
-        $0.font = .pretendard(.Bold, size: 18)
+        $0.font = .pretendard(.Bold, size: 15)
         $0.textColor = .darkGray
     }
     private let closeBtn = UIButton().then{
