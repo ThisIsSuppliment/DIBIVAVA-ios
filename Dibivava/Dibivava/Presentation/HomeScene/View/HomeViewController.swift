@@ -225,7 +225,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         popup.modalTransitionStyle = .crossDissolve
         popup.infoLabel.text = HomeViewmodel.supplementdes(indexPath: indexPath.row)
         popup.nameLabel.text = HomeViewmodel.supplementKor(indexPath: indexPath.row)
-        popup.recommaneLabel.text = HomeViewmodel.supplementre(indexPath: indexPath.row)! + " 지정된 첨가제들!"
+        popup.recommaneLabel.text = HomeViewmodel.supplementre(indexPath: indexPath.row)! + " 지정된 물질들!"
         popup.listLabel.text = HomeViewmodel.supplementEng(indexPath: indexPath.row)
         let attributedStr = NSMutableAttributedString(string: popup.recommaneLabel.text!)
         attributedStr.addAttribute(.foregroundColor, value: UIColor.mainred, range: (popup.recommaneLabel.text! as NSString).range(of: "지정된"))
