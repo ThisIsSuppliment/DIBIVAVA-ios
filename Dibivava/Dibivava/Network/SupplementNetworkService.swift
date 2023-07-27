@@ -46,7 +46,8 @@ final class DefaultSupplementNetworkService: SupplementNetworkService {
     
     func requestSupplement(by id: Int) -> Single<SupplementResponse> {
         Single<SupplementResponse>.create { single in
-            let urlString = "https://mp1878zrkj.execute-api.ap-northeast-2.amazonaws.com/dev/getSupplementById?id=\(id)"
+            // https://mp1878zrkj.execute-api.ap-northeast-2.amazonaws.com/dev/getSupplementById?id=
+            let urlString = "https://nb548yprx4.execute-api.ap-northeast-2.amazonaws.com/production/getSupplementById?id=\(id)"
             let urlComponent = URLComponents(string: urlString)
             guard let url = urlComponent?.url else { return Disposables.create() }
 
@@ -86,7 +87,7 @@ final class DefaultSupplementNetworkService: SupplementNetworkService {
     
     func request(with id: String) -> Single<MaterialDTO> {
         return Single<MaterialDTO>.create { single in
-            let urlString = "https://mp1878zrkj.execute-api.ap-northeast-2.amazonaws.com/dev/getMaterialById?id=\(id)"
+            let urlString = "https://nb548yprx4.execute-api.ap-northeast-2.amazonaws.com/production/getMaterialById?id=\(id)"
             let urlComponent = URLComponents(string: urlString)
             guard let url = urlComponent?.url else { return Disposables.create() }
 

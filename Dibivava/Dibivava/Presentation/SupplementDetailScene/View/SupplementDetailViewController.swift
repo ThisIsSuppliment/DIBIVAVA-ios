@@ -55,7 +55,7 @@ class SupplementDetailViewController: UIViewController {
         
         
         // 임시 이미지
-//        self.supplementDetailView.imageURL = "https://shop-phinf.pstatic.net/20210928_12/16327887593803MVfs_JPEG/33924539070168798_1714231265.jpg?type=m510"
+        self.supplementDetailView.imageURL = "https://shop-phinf.pstatic.net/20210928_12/16327887593803MVfs_JPEG/33924539070168798_1714231265.jpg?type=m510"
     }
 }
 
