@@ -307,7 +307,11 @@ extension HomeViewController: UISearchBarDelegate {
                 }
             }
         }
-        }
+    }
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        // 검색창을 활성화하면 자동으로 키보드를 보여줍니다.
+        searchBar.becomeFirstResponder()
+    }
 }
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
