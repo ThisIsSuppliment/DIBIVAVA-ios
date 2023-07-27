@@ -42,6 +42,7 @@ final class SupplementDetailView: UIView {
     }
     
     private let functionalityView: FunctionalityView = FunctionalityView()
+    private let gmpView: GMPView = GMPView()
     
     var imageURL: String? {
         didSet {
@@ -51,6 +52,16 @@ final class SupplementDetailView: UIView {
                 return
             }
             self.imageView.load(url: url)
+        }
+    }
+    
+    var isGMP: Int? = 0 {
+        didSet {
+            guard let isGMP = isGMP
+            else {
+                return
+            }
+            self.gmpView.isHidden = isGMP == 0 ? true : false
         }
     }
 
@@ -77,7 +88,7 @@ private extension SupplementDetailView {
             self.labelStack.addArrangedSubview($0)
         }
         
-        [imageView, labelStack, functionalityView].forEach {
+        [imageView, labelStack, gmpView, functionalityView].forEach {
             self.addSubview($0)
         }
     }
@@ -92,6 +103,12 @@ private extension SupplementDetailView {
         self.labelStack.snp.makeConstraints { make in
             make.top.equalTo(self.imageView.snp.bottom).offset(10)
             make.horizontalEdges.equalToSuperview().inset(10)
+        }
+        
+        self.gmpView.snp.makeConstraints { make in
+            make.top.equalTo(self.labelStack.snp.top)
+            make.trailing.equalTo(self.labelStack.snp.trailing)
+            make.height.equalTo(20)
         }
 
         self.functionalityView.snp.makeConstraints { make in
