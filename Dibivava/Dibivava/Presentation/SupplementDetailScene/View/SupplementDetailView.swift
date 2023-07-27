@@ -13,19 +13,6 @@ final class SupplementDetailView: UIView {
         $0.contentMode = .scaleAspectFit
         $0.image = UIImage(named: "noresult")
     }
-    
-    let gmpImageView: UIImageView = UIImageView().then {
-        $0.contentMode = .scaleAspectFit
-        
-        $0.image = UIImage(named: "GMP")
-    }
-    
-    private let gmpLabel: UILabel = UILabel().then {
-        $0.textColor = .black
-        $0.textAlignment = .center
-        $0.text = "GMP 인증"
-        $0.font = .pretendard(.Regular, size: 18)
-    }
 
     private let labelStack: UIStackView = UIStackView().then {
         $0.alignment = .leading
@@ -55,6 +42,7 @@ final class SupplementDetailView: UIView {
     }
     
     private let functionalityView: FunctionalityView = FunctionalityView()
+    private let gmpView: GMPView = GMPView()
     
     var imageURL: String? {
         didSet {
@@ -90,7 +78,7 @@ private extension SupplementDetailView {
             self.labelStack.addArrangedSubview($0)
         }
         
-        [imageView, labelStack, functionalityView].forEach {
+        [imageView, labelStack, gmpView, functionalityView].forEach {
             self.addSubview($0)
         }
     }
@@ -105,6 +93,12 @@ private extension SupplementDetailView {
         self.labelStack.snp.makeConstraints { make in
             make.top.equalTo(self.imageView.snp.bottom).offset(10)
             make.horizontalEdges.equalToSuperview().inset(10)
+        }
+        
+        self.gmpView.snp.makeConstraints { make in
+            make.top.equalTo(self.labelStack.snp.top)
+            make.trailing.equalTo(self.labelStack.snp.trailing)
+            make.height.equalTo(20)
         }
 
         self.functionalityView.snp.makeConstraints { make in
