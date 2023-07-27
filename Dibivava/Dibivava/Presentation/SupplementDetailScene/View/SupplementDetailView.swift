@@ -102,12 +102,13 @@ private extension SupplementDetailView {
         
         self.labelStack.snp.makeConstraints { make in
             make.top.equalTo(self.imageView.snp.bottom).offset(10)
-            make.horizontalEdges.equalToSuperview().inset(10)
+            make.leading.equalToSuperview().inset(10)
         }
         
         self.gmpView.snp.makeConstraints { make in
             make.top.equalTo(self.labelStack.snp.top)
-            make.trailing.equalTo(self.labelStack.snp.trailing)
+            make.leading.equalTo(self.labelStack.snp.trailing).offset(10)
+            make.trailing.equalToSuperview().inset(10)
             make.height.equalTo(20)
         }
 
