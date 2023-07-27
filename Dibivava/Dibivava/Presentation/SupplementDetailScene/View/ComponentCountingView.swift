@@ -18,13 +18,14 @@ final class ComponentCountingView: UIView {
     let countLabel: UILabel = UILabel().then {
         $0.textColor = .black
         $0.textAlignment = .center
+        $0.font = .pretendard(.Regular, size: 16)
         $0.text = " "
     }
     
     let titleLabel: UILabel = UILabel().then {
         $0.textColor = .black
         $0.textAlignment = .center
-        $0.font = UIFont.systemFont(ofSize: 14)
+        $0.font = .pretendard(.Regular, size: 14)
     }
     
     let imageView: UIImageView = UIImageView().then {

@@ -48,24 +48,27 @@ final class ComponentView: UIView, UICollectionViewDelegate {
     let titleLabel: UILabel = UILabel().then {
         $0.textColor = .black
         $0.textAlignment = .left
-        $0.font = UIFont.boldSystemFont(ofSize: 18)
+        $0.font = .pretendard(.ExtraBold, size: 18)
         $0.text = "이런 성분들이 있어요!"
     }
     
     let medicalDisclaimerLabel: UILabel = UILabel().then {
-        $0.textColor = .darkGray
         $0.textAlignment = .left
-        $0.font = UIFont.systemFont(ofSize: 14)
+        $0.font = .pretendard(.Light, size: 12)
+        $0.textColor = UIColor(rgb: 0x878787)
         $0.numberOfLines = 0
-        $0.text = "- 본 정보는 참고용으로, 법적 책임을 지지 않습니다.\n- 본 정보는 참고용으로만 제공되며 개별적인 상황에 따라 반드시 의료 전문가와 상담하여야 합니다. 어떠한 경우에도 본 앱의 내용을 근거로 한 자체 진단 또는 치료를 시도해서는 안 됩니다."
+        $0.text = "[주의사항]\n- 본 정보는 참고용으로, 법적 책임을 지지 않습니다.\n- 본 정보는 참고용으로만 제공되며 개별적인 상황에 따라 반드시 의료 전문가와 상담하여야 합니다. 어떠한 경우에도 본 앱의 내용을 근거로 한 자체 진단 또는 치료를 시도해서는 안 됩니다."
     }
     
-    let resourceLabel: UILabel = UILabel().then {
-        $0.textColor = .darkGray
+    let supplementResourceLabel: UITextView = UITextView().then {
         $0.textAlignment = .left
-        $0.font = UIFont.systemFont(ofSize: 14)
-        $0.numberOfLines = 0
-        $0.text = "- [성분 정보 출처] 건강기능식품: 식품안전나라/ 건강기능식품 품목제조신고(원재료), 건강기능식품 기능성원료인정현황, 건강기능식품 개별인정형 정보, 건강기능식품GMP 지정 현황: 식품의약품안전처 공공데이터활용/ 식품첨가물의기준및규격: 식품의약품안전처/ 생리활성기능: 질병관리청 국가건강정보포털"
+        $0.font = .pretendard(.Light, size: 12)
+        $0.textColor = UIColor(rgb: 0x878787)
+        $0.text = "[정보 출처]\n- 건강기능식품, 건강기능식품 품목제조신고(원재료), 건강기능식품 기능성원료인정현황, 건강기능식품 개별인정형 정보, 식품첨가물의기준및규격: 식품의약품안전처[https://www.foodsafetykorea.go.kr/]\n- 생리활성기능: 질병관리청 국가건강정보포털[https://health.kdca.go.kr/]"
+        $0.isEditable = false
+        $0.isSelectable = true
+        $0.dataDetectorTypes = .link
+        $0.textContainer.maximumNumberOfLines = 0
     }
     
     let componentCountingStackView: UIStackView = UIStackView().then {
@@ -126,8 +129,6 @@ final class ComponentView: UIView, UICollectionViewDelegate {
         self.configureSubView()
         self.configureConstraints()
         self.configureDataSource()
-//        self.observeCollectionViewContentSize()
-        self.collectionView.alpha = 0.0
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -151,11 +152,6 @@ final class ComponentView: UIView, UICollectionViewDelegate {
         self.collectionView.snp.updateConstraints { make in
             make.height.greaterThanOrEqualTo(self.collectionView.contentSize.height)
         }
-        
-        // 추후 수정
-        UIView.animate(withDuration: 1.5) {
-            self.collectionView.alpha = 1.0
-        }
     }
 }
 
@@ -171,7 +167,7 @@ private extension ComponentView {
             self.componentCountingStackView.addArrangedSubview($0)
         }
         
-        [titleLabel, componentCountingStackView, collectionView, resourceLabel, medicalDisclaimerLabel].forEach {
+        [titleLabel, componentCountingStackView, collectionView, supplementResourceLabel, medicalDisclaimerLabel].forEach {
             self.addSubview($0)
         }
     }
@@ -194,14 +190,16 @@ private extension ComponentView {
 //            make.bottom.equalToSuperview().priority(.low)
         }
         
-        self.resourceLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.collectionView.snp.bottom).offset(12)
-            make.horizontalEdges.equalToSuperview().inset(20)
+        self.supplementResourceLabel.snp.makeConstraints { make in
+            make.top.equalTo(self.collectionView.snp.bottom).offset(50)
+            make.horizontalEdges.equalToSuperview().inset(15)
+            make.height.equalTo(100)
+            make.bottom.equalTo(self.medicalDisclaimerLabel.snp.top).priority(.low)
         }
         
         self.medicalDisclaimerLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.resourceLabel.snp.bottom).offset(10)
-            make.horizontalEdges.equalToSuperview().inset(20)
+            make.top.equalTo(self.supplementResourceLabel.snp.bottom).offset(10)
+            make.horizontalEdges.equalToSuperview().inset(15)
             make.bottom.equalToSuperview().inset(12)
         }
     }
@@ -213,9 +211,13 @@ private extension ComponentView {
                 for: indexPath
             ) as! ComponentCollectionViewCell
             
+            let nameOfTerms = item.terms?.joined(separator: "  ") ?? ""
+            let descriptionOfTerms = item.termsDescription ?? ""
+
+            cell.delegate = self
             cell.configure(title: item.name ?? "없음",
                            isAdd: item.category == "additive" && item.name != nil,
-                           terms: item.terms?.joined(separator: " | ") ?? "",
+                           terms: nameOfTerms + "\n\n" + descriptionOfTerms,
                            level: item.level)
             
             return cell
@@ -242,20 +244,24 @@ private extension ComponentView {
         }
     }
     
-    func observeCollectionViewContentSize() {
-        self.collectionView.rx.observe(CGSize.self, "contentSize")
-            .subscribe(onNext: { [weak self] size in
-                guard let size = size
-                else {
-                    return
-                }
-                self?.collectionViewContentSizeDidChange(size: size)
-            })
-            .disposed(by: disposeBag)
+    func labelTapped(urlString: String) {
+        if let url = URL(string: urlString) {
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
     }
-    
-    func collectionViewContentSizeDidChange(size: CGSize) {
-        self.heightConstraint?.update(offset: size.height)
-        self.heightChangedSubject.onNext(size.height)
+}
+
+extension ComponentView: ComponentCollectionViewCellDelegate {
+    func showHideButtonTapped(_ cell: ComponentCollectionViewCell, sender: Bool) {
+        guard var snapshot = dataSource?.snapshot()
+        else { return }
+        
+        dataSource?.apply(snapshot, animatingDifferences: false)
+        
+        self.collectionView.snp.updateConstraints { make in
+            make.height.greaterThanOrEqualTo(self.collectionView.contentSize.height)
+        }
     }
 }

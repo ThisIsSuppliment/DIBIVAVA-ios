@@ -17,6 +17,11 @@ class SupplementDetailViewController: UIViewController {
         $0.backgroundColor = .systemGroupedBackground
     }
     
+    private let indicatorView: UIActivityIndicatorView = UIActivityIndicatorView(style: .large).then {
+        $0.color = .gray
+        $0.backgroundColor = .white
+    }
+    
     private let supplementDetailView: SupplementDetailView
     private let componentView: ComponentView
     
@@ -36,12 +41,15 @@ class SupplementDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.view.backgroundColor = .white
         self.configureSubviews()
         self.configureConstraints()
         self.bind()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
+        self.indicatorView.startAnimating()
         self.viewModel.viewWillAppear()
         self.navigationController?.navigationBar.isHidden = false
     }
@@ -53,10 +61,16 @@ private extension SupplementDetailViewController {
             self.scrollView.addSubview($0)
         }
         
-        self.view.addSubview(scrollView)
+        [scrollView, indicatorView].forEach {
+            self.view.addSubview($0)
+        }
     }
     
     func configureConstraints() {
+        self.indicatorView.snp.makeConstraints { make in
+            make.edges.equalTo(self.view.safeAreaLayoutGuide)
+        }
+        
         self.scrollView.snp.makeConstraints { make in
             make.edges.equalTo(self.view.safeAreaLayoutGuide)
         }
@@ -123,6 +137,7 @@ private extension SupplementDetailViewController {
                 else {
                     return
                 }
+                self.indicatorView.stopAnimating()
                 self.componentView.applySnapshot(material)
             })
             .disposed(by: self.disposeBag)
@@ -152,20 +167,5 @@ private extension SupplementDetailViewController {
         let totalHeight = supplementDetailView.frame.height + componentView.frame.height + 7
         
         scrollView.contentSize = CGSize(width: view.bounds.width, height: totalHeight)
-    }
-}
-
-// 추후 수정
-extension UIImageView {
-    func load(url: URL) {
-        DispatchQueue.global().async { [weak self] in
-            if let data = try? Data(contentsOf: url) {
-                if let image = UIImage(data: data) {
-                    DispatchQueue.main.async {
-                        self?.image = image
-                    }
-                }
-            }
-        }
     }
 }

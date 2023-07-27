@@ -1,5 +1,5 @@
 //
-//  Supplement.swift
+//  SupplementResponse.swift
 //  Dibivava
 //
 //  Created by dong eun shin on 2023/07/18.
@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct SupplementDTO: Codable {
+struct SupplementResponse: Codable {
     let message: String
-    let result: SupplementDetail
+    let result: SupplementDTO
 }
 
 // MARK: - SupplementDetail
-struct SupplementDetail: Codable {
+struct SupplementDTO: Codable {
     let supplementID: Int
     let name, company, expireDate, intakeMethod: String?
     let functionality: [String]?

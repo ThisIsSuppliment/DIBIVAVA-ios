@@ -17,13 +17,17 @@ import Kingfisher
 class HomeViewController: UIViewController {
     private let HomeViewmodel = HomeViewModel()
     private var searchresult: [Supplement] = []
-    private var searchInfo: [SupplementDTO] = []
+    private var searchInfo: [SupplementResponse] = []
     private let searchAPI = SearchAPI()
-    private let warningLabel = UILabel().then{
-        $0.text = "-[성분 정보 출저] 건강기능식품: 식품안전나라/ 건강기능식품 품목제조신고(원재료), 건강기능식품 기능성원료인정현황,  Ames, Bruce N; Gold, Lois Swirsky (2000).  “Paracelsus to parascience: The environmental cancer distraction”.  《Mutation Research/Fundamental and Molecular Mechanisms of Mutagenesis》 447: 3 - 본 정보는 참고용으로, 법적 책임을 지지 않습니다. - 본 정보는 참고용으로만 제공되며 개별적인 상황에 따라 반드시 의료전문가와 상담하여야합니다.어떠한 경우에도 본 앱의 내용을 근거로 한 자체 진단 또는                 치료를 시도해서는 안됩니다."
+    private let warningLabel = UITextView().then{
         $0.font = .pretendard(.Light, size: 12)
         $0.textColor = UIColor(rgb: 0x878787)
-        $0.numberOfLines = 0
+        $0.text = "[주의사항]\n- 본 정보는 참고용으로, 법적 책임을 지지 않습니다.\n- 본 정보는 참고용으로만 제공되며 개별적인 상황에 따라 반드시 의료 전문가와 상담하여야 합니다. 어떠한 경우에도 본 앱의 내용을 근거로 한 자체 진단 또는 치료를 시도해서는 안 됩니다.\n\n[정보 출처]\n- 건강기능식품, 건강기능식품 품목제조신고(원재료), 건강기능식품 기능성원료인정현황, 건강기능식품 개별인정형 정보, 식품첨가물의기준및규격: 식품의약품안전처[https://www.foodsafetykorea.go.kr/]\n- 생리활성기능: 질병관리청 국가건강정보포털[https://health.kdca.go.kr/]\n- 발암물질: Wikipedia [https://ko.wikipedia.org/wiki/%EB%B0%9C%EC%95%94%EB%AC%BC%EC%A7%88]"
+        $0.isEditable = false
+        $0.isSelectable = true
+        $0.dataDetectorTypes = .link
+        $0.textContainer.maximumNumberOfLines = 0
+        $0.backgroundColor = .clear
     }
     private let warningView = UIView().then{
         $0.backgroundColor = UIColor(rgb: 0xE5ECEC)
@@ -92,13 +96,12 @@ class HomeViewController: UIViewController {
     }
     private func layout(){
         self.warningLabel.snp.makeConstraints{
-            $0.top.leading.trailing.bottom.equalToSuperview()
-
+            $0.top.bottom.equalToSuperview()
+            $0.horizontalEdges.equalToSuperview().inset(15)
         }
         self.warningView.snp.makeConstraints{
             $0.top.equalTo(recommendCollectionView.snp.bottom).offset(0)
             $0.leading.trailing.bottom.equalToSuperview()
-            
         }
         self.searhbarSV.snp.makeConstraints{
             $0.trailing.equalToSuperview().offset(-16)
@@ -113,11 +116,11 @@ class HomeViewController: UIViewController {
             $0.leading.trailing.equalToSuperview().offset(0)
             $0.height.equalTo(125)
         }
-    self.searchTableview.snp.makeConstraints{
-        $0.leading.bottom.trailing.equalToSuperview().offset(0)
-        $0.top.equalTo(searchbar.snp.bottom)
-    }
-        recommendCollectionView.snp.makeConstraints{
+        self.searchTableview.snp.makeConstraints{
+            $0.leading.bottom.trailing.equalToSuperview().offset(0)
+            $0.top.equalTo(searchbar.snp.bottom)
+        }
+        self.recommendCollectionView.snp.makeConstraints{
             $0.top.equalTo(self.hotLabel.snp.bottom).offset(15)
             $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview().offset(-16)
@@ -130,7 +133,6 @@ class HomeViewController: UIViewController {
         self.searchbar.snp.makeConstraints{
             $0.height.equalTo(42)
         }
-
         self.scrollView.snp.makeConstraints{
             $0.top.equalTo(topView.snp.bottom).offset(0)
             $0.left.right.bottom.equalToSuperview()
@@ -139,13 +141,14 @@ class HomeViewController: UIViewController {
             $0.top.equalToSuperview()
             $0.width.equalToSuperview().offset(0)
             $0.edges.equalToSuperview().offset(0)
-            $0.height.equalTo(820)
+            $0.height.equalTo(900)
         }
-        
     }
     private func addsubView(){
         self.view.addSubview(scrollView)
-        scrollView.addSubview(contentView)
+        self.warningView.addSubview(warningLabel)
+        self.contentView.addSubview(warningView)
+        self.scrollView.addSubview(contentView)
         self.contentView.addSubview(hotLabel)
         self.contentView.addSubview(recommendCollectionView)
         self.view.addSubview(topView)
@@ -155,7 +158,6 @@ class HomeViewController: UIViewController {
         self.topView.addSubview(searhbarSV)
         self.searchTableview.bringSubviewToFront(self.view)
         self.contentView.addSubview(warningView)
-        self.warningView.addSubview(warningLabel)
     }
     private func configure(){
         self.view.backgroundColor = .white
@@ -186,20 +188,12 @@ class HomeViewController: UIViewController {
              vc.modalPresentationStyle = .overFullScreen
              self.present(vc,animated: false,completion: nil)
         }
-        self.searchAPI.getSearchResult(name: ".",limit: 0) { response in
+        self.searchAPI.getSearchResult(name: "D",limit: 0) { response in
             switch response {
-            case .success(let searchresponse):
+            case .success(_):
                 print("깨움")
             case .failure(let error):
                 print("/search 오류:\(error)")
-            }
-        }
-        self.searchAPI.getSupplementName(name: "고려홍삼사포닌골드") { response in
-            switch response {
-            case .success(let searchresponse):
-                print(searchresponse)
-            case .failure(let error):
-                print("/name 오류:\(error)")
             }
         }
     }

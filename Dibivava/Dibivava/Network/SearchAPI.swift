@@ -36,7 +36,7 @@ class SearchAPI{
         AF.request(url, parameters: parameters).responseDecodable(of: SearchAPIResponse.self) { response in
                   switch response.result {
                   case .success(let response):
-                      print(response)
+//                      print(response)
                       completion(.success(response.result))
                   case .failure(let error):
                       completion(.failure(error))
@@ -45,12 +45,12 @@ class SearchAPI{
         }
     }
     
-    func getSupplementID(id:Int,completion: @escaping (Result<SupplementDTO, Error>) -> Void){
+    func getSupplementID(id:Int,completion: @escaping (Result<SupplementResponse, Error>) -> Void){
         let url = APIConstants.baseURL + "getSupplementById"
         let parameters: Parameters = [
             "id": id,
         ]
-        AF.request(url, parameters: parameters).responseDecodable(of: SupplementDTO.self) { response in
+        AF.request(url, parameters: parameters).responseDecodable(of: SupplementResponse.self) { response in
                   switch response.result {
                   case .success(let response):
                       completion(.success(response))
@@ -60,12 +60,12 @@ class SearchAPI{
                   }
         }
     }
-    func getSupplementName(name:String,completion: @escaping (Result<SupplementDTO, Error>) -> Void){
+    func getSupplementName(name:String,completion: @escaping (Result<SupplementResponse, Error>) -> Void){
         let url = APIConstants.baseURL + "getSupplementByName"
         let parameters: Parameters = [
             "name": name,
         ]
-        AF.request(url, parameters: parameters).responseDecodable(of: SupplementDTO.self) { response in
+        AF.request(url, parameters: parameters).responseDecodable(of: SupplementResponse.self) { response in
                   switch response.result {
                   case .success(let response):
                       completion(.success(response))
@@ -75,5 +75,4 @@ class SearchAPI{
                   }
         }
     }
-
 }
