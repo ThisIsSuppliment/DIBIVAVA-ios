@@ -100,8 +100,9 @@ class HomeViewController: UIViewController {
             $0.horizontalEdges.equalToSuperview().inset(15)
         }
         self.warningView.snp.makeConstraints{
-            $0.top.equalTo(recommendCollectionView.snp.bottom).offset(0)
-            $0.leading.trailing.bottom.equalToSuperview()
+            $0.top.equalTo(recommendCollectionView.snp.bottom).offset(30)
+            $0.leading.trailing.bottom.equalTo(self.view).offset(0)
+            
         }
         self.searhbarSV.snp.makeConstraints{
             $0.trailing.equalToSuperview().offset(-16)
@@ -124,7 +125,7 @@ class HomeViewController: UIViewController {
             $0.top.equalTo(self.hotLabel.snp.bottom).offset(15)
             $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview().offset(-16)
-            $0.height.equalTo(600)
+            $0.height.equalTo(550)
         }
         self.hotLabel.snp.makeConstraints{
             $0.top.equalToSuperview().offset(25)
@@ -141,7 +142,7 @@ class HomeViewController: UIViewController {
             $0.top.equalToSuperview()
             $0.width.equalToSuperview().offset(0)
             $0.edges.equalToSuperview().offset(0)
-            $0.height.equalTo(900)
+            $0.height.equalTo(950)
         }
     }
     private func addsubView(){
