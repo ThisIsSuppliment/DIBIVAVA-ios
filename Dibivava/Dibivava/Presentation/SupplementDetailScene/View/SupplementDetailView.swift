@@ -42,6 +42,17 @@ final class SupplementDetailView: UIView {
     }
     
     private let functionalityView: FunctionalityView = FunctionalityView()
+    
+    var imageURL: String? {
+        didSet {
+            guard let imageURL = imageURL,
+                  let url = URL(string: imageURL)
+            else {
+                return
+            }
+            self.imageView.load(url: url)
+        }
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
