@@ -13,6 +13,19 @@ final class SupplementDetailView: UIView {
         $0.contentMode = .scaleAspectFit
         $0.image = UIImage(named: "noresult")
     }
+    
+    let gmpImageView: UIImageView = UIImageView().then {
+        $0.contentMode = .scaleAspectFit
+        
+        $0.image = UIImage(named: "GMP")
+    }
+    
+    private let gmpLabel: UILabel = UILabel().then {
+        $0.textColor = .black
+        $0.textAlignment = .center
+        $0.text = "GMP 인증"
+        $0.font = .pretendard(.Regular, size: 18)
+    }
 
     private let labelStack: UIStackView = UIStackView().then {
         $0.alignment = .leading
