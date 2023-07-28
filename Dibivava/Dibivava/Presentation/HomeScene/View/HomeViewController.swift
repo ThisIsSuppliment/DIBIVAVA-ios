@@ -278,7 +278,7 @@ extension HomeViewController: UISearchBarDelegate {
             self.topView.backgroundColor = UIColor(rgb: 0xE5ECEC)
                 self.fillSafeArea(position: .top, color: UIColor(rgb: 0xE5ECEC))
                 self.logoImgView.isHidden = false
-                
+
 
         }else{
             self.searchAPI.getSearchResult(name: searchText,limit: 10) { response in
@@ -305,6 +305,7 @@ extension HomeViewController: UISearchBarDelegate {
                     self.topView.backgroundColor = UIColor(rgb: 0xE5ECEC)
                     self.fillSafeArea(position: .top, color: UIColor(rgb: 0xE5ECEC))
                     self.logoImgView.isHidden = false
+
                 }
             }
         }
