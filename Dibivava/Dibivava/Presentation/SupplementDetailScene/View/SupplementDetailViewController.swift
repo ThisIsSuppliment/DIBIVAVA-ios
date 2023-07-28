@@ -52,10 +52,6 @@ class SupplementDetailViewController: UIViewController {
         self.indicatorView.startAnimating()
         self.viewModel.viewWillAppear()
         self.navigationController?.navigationBar.isHidden = false
-        
-        
-        // 임시 이미지
-//        self.supplementDetailView.imageURL = "https://shop-phinf.pstatic.net/20210928_12/16327887593803MVfs_JPEG/33924539070168798_1714231265.jpg?type=m510"
     }
 }
 
@@ -124,14 +120,6 @@ private extension SupplementDetailViewController {
 //                print(">>>>> functionality", items.functionality?.forEach({print("- " + $0 + "\n") }))
 //                 print(">>>>> 결과", tmpFunctionality)
                 self.supplementDetailView.apply(Set(tmpFunctionality).map {String($0)})
-                
-                // 이미지 추가
-//                guard let imageURL = items.imageLink,
-//                      let url = URL(string: imageURL)
-//                else {
-//                    return
-//                }
-//                self.supplementDetailView.imageView.load(url: url)
             })
             .disposed(by: self.disposeBag)
         
@@ -154,7 +142,6 @@ private extension SupplementDetailViewController {
                 else {
                     return
                 }
-                print(">>",numOfMain)
                 self.componentView.main.count = numOfMain
                 self.componentView.sub.count = numOfSub
                 self.componentView.add.count = numOfAdd
