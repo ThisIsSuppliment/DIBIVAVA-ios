@@ -154,6 +154,7 @@ private extension SupplementDetailViewController {
                 else {
                     return
                 }
+                print(">>",numOfMain)
                 self.componentView.main.count = numOfMain
                 self.componentView.sub.count = numOfSub
                 self.componentView.add.count = numOfAdd

@@ -84,12 +84,17 @@ private extension DefaultSupplementDetailViewModel {
                 
                 self.supplementDetailRelay.accept(supplement.result)
                 
-                self.numOfMainMaterialRelay.accept(supplement.result.mainMaterial == nil ? 0 : 1)
+                
                 self.numOfSubMaterialRelay.accept(supplement.result.subMaterial?.count)
                 
                 let tmp = supplement.result.mainMaterial?.split(separator: ",").map {String($0)}
+                
+                self.numOfMainMaterialRelay.accept(tmp?.count)
+        
                 self.material[.main] = (tmp ?? ["없음"]).map { $0.toMaterial(with: .main) }
+                
                 self.material[.sub] = (supplement.result.subMaterial ?? ["없음"]).map { $0.toMaterial(with: .sub) }
+                
                 self.materialRelay.accept(self.material)
                 
                 self.fetchAdditiveMaterial(with: supplement.result.additive)
