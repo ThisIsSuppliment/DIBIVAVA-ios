@@ -19,6 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         self.window = UIWindow(windowScene: windowScene)
         self.window?.backgroundColor = .white
+        self.window?.overrideUserInterfaceStyle = .light
         self.window?.makeKeyAndVisible()
         
         let homeViewController = HomeViewController()

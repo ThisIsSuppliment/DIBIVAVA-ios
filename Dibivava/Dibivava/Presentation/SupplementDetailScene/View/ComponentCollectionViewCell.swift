@@ -81,6 +81,7 @@ final class ComponentCollectionViewCell: UICollectionViewCell {
         self.titleLabel.text = ""
         self.rankLabel.text = ""
         self.termLabel.text = ""
+        self.toggleButton.isSelected = false
         self.isExpanded = false
     }
     

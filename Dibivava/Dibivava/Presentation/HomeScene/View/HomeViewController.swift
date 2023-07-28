@@ -28,6 +28,7 @@ class HomeViewController: UIViewController {
         $0.dataDetectorTypes = .link
         $0.textContainer.maximumNumberOfLines = 0
         $0.backgroundColor = .clear
+        $0.isScrollEnabled = false
     }
     private let warningView = UIView().then{
         $0.backgroundColor = UIColor(rgb: 0xE5ECEC)
@@ -189,7 +190,7 @@ class HomeViewController: UIViewController {
              vc.modalPresentationStyle = .overFullScreen
              self.present(vc,animated: false,completion: nil)
         }
-        self.searchAPI.getSearchResult(name: "D",limit: 0) { response in
+        self.searchAPI.getSearchResult(name: "ㄱ",limit: 0) { response in
             switch response {
             case .success(_):
                 print("깨움")
@@ -308,7 +309,11 @@ extension HomeViewController: UISearchBarDelegate {
                 }
             }
         }
-        }
+    }
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        // 검색창을 활성화하면 자동으로 키보드를 보여줍니다.
+        searchBar.becomeFirstResponder()
+    }
 }
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

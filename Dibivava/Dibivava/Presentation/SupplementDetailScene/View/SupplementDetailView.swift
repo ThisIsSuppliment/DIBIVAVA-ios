@@ -11,7 +11,6 @@ final class SupplementDetailView: UIView {
     
     let imageView: UIImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
-        $0.image = UIImage(named: "noresult")
     }
 
     private let labelStack: UIStackView = UIStackView().then {
@@ -42,15 +41,27 @@ final class SupplementDetailView: UIView {
     }
     
     private let functionalityView: FunctionalityView = FunctionalityView()
+    private let gmpView: GMPView = GMPView()
     
     var imageURL: String? {
         didSet {
             guard let imageURL = imageURL,
                   let url = URL(string: imageURL)
             else {
+                self.imageView.image = UIImage(named: "noresult")
                 return
             }
             self.imageView.load(url: url)
+        }
+    }
+    
+    var isGMP: Int? = 0 {
+        didSet {
+            guard let isGMP = isGMP
+            else {
+                return
+            }
+            self.gmpView.isHidden = isGMP == 0 ? true : false
         }
     }
 
@@ -77,7 +88,7 @@ private extension SupplementDetailView {
             self.labelStack.addArrangedSubview($0)
         }
         
-        [imageView, labelStack, functionalityView].forEach {
+        [imageView, labelStack, gmpView, functionalityView].forEach {
             self.addSubview($0)
         }
     }
@@ -91,7 +102,14 @@ private extension SupplementDetailView {
         
         self.labelStack.snp.makeConstraints { make in
             make.top.equalTo(self.imageView.snp.bottom).offset(10)
-            make.horizontalEdges.equalToSuperview().inset(10)
+            make.leading.equalToSuperview().inset(10)
+        }
+        
+        self.gmpView.snp.makeConstraints { make in
+            make.top.equalTo(self.labelStack.snp.top)
+            make.leading.equalTo(self.labelStack.snp.trailing).offset(10)
+            make.trailing.equalToSuperview().inset(10)
+            make.height.equalTo(20)
         }
 
         self.functionalityView.snp.makeConstraints { make in
