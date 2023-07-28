@@ -143,8 +143,8 @@ private extension SupplementDetailViewController {
                 else {
                     return
                 }
-                self.indicatorView.stopAnimating()
                 self.componentView.applySnapshot(material)
+                self.indicatorView.stopAnimating()
             })
             .disposed(by: self.disposeBag)
         

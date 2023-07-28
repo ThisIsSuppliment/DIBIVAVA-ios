@@ -11,7 +11,6 @@ final class SupplementDetailView: UIView {
     
     let imageView: UIImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
-        $0.image = UIImage(named: "noresult")
     }
 
     private let labelStack: UIStackView = UIStackView().then {
@@ -49,6 +48,7 @@ final class SupplementDetailView: UIView {
             guard let imageURL = imageURL,
                   let url = URL(string: imageURL)
             else {
+                self.imageView.image = UIImage(named: "noresult")
                 return
             }
             self.imageView.load(url: url)
