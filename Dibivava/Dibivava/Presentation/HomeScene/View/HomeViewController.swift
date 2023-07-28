@@ -358,7 +358,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
 extension HomeViewController {
     // ViewController에서 해당 함수 실행
     func setupHideKeyboardOnTap() {
-        self.contentView.addGestureRecognizer(self.endEditingRecognizer())
+        self.view.addGestureRecognizer(self.endEditingRecognizer())
         self.navigationController?.navigationBar.addGestureRecognizer(self.endEditingRecognizer())
     }
     
