@@ -56,12 +56,11 @@ class HomeViewController: UIViewController {
         $0.backgroundColor = .white
         }
     private let scrollView = UIScrollView()
+    private let backView = UIView().then {
+        $0.backgroundColor = .red
+    }
     private let searchTableview = UITableView(frame: CGRect.zero, style: .grouped).then{
         $0.backgroundColor = UIColor(red: 0, green: 0, blue: 0,alpha: 0.4)
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        tapGesture.cancelsTouchesInView = false
-        $0.backgroundView = UIView()
-        $0.backgroundView?.addGestureRecognizer(tapGesture)
         $0.register(SearchTableViewCell.self, forCellReuseIdentifier: SearchTableViewCell.identifier)
     }
     private let recommendCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
@@ -202,10 +201,6 @@ class HomeViewController: UIViewController {
                 print("/search 오류:\(error)")
             }
         }
-    }
-    
-    @objc private func dismissKeyboard() {
-        view.endEditing(true)
     }
 }
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -363,7 +358,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
 extension HomeViewController {
     // ViewController에서 해당 함수 실행
     func setupHideKeyboardOnTap() {
-        self.view.addGestureRecognizer(self.endEditingRecognizer())
+        self.contentView.addGestureRecognizer(self.endEditingRecognizer())
         self.navigationController?.navigationBar.addGestureRecognizer(self.endEditingRecognizer())
     }
     
