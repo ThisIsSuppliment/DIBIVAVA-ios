@@ -190,7 +190,7 @@ class HomeViewController: UIViewController {
              vc.modalPresentationStyle = .overFullScreen
              self.present(vc,animated: false,completion: nil)
         }
-        self.searchAPI.getSearchResult(name: "D",limit: 0) { response in
+        self.searchAPI.getSearchResult(name: "ㄱ",limit: 0) { response in
             switch response {
             case .success(_):
                 print("깨움")

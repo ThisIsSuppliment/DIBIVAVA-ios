@@ -19,7 +19,8 @@ struct SupplementDTO: Codable {
     let functionality: [String]?
     let mainMaterial: String?
     let subMaterial, additive: [String]?
-    let imageURL: String?
+    let imageLink: String?
+    let gmpCheck: Int?
     let createdAt, updatedAt: String?
 
     enum CodingKeys: String, CodingKey {
@@ -31,6 +32,7 @@ struct SupplementDTO: Codable {
         case mainMaterial = "main_material"
         case subMaterial = "sub_material"
         case additive, createdAt, updatedAt
-        case imageURL = "image_link"
+        case imageLink = "image_link"
+        case gmpCheck = "gmp_check"
     }
 }

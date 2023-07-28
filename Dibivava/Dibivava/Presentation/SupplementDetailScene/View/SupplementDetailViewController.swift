@@ -101,8 +101,8 @@ private extension SupplementDetailViewController {
                     return
                 }
                 
-                self.supplementDetailView.isGMP = 0//items.gmpCheck
-//                self.supplementDetailView.imageURL = items.imageURL
+                self.supplementDetailView.isGMP = items.gmpCheck
+                self.supplementDetailView.imageURL = items.imageLink
                 self.supplementDetailView.nameLabel.text = items.name
                 self.supplementDetailView.companyLabel.text = items.company ?? "제조사를 알수없습니다."
                 self.supplementDetailView.descriptionLabel.text = (items.expireDate  ?? "제조일부터의 유통기한을 알수없습니다.") + " | " + (items.intakeMethod ?? "섭취량를 알수없습니다.")
@@ -126,12 +126,12 @@ private extension SupplementDetailViewController {
                 self.supplementDetailView.apply(Set(tmpFunctionality).map {String($0)})
                 
                 // 이미지 추가
-                guard let imageURL = items.imageURL,
-                      let url = URL(string: imageURL)
-                else {
-                    return
-                }
-                self.supplementDetailView.imageView.load(url: url)
+//                guard let imageURL = items.imageLink,
+//                      let url = URL(string: imageURL)
+//                else {
+//                    return
+//                }
+//                self.supplementDetailView.imageView.load(url: url)
             })
             .disposed(by: self.disposeBag)
         
