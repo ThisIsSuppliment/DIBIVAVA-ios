@@ -15,7 +15,7 @@ protocol SupplementDetailViewModelInput {
 
 protocol SupplementDetailViewModelOutput {
     var supplementDetail: Driver<SupplementDTO?> { get }
-    var materialDriver: Driver<[MaterialType:[Material]]?> { get }
+    var materialByType: Driver<[MaterialType:[Material]]?> { get }
     var numOfMainMaterial: Driver<Int?> { get }
     var numOfSubMaterial: Driver<Int?> { get }
     var numOfAddMaterial: Driver<Int?> { get }
@@ -29,7 +29,7 @@ class DefaultSupplementDetailViewModel {
     
     private let supplementDetailRelay: PublishRelay<SupplementDTO?> = .init()
     private let termsRelay: BehaviorRelay<[String: String]> = .init(value: [:])
-    private let materialRelay: BehaviorRelay<[MaterialType:[Material]]?> = .init(value: [.main: [], .sub: [], .addictive: []])
+    private let materialByTypeRelay: BehaviorRelay<[MaterialType:[Material]]?> = .init(value: [.main: [], .sub: [], .addictive: []])
     private let numOfMainMaterialRelay: PublishRelay<Int?> = .init()
     private let numOfSubMaterialRelay: PublishRelay<Int?> = .init()
     private let numOfAdditiveRelay: PublishRelay<Int?> = .init()
@@ -52,8 +52,8 @@ extension DefaultSupplementDetailViewModel: SupplementDetailViewModel {
         return self.supplementDetailRelay.asDriver(onErrorJustReturn: nil)
     }
     
-    var materialDriver: Driver<[MaterialType:[Material]]?> {
-        return self.materialRelay.asDriver(onErrorJustReturn: nil)
+    var materialByType: Driver<[MaterialType:[Material]]?> {
+        return self.materialByTypeRelay.asDriver(onErrorJustReturn: nil)
     }
     
     var numOfMainMaterial: Driver<Int?> {
@@ -140,7 +140,7 @@ private extension DefaultSupplementDetailViewModel {
     
     func addMaterialByType(category: MaterialType, materials: [Material]?) {
         self.material[category] = materials ?? [Material(category: category.rawValue, name: "없음")]
-        self.materialRelay.accept(self.material)
+        self.materialByTypeRelay.accept(self.material)
     }
     
     func getAdditivesWithTermDescription(additives: [MaterialDTO]?) -> [Material]? {
