@@ -76,28 +76,27 @@ extension DefaultSupplementDetailViewModel: SupplementDetailViewModel {
 private extension DefaultSupplementDetailViewModel {
     func fetchSupplement(with id: Int) {
         self.supplementNetworkService.requestSupplement(by: id)
-            .subscribe(onSuccess: { [weak self] supplement in
+            .subscribe(onSuccess: { [weak self] supplementResponse in
                 guard let self
                 else {
                     return
                 }
                 
-                self.supplementDetailRelay.accept(supplement.result)
+                let supplement = supplementResponse.result
+                let mainMaterial = supplement.mainMaterial?.split(separator: ",").map {String($0)}
+                let subMaterial = supplement.subMaterial
                 
+                self.supplementDetailRelay.accept(supplement)
                 
-                self.numOfSubMaterialRelay.accept(supplement.result.subMaterial?.count)
+                self.numOfMainMaterialRelay.accept(mainMaterial?.count)
+                self.numOfSubMaterialRelay.accept(subMaterial?.count)
+
+                self.addMaterialByType(category: .main,
+                                       materials: (mainMaterial ?? ["없음"]).map { $0.toMaterial(with: .main) } )
+                self.addMaterialByType(category: .sub,
+                                       materials: (subMaterial ?? ["없음"]).map { $0.toMaterial(with: .sub) })
                 
-                let tmp = supplement.result.mainMaterial?.split(separator: ",").map {String($0)}
-                
-                self.numOfMainMaterialRelay.accept(tmp?.count)
-        
-                self.material[.main] = (tmp ?? ["없음"]).map { $0.toMaterial(with: .main) }
-                
-                self.material[.sub] = (supplement.result.subMaterial ?? ["없음"]).map { $0.toMaterial(with: .sub) }
-                
-                self.materialRelay.accept(self.material)
-                
-                self.fetchAdditiveMaterial(with: supplement.result.additive)
+                self.fetchAdditiveMaterial(with: supplement.additive)
                 
             }, onFailure: {
                 print("Error: Fetch supplementDetail - \($0)")
@@ -113,17 +112,11 @@ private extension DefaultSupplementDetailViewModel {
                     return
                 }
 
+                let additivesWithTermDescription = self.getAdditivesWithTermDescription(additives: additives)
+
                 self.numOfAdditiveRelay.accept(additives?.count)
-                                
-                let additivesWithTermDescription = additives?.map {
-                    $0.toMaterial(
-                        termDescription: $0.termIds.map {
-                            "\($0) - " + (self.termsRelay.value[$0] ?? "설명 중비중") + "\n"
-                        }.joined(separator: "\n")
-                    )
-                }
-                self.material[.addictive] = additivesWithTermDescription ?? [Material(category: "add")]
-                self.materialRelay.accept(self.material)
+                self.addMaterialByType(category: .addictive,
+                                       materials: additivesWithTermDescription)
 
             }, onFailure: {
                 print("Error: Fetch Additives - \($0)")
@@ -138,10 +131,25 @@ private extension DefaultSupplementDetailViewModel {
                 else {
                     return
                 }
-                var tmp: [String: String] = [:]
-                terms.forEach { tmp[$0.name] = $0.description }
-                self.termsRelay.accept(tmp)
+                var termsByName: [String: String] = [:]
+                terms.forEach { termsByName[$0.name] = $0.description }
+                self.termsRelay.accept(termsByName)
             })
             .disposed(by: self.disposeBag)
+    }
+    
+    func addMaterialByType(category: MaterialType, materials: [Material]?) {
+        self.material[category] = materials ?? [Material(category: category.rawValue, name: "없음")]
+        self.materialRelay.accept(self.material)
+    }
+    
+    func getAdditivesWithTermDescription(additives: [MaterialDTO]?) -> [Material]? {
+        additives?.map {
+            $0.toMaterial(
+                termDescription: $0.termIds.map {
+                    "\($0) - " + (self.termsRelay.value[$0] ?? "설명 중비중") + "\n"
+                }.joined(separator: "\n")
+            )
+        }
     }
 }
