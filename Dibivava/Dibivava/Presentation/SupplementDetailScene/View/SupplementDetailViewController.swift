@@ -124,7 +124,7 @@ private extension SupplementDetailViewController {
             .disposed(by: self.disposeBag)
         
         
-        self.viewModel.materialDriver
+        self.viewModel.materialByType
             .compactMap { $0 }
             .drive(onNext: { [weak self] material in
                 guard let self

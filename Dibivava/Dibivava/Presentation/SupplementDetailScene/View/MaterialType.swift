@@ -10,5 +10,5 @@ import Foundation
 enum MaterialType: String {
     case main
     case sub
-    case addictive
+    case addictive = "add"
 }

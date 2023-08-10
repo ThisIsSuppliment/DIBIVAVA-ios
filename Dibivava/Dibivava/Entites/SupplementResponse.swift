@@ -17,7 +17,7 @@ struct SupplementDTO: Codable {
     let supplementID: Int
     let name, company, expireDate, intakeMethod: String?
     let functionality: [String]?
-    let mainMaterial: String?
+    let mainMaterial: [String]?
     let subMaterial, additive: [String]?
     let imageLink: String?
     let gmpCheck: Int?
