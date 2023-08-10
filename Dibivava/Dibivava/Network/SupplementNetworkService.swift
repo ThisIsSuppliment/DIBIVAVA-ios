@@ -50,7 +50,7 @@ final class DefaultSupplementNetworkService: SupplementNetworkService {
             let urlString = "https://nb548yprx4.execute-api.ap-northeast-2.amazonaws.com/production/getSupplementById?id=\(id)"
             let urlComponent = URLComponents(string: urlString)
             guard let url = urlComponent?.url else { return Disposables.create() }
-
+            print(">>", urlString)
             AF.request(url).responseData { response in
                 switch response.result {
                 case .success(let data):
@@ -59,7 +59,7 @@ final class DefaultSupplementNetworkService: SupplementNetworkService {
                         let decodedData = try decoder.decode(SupplementResponse.self, from: data)
                         single(.success(decodedData))
                     }catch{
-                        single(.failure(NetworkError.invalidStatusCode))
+                        single(.failure(NetworkError.failedDecode))
                         return
                     }
                 case .failure(let error):

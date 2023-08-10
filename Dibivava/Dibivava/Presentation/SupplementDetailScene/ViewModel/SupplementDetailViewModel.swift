@@ -83,7 +83,7 @@ private extension DefaultSupplementDetailViewModel {
                 }
                 
                 let supplement = supplementResponse.result
-                let mainMaterial = supplement.mainMaterial?.split(separator: ",").map {String($0)}
+                let mainMaterial = supplement.mainMaterial
                 let subMaterial = supplement.subMaterial
                 
                 self.supplementDetailRelay.accept(supplement)
@@ -96,6 +96,7 @@ private extension DefaultSupplementDetailViewModel {
                 self.addMaterialByType(category: .sub,
                                        materials: (subMaterial ?? ["없음"]).map { $0.toMaterial(with: .sub) })
                 
+                // 첨가제 데이터 요청
                 self.fetchAdditiveMaterial(with: supplement.additive)
                 
             }, onFailure: {
