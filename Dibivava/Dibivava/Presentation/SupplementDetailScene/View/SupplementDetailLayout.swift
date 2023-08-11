@@ -76,32 +76,6 @@ enum SupplementDetailLayout {
             section.boundarySupplementaryItems = [sectionHeader]
             section.contentInsets = .init(top: 0, leading: 16, bottom: 10, trailing: 16)
             section.interGroupSpacing = 10
-            
-//            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-//                                                  heightDimension: .estimated(100))
-//            let item = NSCollectionLayoutItem(layoutSize: itemSize)
-//
-//            item.edgeSpacing = NSCollectionLayoutEdgeSpacing(leading: nil, top: .fixed(20), trailing: nil, bottom: nil)
-//
-//            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-//                                                   heightDimension: .estimated(100))
-//            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
-//                                                           subitems: [item])
-//            group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20)
-//
-//            let sectionHeaderSize = NSCollectionLayoutSize(
-//                widthDimension: .fractionalWidth(1.0),
-//                heightDimension: .absolute(50))
-//
-//            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-//                layoutSize: sectionHeaderSize,
-//                elementKind: UICollectionView.elementKindSectionHeader,
-//                alignment: .top)
-//            sectionHeader.pinToVisibleBounds = false
-//
-//            let section = NSCollectionLayoutSection(group: group)
-//            section.boundarySupplementaryItems = [sectionHeader]
-            
             return section
         }
     }
