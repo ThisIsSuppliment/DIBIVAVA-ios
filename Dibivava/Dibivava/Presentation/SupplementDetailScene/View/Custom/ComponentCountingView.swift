@@ -30,6 +30,7 @@ final class ComponentCountingView: UIView {
     
     let imageView: UIImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
+        $0.image = UIImage(named: "0개")
     }
     
     var count: Int? {
