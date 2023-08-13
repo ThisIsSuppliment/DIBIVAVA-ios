@@ -1,5 +1,5 @@
 //
-//  SuggestionCollectionViewCell.swift
+//  RecommendationCollectionViewCell.swift
 //  Dibivava
 //
 //  Created by dong eun shin on 2023/08/10.
@@ -8,11 +8,12 @@
 import UIKit
 import Then
 
-class SuggestionCollectionViewCell: UICollectionViewCell {
-    static let identifier: String = String(describing: SuggestionCollectionViewCell.self)
+class RecommendationCollectionViewCell: UICollectionViewCell {
+    static let identifier: String = String(describing: RecommendationCollectionViewCell.self)
     
     private let imageView: UIImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
+        $0.image = UIImage(named: "noresult")
     }
     
     private let titleLabel: UILabel = UILabel().then {
@@ -58,7 +59,7 @@ class SuggestionCollectionViewCell: UICollectionViewCell {
     }
 }
 
-private extension SuggestionCollectionViewCell {
+private extension RecommendationCollectionViewCell {
     func configureSubviews() {
         [imageView, titleLabel, companyLabel].forEach {
             self.contentView.addSubview($0)
