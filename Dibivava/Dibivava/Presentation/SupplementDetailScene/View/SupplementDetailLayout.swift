@@ -10,6 +10,7 @@ import UIKit
 enum SupplementDetailLayout {
     case functionality
     case component
+    case recommendation
     
     func createLayout(itemCount: Int = 5) -> UICollectionViewCompositionalLayout {
         switch self {
@@ -17,6 +18,8 @@ enum SupplementDetailLayout {
             return self.createFunctionalityLayout()
         case .component:
             return self.createComponentLayout(itemCount: itemCount)
+        case .recommendation:
+            return self.createRecommendationLayout()
         }
     }
     
@@ -76,6 +79,30 @@ enum SupplementDetailLayout {
             section.boundarySupplementaryItems = [sectionHeader]
             section.contentInsets = .init(top: 0, leading: 16, bottom: 10, trailing: 16)
             section.interGroupSpacing = 10
+            return section
+        }
+    }
+    
+    private func createRecommendationLayout() -> UICollectionViewCompositionalLayout {
+        return UICollectionViewCompositionalLayout { (sectionNumber, env) -> NSCollectionLayoutSection? in
+            let itemSize = NSCollectionLayoutSize(
+                widthDimension: .absolute(150),
+                heightDimension: .absolute(150)
+            )
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+            
+            let groupSize = NSCollectionLayoutSize(
+                widthDimension: .absolute(150),
+                heightDimension: .absolute(150)
+            )
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
+                                                           subitems: [item])
+            
+            let section = NSCollectionLayoutSection(group: group)
+            section.orthogonalScrollingBehavior = .continuous
+            section.interGroupSpacing = 10
+            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10) //?
+            
             return section
         }
     }

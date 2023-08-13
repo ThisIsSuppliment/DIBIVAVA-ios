@@ -24,6 +24,7 @@ class SupplementDetailViewController: UIViewController {
     
     private let supplementDetailView: SupplementDetailView
     private let componentView: ComponentView
+    private let recommendationView: RecommendationView
     
     private var viewModel: SupplementDetailViewModel
     private let disposeBag = DisposeBag()
@@ -31,6 +32,7 @@ class SupplementDetailViewController: UIViewController {
     init(supplementDetailViewModel: SupplementDetailViewModel) {
         self.supplementDetailView = SupplementDetailView()
         self.componentView = ComponentView()
+        self.recommendationView = RecommendationView()
         self.viewModel = supplementDetailViewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -57,7 +59,7 @@ class SupplementDetailViewController: UIViewController {
 
 private extension SupplementDetailViewController {
     func configureSubviews() {
-        [supplementDetailView, componentView].forEach {
+        [supplementDetailView, componentView, recommendationView].forEach {
             self.scrollView.addSubview($0)
         }
         
@@ -84,11 +86,26 @@ private extension SupplementDetailViewController {
             make.top.equalTo(self.supplementDetailView.snp.bottom).offset(7)
             make.horizontalEdges.equalToSuperview()
             make.height.greaterThanOrEqualTo(scrollView)
+//            make.bottom.equalToSuperview().priority(.low)
+        }
+        
+        self.recommendationView.snp.makeConstraints { make in
+            make.top.equalTo(self.componentView.snp.bottom).offset(7)
+            make.horizontalEdges.equalToSuperview()
+            make.height.greaterThanOrEqualTo(200)
             make.bottom.equalToSuperview().priority(.low)
         }
     }
     
     func bind() {
+        // recommendationView MOCK
+        let s = SupplementDTO(supplementID: 1, name: "이름2", company: "회사2", expireDate: nil, intakeMethod: nil, functionality: nil, mainMaterial: nil, subMaterial: nil, additive: nil, imageLink: nil, gmpCheck: nil, createdAt: nil, updatedAt: nil)
+        let s2 =  SupplementDTO(supplementID: 2, name: "이름2", company: "회사2", expireDate: nil, intakeMethod: nil, functionality: nil, mainMaterial: nil, subMaterial: nil, additive: nil, imageLink: nil, gmpCheck: nil, createdAt: nil, updatedAt: nil)
+        let s3 =  SupplementDTO(supplementID: 3, name: "이름2", company: "회사2", expireDate: nil, intakeMethod: nil, functionality: nil, mainMaterial: nil, subMaterial: nil, additive: nil, imageLink: nil, gmpCheck: nil, createdAt: nil, updatedAt: nil)
+        let s4 =  SupplementDTO(supplementID: 4, name: "이름2", company: "회사2", expireDate: nil, intakeMethod: nil, functionality: nil, mainMaterial: nil, subMaterial: nil, additive: nil, imageLink: nil, gmpCheck: nil, createdAt: nil, updatedAt: nil)
+        let s5 =  SupplementDTO(supplementID: 5, name: "이름2", company: "회사2", expireDate: nil, intakeMethod: nil, functionality: nil, mainMaterial: nil, subMaterial: nil, additive: nil, imageLink: nil, gmpCheck: nil, createdAt: nil, updatedAt: nil)
+        recommendationView.applySnapshot([s, s2, s3, s4, s5])
+        
         self.viewModel.supplementDetail
             .drive(onNext: { [weak self] items in
                 guard let self,
@@ -158,7 +175,7 @@ private extension SupplementDetailViewController {
     }
     
     func updateScrollViewContentSize() {
-        let totalHeight = supplementDetailView.frame.height + componentView.frame.height + 7
+        let totalHeight = supplementDetailView.frame.height + componentView.frame.height + recommendationView.frame.height + 7
         
         scrollView.contentSize = CGSize(width: view.bounds.width, height: totalHeight)
     }

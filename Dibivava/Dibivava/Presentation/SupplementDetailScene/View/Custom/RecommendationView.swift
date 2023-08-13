@@ -11,8 +11,8 @@ import SnapKit
 import Then
 
 class RecommendationView: UIView, UICollectionViewDelegate {
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, String>
-    typealias DataSource = UICollectionViewDiffableDataSource<Section, String>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, SupplementDTO>
+    typealias DataSource = UICollectionViewDiffableDataSource<Section, SupplementDTO>
     
     enum Section: String, CaseIterable {
         case main
@@ -20,9 +20,16 @@ class RecommendationView: UIView, UICollectionViewDelegate {
     
     // MARK: - UI
     
+    let titleLabel: UILabel = UILabel().then {
+        $0.textColor = .black
+        $0.textAlignment = .left
+        $0.font = .pretendard(.ExtraBold, size: 18)
+        $0.text = "첨가제가 적어요!"
+    }
+    
     lazy var collectionView: UICollectionView = UICollectionView(
         frame: .zero,
-        collectionViewLayout: configureCollectionViewLayout(.functionality)
+        collectionViewLayout: configureCollectionViewLayout(.recommendation)
     ).then {
         $0.delegate = self
         $0.register(
@@ -44,6 +51,8 @@ class RecommendationView: UIView, UICollectionViewDelegate {
         self.configureSubView()
         self.configureConstraints()
         self.configureDataSource()
+        
+        self.backgroundColor = .white
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -52,12 +61,12 @@ class RecommendationView: UIView, UICollectionViewDelegate {
     
     // MARK: - Public Method
     
-    func applySnapshot(_ recommendations: [String]) {
+    func applySnapshot(_ recommendations: [SupplementDTO]) {
         if recommendations.isEmpty {
             return
         }
         collectionView.snp.makeConstraints { make in
-            make.height.equalTo(100)
+            make.height.equalTo(150)
         }
         var snapshot = Snapshot()
         snapshot.appendSections([.main])
@@ -75,12 +84,19 @@ private extension RecommendationView {
     }
     
     func configureSubView() {
-        self.addSubview(collectionView)
+        [titleLabel, collectionView].forEach {
+            self.addSubview($0)
+        }
     }
     
     func configureConstraints() {
+        self.titleLabel.snp.makeConstraints { make in
+            make.top.horizontalEdges.equalToSuperview().inset(15)
+        }
+        
         self.collectionView.snp.makeConstraints { make in
-            make.top.horizontalEdges.equalToSuperview()
+            make.top.equalTo(self.titleLabel.snp.bottom).offset(10)
+            make.horizontalEdges.equalToSuperview().inset(15)
         }
     }
 
@@ -91,7 +107,8 @@ private extension RecommendationView {
                 for: indexPath
             ) as! RecommendationCollectionViewCell
             
-//            cell.configure(title: item)
+            cell.configure(name: item.name, company: item.company)
+            cell.imageURL = item.imageLink
 
             return cell
         }

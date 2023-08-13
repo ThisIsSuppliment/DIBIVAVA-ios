@@ -19,15 +19,27 @@ class RecommendationCollectionViewCell: UICollectionViewCell {
     private let titleLabel: UILabel = UILabel().then {
         $0.textColor = .black
         $0.textAlignment = .left
-        $0.font = .pretendard(.Regular, size: 17)
+        $0.font = .pretendard(.Regular, size: 15)
+        $0.text = "이름111"
     }
     
-    private let companyLabel: BasePaddingLabel = BasePaddingLabel().then {
+    private let companyLabel: UILabel = UILabel().then {
         $0.textColor = .black
         $0.textAlignment = .left
-        $0.layer.cornerRadius = 10
-        $0.clipsToBounds = true
-        $0.font = .pretendard(.Regular, size: 15)
+        $0.font = .pretendard(.Regular, size: 12)
+        $0.text = "회사이름111"
+    }
+    
+    var imageURL: String? {
+        didSet {
+            guard let imageURL = imageURL,
+                  let url = URL(string: imageURL)
+            else {
+                self.imageView.image = UIImage(named: "noresult")
+                return
+            }
+            self.imageView.load(url: url)
+        }
     }
     
     override init(frame: CGRect) {
@@ -53,9 +65,9 @@ class RecommendationCollectionViewCell: UICollectionViewCell {
         self.companyLabel.text = ""
     }
     
-    func configure(title: String, companyLabel: String) {
-        self.titleLabel.text = title
-        self.companyLabel.text = companyLabel
+    func configure(name: String?, company: String?) {
+        self.titleLabel.text = name
+        self.companyLabel.text = company
     }
 }
 
@@ -70,17 +82,17 @@ private extension RecommendationCollectionViewCell {
         self.imageView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(10)
             make.leading.trailing.equalToSuperview().inset(10)
+            make.size.equalTo(80)
         }
         
         self.titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.imageView.snp.bottom).offset(20)
+            make.top.equalTo(self.imageView.snp.bottom).offset(10)
             make.leading.trailing.equalToSuperview().inset(10)
         }
         
         self.companyLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.titleLabel.snp.bottom).offset(20)
+            make.top.equalTo(self.titleLabel.snp.bottom).offset(5)
             make.leading.trailing.equalToSuperview().inset(10)
-            make.bottom.equalToSuperview().inset(10)
         }
     }
 }
