@@ -52,26 +52,6 @@ final class ComponentView: UIView, UICollectionViewDelegate {
         $0.text = "이런 성분들이 있어요!"
     }
     
-    let medicalDisclaimerLabel: UILabel = UILabel().then {
-        $0.textAlignment = .left
-        $0.font = .pretendard(.Light, size: 12)
-        $0.textColor = UIColor(rgb: 0x878787)
-        $0.numberOfLines = 0
-        $0.text = "[주의사항]\n- 본 정보는 참고용으로, 법적 책임을 지지 않습니다.\n- 본 정보는 참고용으로만 제공되며 개별적인 상황에 따라 반드시 의료 전문가와 상담하여야 합니다. 어떠한 경우에도 본 앱의 내용을 근거로 한 자체 진단 또는 치료를 시도해서는 안 됩니다."
-    }
-    
-    let supplementResourceLabel: UITextView = UITextView().then {
-        $0.textAlignment = .left
-        $0.font = .pretendard(.Light, size: 12)
-        $0.textColor = UIColor(rgb: 0x878787)
-        $0.text = "[정보 출처]\n- 건강기능식품, 건강기능식품 품목제조신고(원재료), 건강기능식품 기능성원료인정현황, 건강기능식품 개별인정형 정보, 식품첨가물의기준및규격, 건강기능식품GMP 지정 현황: 식품의약품안전처[https://www.foodsafetykorea.go.kr/]\n- 생리활성기능: 질병관리청 국가건강정보포털[https://health.kdca.go.kr/]"
-        $0.isEditable = false
-        $0.isSelectable = true
-        $0.isScrollEnabled = false
-        $0.dataDetectorTypes = .link
-        $0.textContainer.maximumNumberOfLines = 0
-    }
-    
     let componentCountingStackView: UIStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.alignment = .center
@@ -168,7 +148,7 @@ private extension ComponentView {
             self.componentCountingStackView.addArrangedSubview($0)
         }
         
-        [titleLabel, componentCountingStackView, collectionView, supplementResourceLabel, medicalDisclaimerLabel].forEach {
+        [titleLabel, componentCountingStackView, collectionView].forEach {
             self.addSubview($0)
         }
     }
@@ -188,19 +168,6 @@ private extension ComponentView {
             make.top.equalTo(self.componentCountingStackView.snp.bottom)
             make.horizontalEdges.equalToSuperview()
             make.height.greaterThanOrEqualTo(self.collectionView.contentSize.height)
-//            make.bottom.equalToSuperview().priority(.low)
-        }
-        
-        self.supplementResourceLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.collectionView.snp.bottom).offset(50)
-            make.horizontalEdges.equalToSuperview().inset(15)
-            make.height.equalTo(100)
-            make.bottom.equalTo(self.medicalDisclaimerLabel.snp.top).priority(.low)
-        }
-        
-        self.medicalDisclaimerLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.supplementResourceLabel.snp.bottom).offset(10)
-            make.horizontalEdges.equalToSuperview().inset(15)
             make.bottom.equalToSuperview().inset(12)
         }
     }

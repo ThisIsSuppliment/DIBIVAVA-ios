@@ -25,6 +25,7 @@ class SupplementDetailViewController: UIViewController {
     private let supplementDetailView: SupplementDetailView
     private let componentView: ComponentView
     private let recommendationView: RecommendationView
+    private let resourceView: ResourceView
     
     private var viewModel: SupplementDetailViewModel
     private let disposeBag = DisposeBag()
@@ -33,6 +34,7 @@ class SupplementDetailViewController: UIViewController {
         self.supplementDetailView = SupplementDetailView()
         self.componentView = ComponentView()
         self.recommendationView = RecommendationView()
+        self.resourceView = ResourceView()
         self.viewModel = supplementDetailViewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -59,7 +61,7 @@ class SupplementDetailViewController: UIViewController {
 
 private extension SupplementDetailViewController {
     func configureSubviews() {
-        [supplementDetailView, componentView, recommendationView].forEach {
+        [supplementDetailView, componentView, recommendationView, resourceView].forEach {
             self.scrollView.addSubview($0)
         }
         
@@ -93,6 +95,13 @@ private extension SupplementDetailViewController {
             make.top.equalTo(self.componentView.snp.bottom).offset(7)
             make.horizontalEdges.equalToSuperview()
             make.height.greaterThanOrEqualTo(200)
+//            make.bottom.equalToSuperview().priority(.low)
+        }
+        
+        self.resourceView.snp.makeConstraints { make in
+            make.top.equalTo(self.recommendationView.snp.bottom).offset(7)
+            make.horizontalEdges.equalToSuperview()
+//            make.height.greaterThanOrEqualTo(200)
             make.bottom.equalToSuperview().priority(.low)
         }
     }
@@ -175,7 +184,7 @@ private extension SupplementDetailViewController {
     }
     
     func updateScrollViewContentSize() {
-        let totalHeight = supplementDetailView.frame.height + componentView.frame.height + recommendationView.frame.height + 7
+        let totalHeight = supplementDetailView.frame.height + componentView.frame.height + recommendationView.frame.height + resourceView.frame.height + 7
         
         scrollView.contentSize = CGSize(width: view.bounds.width, height: totalHeight)
     }

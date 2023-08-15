@@ -8,13 +8,9 @@
 import UIKit
 
 final class ResourceView: UIView {
-    
-    let medicalDisclaimerLabel: UILabel = UILabel().then {
+    let title: UILabel = UILabel().then {
         $0.textAlignment = .left
         $0.font = .pretendard(.Light, size: 12)
-        $0.textColor = UIColor(rgb: 0x878787)
-        $0.numberOfLines = 0
-        $0.text = "[주의사항]\n- 본 정보는 참고용으로, 법적 책임을 지지 않습니다.\n- 본 정보는 참고용으로만 제공되며 개별적인 상황에 따라 반드시 의료 전문가와 상담하여야 합니다. 어떠한 경우에도 본 앱의 내용을 근거로 한 자체 진단 또는 치료를 시도해서는 안 됩니다."
     }
     
     let supplementResourceLabel: UITextView = UITextView().then {
@@ -27,6 +23,16 @@ final class ResourceView: UIView {
         $0.isScrollEnabled = false
         $0.dataDetectorTypes = .link
         $0.textContainer.maximumNumberOfLines = 0
+        $0.backgroundColor = .green
+    }
+    
+    let medicalDisclaimerLabel: UILabel = UILabel().then {
+        $0.textAlignment = .left
+        $0.font = .pretendard(.Light, size: 12)
+        $0.textColor = UIColor(rgb: 0x878787)
+        $0.numberOfLines = 0
+        $0.text = "[주의사항]\n- 본 정보는 참고용으로, 법적 책임을 지지 않습니다.\n- 본 정보는 참고용으로만 제공되며 개별적인 상황에 따라 반드시 의료 전문가와 상담하여야 합니다. 어떠한 경우에도 본 앱의 내용을 근거로 한 자체 진단 또는 치료를 시도해서는 안 됩니다."
+        $0.backgroundColor = .red
     }
 
     // MARK: - Init
@@ -48,22 +54,21 @@ final class ResourceView: UIView {
 
 private extension ResourceView {
     func configureSubView() {
-        [supplementResourceLabel, medicalDisclaimerLabel].forEach {
+        [medicalDisclaimerLabel, supplementResourceLabel].forEach {
             self.addSubview($0)
         }
     }
     
     func configureConstraints() {
-        self.supplementResourceLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(50)
+        self.medicalDisclaimerLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(10)
             make.horizontalEdges.equalToSuperview().inset(15)
-            make.height.equalTo(100)
         }
         
-        self.medicalDisclaimerLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.supplementResourceLabel.snp.bottom).offset(10)
+        self.supplementResourceLabel.snp.makeConstraints { make in
+            make.top.equalTo(self.medicalDisclaimerLabel.snp.bottom)
             make.horizontalEdges.equalToSuperview().inset(15)
-            make.bottom.equalToSuperview().inset(12)
+            make.bottom.equalToSuperview().inset(15)
         }
     }
 }
