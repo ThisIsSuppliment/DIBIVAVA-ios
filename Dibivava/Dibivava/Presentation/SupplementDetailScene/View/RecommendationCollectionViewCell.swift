@@ -82,7 +82,7 @@ private extension RecommendationCollectionViewCell {
         self.imageView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(10)
             make.leading.trailing.equalToSuperview().inset(10)
-            make.size.equalTo(80)
+            make.size.equalTo(130)
         }
         
         self.titleLabel.snp.makeConstraints { make in

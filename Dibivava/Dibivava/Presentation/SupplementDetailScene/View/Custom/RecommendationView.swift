@@ -66,7 +66,7 @@ class RecommendationView: UIView, UICollectionViewDelegate {
             return
         }
         collectionView.snp.makeConstraints { make in
-            make.height.equalTo(150)
+            make.height.equalTo(200)
         }
         var snapshot = Snapshot()
         snapshot.appendSections([.main])
@@ -96,7 +96,8 @@ private extension RecommendationView {
         
         self.collectionView.snp.makeConstraints { make in
             make.top.equalTo(self.titleLabel.snp.bottom).offset(10)
-            make.horizontalEdges.equalToSuperview().inset(15)
+            make.horizontalEdges.equalToSuperview()
+            make.bottom.equalToSuperview().inset(15)
         }
     }
 
