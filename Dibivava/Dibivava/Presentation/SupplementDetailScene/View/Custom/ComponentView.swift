@@ -45,6 +45,7 @@ final class ComponentView: UIView, UICollectionViewDelegate {
     }
     
     // MARK: - UI
+    
     let titleLabel: UILabel = UILabel().then {
         $0.textColor = .black
         $0.textAlignment = .left
@@ -95,11 +96,6 @@ final class ComponentView: UIView, UICollectionViewDelegate {
     private var isExpanded = false
     
     private let disposeBag: DisposeBag = DisposeBag()
-//    private let heightChangedSubject = PublishSubject<CGFloat>()
-    
-//    var heightChanged: Observable<CGFloat> {
-//        return heightChangedSubject.asObservable()
-//    }
     
     // MARK: - Init
     
@@ -130,9 +126,7 @@ final class ComponentView: UIView, UICollectionViewDelegate {
         
         self.dataSource?.apply(snapshot, animatingDifferences: false)
                 
-        self.collectionView.snp.updateConstraints { make in
-            make.height.greaterThanOrEqualTo(self.collectionView.contentSize.height)
-        }
+        self.updateCollectionViewHeight(self.collectionView.contentSize.height)
     }
 }
 
@@ -211,7 +205,15 @@ private extension ComponentView {
             return headerView
         }
     }
+    
+    func updateCollectionViewHeight(_ height: Double) {
+        self.collectionView.snp.updateConstraints { make in
+            make.height.greaterThanOrEqualTo(height)
+        }
+    }
 }
+
+// MARK: - ComponentCollectionViewCellDelegate
 
 extension ComponentView: ComponentCollectionViewCellDelegate {
     func showHideButtonTapped(_ cell: ComponentCollectionViewCell, sender: Bool) {
@@ -220,8 +222,6 @@ extension ComponentView: ComponentCollectionViewCellDelegate {
         
         dataSource?.apply(snapshot, animatingDifferences: false)
         
-        self.collectionView.snp.updateConstraints { make in
-            make.height.greaterThanOrEqualTo(self.collectionView.contentSize.height)
-        }
+        self.updateCollectionViewHeight(self.collectionView.contentSize.height)
     }
 }

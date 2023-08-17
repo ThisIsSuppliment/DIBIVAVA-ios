@@ -11,6 +11,7 @@ import RxCocoa
 import SnapKit
 
 class SupplementDetailViewController: UIViewController {
+    // MARK: - UI
     
     private let scrollView: UIScrollView = UIScrollView(frame: .zero).then {
         $0.showsVerticalScrollIndicator = false
@@ -27,8 +28,12 @@ class SupplementDetailViewController: UIViewController {
     private let recommendationView: RecommendationView
     private let resourceView: ResourceView
     
+    // MARK: - Properties
+    
     private var viewModel: SupplementDetailViewModel
     private let disposeBag = DisposeBag()
+    
+    // MARK: - Init
     
     init(supplementDetailViewModel: SupplementDetailViewModel) {
         self.supplementDetailView = SupplementDetailView()
@@ -42,6 +47,8 @@ class SupplementDetailViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - App Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,6 +65,8 @@ class SupplementDetailViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = false
     }
 }
+
+// MARK: - Private Methods
 
 private extension SupplementDetailViewController {
     func configureSubviews() {
@@ -126,7 +135,7 @@ private extension SupplementDetailViewController {
                 self.supplementDetailView.companyLabel.text = items.company ?? "제조사를 알수없습니다."
                 self.supplementDetailView.descriptionLabel.text = (items.expireDate  ?? "제조일부터의 유통기한을 알수없습니다.") + " | " + (items.intakeMethod ?? "섭취량를 알수없습니다.")
                 
-                // VM으로 이동
+                // TODO: - 개선 필요
                 // 단어 후보 추가해야함
                 //혈행 - 혈핵 순환, 면역기능 - 면역력
                 let functionalityList = ["기억력 개선","혈행개선","간건강","체지방 감소", "갱년기여성 건강", "혈당조절", "눈건강", "면역기능", "관절/뼈건강", "전립선건강", "피로개선", "피부건강", "콜레스테롤 개선", "혈압조절", "긴장완화", "장건강", "칼슘흡수", "요로건강", "소화기능", "항산화", "혈중중성기방개선", "인지능력", "지구력항상", "치아건강", "배뇨기능 개선", "피부상태 개선", "갱년기 남성 건강", "월경전 상태 개선", "정자 운동성 개선", "여성의 질 건강", "어린이 키성장 개선"]
@@ -170,19 +179,5 @@ private extension SupplementDetailViewController {
                 self.componentView.add.count = numOfAdd
             })
             .disposed(by: self.disposeBag)
-        
-//        self.componentView.heightChanged
-//            .subscribe(onNext: { [weak self] height in
-//                self?.updateScrollViewContentSize()
-//            })
-//            .disposed(by: disposeBag)
-
-        updateScrollViewContentSize()
-    }
-    
-    func updateScrollViewContentSize() {
-//        let totalHeight = supplementDetailView.frame.height + componentView.frame.height + recommendationView.frame.height + resourceView.frame.height + 7
-//        
-//        scrollView.contentSize = CGSize(width: view.bounds.width, height: totalHeight)
     }
 }
