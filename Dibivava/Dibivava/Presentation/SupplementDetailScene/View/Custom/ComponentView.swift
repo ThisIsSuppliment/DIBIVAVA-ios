@@ -95,11 +95,11 @@ final class ComponentView: UIView, UICollectionViewDelegate {
     private var isExpanded = false
     
     private let disposeBag: DisposeBag = DisposeBag()
-    private let heightChangedSubject = PublishSubject<CGFloat>()
+//    private let heightChangedSubject = PublishSubject<CGFloat>()
     
-    var heightChanged: Observable<CGFloat> {
-        return heightChangedSubject.asObservable()
-    }
+//    var heightChanged: Observable<CGFloat> {
+//        return heightChangedSubject.asObservable()
+//    }
     
     // MARK: - Init
     

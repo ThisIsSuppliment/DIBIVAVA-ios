@@ -87,7 +87,7 @@ private extension SupplementDetailViewController {
         self.componentView.snp.makeConstraints { make in
             make.top.equalTo(self.supplementDetailView.snp.bottom).offset(7)
             make.horizontalEdges.equalToSuperview()
-            make.height.greaterThanOrEqualTo(scrollView)
+            make.height.greaterThanOrEqualTo(300)
         }
         
         self.recommendationView.snp.makeConstraints { make in
@@ -171,11 +171,11 @@ private extension SupplementDetailViewController {
             })
             .disposed(by: self.disposeBag)
         
-        self.componentView.heightChanged
-            .subscribe(onNext: { [weak self] height in
-                self?.updateScrollViewContentSize()
-            })
-            .disposed(by: disposeBag)
+//        self.componentView.heightChanged
+//            .subscribe(onNext: { [weak self] height in
+//                self?.updateScrollViewContentSize()
+//            })
+//            .disposed(by: disposeBag)
 
         updateScrollViewContentSize()
     }
