@@ -9,14 +9,17 @@ import UIKit
 
 enum SupplementDetailLayout {
     case functionality
-    case component
+    case material
+    case recommendation
     
     func createLayout(itemCount: Int = 5) -> UICollectionViewCompositionalLayout {
         switch self {
         case .functionality:
             return self.createFunctionalityLayout()
-        case .component:
-            return self.createComponentLayout(itemCount: itemCount)
+        case .material:
+            return self.createMaterialLayout(itemCount: itemCount)
+        case .recommendation:
+            return self.createRecommendationLayout()
         }
     }
     
@@ -38,13 +41,12 @@ enum SupplementDetailLayout {
             let section = NSCollectionLayoutSection(group: group)
             section.orthogonalScrollingBehavior = .continuous
             section.interGroupSpacing = 10
-            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10) //?
-            
+            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
             return section
         }
     }
     
-    private func createComponentLayout(itemCount: Int) -> UICollectionViewCompositionalLayout {
+    private func createMaterialLayout(itemCount: Int) -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { (sectionNumber, env) -> NSCollectionLayoutSection? in
             // 새로 배치
             let itemSize = NSCollectionLayoutSize(
@@ -76,32 +78,29 @@ enum SupplementDetailLayout {
             section.boundarySupplementaryItems = [sectionHeader]
             section.contentInsets = .init(top: 0, leading: 16, bottom: 10, trailing: 16)
             section.interGroupSpacing = 10
+            return section
+        }
+    }
+    
+    private func createRecommendationLayout() -> UICollectionViewCompositionalLayout {
+        return UICollectionViewCompositionalLayout { (sectionNumber, env) -> NSCollectionLayoutSection? in
+            let itemSize = NSCollectionLayoutSize(
+                widthDimension: .absolute(150),
+                heightDimension: .absolute(200)
+            )
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
             
-//            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-//                                                  heightDimension: .estimated(100))
-//            let item = NSCollectionLayoutItem(layoutSize: itemSize)
-//
-//            item.edgeSpacing = NSCollectionLayoutEdgeSpacing(leading: nil, top: .fixed(20), trailing: nil, bottom: nil)
-//
-//            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-//                                                   heightDimension: .estimated(100))
-//            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
-//                                                           subitems: [item])
-//            group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20)
-//
-//            let sectionHeaderSize = NSCollectionLayoutSize(
-//                widthDimension: .fractionalWidth(1.0),
-//                heightDimension: .absolute(50))
-//
-//            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-//                layoutSize: sectionHeaderSize,
-//                elementKind: UICollectionView.elementKindSectionHeader,
-//                alignment: .top)
-//            sectionHeader.pinToVisibleBounds = false
-//
-//            let section = NSCollectionLayoutSection(group: group)
-//            section.boundarySupplementaryItems = [sectionHeader]
+            let groupSize = NSCollectionLayoutSize(
+                widthDimension: .absolute(150),
+                heightDimension: .absolute(200)
+            )
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
+                                                           subitems: [item])
             
+            let section = NSCollectionLayoutSection(group: group)
+            section.orthogonalScrollingBehavior = .continuous
+            section.interGroupSpacing = 10
+            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15)
             return section
         }
     }

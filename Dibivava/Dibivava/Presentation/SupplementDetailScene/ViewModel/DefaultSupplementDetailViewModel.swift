@@ -1,5 +1,5 @@
 //
-//  SupplementDetailViewModel.swift
+//  DefaultSupplementDetailViewModel.swift
 //  Dibivava
 //
 //  Created by dong eun shin on 2023/07/17.
@@ -9,23 +9,11 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-protocol SupplementDetailViewModelInput {
-    func viewWillAppear()
-}
-
-protocol SupplementDetailViewModelOutput {
-    var supplementDetail: Driver<SupplementDTO?> { get }
-    var materialByType: Driver<[MaterialType:[Material]]?> { get }
-    var numOfMainMaterial: Driver<Int?> { get }
-    var numOfSubMaterial: Driver<Int?> { get }
-    var numOfAddMaterial: Driver<Int?> { get }
-}
-
-protocol SupplementDetailViewModel: SupplementDetailViewModelInput, SupplementDetailViewModelOutput {}
-
 class DefaultSupplementDetailViewModel {
     private var id: Int
+    private var material: [MaterialType:[Material]]
     private let supplementNetworkService: SupplementNetworkService
+    private let disposeBag = DisposeBag()
     
     private let supplementDetailRelay: PublishRelay<SupplementDTO?> = .init()
     private let termsRelay: BehaviorRelay<[String: String]> = .init(value: [:])
@@ -33,9 +21,6 @@ class DefaultSupplementDetailViewModel {
     private let numOfMainMaterialRelay: PublishRelay<Int?> = .init()
     private let numOfSubMaterialRelay: PublishRelay<Int?> = .init()
     private let numOfAdditiveRelay: PublishRelay<Int?> = .init()
-    
-    private var material: [MaterialType:[Material]]
-    private let disposeBag = DisposeBag()
     
     init(id: Int,
          supplementNetworkService: SupplementNetworkService
