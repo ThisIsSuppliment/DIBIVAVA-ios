@@ -24,7 +24,7 @@ class SupplementDetailViewController: UIViewController {
     }
     
     private let supplementDetailView: SupplementDetailView
-    private let componentView: ComponentView
+    private let materialView: MaterialView
     private let recommendationView: RecommendationView
     private let resourceView: ResourceView
     
@@ -37,7 +37,7 @@ class SupplementDetailViewController: UIViewController {
     
     init(supplementDetailViewModel: SupplementDetailViewModel) {
         self.supplementDetailView = SupplementDetailView()
-        self.componentView = ComponentView()
+        self.materialView = MaterialView()
         self.recommendationView = RecommendationView()
         self.resourceView = ResourceView()
         self.viewModel = supplementDetailViewModel
@@ -70,7 +70,7 @@ class SupplementDetailViewController: UIViewController {
 
 private extension SupplementDetailViewController {
     func configureSubviews() {
-        [supplementDetailView, componentView, recommendationView, resourceView].forEach {
+        [supplementDetailView, materialView, recommendationView, resourceView].forEach {
             self.scrollView.addSubview($0)
         }
         
@@ -93,14 +93,14 @@ private extension SupplementDetailViewController {
             make.horizontalEdges.width.equalToSuperview()
         }
 
-        self.componentView.snp.makeConstraints { make in
+        self.materialView.snp.makeConstraints { make in
             make.top.equalTo(self.supplementDetailView.snp.bottom).offset(7)
             make.horizontalEdges.equalToSuperview()
             make.height.greaterThanOrEqualTo(300)
         }
         
         self.recommendationView.snp.makeConstraints { make in
-            make.top.equalTo(self.componentView.snp.bottom).offset(7)
+            make.top.equalTo(self.materialView.snp.bottom).offset(7)
             make.horizontalEdges.equalToSuperview()
             make.height.greaterThanOrEqualTo(250)
         }
@@ -163,7 +163,7 @@ private extension SupplementDetailViewController {
                 else {
                     return
                 }
-                self.componentView.applySnapshot(material)
+                self.materialView.applySnapshot(material)
                 self.indicatorView.stopAnimating()
             })
             .disposed(by: self.disposeBag)
@@ -174,9 +174,9 @@ private extension SupplementDetailViewController {
                 else {
                     return
                 }
-                self.componentView.main.count = numOfMain
-                self.componentView.sub.count = numOfSub
-                self.componentView.add.count = numOfAdd
+                self.materialView.main.count = numOfMain
+                self.materialView.sub.count = numOfSub
+                self.materialView.add.count = numOfAdd
             })
             .disposed(by: self.disposeBag)
     }

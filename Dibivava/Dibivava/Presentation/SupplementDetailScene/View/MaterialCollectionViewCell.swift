@@ -1,5 +1,5 @@
 //
-//  ComponentCollectionViewCell.swift
+//  MaterialCollectionViewCell.swift
 //  Dibivava
 //
 //  Created by dong eun shin on 2023/07/19.
@@ -11,12 +11,12 @@ import RxCocoa
 import SnapKit
 import Then
 
-protocol ComponentCollectionViewCellDelegate: AnyObject {
-    func showHideButtonTapped(_ cell: ComponentCollectionViewCell, sender: Bool)
+protocol MaterialCollectionViewCellDelegate: AnyObject {
+    func showHideButtonTapped(_ cell: MaterialCollectionViewCell, sender: Bool)
 }
 
-final class ComponentCollectionViewCell: UICollectionViewCell {
-    static let identifier: String = String(describing: ComponentCollectionViewCell.self)
+final class MaterialCollectionViewCell: UICollectionViewCell {
+    static let identifier: String = String(describing: MaterialCollectionViewCell.self)
     
     private let titleLabel: UILabel = UILabel().then {
         $0.textColor = .black
@@ -49,7 +49,7 @@ final class ComponentCollectionViewCell: UICollectionViewCell {
         $0.setImage(selectedImage, for: .selected)
     }
     
-    weak var delegate: ComponentCollectionViewCellDelegate?
+    weak var delegate: MaterialCollectionViewCellDelegate?
     
     private let disposeBag: DisposeBag = DisposeBag()
     
@@ -123,7 +123,7 @@ final class ComponentCollectionViewCell: UICollectionViewCell {
     }
 }
 
-private extension ComponentCollectionViewCell {
+private extension MaterialCollectionViewCell {
     func configureSubviews() {
         [titleLabel, toggleButton, rankLabel, termLabel].forEach {
             self.contentView.addSubview($0)

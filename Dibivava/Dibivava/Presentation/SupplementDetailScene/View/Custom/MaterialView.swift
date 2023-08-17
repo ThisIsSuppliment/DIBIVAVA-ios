@@ -1,5 +1,5 @@
 //
-//  ComponentView.swift
+//  MaterialView.swift
 //  Dibivava
 //
 //  Created by dong eun shin on 2023/07/19.
@@ -12,7 +12,7 @@ import RxSwift
 import RxCocoa
 
 
-final class ComponentView: UIView, UICollectionViewDelegate {
+final class MaterialView: UIView, UICollectionViewDelegate {
     typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Material>
     typealias DataSource = UICollectionViewDiffableDataSource<Section, Material>
     
@@ -53,39 +53,39 @@ final class ComponentView: UIView, UICollectionViewDelegate {
         $0.text = "이런 성분들이 있어요!"
     }
     
-    let componentCountingStackView: UIStackView = UIStackView().then {
+    let MaterialCountingStackView: UIStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.alignment = .center
         $0.spacing = 10
     }
     
-    let main: ComponentCountingView = ComponentCountingView().then {
+    let main: MaterialCountingView = MaterialCountingView().then {
         $0.titleLabel.text = "기능성 원료"
     }
     
-    let sub: ComponentCountingView = ComponentCountingView().then {
+    let sub: MaterialCountingView = MaterialCountingView().then {
         $0.titleLabel.text = "부원료"
     }
     
-    let add: ComponentCountingView = ComponentCountingView().then {
+    let add: MaterialCountingView = MaterialCountingView().then {
         $0.titleLabel.text = "첨가물"
     }
     
     lazy var collectionView: UICollectionView = UICollectionView(
         frame: .zero,
-        collectionViewLayout: configureCollectionViewLayout(.component)
+        collectionViewLayout: configureCollectionViewLayout(.material)
     ).then {
         $0.delegate = self
         $0.allowsMultipleSelection = true
         $0.isScrollEnabled = false
         $0.register(
-            ComponentCollectionViewCell.self,
-            forCellWithReuseIdentifier: ComponentCollectionViewCell.identifier
+            MaterialCollectionViewCell.self,
+            forCellWithReuseIdentifier: MaterialCollectionViewCell.identifier
         )
         $0.register(
-            ComponentSectionHeaderView.self,
+            MaterialSectionHeaderView.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-            withReuseIdentifier: ComponentSectionHeaderView.identifier
+            withReuseIdentifier: MaterialSectionHeaderView.identifier
         )
     }
     
@@ -132,17 +132,17 @@ final class ComponentView: UIView, UICollectionViewDelegate {
 
 // MARK: - Private Methods
 
-private extension ComponentView {
+private extension MaterialView {
     func configureCollectionViewLayout(_ section: SupplementDetailLayout) -> UICollectionViewLayout {
         return section.createLayout()
     }
     
     func configureSubView() {
         [add, main, sub].forEach {
-            self.componentCountingStackView.addArrangedSubview($0)
+            self.MaterialCountingStackView.addArrangedSubview($0)
         }
         
-        [titleLabel, componentCountingStackView, collectionView].forEach {
+        [titleLabel, MaterialCountingStackView, collectionView].forEach {
             self.addSubview($0)
         }
     }
@@ -153,13 +153,13 @@ private extension ComponentView {
             make.horizontalEdges.equalToSuperview().inset(10)
         }
         
-        self.componentCountingStackView.snp.makeConstraints { make in
+        self.MaterialCountingStackView.snp.makeConstraints { make in
             make.top.equalTo(self.titleLabel.snp.bottom).offset(15)
             make.centerX.equalToSuperview()
         }
         
         self.collectionView.snp.makeConstraints { make in
-            make.top.equalTo(self.componentCountingStackView.snp.bottom)
+            make.top.equalTo(self.MaterialCountingStackView.snp.bottom)
             make.horizontalEdges.equalToSuperview()
             make.height.greaterThanOrEqualTo(self.collectionView.contentSize.height)
             make.bottom.equalToSuperview().inset(12)
@@ -169,9 +169,9 @@ private extension ComponentView {
     func configureDataSource() {
         self.dataSource = DataSource(collectionView: collectionView) { collectionView, indexPath, item in
             let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: ComponentCollectionViewCell.identifier,
+                withReuseIdentifier: MaterialCollectionViewCell.identifier,
                 for: indexPath
-            ) as! ComponentCollectionViewCell
+            ) as! MaterialCollectionViewCell
             
             let nameOfTerms = item.terms?.joined(separator: "  ") ?? ""
             let descriptionOfTerms = item.termsDescription ?? ""
@@ -192,9 +192,9 @@ private extension ComponentView {
             
             guard let headerView = collectionView.dequeueReusableSupplementaryView(
                 ofKind: kind,
-                withReuseIdentifier: ComponentSectionHeaderView.identifier,
+                withReuseIdentifier: MaterialSectionHeaderView.identifier,
                 for: indexPath
-            ) as? ComponentSectionHeaderView
+            ) as? MaterialSectionHeaderView
             else {
                 return UICollectionReusableView()
             }
@@ -213,10 +213,10 @@ private extension ComponentView {
     }
 }
 
-// MARK: - ComponentCollectionViewCellDelegate
+// MARK: - MaterialCollectionViewCellDelegate
 
-extension ComponentView: ComponentCollectionViewCellDelegate {
-    func showHideButtonTapped(_ cell: ComponentCollectionViewCell, sender: Bool) {
+extension MaterialView: MaterialCollectionViewCellDelegate {
+    func showHideButtonTapped(_ cell: MaterialCollectionViewCell, sender: Bool) {
         guard let snapshot = dataSource?.snapshot()
         else { return }
         

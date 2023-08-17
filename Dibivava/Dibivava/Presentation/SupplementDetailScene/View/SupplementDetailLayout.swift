@@ -9,15 +9,15 @@ import UIKit
 
 enum SupplementDetailLayout {
     case functionality
-    case component
+    case material
     case recommendation
     
     func createLayout(itemCount: Int = 5) -> UICollectionViewCompositionalLayout {
         switch self {
         case .functionality:
             return self.createFunctionalityLayout()
-        case .component:
-            return self.createComponentLayout(itemCount: itemCount)
+        case .material:
+            return self.createMaterialLayout(itemCount: itemCount)
         case .recommendation:
             return self.createRecommendationLayout()
         }
@@ -46,7 +46,7 @@ enum SupplementDetailLayout {
         }
     }
     
-    private func createComponentLayout(itemCount: Int) -> UICollectionViewCompositionalLayout {
+    private func createMaterialLayout(itemCount: Int) -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { (sectionNumber, env) -> NSCollectionLayoutSection? in
             // 새로 배치
             let itemSize = NSCollectionLayoutSize(
