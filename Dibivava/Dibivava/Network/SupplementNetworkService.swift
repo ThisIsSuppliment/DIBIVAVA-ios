@@ -9,27 +9,56 @@ import Foundation
 import Alamofire
 import RxSwift
 
+enum NetworkError: Error {
+    case invalidURL
+    case invalidResponse
+    case failedDecode
+}
+
 protocol SupplementNetworkService {
     func requestSupplement(by id: Int) -> Single<SupplementResponse>
-    func requestMaterial(by id: [String]?) -> Single<[MaterialDTO]?>
+    func requestMaterial(by id: [String]?) -> Single<[MaterialResponse]?>
     func fetchTermDescription() -> Single<[TermDTO]>
 }
 
 final class DefaultSupplementNetworkService: SupplementNetworkService {
     func fetchTermDescription() -> Single<[TermDTO]> {
-        Single<[TermDTO]>.create { single in
-            guard let fileURL = Bundle.main.url(
-                forResource: "TermsDescription",
-                withExtension: "json")
+        self.request(with: EndpointCases.term, T: [TermDTO].self)
+    }
+    
+    func requestSupplement(by id: Int) -> Single<SupplementResponse> {
+        self.request(with: EndpointCases.supplement(id: id), T: SupplementResponse.self)
+    }
+    
+    func requestMaterial(by idList: [String]?) -> Single<[MaterialResponse]?> {
+        guard let idList = idList
+        else {
+            return Single.just(nil)
+        }
+        
+        let result = idList.map { id in
+            return self.request(with: EndpointCases.material(id: id), T: MaterialResponse.self)
+        }
+        
+        return Single.zip(result).map { $0 }
+    }
+}
+
+private extension DefaultSupplementNetworkService {
+    func request<T: Decodable>(with endpoint: Endpoint, T: T.Type) -> Single<T>  {
+        Single<T>.create { single in
+            guard let requestURL = endpoint.getURL()
             else {
+                single(.failure(NetworkError.invalidURL))
                 return Disposables.create()
             }
-            AF.request(fileURL).responseData { response in
+
+            AF.request(requestURL).responseData { response in
                 switch response.result {
                 case .success(let data):
                     do{
                         let decoder = JSONDecoder()
-                        let decodedData = try decoder.decode([TermDTO].self, from: data)
+                        let decodedData = try decoder.decode(T.self, from: data)
                         single(.success(decodedData))
                     }catch{
                         single(.failure(NetworkError.failedDecode))
@@ -43,80 +72,4 @@ final class DefaultSupplementNetworkService: SupplementNetworkService {
             return Disposables.create()
         }
     }
-    
-    func requestSupplement(by id: Int) -> Single<SupplementResponse> {
-        Single<SupplementResponse>.create { single in
-            // https://mp1878zrkj.execute-api.ap-northeast-2.amazonaws.com/dev/getSupplementById?id=
-            let urlString = "https://nb548yprx4.execute-api.ap-northeast-2.amazonaws.com/production/getSupplementById?id=\(id)"
-            let urlComponent = URLComponents(string: urlString)
-            guard let url = urlComponent?.url else { return Disposables.create() }
-            print(">>", urlString)
-            AF.request(url).responseData { response in
-                switch response.result {
-                case .success(let data):
-                    do{
-                        let decoder = JSONDecoder()
-                        let decodedData = try decoder.decode(SupplementResponse.self, from: data)
-                        single(.success(decodedData))
-                    }catch{
-                        single(.failure(NetworkError.failedDecode))
-                        return
-                    }
-                case .failure(let error):
-                    single(.failure(NetworkError.invalidResponse))
-                    print("ERROR: \(error)")
-                    return
-                }
-            }
-            return Disposables.create()
-        }
-    }
-    
-    func requestMaterial(by idList: [String]?) -> Single<[MaterialDTO]?> {
-        guard let idList = idList
-        else {
-            return Single.just(nil)
-        }
-        
-        let result = idList.map { id in
-            return request(with: id)
-        }
-        return Single.zip(result)
-            .map { $0 }
-    }
-    
-    func request(with id: String) -> Single<MaterialDTO> {
-        return Single<MaterialDTO>.create { single in
-            let urlString = "https://nb548yprx4.execute-api.ap-northeast-2.amazonaws.com/production/getMaterialById?id=\(id)"
-            let urlComponent = URLComponents(string: urlString)
-            guard let url = urlComponent?.url else { return Disposables.create() }
-//            print(">>", urlString)
-            AF.request(url).responseData { response in
-                switch response.result {
-                case .success(let data):
-                    do{
-                        let decoder = JSONDecoder()
-                        let decodedData = try decoder.decode(MaterialResponse.self, from: data)
-                        single(.success(decodedData.result))
-                    }catch{
-                        single(.failure(NetworkError.failedDecode))
-                        return
-                    }
-                case .failure(let error):
-                    single(.failure(NetworkError.invalidResponse))
-                    print("ERROR: \(error)")
-                    return
-                }
-            }
-            return Disposables.create()
-        }
-    }
-}
-
-enum NetworkError: Error {
-    case invalidURL
-    case invalidResponse
-    case invalidData
-    case invalidStatusCode
-    case failedDecode
 }

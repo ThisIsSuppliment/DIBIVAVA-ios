@@ -14,7 +14,7 @@ protocol SupplementDetailViewModelInput {
 }
 
 protocol SupplementDetailViewModelOutput {
-    var supplementDetail: Driver<SupplementDTO?> { get }
+    var supplementDetail: Driver<SupplementObject?> { get }
     var materialByType: Driver<[MaterialType:[Material]]?> { get }
     var numOfMainMaterial: Driver<Int?> { get }
     var numOfSubMaterial: Driver<Int?> { get }
@@ -27,7 +27,7 @@ class DefaultSupplementDetailViewModel {
     private var id: Int
     private let supplementNetworkService: SupplementNetworkService
     
-    private let supplementDetailRelay: PublishRelay<SupplementDTO?> = .init()
+    private let supplementDetailRelay: PublishRelay<SupplementObject?> = .init()
     private let termsRelay: BehaviorRelay<[String: String]> = .init(value: [:])
     private let materialByTypeRelay: BehaviorRelay<[MaterialType:[Material]]?> = .init(value: [.main: [], .sub: [], .addictive: []])
     private let numOfMainMaterialRelay: PublishRelay<Int?> = .init()
@@ -48,7 +48,7 @@ class DefaultSupplementDetailViewModel {
 }
 
 extension DefaultSupplementDetailViewModel: SupplementDetailViewModel {
-    var supplementDetail: Driver<SupplementDTO?> {
+    var supplementDetail: Driver<SupplementObject?> {
         return self.supplementDetailRelay.asDriver(onErrorJustReturn: nil)
     }
     
@@ -82,7 +82,7 @@ private extension DefaultSupplementDetailViewModel {
                     return
                 }
                 
-                let supplement = supplementResponse.result
+                let supplement = supplementResponse.toDomain()
                 let mainMaterial = supplement.mainMaterial
                 let subMaterial = supplement.subMaterial
                 
@@ -112,6 +112,8 @@ private extension DefaultSupplementDetailViewModel {
                 else {
                     return
                 }
+                
+                let additives = additives.map { $0.map {$0.result}}
 
                 let additivesWithTermDescription = self.getAdditivesWithTermDescription(additives: additives)
 
