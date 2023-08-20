@@ -1,5 +1,5 @@
 //
-//  ComponentView.swift
+//  MaterialView.swift
 //  Dibivava
 //
 //  Created by dong eun shin on 2023/07/19.
@@ -12,7 +12,7 @@ import RxSwift
 import RxCocoa
 
 
-final class ComponentView: UIView, UICollectionViewDelegate {
+final class MaterialView: UIView, UICollectionViewDelegate {
     typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Material>
     typealias DataSource = UICollectionViewDiffableDataSource<Section, Material>
     
@@ -45,6 +45,7 @@ final class ComponentView: UIView, UICollectionViewDelegate {
     }
     
     // MARK: - UI
+    
     let titleLabel: UILabel = UILabel().then {
         $0.textColor = .black
         $0.textAlignment = .left
@@ -52,59 +53,39 @@ final class ComponentView: UIView, UICollectionViewDelegate {
         $0.text = "이런 성분들이 있어요!"
     }
     
-    let medicalDisclaimerLabel: UILabel = UILabel().then {
-        $0.textAlignment = .left
-        $0.font = .pretendard(.Light, size: 12)
-        $0.textColor = UIColor(rgb: 0x878787)
-        $0.numberOfLines = 0
-        $0.text = "[주의사항]\n- 본 정보는 참고용으로, 법적 책임을 지지 않습니다.\n- 본 정보는 참고용으로만 제공되며 개별적인 상황에 따라 반드시 의료 전문가와 상담하여야 합니다. 어떠한 경우에도 본 앱의 내용을 근거로 한 자체 진단 또는 치료를 시도해서는 안 됩니다."
-    }
-    
-    let supplementResourceLabel: UITextView = UITextView().then {
-        $0.textAlignment = .left
-        $0.font = .pretendard(.Light, size: 12)
-        $0.textColor = UIColor(rgb: 0x878787)
-        $0.text = "[정보 출처]\n- 건강기능식품, 건강기능식품 품목제조신고(원재료), 건강기능식품 기능성원료인정현황, 건강기능식품 개별인정형 정보, 식품첨가물의기준및규격, 건강기능식품GMP 지정 현황: 식품의약품안전처[https://www.foodsafetykorea.go.kr/]\n- 생리활성기능: 질병관리청 국가건강정보포털[https://health.kdca.go.kr/]"
-        $0.isEditable = false
-        $0.isSelectable = true
-        $0.isScrollEnabled = false
-        $0.dataDetectorTypes = .link
-        $0.textContainer.maximumNumberOfLines = 0
-    }
-    
-    let componentCountingStackView: UIStackView = UIStackView().then {
+    let MaterialCountingStackView: UIStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.alignment = .center
         $0.spacing = 10
     }
     
-    let main: ComponentCountingView = ComponentCountingView().then {
+    let main: MaterialCountingView = MaterialCountingView().then {
         $0.titleLabel.text = "기능성 원료"
     }
     
-    let sub: ComponentCountingView = ComponentCountingView().then {
+    let sub: MaterialCountingView = MaterialCountingView().then {
         $0.titleLabel.text = "부원료"
     }
     
-    let add: ComponentCountingView = ComponentCountingView().then {
+    let add: MaterialCountingView = MaterialCountingView().then {
         $0.titleLabel.text = "첨가물"
     }
     
     lazy var collectionView: UICollectionView = UICollectionView(
         frame: .zero,
-        collectionViewLayout: configureCollectionViewLayout(.component)
+        collectionViewLayout: configureCollectionViewLayout(.material)
     ).then {
         $0.delegate = self
         $0.allowsMultipleSelection = true
         $0.isScrollEnabled = false
         $0.register(
-            ComponentCollectionViewCell.self,
-            forCellWithReuseIdentifier: ComponentCollectionViewCell.identifier
+            MaterialCollectionViewCell.self,
+            forCellWithReuseIdentifier: MaterialCollectionViewCell.identifier
         )
         $0.register(
-            ComponentSectionHeaderView.self,
+            MaterialSectionHeaderView.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-            withReuseIdentifier: ComponentSectionHeaderView.identifier
+            withReuseIdentifier: MaterialSectionHeaderView.identifier
         )
     }
     
@@ -115,11 +96,6 @@ final class ComponentView: UIView, UICollectionViewDelegate {
     private var isExpanded = false
     
     private let disposeBag: DisposeBag = DisposeBag()
-    private let heightChangedSubject = PublishSubject<CGFloat>()
-    
-    var heightChanged: Observable<CGFloat> {
-        return heightChangedSubject.asObservable()
-    }
     
     // MARK: - Init
     
@@ -150,25 +126,23 @@ final class ComponentView: UIView, UICollectionViewDelegate {
         
         self.dataSource?.apply(snapshot, animatingDifferences: false)
                 
-        self.collectionView.snp.updateConstraints { make in
-            make.height.greaterThanOrEqualTo(self.collectionView.contentSize.height)
-        }
+        self.updateCollectionViewHeight(self.collectionView.contentSize.height)
     }
 }
 
 // MARK: - Private Methods
 
-private extension ComponentView {
+private extension MaterialView {
     func configureCollectionViewLayout(_ section: SupplementDetailLayout) -> UICollectionViewLayout {
         return section.createLayout()
     }
     
     func configureSubView() {
         [add, main, sub].forEach {
-            self.componentCountingStackView.addArrangedSubview($0)
+            self.MaterialCountingStackView.addArrangedSubview($0)
         }
         
-        [titleLabel, componentCountingStackView, collectionView, supplementResourceLabel, medicalDisclaimerLabel].forEach {
+        [titleLabel, MaterialCountingStackView, collectionView].forEach {
             self.addSubview($0)
         }
     }
@@ -179,28 +153,15 @@ private extension ComponentView {
             make.horizontalEdges.equalToSuperview().inset(10)
         }
         
-        self.componentCountingStackView.snp.makeConstraints { make in
+        self.MaterialCountingStackView.snp.makeConstraints { make in
             make.top.equalTo(self.titleLabel.snp.bottom).offset(15)
             make.centerX.equalToSuperview()
         }
         
         self.collectionView.snp.makeConstraints { make in
-            make.top.equalTo(self.componentCountingStackView.snp.bottom)
+            make.top.equalTo(self.MaterialCountingStackView.snp.bottom)
             make.horizontalEdges.equalToSuperview()
             make.height.greaterThanOrEqualTo(self.collectionView.contentSize.height)
-//            make.bottom.equalToSuperview().priority(.low)
-        }
-        
-        self.supplementResourceLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.collectionView.snp.bottom).offset(50)
-            make.horizontalEdges.equalToSuperview().inset(15)
-            make.height.equalTo(100)
-            make.bottom.equalTo(self.medicalDisclaimerLabel.snp.top).priority(.low)
-        }
-        
-        self.medicalDisclaimerLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.supplementResourceLabel.snp.bottom).offset(10)
-            make.horizontalEdges.equalToSuperview().inset(15)
             make.bottom.equalToSuperview().inset(12)
         }
     }
@@ -208,9 +169,9 @@ private extension ComponentView {
     func configureDataSource() {
         self.dataSource = DataSource(collectionView: collectionView) { collectionView, indexPath, item in
             let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: ComponentCollectionViewCell.identifier,
+                withReuseIdentifier: MaterialCollectionViewCell.identifier,
                 for: indexPath
-            ) as! ComponentCollectionViewCell
+            ) as! MaterialCollectionViewCell
             
             let nameOfTerms = item.terms?.joined(separator: "  ") ?? ""
             let descriptionOfTerms = item.termsDescription ?? ""
@@ -231,9 +192,9 @@ private extension ComponentView {
             
             guard let headerView = collectionView.dequeueReusableSupplementaryView(
                 ofKind: kind,
-                withReuseIdentifier: ComponentSectionHeaderView.identifier,
+                withReuseIdentifier: MaterialSectionHeaderView.identifier,
                 for: indexPath
-            ) as? ComponentSectionHeaderView
+            ) as? MaterialSectionHeaderView
             else {
                 return UICollectionReusableView()
             }
@@ -244,17 +205,23 @@ private extension ComponentView {
             return headerView
         }
     }
+    
+    func updateCollectionViewHeight(_ height: Double) {
+        self.collectionView.snp.updateConstraints { make in
+            make.height.greaterThanOrEqualTo(height)
+        }
+    }
 }
 
-extension ComponentView: ComponentCollectionViewCellDelegate {
-    func showHideButtonTapped(_ cell: ComponentCollectionViewCell, sender: Bool) {
+// MARK: - MaterialCollectionViewCellDelegate
+
+extension MaterialView: MaterialCollectionViewCellDelegate {
+    func showHideButtonTapped(_ cell: MaterialCollectionViewCell, sender: Bool) {
         guard let snapshot = dataSource?.snapshot()
         else { return }
         
         dataSource?.apply(snapshot, animatingDifferences: false)
         
-        self.collectionView.snp.updateConstraints { make in
-            make.height.greaterThanOrEqualTo(self.collectionView.contentSize.height)
-        }
+        self.updateCollectionViewHeight(self.collectionView.contentSize.height)
     }
 }

@@ -1,5 +1,5 @@
 //
-//  ComponentCountingView.swift
+//  MaterialCountingView.swift
 //  Dibivava
 //
 //  Created by dong eun shin on 2023/07/19.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ComponentCountingView: UIView {
+final class MaterialCountingView: UIView {
     
     private let labelStack: UIStackView = UIStackView().then {
         $0.alignment = .center
@@ -30,6 +30,7 @@ final class ComponentCountingView: UIView {
     
     let imageView: UIImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
+        $0.image = UIImage(named: "0개")
     }
     
     var count: Int? {
@@ -71,7 +72,7 @@ final class ComponentCountingView: UIView {
     }
 }
 
-private extension ComponentCountingView {
+private extension MaterialCountingView {
     func configureSubviews() {
         [titleLabel, countLabel, imageView].forEach {
             self.labelStack.addArrangedSubview($0)
