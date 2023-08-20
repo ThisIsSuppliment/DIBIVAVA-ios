@@ -8,41 +8,64 @@
 import Foundation
 
 protocol Endpoint {
-    var baseURL: String { get }
-    var path: String { get }
+    var url: URL? { get}
     var queries: [URLQueryItem]? { get }
 }
 
 extension Endpoint {
     func getURL() -> URL? {
-        let url = URL(string: baseURL + path)?
-        return url.appendQueryItems(queries)
+        return url?.appendQueryItems(queries)
     }
 }
 
 enum EndpointCases: Endpoint {
-    case supplement(id: String)
+    case supplement(id: Int)
     case material(id: String)
+    case term
     
-    var baseURL: String {
-        return "https://nb548yprx4.execute-api.ap-northeast-2.amazonaws.com/production/"
+    var url: URL? {
+        switch self {
+        case .supplement, .material:
+            guard let baseURL = baseURL,
+                  let path = path
+            else {
+                return nil
+            }
+            return URL(string: baseURL + path)
+        case .term:
+            return Bundle.main.url(forResource: "TermsDescription",
+                                   withExtension: "json")
+        }
     }
     
-    var path: String {
+    var baseURL: String? {
+        switch self {
+        case .supplement, .material:
+            return "https://nb548yprx4.execute-api.ap-northeast-2.amazonaws.com/production/"
+        case .term:
+            return nil
+        }
+    }
+    
+    var path: String? {
         switch self {
         case .supplement:
             return "getSupplementById?"
         case .material:
             return "getMaterialById?"
+        case .term:
+            return nil
         }
     }
     
     var queries: [URLQueryItem]? {
         switch self {
         case .supplement(id: let id):
-            return [URLQueryItem(name: "id", value: id)]
+            return [URLQueryItem(name: "id", value: String(id))]
         case .material(id: let id):
             return [URLQueryItem(name: "id", value: id)]
+        case .term:
+            return nil
         }
     }
 }
