@@ -36,3 +36,19 @@ struct SupplementDTO: Codable {
         case gmpCheck = "gmp_check"
     }
 }
+
+extension SupplementResponse {
+    func toDomain() -> SupplementObject {
+        SupplementObject(supplementID: result.supplementID,
+                         name: result.name,
+                         company: result.company,
+                         expireDate: result.expireDate,
+                         intakeMethod: result.intakeMethod,
+                         functionality: result.functionality,
+                         mainMaterial: result.mainMaterial,
+                         subMaterial: result.subMaterial,
+                         additive: result.additive,
+                         imageLink: result.imageLink,
+                         gmpCheck: result.gmpCheck)
+    }
+}
