@@ -30,7 +30,6 @@ struct MaterialDTO: Codable {
     }
 }
 
-
 extension MaterialDTO {
     func toMaterial(termDescription: String?) -> Material {
         Material(id: String(self.materialId),
