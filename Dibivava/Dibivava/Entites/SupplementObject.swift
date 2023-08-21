@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SupplementObject {
+struct SupplementObject: Hashable {
     let supplementID: Int
     let name, company, expireDate, intakeMethod: String?
     let functionality: [String]?

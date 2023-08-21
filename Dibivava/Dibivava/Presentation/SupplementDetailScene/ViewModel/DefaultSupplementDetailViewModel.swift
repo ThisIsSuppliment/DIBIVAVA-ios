@@ -16,7 +16,7 @@ class DefaultSupplementDetailViewModel {
     private let disposeBag = DisposeBag()
     
     private let supplementDetailRelay: PublishRelay<SupplementObject?> = .init()
-    private let termsRelay: BehaviorRelay<[String: String]> = .init(value: [:])
+    private let recommendSupplementRelay: BehaviorRelay<[SupplementObject]?> = .init(value: nil)
     private let materialByTypeRelay: BehaviorRelay<[MaterialType:[Material]]?> = .init(value: [.main: [], .sub: [], .addictive: []])
     private let numOfMainMaterialRelay: PublishRelay<Int?> = .init()
     private let numOfSubMaterialRelay: PublishRelay<Int?> = .init()
@@ -33,6 +33,10 @@ class DefaultSupplementDetailViewModel {
 }
 
 extension DefaultSupplementDetailViewModel: SupplementDetailViewModel {
+    var recommendSupplement: Driver<[SupplementObject]?> {
+        return self.recommendSupplementRelay.asDriver(onErrorJustReturn: nil)
+    }
+    
     var supplementDetail: Driver<SupplementObject?> {
         return self.supplementDetailRelay.asDriver(onErrorJustReturn: nil)
     }
@@ -55,6 +59,7 @@ extension DefaultSupplementDetailViewModel: SupplementDetailViewModel {
     
     func viewWillAppear() {
         self.fetchSupplement(with: String(self.id))
+        self.fetchRecommendSupplement(with: String(self.id))
     }
 }
 
@@ -103,6 +108,19 @@ private extension DefaultSupplementDetailViewModel {
 
             }, onFailure: {
                 print("Error: Fetch Additives - \($0)")
+            })
+            .disposed(by: self.disposeBag)
+    }
+    
+    func fetchRecommendSupplement(with id: String) {
+        self.supplementUseCase.fetchRecommendSupplement(id: id)
+            .subscribe(onSuccess: { [weak self] supplements in
+                guard let self
+                else {
+                    return
+                }
+                
+                self.recommendSupplementRelay.accept(supplements)
             })
             .disposed(by: self.disposeBag)
     }

@@ -12,6 +12,7 @@ protocol SupplementRepository {
     func fetchSupplement(with id: String) -> Single<SupplementObject>
     func fetchMaterial(with id: [String]?) -> Single<[Material]?>
     func fetchTerm() -> Single<[Term]>
+    func fetchRecommendSupplement(with id: String) -> RxSwift.Single<[SupplementObject]>
 }
 
 final class DefaultSupplementRepository: SupplementRepository {
@@ -22,12 +23,12 @@ final class DefaultSupplementRepository: SupplementRepository {
     }
     
     func fetchSupplement(with id: String) -> RxSwift.Single<SupplementObject> {
-        self.supplementNetworkService.requestSupplement(by: id)
+        self.supplementNetworkService.fetchSupplement(by: id)
             .map { $0.toDomain() }
     }
     
     func fetchMaterial(with id: [String]?) -> RxSwift.Single<[Material]?> {
-        self.supplementNetworkService.requestMaterial(by: id)
+        self.supplementNetworkService.fetchMaterial(by: id)
             .map { materials in
                 guard let materials = materials
                 else {
@@ -40,5 +41,10 @@ final class DefaultSupplementRepository: SupplementRepository {
     
     func fetchTerm() -> Single<[Term]> {
         self.supplementNetworkService.fetchTermDescription()
+    }
+    
+    func fetchRecommendSupplement(with id: String) -> RxSwift.Single<[SupplementObject]> {
+        self.supplementNetworkService.fetchRecommendSupplement(by: id)
+            .map { $0.map{ $0.toDomain() } }
     }
 }

@@ -13,11 +13,13 @@ protocol SupplementUseCase {
     func fetchTerm()
     func fetchSupplement(id: String) -> Single<SupplementObject>
     func fetchMaterials(id: [String]?) -> Single<[Material]?>
+    func fetchRecommendSupplement(id: String) -> Single<[SupplementObject]>
 }
 
 class DefaultSupplementUseCase: SupplementUseCase {
     
     // MARK: Property
+    
     private var supplementRepository: SupplementRepository
     
     private let termsRelay: BehaviorRelay<[String: String]> = .init(value: [:])
@@ -25,8 +27,23 @@ class DefaultSupplementUseCase: SupplementUseCase {
     private let disposeBag = DisposeBag()
     
     // MARK: - Init
+    
     init(supplementRepository: SupplementRepository) {
         self.supplementRepository = supplementRepository
+    }
+    
+    func fetchTerm() {
+        self.supplementRepository.fetchTerm()
+            .subscribe(onSuccess: { [weak self] terms in
+                guard let self
+                else {
+                    return
+                }
+                var termsByName: [String: String] = [:]
+                terms.forEach { termsByName[$0.name] = $0.description }
+                self.termsRelay.accept(termsByName)
+            })
+            .disposed(by: self.disposeBag)
     }
     
     func fetchSupplement(id: String) -> Single<SupplementObject> {
@@ -51,17 +68,7 @@ class DefaultSupplementUseCase: SupplementUseCase {
         }
     }
     
-    func fetchTerm() {
-        self.supplementRepository.fetchTerm()
-            .subscribe(onSuccess: { [weak self] terms in
-                guard let self
-                else {
-                    return
-                }
-                var termsByName: [String: String] = [:]
-                terms.forEach { termsByName[$0.name] = $0.description }
-                self.termsRelay.accept(termsByName)
-            })
-            .disposed(by: self.disposeBag)
+    func fetchRecommendSupplement(id: String) -> RxSwift.Single<[SupplementObject]> {
+        self.supplementRepository.fetchRecommendSupplement(with: id)
     }
 }

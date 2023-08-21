@@ -16,9 +16,10 @@ enum NetworkError: Error {
 }
 
 protocol SupplementNetworkService {
-    func requestSupplement(by id: String) -> Single<SupplementResponse>
-    func requestMaterial(by id: [String]?) -> Single<[MaterialResponse]?>
+    func fetchSupplement(by id: String) -> Single<SupplementResponse>
+    func fetchMaterial(by id: [String]?) -> Single<[MaterialResponse]?>
     func fetchTermDescription() -> Single<[Term]>
+    func fetchRecommendSupplement(by id: String) -> Single<[SupplementResponse]>
 }
 
 final class DefaultSupplementNetworkService: SupplementNetworkService {
@@ -26,11 +27,11 @@ final class DefaultSupplementNetworkService: SupplementNetworkService {
         self.request(with: EndpointCases.term, T: [Term].self)
     }
     
-    func requestSupplement(by id: String) -> Single<SupplementResponse> {
+    func fetchSupplement(by id: String) -> Single<SupplementResponse> {
         self.request(with: EndpointCases.supplement(id: id), T: SupplementResponse.self)
     }
     
-    func requestMaterial(by idList: [String]?) -> Single<[MaterialResponse]?> {
+    func fetchMaterial(by idList: [String]?) -> Single<[MaterialResponse]?> {
         guard let idList = idList
         else {
             return Single.just(nil)
@@ -41,6 +42,10 @@ final class DefaultSupplementNetworkService: SupplementNetworkService {
         }
         
         return Single.zip(result).map { $0 }
+    }
+    
+    func fetchRecommendSupplement(by id: String) -> RxSwift.Single<[SupplementResponse]> {
+        self.request(with: EndpointCases.supplement(id: id), T: [SupplementResponse].self)
     }
 }
 

@@ -27,6 +27,9 @@ protocol SupplementDetailViewModelOutput {
     
     /// 건강기능식품의 첨가제 갯수
     var numOfAddMaterial: Driver<Int?> { get }
+    
+    /// 추천 건강기능 식품
+    var recommendSupplement: Driver<[SupplementObject]?> { get }
 }
 
 protocol SupplementDetailViewModel: SupplementDetailViewModelInput, SupplementDetailViewModelOutput {}

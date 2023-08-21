@@ -11,8 +11,8 @@ import SnapKit
 import Then
 
 class RecommendationView: UIView, UICollectionViewDelegate {
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, SupplementDTO>
-    typealias DataSource = UICollectionViewDiffableDataSource<Section, SupplementDTO>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, SupplementObject>
+    typealias DataSource = UICollectionViewDiffableDataSource<Section, SupplementObject>
     
     enum Section: String, CaseIterable {
         case main
@@ -61,7 +61,7 @@ class RecommendationView: UIView, UICollectionViewDelegate {
     
     // MARK: - Public Method
     
-    func applySnapshot(_ recommendations: [SupplementDTO]) {
+    func applySnapshot(_ recommendations: [SupplementObject]) {
         if recommendations.isEmpty {
             return
         }
