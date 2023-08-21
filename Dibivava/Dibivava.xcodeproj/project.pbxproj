@@ -63,6 +63,7 @@
 		7C63008A2A718ACE00C31E93 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6300892A718ACE00C31E93 /* String+.swift */; };
 		7C63008C2A718CB900C31E93 /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C63008B2A718CB900C31E93 /* UIImageView+.swift */; };
 		7C8217392A69B928001DB57D /* SupplementNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8217382A69B928001DB57D /* SupplementNetworkService.swift */; };
+		7C82EA672A93BB4F001AA3BE /* URL+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C82EA662A93BB4F001AA3BE /* URL+.swift */; };
 		7CA5856C2A88D35000296314 /* RecommendationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA5856B2A88D35000296314 /* RecommendationView.swift */; };
 		7CA5856E2A88DDE500296314 /* ResourceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA5856D2A88DDE500296314 /* ResourceView.swift */; };
 		7CC9524E2A6A6F3B00E2F739 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7CC9524D2A6A6F3B00E2F739 /* RxSwift */; };
@@ -149,6 +150,7 @@
 		7C6300892A718ACE00C31E93 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		7C63008B2A718CB900C31E93 /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
 		7C8217382A69B928001DB57D /* SupplementNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementNetworkService.swift; sourceTree = "<group>"; };
+		7C82EA662A93BB4F001AA3BE /* URL+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+.swift"; sourceTree = "<group>"; };
 		7CA5856B2A88D35000296314 /* RecommendationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationView.swift; sourceTree = "<group>"; };
 		7CA5856D2A88DDE500296314 /* ResourceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceView.swift; sourceTree = "<group>"; };
 		7CC952512A6A6FCE00E2F739 /* SUIT-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-ExtraBold.ttf"; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 				7C6300832A714F2200C31E93 /* UILabel+.swift */,
 				7C6300892A718ACE00C31E93 /* String+.swift */,
 				7C63008B2A718CB900C31E93 /* UIImageView+.swift */,
+				7C82EA662A93BB4F001AA3BE /* URL+.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -676,6 +679,7 @@
 				7C1AF2392A84B9100025FBC3 /* RecommendationCollectionViewCell.swift in Sources */,
 				7C6300882A716D7600C31E93 /* MaterialType.swift in Sources */,
 				7C63008C2A718CB900C31E93 /* UIImageView+.swift in Sources */,
+				7C82EA672A93BB4F001AA3BE /* URL+.swift in Sources */,
 				09FEB43A2A66AFE300DD1CC5 /* Fonts+.swift in Sources */,
 				7C0B96932A9293A90053B5AB /* SupplementObject.swift in Sources */,
 			);

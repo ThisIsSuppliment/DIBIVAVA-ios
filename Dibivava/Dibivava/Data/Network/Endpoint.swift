@@ -69,11 +69,3 @@ enum EndpointCases: Endpoint {
         }
     }
 }
-
-extension URL {
-    func appendQueryItems(_ queries: [URLQueryItem]?) -> URL? {
-        var components = URLComponents(string: self.absoluteString)
-        components?.queryItems = queries
-        return components?.url
-    }
-}

@@ -39,7 +39,7 @@ final class DefaultSupplementRepository: SupplementRepository {
             }
     }
     
-    func fetchTerm() -> Single<[Term]> {
+    func fetchTerm() -> RxSwift.Single<[Term]> {
         self.supplementNetworkService.fetchTermDescription()
     }
     
