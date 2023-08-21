@@ -24,11 +24,11 @@ protocol SupplementNetworkService {
 
 final class DefaultSupplementNetworkService: SupplementNetworkService {
     func fetchTermDescription() -> Single<[Term]> {
-        self.request(with: EndpointCases.term, T: [Term].self)
+        return self.request(with: EndpointCases.term, T: [Term].self)
     }
     
     func fetchSupplement(by id: String) -> Single<SupplementResponse> {
-        self.request(with: EndpointCases.supplement(id: id), T: SupplementResponse.self)
+        return self.request(with: EndpointCases.supplement(id: id), T: SupplementResponse.self)
     }
     
     func fetchMaterial(by idList: [String]?) -> Single<[MaterialResponse]?> {
@@ -61,13 +61,14 @@ private extension DefaultSupplementNetworkService {
             AF.request(requestURL).responseData { response in
                 switch response.result {
                 case .success(let data):
-                    do{
+                    do {
                         let decoder = JSONDecoder()
                         let decodedData = try decoder.decode(T.self, from: data)
                         single(.success(decodedData))
-                    }catch{
+                    } catch let error {
+                        print("Error: \(error.localizedDescription)")
+                        print("requestURL", requestURL)
                         single(.failure(NetworkError.failedDecode))
-                        return
                     }
                 case .failure(_):
                     single(.failure(NetworkError.invalidResponse))
