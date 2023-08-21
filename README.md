@@ -7,7 +7,7 @@ Dx Sprint 2023 해커톤 프로젝트입니다.
 - iOS: 최지철, 신동은
 
 ## Title
-- App Description
+- 건강기능식품의 성분에 대한 정보를 제공해주는 서비스입니다.
 
 
 ## 🖼️ View Introduction
