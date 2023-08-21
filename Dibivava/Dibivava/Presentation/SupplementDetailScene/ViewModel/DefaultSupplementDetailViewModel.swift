@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class DefaultSupplementDetailViewModel {
+final class DefaultSupplementDetailViewModel {
     private var id: Int
     private let supplementUseCase: SupplementUseCase
     

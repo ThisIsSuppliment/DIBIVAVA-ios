@@ -10,9 +10,16 @@ import RxSwift
 import RxRelay
 
 protocol SupplementUseCase {
+    /// key는 첨가제 이름, value는 설명이 저장된 딕셔너리  불러오기
     func fetchTerm()
+    
+    /// 건강기능 식품 데이터 불러오기
     func fetchSupplement(id: String) -> Single<SupplementObject>
+    
+    /// 첨가제 설명이 포함된 건강기능 식품 원재료 데이터 불러오기
     func fetchMaterials(id: [String]?) -> Single<[Material]?>
+    
+    /// 검색한 건강기능 식품보다 첨가제가 적거나 같은  건강기능 식품 불러오기
     func fetchRecommendSupplement(id: String) -> Single<[SupplementObject]>
 }
 

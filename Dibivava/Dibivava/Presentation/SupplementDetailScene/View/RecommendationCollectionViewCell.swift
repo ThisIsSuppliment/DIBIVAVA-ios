@@ -8,7 +8,7 @@
 import UIKit
 import Then
 
-class RecommendationCollectionViewCell: UICollectionViewCell {
+final class RecommendationCollectionViewCell: UICollectionViewCell {
     static let identifier: String = String(describing: RecommendationCollectionViewCell.self)
     
     private let imageView: UIImageView = UIImageView().then {

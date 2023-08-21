@@ -10,7 +10,7 @@ import RxSwift
 import SnapKit
 import Then
 
-class RecommendationView: UIView, UICollectionViewDelegate {
+final class RecommendationView: UIView, UICollectionViewDelegate {
     typealias Snapshot = NSDiffableDataSourceSnapshot<Section, SupplementObject>
     typealias DataSource = UICollectionViewDiffableDataSource<Section, SupplementObject>
     

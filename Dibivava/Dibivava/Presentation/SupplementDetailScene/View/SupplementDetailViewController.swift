@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
-class SupplementDetailViewController: UIViewController {
+final class SupplementDetailViewController: UIViewController {
     // MARK: - UI
     
     private let scrollView: UIScrollView = UIScrollView(frame: .zero).then {
