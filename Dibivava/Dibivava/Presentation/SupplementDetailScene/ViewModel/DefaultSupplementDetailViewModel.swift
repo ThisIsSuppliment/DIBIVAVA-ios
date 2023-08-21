@@ -11,16 +11,17 @@ import RxCocoa
 
 class DefaultSupplementDetailViewModel {
     private var id: Int
-    private var material: [MaterialType:[Material]]
     private let supplementUseCase: SupplementUseCase
-    private let disposeBag = DisposeBag()
     
     private let supplementDetailRelay: PublishRelay<SupplementObject?> = .init()
-    private let recommendSupplementRelay: BehaviorRelay<[SupplementObject]?> = .init(value: [])
-    private let materialByTypeRelay: BehaviorRelay<[MaterialType:[Material]]?> = .init(value: [.main: [], .sub: [], .addictive: []])
     private let numOfMainMaterialRelay: PublishRelay<Int?> = .init()
     private let numOfSubMaterialRelay: PublishRelay<Int?> = .init()
     private let numOfAdditiveRelay: PublishRelay<Int?> = .init()
+    private let recommendSupplementRelay: BehaviorRelay<[SupplementObject]?> = .init(value: nil)
+    private let materialByTypeRelay: BehaviorRelay<[MaterialType:[Material]]?> = .init(value: [.main: [], .sub: [], .addictive: []])
+    
+    private var material: [MaterialType:[Material]]
+    private let disposeBag = DisposeBag()
     
     init(id: Int,
          supplementUseCase: SupplementUseCase

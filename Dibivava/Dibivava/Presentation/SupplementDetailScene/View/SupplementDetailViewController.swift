@@ -102,11 +102,11 @@ private extension SupplementDetailViewController {
         self.recommendationView.snp.makeConstraints { make in
             make.top.equalTo(self.materialView.snp.bottom).offset(7)
             make.horizontalEdges.equalToSuperview()
-            make.height.greaterThanOrEqualTo(250)
+            make.height.equalTo(250)
         }
         
         self.resourceView.snp.makeConstraints { make in
-            make.top.equalTo(self.recommendationView.snp.bottom).offset(7)
+            make.top.equalTo(self.recommendationView.snp.bottom)//.offset(7)
             make.horizontalEdges.equalToSuperview()
             make.bottom.equalToSuperview().priority(.low)
         }
@@ -142,7 +142,7 @@ private extension SupplementDetailViewController {
                     }
                 }
 //                print(">>>>> functionality", items.functionality?.forEach({print("- " + $0 + "\n") }))
-//                 print(">>>>> 결과", tmpFunctionality)
+//                print(">>>>> 결과", tmpFunctionality)
                 self.supplementDetailView.apply(Set(tmpFunctionality).map {String($0)})
             })
             .disposed(by: self.disposeBag)
@@ -177,10 +177,7 @@ private extension SupplementDetailViewController {
                 guard let self,
                       let recommendations = recommendations
                 else {
-                    print(">>:")
-                    self?.recommendationView.snp.makeConstraints { make in
-                        make.height.equalTo(0)
-                    }
+                    self?.recommendationView.snp.updateConstraints { $0.height.equalTo(0) }
                     return
                 }
                 
