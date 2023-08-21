@@ -16,17 +16,17 @@ enum NetworkError: Error {
 }
 
 protocol SupplementNetworkService {
-    func requestSupplement(by id: Int) -> Single<SupplementResponse>
+    func requestSupplement(by id: String) -> Single<SupplementResponse>
     func requestMaterial(by id: [String]?) -> Single<[MaterialResponse]?>
-    func fetchTermDescription() -> Single<[TermDTO]>
+    func fetchTermDescription() -> Single<[Term]>
 }
 
 final class DefaultSupplementNetworkService: SupplementNetworkService {
-    func fetchTermDescription() -> Single<[TermDTO]> {
-        self.request(with: EndpointCases.term, T: [TermDTO].self)
+    func fetchTermDescription() -> Single<[Term]> {
+        self.request(with: EndpointCases.term, T: [Term].self)
     }
     
-    func requestSupplement(by id: Int) -> Single<SupplementResponse> {
+    func requestSupplement(by id: String) -> Single<SupplementResponse> {
         self.request(with: EndpointCases.supplement(id: id), T: SupplementResponse.self)
     }
     

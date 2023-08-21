@@ -30,12 +30,23 @@ struct MaterialDTO: Codable {
     }
 }
 
+extension MaterialResponse {
+    func toDomain() -> Material {
+        Material(id: String(result.materialId),
+                 category: result.category,
+                 name: result.name,
+                 termIds: result.termIds,
+                 level: result.level,
+                 termsDescription: nil)
+    }
+}
+
 extension MaterialDTO {
     func toMaterial(termDescription: String?) -> Material {
         Material(id: String(self.materialId),
                  category: self.category,
                  name: self.name,
-                 terms: self.termIds,
+                 termIds: self.termIds,
                  level: self.level,
                  termsDescription: termDescription)
     }

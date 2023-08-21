@@ -19,7 +19,7 @@ extension Endpoint {
 }
 
 enum EndpointCases: Endpoint {
-    case supplement(id: Int)
+    case supplement(id: String)
     case material(id: String)
     case term
     
@@ -61,7 +61,7 @@ enum EndpointCases: Endpoint {
     var queries: [URLQueryItem]? {
         switch self {
         case .supplement(id: let id):
-            return [URLQueryItem(name: "id", value: String(id))]
+            return [URLQueryItem(name: "id", value: id)]
         case .material(id: let id):
             return [URLQueryItem(name: "id", value: id)]
         case .term:

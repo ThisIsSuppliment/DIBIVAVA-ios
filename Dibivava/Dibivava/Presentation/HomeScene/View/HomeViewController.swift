@@ -252,7 +252,7 @@ extension HomeViewController: UISearchBarDelegate {
                 case .success(let searchresponse):
                     let vc = SupplementDetailViewController(supplementDetailViewModel: DefaultSupplementDetailViewModel(
                         id:searchresponse.result.supplementID ,
-                        supplementNetworkService: DefaultSupplementNetworkService())
+                        supplementUseCase: DefaultSupplementUseCase(supplementRepository: DefaultSupplementRepository(supplementNetworkService: DefaultSupplementNetworkService())))
                     )
                     self.navigationController?.navigationBar.tintColor = UIColor.black
                     self.navigationController?.navigationBar.topItem?.title = ""
@@ -334,7 +334,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         // 화면 전환
         let vc = SupplementDetailViewController(supplementDetailViewModel: DefaultSupplementDetailViewModel(
             id:searchresult[indexPath.row].supplementId ,
-            supplementNetworkService: DefaultSupplementNetworkService())
+            supplementUseCase: DefaultSupplementUseCase(supplementRepository: DefaultSupplementRepository(supplementNetworkService: DefaultSupplementNetworkService())))
         )
         self.navigationController?.navigationBar.tintColor = UIColor.black
         self.navigationController?.navigationBar.topItem?.title = ""

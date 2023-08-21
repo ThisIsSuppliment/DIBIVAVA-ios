@@ -12,7 +12,7 @@ import RxCocoa
 class DefaultSupplementDetailViewModel {
     private var id: Int
     private var material: [MaterialType:[Material]]
-    private let supplementNetworkService: SupplementNetworkService
+    private let supplementUseCase: SupplementUseCase
     private let disposeBag = DisposeBag()
     
     private let supplementDetailRelay: PublishRelay<SupplementObject?> = .init()
@@ -23,12 +23,12 @@ class DefaultSupplementDetailViewModel {
     private let numOfAdditiveRelay: PublishRelay<Int?> = .init()
     
     init(id: Int,
-         supplementNetworkService: SupplementNetworkService
+         supplementUseCase: SupplementUseCase
     ) {
         self.id = id
         self.material = [:]
-        self.supplementNetworkService = supplementNetworkService
-        self.fetchTerms()
+        self.supplementUseCase = supplementUseCase
+        self.supplementUseCase.fetchTerm()
     }
 }
 
@@ -54,20 +54,19 @@ extension DefaultSupplementDetailViewModel: SupplementDetailViewModel {
     }
     
     func viewWillAppear() {
-        self.fetchSupplement(with: self.id)
+        self.fetchSupplement(with: String(self.id))
     }
 }
 
 private extension DefaultSupplementDetailViewModel {
-    func fetchSupplement(with id: Int) {
-        self.supplementNetworkService.requestSupplement(by: id)
-            .subscribe(onSuccess: { [weak self] supplementResponse in
+    func fetchSupplement(with id: String) {
+        self.supplementUseCase.fetchSupplement(id: id)
+            .subscribe(onSuccess: { [weak self] supplement in
                 guard let self
                 else {
                     return
                 }
                 
-                let supplement = supplementResponse.toDomain()
                 let mainMaterial = supplement.mainMaterial
                 let subMaterial = supplement.subMaterial
                 
@@ -91,53 +90,25 @@ private extension DefaultSupplementDetailViewModel {
     }
     
     func fetchAdditiveMaterial(with termIDs: [String]?) {
-        self.supplementNetworkService.requestMaterial(by: termIDs)
+        self.supplementUseCase.fetchMaterials(id: termIDs)
             .subscribe(onSuccess: { [weak self] additives in
                 guard let self
                 else {
                     return
                 }
                 
-                let additives = additives.map { $0.map {$0.result}}
-
-                let additivesWithTermDescription = self.getAdditivesWithTermDescription(additives: additives)
-
                 self.numOfAdditiveRelay.accept(additives?.count)
                 self.addMaterialByType(category: .addictive,
-                                       materials: additivesWithTermDescription)
+                                       materials: additives)
 
             }, onFailure: {
                 print("Error: Fetch Additives - \($0)")
             })
             .disposed(by: self.disposeBag)
     }
-    
-    func fetchTerms() {
-        self.supplementNetworkService.fetchTermDescription()
-            .subscribe(onSuccess: { [weak self] terms in
-                guard let self
-                else {
-                    return
-                }
-                var termsByName: [String: String] = [:]
-                terms.forEach { termsByName[$0.name] = $0.description }
-                self.termsRelay.accept(termsByName)
-            })
-            .disposed(by: self.disposeBag)
-    }
-    
+        
     func addMaterialByType(category: MaterialType, materials: [Material]?) {
         self.material[category] = materials ?? [Material(category: category.rawValue, name: "없음")]
         self.materialByTypeRelay.accept(self.material)
-    }
-    
-    func getAdditivesWithTermDescription(additives: [MaterialDTO]?) -> [Material]? {
-        additives?.map {
-            $0.toMaterial(
-                termDescription: $0.termIds.map {
-                    "\($0) - " + (self.termsRelay.value[$0] ?? "설명 중비중") + "\n"
-                }.joined(separator: "\n")
-            )
-        }
     }
 }
