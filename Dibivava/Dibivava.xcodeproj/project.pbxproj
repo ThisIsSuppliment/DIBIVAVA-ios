@@ -226,14 +226,38 @@
 		7C0601B82A666729004FB30B /* Entites */ = {
 			isa = PBXGroup;
 			children = (
-				7C6300772A6D616B00C31E93 /* MaterialResponse.swift */,
 				7C6300852A716C8800C31E93 /* Material.swift */,
-				7C63007D2A71055C00C31E93 /* TermDTO.swift */,
-				7C0601B92A666753004FB30B /* SupplementResponse.swift */,
 				090E82312A67CB9D00944DC2 /* HomeSupplement.swift */,
 				7C0B96922A9293A90053B5AB /* SupplementObject.swift */,
 			);
 			path = Entites;
+			sourceTree = "<group>";
+		};
+		7C0B96942A92A2F20053B5AB /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				7C0601B82A666729004FB30B /* Entites */,
+			);
+			name = Domain;
+			sourceTree = "<group>";
+		};
+		7C0B96952A92A3010053B5AB /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				7C0B96962A92A3330053B5AB /* DTO */,
+				7C0601B72A666705004FB30B /* Network */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		7C0B96962A92A3330053B5AB /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				7C6300772A6D616B00C31E93 /* MaterialResponse.swift */,
+				7C0601B92A666753004FB30B /* SupplementResponse.swift */,
+				7C63007D2A71055C00C31E93 /* TermDTO.swift */,
+			);
+			path = DTO;
 			sourceTree = "<group>";
 		};
 		7C1AF2352A84B3460025FBC3 /* Protocol */ = {
@@ -296,8 +320,8 @@
 				7C6091C32A6588C50062FF01 /* LaunchScreen.storyboard */,
 				7C23FF262A7258E700F047A6 /* ImageCache */,
 				7C6091F72A658CC80062FF01 /* Application */,
-				7C0601B82A666729004FB30B /* Entites */,
-				7C0601B72A666705004FB30B /* Network */,
+				7C0B96952A92A3010053B5AB /* Data */,
+				7C0B96942A92A2F20053B5AB /* Domain */,
 				7C6091E82A6588E30062FF01 /* Presentation */,
 				7C6091F82A6591010062FF01 /* Resource */,
 			);
