@@ -1,5 +1,5 @@
 //
-//  ComponentSectionHeaderView.swift
+//  MaterialSectionHeaderView.swift
 //  Dibivava
 //
 //  Created by dong eun shin on 2023/07/19.
@@ -10,8 +10,8 @@ import UIKit
 import SnapKit
 import Then
 
-final class ComponentSectionHeaderView: UICollectionReusableView {
-    static let identifier: String = String(describing: ComponentSectionHeaderView.self)
+final class MaterialSectionHeaderView: UICollectionReusableView {
+    static let identifier: String = String(describing: MaterialSectionHeaderView.self)
     
     private lazy var titleLabel = UILabel().then {
         $0.textColor = .black

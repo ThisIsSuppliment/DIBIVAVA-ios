@@ -11,7 +11,7 @@ struct Material: Hashable {
     let id: String?
     let category: String
     let name: String?
-    let terms: [String]?
+    let termIds: [String]?
     let level: String?
     var numberOfLines: Int
     var termsDescription: String?
@@ -19,16 +19,27 @@ struct Material: Hashable {
     init(id: String? = UUID().uuidString,
          category: String,
          name: String? = nil,
-         terms: [String]? = nil,
+         termIds: [String]? = nil,
          level: String? = nil,
          termsDescription: String? = nil
     ) {
         self.id = id
         self.category = category
         self.name = name
-        self.terms = terms
+        self.termIds = termIds
         self.level = level
         self.numberOfLines = 1
         self.termsDescription = termsDescription
+    }
+}
+
+extension Material {
+    func setTermDescription(_ termDescription: String?) -> Material {
+        Material(id: self.id,
+                 category: self.category,
+                 name: self.name,
+                 termIds: self.termIds,
+                 level: self.level,
+                 termsDescription: termDescription)
     }
 }

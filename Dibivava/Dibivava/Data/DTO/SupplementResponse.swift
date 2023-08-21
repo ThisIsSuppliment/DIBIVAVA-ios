@@ -13,7 +13,7 @@ struct SupplementResponse: Codable {
 }
 
 // MARK: - SupplementDetail
-struct SupplementDTO: Codable {
+struct SupplementDTO: Codable, Hashable {
     let supplementID: Int
     let name, company, expireDate, intakeMethod: String?
     let functionality: [String]?
@@ -34,5 +34,21 @@ struct SupplementDTO: Codable {
         case additive, createdAt, updatedAt
         case imageLink = "image_link"
         case gmpCheck = "gmp_check"
+    }
+}
+
+extension SupplementResponse {
+    func toDomain() -> SupplementObject {
+        SupplementObject(supplementID: result.supplementID,
+                         name: result.name,
+                         company: result.company,
+                         expireDate: result.expireDate,
+                         intakeMethod: result.intakeMethod,
+                         functionality: result.functionality,
+                         mainMaterial: result.mainMaterial,
+                         subMaterial: result.subMaterial,
+                         additive: result.additive,
+                         imageLink: result.imageLink,
+                         gmpCheck: result.gmpCheck)
     }
 }
