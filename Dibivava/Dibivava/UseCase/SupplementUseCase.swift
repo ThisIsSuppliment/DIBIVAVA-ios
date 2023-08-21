@@ -13,7 +13,6 @@ protocol SupplementUseCase {
     func fetchTerm()
     func fetchSupplement(id: String) -> Single<SupplementObject>
     func fetchMaterials(id: [String]?) -> Single<[Material]?>
-    func fetchAdditivesWithTermDescription(additives: [Material]?) -> [Material]?
 }
 
 class DefaultSupplementUseCase: SupplementUseCase {
@@ -65,29 +64,4 @@ class DefaultSupplementUseCase: SupplementUseCase {
             })
             .disposed(by: self.disposeBag)
     }
-    
-    func fetchAdditivesWithTermDescription(additives: [Material]?) -> [Material]? {
-        guard let additives = additives
-        else {
-            return additives
-        }
-        
-        return additives.map { additive in
-            let termDescription = additive.termIds?.map { id in
-                "\(id) - " + (self.termsRelay.value[id] ?? "설명 중비중") + "\n"
-            }.joined(separator: "\n")
-            
-            return additive.setTermDescription(termDescription)
-        }
-    }
-    
-//    func getAdditivesWithTermDescription(additives: [MaterialDTO]?) -> [Material]? {
-//        additives?.map {
-//            $0.toMaterial(
-//                termDescription: $0.termIds.map { id in
-//                    "\(id) - " + (self.termsRelay.value[id] ?? "설명 중비중") + "\n"
-//                }.joined(separator: "\n")
-//            )
-//        }
-//    }
 }

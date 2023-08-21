@@ -40,14 +40,3 @@ extension MaterialResponse {
                  termsDescription: nil)
     }
 }
-
-extension MaterialDTO {
-    func toMaterial(termDescription: String?) -> Material {
-        Material(id: String(self.materialId),
-                 category: self.category,
-                 name: self.name,
-                 termIds: self.termIds,
-                 level: self.level,
-                 termsDescription: termDescription)
-    }
-}
