@@ -173,7 +173,7 @@ private extension MaterialView {
                 for: indexPath
             ) as! MaterialCollectionViewCell
             
-            let nameOfTerms = item.terms?.joined(separator: "  ") ?? ""
+            let nameOfTerms = item.termIds?.joined(separator: "  ") ?? ""
             let descriptionOfTerms = item.termsDescription ?? ""
 
             cell.delegate = self

@@ -102,25 +102,17 @@ private extension SupplementDetailViewController {
         self.recommendationView.snp.makeConstraints { make in
             make.top.equalTo(self.materialView.snp.bottom).offset(7)
             make.horizontalEdges.equalToSuperview()
-            make.height.greaterThanOrEqualTo(250)
+            make.height.equalTo(250)
         }
         
         self.resourceView.snp.makeConstraints { make in
-            make.top.equalTo(self.recommendationView.snp.bottom).offset(7)
+            make.top.equalTo(self.recommendationView.snp.bottom)//.offset(7)
             make.horizontalEdges.equalToSuperview()
             make.bottom.equalToSuperview().priority(.low)
         }
     }
     
     func bind() {
-        // recommendationView MOCK
-        let s = SupplementDTO(supplementID: 1, name: "이름1111111111111111111111111111111", company: "회사111111111111111111111111", expireDate: nil, intakeMethod: nil, functionality: nil, mainMaterial: nil, subMaterial: nil, additive: nil, imageLink: nil, gmpCheck: nil, createdAt: nil, updatedAt: nil)
-        let s2 =  SupplementDTO(supplementID: 2, name: "이름2", company: "회사2", expireDate: nil, intakeMethod: nil, functionality: nil, mainMaterial: nil, subMaterial: nil, additive: nil, imageLink: nil, gmpCheck: nil, createdAt: nil, updatedAt: nil)
-        let s3 =  SupplementDTO(supplementID: 3, name: "이름3", company: "회사3", expireDate: nil, intakeMethod: nil, functionality: nil, mainMaterial: nil, subMaterial: nil, additive: nil, imageLink: nil, gmpCheck: nil, createdAt: nil, updatedAt: nil)
-        let s4 =  SupplementDTO(supplementID: 4, name: "이름4", company: "회사4", expireDate: nil, intakeMethod: nil, functionality: nil, mainMaterial: nil, subMaterial: nil, additive: nil, imageLink: nil, gmpCheck: nil, createdAt: nil, updatedAt: nil)
-        let s5 =  SupplementDTO(supplementID: 5, name: "이름5", company: "회사5", expireDate: nil, intakeMethod: nil, functionality: nil, mainMaterial: nil, subMaterial: nil, additive: nil, imageLink: nil, gmpCheck: nil, createdAt: nil, updatedAt: nil)
-        recommendationView.applySnapshot([s, s2, s3, s4, s5])
-        
         self.viewModel.supplementDetail
             .drive(onNext: { [weak self] items in
                 guard let self,
@@ -150,7 +142,7 @@ private extension SupplementDetailViewController {
                     }
                 }
 //                print(">>>>> functionality", items.functionality?.forEach({print("- " + $0 + "\n") }))
-//                 print(">>>>> 결과", tmpFunctionality)
+//                print(">>>>> 결과", tmpFunctionality)
                 self.supplementDetailView.apply(Set(tmpFunctionality).map {String($0)})
             })
             .disposed(by: self.disposeBag)
@@ -177,6 +169,19 @@ private extension SupplementDetailViewController {
                 self.materialView.main.count = numOfMain
                 self.materialView.sub.count = numOfSub
                 self.materialView.add.count = numOfAdd
+            })
+            .disposed(by: self.disposeBag)
+        
+        self.viewModel.recommendSupplement
+            .drive(onNext: { [weak self] recommendations in
+                guard let self,
+                      let recommendations = recommendations
+                else {
+                    self?.recommendationView.snp.updateConstraints { $0.height.equalTo(0) }
+                    return
+                }
+                
+                self.recommendationView.applySnapshot(recommendations)
             })
             .disposed(by: self.disposeBag)
     }

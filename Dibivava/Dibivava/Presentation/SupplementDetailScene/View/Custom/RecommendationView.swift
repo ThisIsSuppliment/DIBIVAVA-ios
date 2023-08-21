@@ -11,8 +11,8 @@ import SnapKit
 import Then
 
 class RecommendationView: UIView, UICollectionViewDelegate {
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, SupplementDTO>
-    typealias DataSource = UICollectionViewDiffableDataSource<Section, SupplementDTO>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, SupplementObject>
+    typealias DataSource = UICollectionViewDiffableDataSource<Section, SupplementObject>
     
     enum Section: String, CaseIterable {
         case main
@@ -21,10 +21,11 @@ class RecommendationView: UIView, UICollectionViewDelegate {
     // MARK: - UI
     
     let titleLabel: UILabel = UILabel().then {
+        $0.numberOfLines = 2
         $0.textColor = .black
         $0.textAlignment = .left
         $0.font = .pretendard(.ExtraBold, size: 18)
-        $0.text = "첨가제가 적어요!"
+        $0.text = "현재 보고 계신 건강기능식품보다\n첨가제가 적어요!"
     }
     
     lazy var collectionView: UICollectionView = UICollectionView(
@@ -61,8 +62,10 @@ class RecommendationView: UIView, UICollectionViewDelegate {
     
     // MARK: - Public Method
     
-    func applySnapshot(_ recommendations: [SupplementDTO]) {
+    func applySnapshot(_ recommendations: [SupplementObject]) {
         if recommendations.isEmpty {
+            self.titleLabel.isHidden = true
+            self.collectionView.isHidden = true
             return
         }
         collectionView.snp.makeConstraints { make in
@@ -95,7 +98,6 @@ private extension RecommendationView {
         }
         
         self.collectionView.snp.makeConstraints { make in
-            make.top.equalTo(self.titleLabel.snp.bottom).offset(10)
             make.horizontalEdges.equalToSuperview()
             make.bottom.equalToSuperview().inset(15)
         }
