@@ -34,7 +34,7 @@ struct Material: Hashable {
 }
 
 extension Material {
-    func setTermDescription(_ termDescription: String?) -> Material {
+    func setTermsWithDescription(_ termDescription: String?) -> Material {
         guard let termIds = termIds,
               let termDescription = termDescription
         else {

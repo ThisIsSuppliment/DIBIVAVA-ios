@@ -70,7 +70,7 @@ class DefaultSupplementUseCase: SupplementUseCase {
                         "\(term) - " + (self.termsRelay.value[term] ?? "설명 준비중입니다") + "\n"
                     }.joined(separator: "\n")
                     
-                    return additive.setTermDescription(termDescription)
+                    return additive.setTermsWithDescription(termDescription)
                 }
         }
     }
