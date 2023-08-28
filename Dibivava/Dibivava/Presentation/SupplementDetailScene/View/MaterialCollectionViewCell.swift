@@ -12,11 +12,13 @@ import SnapKit
 import Then
 
 protocol MaterialCollectionViewCellDelegate: AnyObject {
-    func showHideButtonTapped(_ cell: MaterialCollectionViewCell, sender: Bool)
+    func showToggleButtonTapped(_ cell: MaterialCollectionViewCell, sender: Bool)
 }
 
 final class MaterialCollectionViewCell: UICollectionViewCell {
     static let identifier: String = String(describing: MaterialCollectionViewCell.self)
+    
+    // MARK: - UI
     
     private let titleLabel: UILabel = UILabel().then {
         $0.textColor = .black
@@ -53,15 +55,27 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
         $0.tintColor = .clear
     }
     
-    weak var delegate: MaterialCollectionViewCellDelegate?
+    // MARK: - Properties
     
     private let disposeBag: DisposeBag = DisposeBag()
     
-    var isExpanded = false {
+    private var isExpanded: Bool = false {
        didSet {
-           termLabel.numberOfLines = isExpanded ? 0 : 1
+           self.termLabel.numberOfLines = isExpanded ? 0 : 1
        }
-   }
+    }
+    
+    weak var delegate: MaterialCollectionViewCellDelegate?
+    
+    var title: String? = nil {
+       didSet {
+           guard let title = title
+           else {
+               return
+           }
+           self.titleLabel.text = title
+       }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -85,44 +99,19 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
         self.titleLabel.text = ""
         self.rankLabel.text = ""
         self.termLabel.text = ""
+        self.chevronButton.isHidden = false
         self.chevronButton.isSelected = false
         self.isExpanded = false
     }
     
-    func configure(title: String, isAdd: Bool, terms: String, level: String?) {
-        self.titleLabel.text = title
-        
-        if isAdd {
-            if let level = level {
-                self.rankLabel.text = level
-                
-                switch level {
-                case "1":
-                    self.rankLabel.backgroundColor = UIColor(rgb: 0xFA6363)
-                case "2A":
-                    self.rankLabel.backgroundColor = UIColor(rgb: 0xFFB783)
-                case "2B":
-                    self.rankLabel.backgroundColor =  UIColor(rgb: 0xEFDA67)
-                case "3":
-                    self.rankLabel.backgroundColor = UIColor(rgb: 0x90CA9D)
-                default:
-                    print("알 수 없는 등급")
-                }
-            }
-            self.chevronButton.isHidden = false
-            self.termLabel.text = terms
-            self.termLabel.setLineSpacing(spacing: 4.0)
-        } else if !isAdd {
+    func configure(isAddictive: Bool, terms: String?, level: String?) {
+        if isAddictive {
+            self.setAddictiveTermsLabel(terms)
+            self.setAddictiveLevelLabel(level)
+
+        } else if !isAddictive {
             self.chevronButton.isHidden = true
-            self.titleLabel.textAlignment = .center
-            
-            self.titleLabel.snp.updateConstraints { make in
-                make.trailing.equalTo(self.rankLabel.snp.leading).offset(10)
-            }
-            
-            self.titleLabel.snp.makeConstraints { make in
-                make.center.equalToSuperview()
-            }
+            self.updateAddictiveTitleLabel()
         }
     }
 }
@@ -138,7 +127,6 @@ private extension MaterialCollectionViewCell {
         self.titleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(10)
             make.leading.equalToSuperview().inset(10)
-            make.trailing.equalTo(self.rankLabel.snp.leading).offset(-10)
         }
         
         self.chevronButton.snp.makeConstraints { make in
@@ -149,6 +137,7 @@ private extension MaterialCollectionViewCell {
       
         self.rankLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(10)
+            make.leading.equalTo(self.titleLabel.snp.trailing)
             make.trailing.equalTo(self.chevronButton.snp.trailing)
         }
         
@@ -169,14 +158,55 @@ private extension MaterialCollectionViewCell {
         self.toggleButton.rx.tap
             .subscribe(onNext: { [weak self] in
                 guard let self else { return }
-                self.toggleHeight()
+                self.tapToggleButton()
             })
             .disposed(by: disposeBag)
     }
 
-    func toggleHeight() {
+    func tapToggleButton() {
         self.isExpanded.toggle()
         self.chevronButton.isSelected.toggle()
-        self.delegate?.showHideButtonTapped(self, sender: self.isExpanded)
+        self.delegate?.showToggleButtonTapped(self, sender: self.isExpanded)
+    }
+    
+    func setAddictiveTermsLabel(_ terms: String?) {
+        guard let terms = terms
+        else {
+            self.chevronButton.isHidden = true
+            return
+        }
+        
+        self.termLabel.text = terms
+        self.termLabel.setLineSpacing(spacing: 4.0)
+    }
+    
+    func setAddictiveLevelLabel(_ level: String?) {
+        guard let level = level
+        else {
+            return
+        }
+        
+        self.rankLabel.text = level
+        
+        switch level {
+        case "1":
+            self.rankLabel.backgroundColor = UIColor(rgb: 0xFA6363)
+        case "2A":
+            self.rankLabel.backgroundColor = UIColor(rgb: 0xFFB783)
+        case "2B":
+            self.rankLabel.backgroundColor =  UIColor(rgb: 0xEFDA67)
+        case "3":
+            self.rankLabel.backgroundColor = UIColor(rgb: 0x90CA9D)
+        default:
+            print("알 수 없는 등급")
+        }
+    }
+    
+    func updateAddictiveTitleLabel() {
+        self.titleLabel.textAlignment = .center
+        
+        self.titleLabel.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
     }
 }

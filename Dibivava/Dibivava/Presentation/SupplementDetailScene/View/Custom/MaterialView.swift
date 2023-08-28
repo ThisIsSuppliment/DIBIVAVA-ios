@@ -173,13 +173,13 @@ private extension MaterialView {
                 for: indexPath
             ) as! MaterialCollectionViewCell
             
-            let nameOfTerms = item.termIds?.joined(separator: "  ") ?? ""
+            let terms = item.termIds?.joined(separator: "  ") ?? ""
             let descriptionOfTerms = item.termsDescription ?? ""
 
             cell.delegate = self
-            cell.configure(title: item.name ?? "없음",
-                           isAdd: item.category == "additive" && item.name != nil,
-                           terms: nameOfTerms + "\n\n" + descriptionOfTerms,
+            cell.title = item.name
+            cell.configure(isAddictive: item.category == "additive",
+                           terms: terms + "\n\n" + descriptionOfTerms,
                            level: item.level)
             
             return cell
@@ -216,7 +216,7 @@ private extension MaterialView {
 // MARK: - MaterialCollectionViewCellDelegate
 
 extension MaterialView: MaterialCollectionViewCellDelegate {
-    func showHideButtonTapped(_ cell: MaterialCollectionViewCell, sender: Bool) {
+    func showToggleButtonTapped(_ cell: MaterialCollectionViewCell, sender: Bool) {
         guard let snapshot = dataSource?.snapshot()
         else { return }
         
