@@ -92,10 +92,6 @@ final class MaterialView: UIView, UICollectionViewDelegate {
     // MARK: - Property
     
     private var dataSource: DataSource?
-    private var heightConstraint: Constraint?
-    private var isExpanded = false
-    
-    private let disposeBag: DisposeBag = DisposeBag()
     
     // MARK: - Init
     
@@ -213,11 +209,10 @@ private extension MaterialView {
 // MARK: - MaterialCollectionViewCellDelegate
 
 extension MaterialView: MaterialCollectionViewCellDelegate {
-    func showToggleButtonTapped(_ cell: MaterialCollectionViewCell, sender: Bool) {
-        guard let snapshot = dataSource?.snapshot()
-        else { return }
+    func showToggleButtonTapped() {
+        guard let snapshot = dataSource?.snapshot() else { return }
         
-        dataSource?.apply(snapshot, animatingDifferences: false)
+        self.dataSource?.apply(snapshot, animatingDifferences: false)
         
         self.updateCollectionViewHeight(self.collectionView.contentSize.height)
     }

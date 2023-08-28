@@ -12,7 +12,7 @@ import SnapKit
 import Then
 
 protocol MaterialCollectionViewCellDelegate: AnyObject {
-    func showToggleButtonTapped(_ cell: MaterialCollectionViewCell, sender: Bool)
+    func showToggleButtonTapped()
 }
 
 final class MaterialCollectionViewCell: UICollectionViewCell {
@@ -59,9 +59,11 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
     
     private let disposeBag: DisposeBag = DisposeBag()
     
-    private var isExpanded: Bool = false {
+    private var isToggle: Bool = false {
        didSet {
-           self.termLabel.numberOfLines = isExpanded ? 0 : 1
+           self.termLabel.numberOfLines = isToggle ? 0 : 1
+           self.chevronButton.isSelected.toggle()
+           self.delegate?.showToggleButtonTapped()
        }
     }
     
@@ -76,14 +78,12 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
     
     var terms: String? = nil {
        didSet {
-           guard let terms = terms else { return }
            self.setAddictiveTermsLabel(terms)
        }
     }
     
     var level: String? = nil {
         didSet {
-            guard let level = level else { return }
             self.setAddictiveLevelLabel(level)
         }
      }
@@ -96,6 +96,8 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
            }
        }
     }
+    
+    // MARK: - Init
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -121,20 +123,10 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
         self.termLabel.text = ""
         self.chevronButton.isHidden = false
         self.chevronButton.isSelected = false
-        self.isExpanded = false
     }
-    
-//    func configure(isAddictive: Bool, terms: String?, level: String?) {
-//        if isAddictive {
-//            self.setAddictiveTermsLabel(terms)
-//            self.setAddictiveLevelLabel(level)
-//
-//        } else if !isAddictive {
-//            self.chevronButton.isHidden = true
-//            self.updateAddictiveTitleLabel()
-//        }
-//    }
 }
+
+// MARK: - Private Method
 
 private extension MaterialCollectionViewCell {
     func configureSubviews() {
@@ -178,15 +170,9 @@ private extension MaterialCollectionViewCell {
         self.toggleButton.rx.tap
             .subscribe(onNext: { [weak self] in
                 guard let self else { return }
-                self.tapToggleButton()
+                self.isToggle.toggle()
             })
             .disposed(by: disposeBag)
-    }
-
-    func tapToggleButton() {
-        self.isExpanded.toggle()
-        self.chevronButton.isSelected.toggle()
-        self.delegate?.showToggleButtonTapped(self, sender: self.isExpanded)
     }
     
     func setAddictiveTermsLabel(_ terms: String?) {
