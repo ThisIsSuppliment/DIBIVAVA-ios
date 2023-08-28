@@ -69,11 +69,31 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
     
     var title: String? = nil {
        didSet {
-           guard let title = title
-           else {
-               return
-           }
+           guard let title = title else { return }
            self.titleLabel.text = title
+       }
+    }
+    
+    var terms: String? = nil {
+       didSet {
+           guard let terms = terms else { return }
+           self.setAddictiveTermsLabel(terms)
+       }
+    }
+    
+    var level: String? = nil {
+        didSet {
+            guard let level = level else { return }
+            self.setAddictiveLevelLabel(level)
+        }
+     }
+    
+    var isAddictiveMaterial: Bool = true {
+       didSet {
+           if !isAddictiveMaterial {
+               self.chevronButton.isHidden = true
+               self.updateAddictiveTitleLabel()
+           }
        }
     }
     
@@ -104,16 +124,16 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
         self.isExpanded = false
     }
     
-    func configure(isAddictive: Bool, terms: String?, level: String?) {
-        if isAddictive {
-            self.setAddictiveTermsLabel(terms)
-            self.setAddictiveLevelLabel(level)
-
-        } else if !isAddictive {
-            self.chevronButton.isHidden = true
-            self.updateAddictiveTitleLabel()
-        }
-    }
+//    func configure(isAddictive: Bool, terms: String?, level: String?) {
+//        if isAddictive {
+//            self.setAddictiveTermsLabel(terms)
+//            self.setAddictiveLevelLabel(level)
+//
+//        } else if !isAddictive {
+//            self.chevronButton.isHidden = true
+//            self.updateAddictiveTitleLabel()
+//        }
+//    }
 }
 
 private extension MaterialCollectionViewCell {

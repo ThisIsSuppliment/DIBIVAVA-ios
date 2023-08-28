@@ -172,15 +172,12 @@ private extension MaterialView {
                 withReuseIdentifier: MaterialCollectionViewCell.identifier,
                 for: indexPath
             ) as! MaterialCollectionViewCell
-            
-            let terms = item.termIds?.joined(separator: "  ") ?? ""
-            let descriptionOfTerms = item.termsDescription ?? ""
 
             cell.delegate = self
             cell.title = item.name
-            cell.configure(isAddictive: item.category == "additive",
-                           terms: terms + "\n\n" + descriptionOfTerms,
-                           level: item.level)
+            cell.terms = item.termsWithDescription
+            cell.level = item.level
+            cell.isAddictiveMaterial = (item.category == "additive")
             
             return cell
         }

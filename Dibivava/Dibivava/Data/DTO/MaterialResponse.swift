@@ -37,6 +37,6 @@ extension MaterialResponse {
                  name: result.name,
                  termIds: result.termIds,
                  level: result.level,
-                 termsDescription: nil)
+                 termsWithDescription: nil)
     }
 }
