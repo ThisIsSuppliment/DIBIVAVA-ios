@@ -39,7 +39,7 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
         $0.numberOfLines = 1
     }
     
-    private let toggleButton: UIButton = UIButton().then {
+    private let chevronButton: UIButton = UIButton().then {
         $0.tintColor = .darkGray
 
         let normalImage = UIImage(systemName: "chevron.down")
@@ -47,6 +47,10 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
 
         let selectedImage = UIImage(systemName: "chevron.up")
         $0.setImage(selectedImage, for: .selected)
+    }
+    
+    private let toggleButton: UIButton = UIButton().then {
+        $0.tintColor = .clear
     }
     
     weak var delegate: MaterialCollectionViewCellDelegate?
@@ -81,7 +85,7 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
         self.titleLabel.text = ""
         self.rankLabel.text = ""
         self.termLabel.text = ""
-        self.toggleButton.isSelected = false
+        self.chevronButton.isSelected = false
         self.isExpanded = false
     }
     
@@ -105,11 +109,11 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
                     print("알 수 없는 등급")
                 }
             }
-            self.toggleButton.isHidden = false
+            self.chevronButton.isHidden = false
             self.termLabel.text = terms
             self.termLabel.setLineSpacing(spacing: 4.0)
         } else if !isAdd {
-            self.toggleButton.isHidden = true
+            self.chevronButton.isHidden = true
             self.titleLabel.textAlignment = .center
             
             self.titleLabel.snp.updateConstraints { make in
@@ -125,7 +129,7 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
 
 private extension MaterialCollectionViewCell {
     func configureSubviews() {
-        [titleLabel, toggleButton, rankLabel, termLabel].forEach {
+        [titleLabel, chevronButton, rankLabel, termLabel, toggleButton].forEach {
             self.contentView.addSubview($0)
         }
     }
@@ -137,7 +141,7 @@ private extension MaterialCollectionViewCell {
             make.trailing.equalTo(self.rankLabel.snp.leading).offset(-10)
         }
         
-        self.toggleButton.snp.makeConstraints { make in
+        self.chevronButton.snp.makeConstraints { make in
             make.size.equalTo(20)
             make.trailing.equalToSuperview().inset(10)
             make.bottom.equalToSuperview().inset(10)
@@ -145,14 +149,19 @@ private extension MaterialCollectionViewCell {
       
         self.rankLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(10)
-            make.trailing.equalTo(self.toggleButton.snp.trailing)
+            make.trailing.equalTo(self.chevronButton.snp.trailing)
         }
         
         self.termLabel.snp.makeConstraints { make in
             make.top.equalTo(self.titleLabel.snp.bottom).offset(20)
             make.leading.equalTo(self.titleLabel.snp.leading)
-            make.trailing.equalTo(self.toggleButton.snp.leading).offset(-15)
+            make.trailing.equalTo(self.chevronButton.snp.leading).offset(-15)
             make.bottom.equalToSuperview().inset(10).priority(.low)
+        }
+        
+        self.toggleButton.snp.makeConstraints { make in
+            make.top.horizontalEdges.equalToSuperview()
+            make.bottom.equalTo(self.termLabel.snp.bottom)
         }
     }
     
@@ -167,7 +176,7 @@ private extension MaterialCollectionViewCell {
 
     func toggleHeight() {
         self.isExpanded.toggle()
-        self.toggleButton.isSelected.toggle()
+        self.chevronButton.isSelected.toggle()
         self.delegate?.showHideButtonTapped(self, sender: self.isExpanded)
     }
 }

@@ -341,7 +341,6 @@
 			isa = PBXGroup;
 			children = (
 				7C6091B72A6588C40062FF01 /* Dibivava */,
-				7C6091CE2A6588C50062FF01 /* DibivavaTests */,
 				7C6091D82A6588C50062FF01 /* DibivavaUITests */,
 				7C82EA6F2A93CAB2001AA3BE /* DibivavaUseCaseTest */,
 				7C6091B62A6588C40062FF01 /* Products */,
@@ -372,13 +371,6 @@
 				7C6091F82A6591010062FF01 /* Resource */,
 			);
 			path = Dibivava;
-			sourceTree = "<group>";
-		};
-		7C6091CE2A6588C50062FF01 /* DibivavaTests */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = DibivavaTests;
 			sourceTree = "<group>";
 		};
 		7C6091D82A6588C50062FF01 /* DibivavaUITests */ = {

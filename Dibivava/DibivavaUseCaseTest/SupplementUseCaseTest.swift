@@ -13,6 +13,7 @@ import RxSwift
 final class SupplementUseCaseTest: XCTestCase {
     private var useCase: DefaultSupplementUseCase!
     private var disposeBag: DisposeBag!
+    private var scheduler: TestScheduler!
 
     override func setUpWithError() throws {
         self.useCase = DefaultSupplementUseCase(supplementRepository: MockSupplementRepository())
