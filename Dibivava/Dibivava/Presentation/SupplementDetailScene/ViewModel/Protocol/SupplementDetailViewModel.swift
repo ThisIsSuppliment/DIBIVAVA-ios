@@ -9,6 +9,7 @@ import Foundation
 import RxCocoa
 
 protocol SupplementDetailViewModelInput {
+    /// 검색한 건강기능식품에 관한 데이터 요청
     func viewWillAppear()
 }
 

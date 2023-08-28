@@ -92,10 +92,6 @@ final class MaterialView: UIView, UICollectionViewDelegate {
     // MARK: - Property
     
     private var dataSource: DataSource?
-    private var heightConstraint: Constraint?
-    private var isExpanded = false
-    
-    private let disposeBag: DisposeBag = DisposeBag()
     
     // MARK: - Init
     
@@ -172,15 +168,12 @@ private extension MaterialView {
                 withReuseIdentifier: MaterialCollectionViewCell.identifier,
                 for: indexPath
             ) as! MaterialCollectionViewCell
-            
-            let nameOfTerms = item.termIds?.joined(separator: "  ") ?? ""
-            let descriptionOfTerms = item.termsDescription ?? ""
 
             cell.delegate = self
-            cell.configure(title: item.name ?? "없음",
-                           isAdd: item.category == "additive" && item.name != nil,
-                           terms: nameOfTerms + "\n\n" + descriptionOfTerms,
-                           level: item.level)
+            cell.title = item.name
+            cell.terms = item.termsWithDescription
+            cell.level = item.level
+            cell.isAddictiveMaterial = (item.category == "additive")
             
             return cell
         }
@@ -216,11 +209,10 @@ private extension MaterialView {
 // MARK: - MaterialCollectionViewCellDelegate
 
 extension MaterialView: MaterialCollectionViewCellDelegate {
-    func showHideButtonTapped(_ cell: MaterialCollectionViewCell, sender: Bool) {
-        guard let snapshot = dataSource?.snapshot()
-        else { return }
+    func showToggleButtonTapped() {
+        guard let snapshot = dataSource?.snapshot() else { return }
         
-        dataSource?.apply(snapshot, animatingDifferences: false)
+        self.dataSource?.apply(snapshot, animatingDifferences: false)
         
         self.updateCollectionViewHeight(self.collectionView.contentSize.height)
     }

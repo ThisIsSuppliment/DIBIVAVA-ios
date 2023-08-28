@@ -14,14 +14,14 @@ struct Material: Hashable {
     let termIds: [String]?
     let level: String?
     var numberOfLines: Int
-    var termsDescription: String?
+    var termsWithDescription: String?
     
     init(id: String? = UUID().uuidString,
          category: String,
          name: String? = nil,
          termIds: [String]? = nil,
          level: String? = nil,
-         termsDescription: String? = nil
+         termsWithDescription: String? = nil
     ) {
         self.id = id
         self.category = category
@@ -29,17 +29,25 @@ struct Material: Hashable {
         self.termIds = termIds
         self.level = level
         self.numberOfLines = 1
-        self.termsDescription = termsDescription
+        self.termsWithDescription = termsWithDescription
     }
 }
 
 extension Material {
-    func setTermDescription(_ termDescription: String?) -> Material {
-        Material(id: self.id,
+    func setTermsWithDescription(_ termDescription: String?) -> Material {
+        guard let termIds = termIds,
+              let termDescription = termDescription
+        else {
+            return self
+        }
+        
+        let terms = termIds.joined(separator: "  ")
+        
+        return Material(id: self.id,
                  category: self.category,
                  name: self.name,
                  termIds: self.termIds,
                  level: self.level,
-                 termsDescription: termDescription)
+                 termsWithDescription: terms + "\n\n" + termDescription)
     }
 }

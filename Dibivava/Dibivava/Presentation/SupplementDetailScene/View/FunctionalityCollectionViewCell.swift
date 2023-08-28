@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FunctionalityCollectionViewCell: UICollectionViewCell {
+final class FunctionalityCollectionViewCell: UICollectionViewCell {
     static let identifier: String = String(describing: FunctionalityCollectionViewCell.self)
     
     private let titleLabel: UILabel = UILabel().then {

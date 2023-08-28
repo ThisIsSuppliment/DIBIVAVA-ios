@@ -7,7 +7,7 @@
 
 import UIKit
 
-class GMPView: UIView {
+final class GMPView: UIView {
     let gmpImageView: UIImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
         $0.image = UIImage(named: "GMP")
