@@ -11,7 +11,7 @@ import RxRelay
 
 protocol SupplementUseCase {
     /// key는 첨가제 이름, value는 설명이 저장된 딕셔너리  불러오기
-    func fetchTerm()
+    func fetchTerm() -> Completable
     
     /// 건강기능 식품 데이터 불러오기
     func fetchSupplement(id: String) -> Single<SupplementObject>
@@ -39,19 +39,39 @@ class DefaultSupplementUseCase: SupplementUseCase {
         self.supplementRepository = supplementRepository
     }
     
-    func fetchTerm() {
-        self.supplementRepository.fetchTerm()
-            .subscribe(onSuccess: { [weak self] terms in
+//    func fetchTerm() {
+//        self.supplementRepository.fetchTerm()
+//            .subscribe(onSuccess: { [weak self] terms in
+//                guard let self
+//                else {
+//                    return
+//                }
+//                var termsByName: [String: String] = [:]
+//                terms.forEach { termsByName[$0.name] = $0.description }
+//                self.termsRelay.accept(termsByName)
+//            })
+//            .disposed(by: self.disposeBag)
+//    }
+    
+    func fetchTerm() -> Completable {
+        return self.supplementRepository.fetchTerm()
+            .flatMapCompletable { [weak self] terms in
                 guard let self
                 else {
-                    return
+                    return Completable.error(NSError(domain: "Self is deallocated", code: 0, userInfo: nil))
                 }
+                
                 var termsByName: [String: String] = [:]
                 terms.forEach { termsByName[$0.name] = $0.description }
                 self.termsRelay.accept(termsByName)
-            })
-            .disposed(by: self.disposeBag)
+                
+                return Completable.empty()
+            }
+            .catch { error in
+                return Completable.error(error)
+            }
     }
+
     
     func fetchSupplement(id: String) -> Single<SupplementObject> {
         self.supplementRepository.fetchSupplement(with: id)

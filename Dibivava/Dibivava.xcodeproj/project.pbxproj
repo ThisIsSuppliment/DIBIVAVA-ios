@@ -72,6 +72,7 @@
 		7CAB729B2A9E256E000BE625 /* RxBlocking in Frameworks */ = {isa = PBXBuildFile; productRef = 7CAB729A2A9E256E000BE625 /* RxBlocking */; };
 		7CAB729D2A9E27E3000BE625 /* RxTest in Frameworks */ = {isa = PBXBuildFile; productRef = 7CAB729C2A9E27E3000BE625 /* RxTest */; };
 		7CAB72A52A9E4A33000BE625 /* DibivavaViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAB72A42A9E4A33000BE625 /* DibivavaViewModelTest.swift */; };
+		7CAB72AC2A9E4B0B000BE625 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7CAB72AB2A9E4B0B000BE625 /* RxSwift */; };
 		7CB23BE12A9D1F7C004B7795 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7CB23BE02A9D1F7C004B7795 /* RxSwift */; };
 		7CC9524E2A6A6F3B00E2F739 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7CC9524D2A6A6F3B00E2F739 /* RxSwift */; };
 		7CC952502A6A6F4300E2F739 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 7CC9524F2A6A6F4300E2F739 /* RxCocoa */; };
@@ -221,6 +222,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7CAB72AC2A9E4B0B000BE625 /* RxSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -605,6 +607,9 @@
 				7CAB72A72A9E4A33000BE625 /* PBXTargetDependency */,
 			);
 			name = DibivavaViewModelTest;
+			packageProductDependencies = (
+				7CAB72AB2A9E4B0B000BE625 /* RxSwift */,
+			);
 			productName = DibivavaViewModelTest;
 			productReference = 7CAB72A22A9E4A33000BE625 /* DibivavaViewModelTest.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -1258,6 +1263,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 09FEB42B2A66A73500DD1CC5 /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxTest;
+		};
+		7CAB72AB2A9E4B0B000BE625 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 09FEB42B2A66A73500DD1CC5 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
 		};
 		7CB23BE02A9D1F7C004B7795 /* RxSwift */ = {
 			isa = XCSwiftPackageProductDependency;

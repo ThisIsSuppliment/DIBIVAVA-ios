@@ -30,6 +30,10 @@ final class DefaultSupplementDetailViewModel {
         self.material = [:]
         self.supplementUseCase = supplementUseCase
         self.supplementUseCase.fetchTerm()
+            .subscribe(onError: { error in
+                print("ERROR: fetchTerm - ", error)
+            })
+            .disposed(by: self.disposeBag)
     }
 }
 
