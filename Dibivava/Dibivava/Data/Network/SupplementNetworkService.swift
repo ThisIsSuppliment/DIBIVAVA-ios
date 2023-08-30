@@ -44,8 +44,13 @@ final class DefaultSupplementNetworkService: SupplementNetworkService {
         return Single.zip(result).map { $0 }
     }
     
-    func fetchRecommendSupplement(by id: String) -> RxSwift.Single<[SupplementResponse]> {
+    func fetchRecommendSupplement(by id: String) -> Single<[SupplementResponse]> {
         self.request(with: EndpointCases.supplement(id: id), T: [SupplementResponse].self)
+    }
+    
+    func fetchRecommendList(by keyword: String) -> Single<[SupplementResponse]> {
+        self.request(with: EndpointCases.recommendation(keyword: keyword, req: 1),
+                     T: [SupplementResponse].self)
     }
 }
 

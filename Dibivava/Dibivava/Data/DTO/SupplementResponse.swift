@@ -13,7 +13,7 @@ struct SupplementResponse: Codable {
 }
 
 // MARK: - SupplementDetail
-struct SupplementDTO: Codable, Hashable {
+struct SupplementDTO: Codable {
     let supplementID: Int
     let name, company, expireDate, intakeMethod: String?
     let functionality: [String]?
@@ -21,6 +21,7 @@ struct SupplementDTO: Codable, Hashable {
     let subMaterial, additive: [String]?
     let imageLink: String?
     let gmpCheck: Int?
+    let keyword: String?
     let createdAt, updatedAt: String?
 
     enum CodingKeys: String, CodingKey {
@@ -34,6 +35,7 @@ struct SupplementDTO: Codable, Hashable {
         case additive, createdAt, updatedAt
         case imageLink = "image_link"
         case gmpCheck = "gmp_check"
+        case keyword
     }
 }
 
@@ -49,6 +51,7 @@ extension SupplementResponse {
                          subMaterial: result.subMaterial,
                          additive: result.additive,
                          imageLink: result.imageLink,
-                         gmpCheck: result.gmpCheck)
+                         gmpCheck: result.gmpCheck,
+                         keyword: result.keyword)
     }
 }
