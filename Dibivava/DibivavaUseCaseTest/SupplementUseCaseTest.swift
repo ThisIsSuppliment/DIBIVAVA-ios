@@ -56,11 +56,6 @@ final class SupplementUseCaseTest: XCTestCase {
     }
     
     func test_fetchTerm() {
-//        let observable = self.useCase.fetchTerm()
-//
-//        let values = try? observable.single()
-//        let expectedValues: [Material]? = nil
-//        
-//        XCTAssertEqual(values, expectedValues)
+//        let completable = self.useCase.fetchTerm().toBlocking()
     }
 }

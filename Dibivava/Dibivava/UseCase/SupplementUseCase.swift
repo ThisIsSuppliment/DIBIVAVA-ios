@@ -39,20 +39,6 @@ class DefaultSupplementUseCase: SupplementUseCase {
         self.supplementRepository = supplementRepository
     }
     
-//    func fetchTerm() {
-//        self.supplementRepository.fetchTerm()
-//            .subscribe(onSuccess: { [weak self] terms in
-//                guard let self
-//                else {
-//                    return
-//                }
-//                var termsByName: [String: String] = [:]
-//                terms.forEach { termsByName[$0.name] = $0.description }
-//                self.termsRelay.accept(termsByName)
-//            })
-//            .disposed(by: self.disposeBag)
-//    }
-    
     func fetchTerm() -> Completable {
         return self.supplementRepository.fetchTerm()
             .flatMapCompletable { [weak self] terms in
