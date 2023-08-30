@@ -68,6 +68,12 @@
 		7C82EA7E2A93D5B3001AA3BE /* SupplementUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C82EA7D2A93D5B3001AA3BE /* SupplementUseCaseTest.swift */; };
 		7CA5856C2A88D35000296314 /* RecommendationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA5856B2A88D35000296314 /* RecommendationView.swift */; };
 		7CA5856E2A88DDE500296314 /* ResourceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA5856D2A88DDE500296314 /* ResourceView.swift */; };
+		7CAB72992A9E219D000BE625 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 7CAB72982A9E219D000BE625 /* RxCocoa */; };
+		7CAB729B2A9E256E000BE625 /* RxBlocking in Frameworks */ = {isa = PBXBuildFile; productRef = 7CAB729A2A9E256E000BE625 /* RxBlocking */; };
+		7CAB729D2A9E27E3000BE625 /* RxTest in Frameworks */ = {isa = PBXBuildFile; productRef = 7CAB729C2A9E27E3000BE625 /* RxTest */; };
+		7CAB72A52A9E4A33000BE625 /* DibivavaViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAB72A42A9E4A33000BE625 /* DibivavaViewModelTest.swift */; };
+		7CAB72AC2A9E4B0B000BE625 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7CAB72AB2A9E4B0B000BE625 /* RxSwift */; };
+		7CB23BE12A9D1F7C004B7795 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7CB23BE02A9D1F7C004B7795 /* RxSwift */; };
 		7CC9524E2A6A6F3B00E2F739 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7CC9524D2A6A6F3B00E2F739 /* RxSwift */; };
 		7CC952502A6A6F4300E2F739 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 7CC9524F2A6A6F4300E2F739 /* RxCocoa */; };
 		7CC9525A2A6A6FCE00E2F739 /* SUIT-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7CC952512A6A6FCE00E2F739 /* SUIT-ExtraBold.ttf */; };
@@ -82,13 +88,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		7C6091CC2A6588C50062FF01 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7C6091AD2A6588C40062FF01 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7C6091B42A6588C40062FF01;
-			remoteInfo = Dibivava;
-		};
 		7C6091D62A6588C50062FF01 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7C6091AD2A6588C40062FF01 /* Project object */;
@@ -97,6 +96,13 @@
 			remoteInfo = Dibivava;
 		};
 		7C82EA722A93CAB2001AA3BE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7C6091AD2A6588C40062FF01 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7C6091B42A6588C40062FF01;
+			remoteInfo = Dibivava;
+		};
+		7CAB72A62A9E4A33000BE625 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7C6091AD2A6588C40062FF01 /* Project object */;
 			proxyType = 1;
@@ -140,7 +146,6 @@
 		7C6091C12A6588C50062FF01 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7C6091C42A6588C50062FF01 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7C6091C62A6588C50062FF01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7C6091CB2A6588C50062FF01 /* DibivavaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DibivavaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C6091D52A6588C50062FF01 /* DibivavaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DibivavaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C6091D92A6588C50062FF01 /* DibivavaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DibivavaUITests.swift; sourceTree = "<group>"; };
 		7C6091DB2A6588C50062FF01 /* DibivavaUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DibivavaUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -165,6 +170,8 @@
 		7C82EA7D2A93D5B3001AA3BE /* SupplementUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementUseCaseTest.swift; sourceTree = "<group>"; };
 		7CA5856B2A88D35000296314 /* RecommendationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationView.swift; sourceTree = "<group>"; };
 		7CA5856D2A88DDE500296314 /* ResourceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceView.swift; sourceTree = "<group>"; };
+		7CAB72A22A9E4A33000BE625 /* DibivavaViewModelTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DibivavaViewModelTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7CAB72A42A9E4A33000BE625 /* DibivavaViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DibivavaViewModelTest.swift; sourceTree = "<group>"; };
 		7CC952512A6A6FCE00E2F739 /* SUIT-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-ExtraBold.ttf"; sourceTree = "<group>"; };
 		7CC952522A6A6FCE00E2F739 /* SUIT-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-Regular.ttf"; sourceTree = "<group>"; };
 		7CC952532A6A6FCE00E2F739 /* SUIT-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-SemiBold.ttf"; sourceTree = "<group>"; };
@@ -193,13 +200,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7C6091C82A6588C50062FF01 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		7C6091D22A6588C50062FF01 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -211,6 +211,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7CAB729D2A9E27E3000BE625 /* RxTest in Frameworks */,
+				7CAB72992A9E219D000BE625 /* RxCocoa in Frameworks */,
+				7CAB729B2A9E256E000BE625 /* RxBlocking in Frameworks */,
+				7CB23BE12A9D1F7C004B7795 /* RxSwift in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7CAB729F2A9E4A33000BE625 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7CAB72AC2A9E4B0B000BE625 /* RxSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,6 +355,7 @@
 				7C6091B72A6588C40062FF01 /* Dibivava */,
 				7C6091D82A6588C50062FF01 /* DibivavaUITests */,
 				7C82EA6F2A93CAB2001AA3BE /* DibivavaUseCaseTest */,
+				7CAB72A32A9E4A33000BE625 /* DibivavaViewModelTest */,
 				7C6091B62A6588C40062FF01 /* Products */,
 				7CC9524C2A6A6F3B00E2F739 /* Frameworks */,
 			);
@@ -352,9 +365,9 @@
 			isa = PBXGroup;
 			children = (
 				7C6091B52A6588C40062FF01 /* Dibivava.app */,
-				7C6091CB2A6588C50062FF01 /* DibivavaTests.xctest */,
 				7C6091D52A6588C50062FF01 /* DibivavaUITests.xctest */,
 				7C82EA6E2A93CAB2001AA3BE /* DibivavaUseCaseTest.xctest */,
+				7CAB72A22A9E4A33000BE625 /* DibivavaViewModelTest.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -492,6 +505,14 @@
 			path = DibivavaUseCaseTest;
 			sourceTree = "<group>";
 		};
+		7CAB72A32A9E4A33000BE625 /* DibivavaViewModelTest */ = {
+			isa = PBXGroup;
+			children = (
+				7CAB72A42A9E4A33000BE625 /* DibivavaViewModelTest.swift */,
+			);
+			path = DibivavaViewModelTest;
+			sourceTree = "<group>";
+		};
 		7CC9524C2A6A6F3B00E2F739 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -530,24 +551,6 @@
 			productReference = 7C6091B52A6588C40062FF01 /* Dibivava.app */;
 			productType = "com.apple.product-type.application";
 		};
-		7C6091CA2A6588C50062FF01 /* DibivavaTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 7C6091E22A6588C50062FF01 /* Build configuration list for PBXNativeTarget "DibivavaTests" */;
-			buildPhases = (
-				7C6091C72A6588C50062FF01 /* Sources */,
-				7C6091C82A6588C50062FF01 /* Frameworks */,
-				7C6091C92A6588C50062FF01 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				7C6091CD2A6588C50062FF01 /* PBXTargetDependency */,
-			);
-			name = DibivavaTests;
-			productName = DibivavaTests;
-			productReference = 7C6091CB2A6588C50062FF01 /* DibivavaTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		7C6091D42A6588C50062FF01 /* DibivavaUITests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7C6091E52A6588C50062FF01 /* Build configuration list for PBXNativeTarget "DibivavaUITests" */;
@@ -580,8 +583,35 @@
 				7C82EA732A93CAB2001AA3BE /* PBXTargetDependency */,
 			);
 			name = DibivavaUseCaseTest;
+			packageProductDependencies = (
+				7CB23BE02A9D1F7C004B7795 /* RxSwift */,
+				7CAB72982A9E219D000BE625 /* RxCocoa */,
+				7CAB729A2A9E256E000BE625 /* RxBlocking */,
+				7CAB729C2A9E27E3000BE625 /* RxTest */,
+			);
 			productName = DivivavaUseCaseTest;
 			productReference = 7C82EA6E2A93CAB2001AA3BE /* DibivavaUseCaseTest.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		7CAB72A12A9E4A33000BE625 /* DibivavaViewModelTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7CAB72AA2A9E4A33000BE625 /* Build configuration list for PBXNativeTarget "DibivavaViewModelTest" */;
+			buildPhases = (
+				7CAB729E2A9E4A33000BE625 /* Sources */,
+				7CAB729F2A9E4A33000BE625 /* Frameworks */,
+				7CAB72A02A9E4A33000BE625 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7CAB72A72A9E4A33000BE625 /* PBXTargetDependency */,
+			);
+			name = DibivavaViewModelTest;
+			packageProductDependencies = (
+				7CAB72AB2A9E4B0B000BE625 /* RxSwift */,
+			);
+			productName = DibivavaViewModelTest;
+			productReference = 7CAB72A22A9E4A33000BE625 /* DibivavaViewModelTest.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -597,15 +627,15 @@
 					7C6091B42A6588C40062FF01 = {
 						CreatedOnToolsVersion = 14.2;
 					};
-					7C6091CA2A6588C50062FF01 = {
-						CreatedOnToolsVersion = 14.2;
-						TestTargetID = 7C6091B42A6588C40062FF01;
-					};
 					7C6091D42A6588C50062FF01 = {
 						CreatedOnToolsVersion = 14.2;
 						TestTargetID = 7C6091B42A6588C40062FF01;
 					};
 					7C82EA6D2A93CAB2001AA3BE = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = 7C6091B42A6588C40062FF01;
+					};
+					7CAB72A12A9E4A33000BE625 = {
 						CreatedOnToolsVersion = 14.2;
 						TestTargetID = 7C6091B42A6588C40062FF01;
 					};
@@ -633,9 +663,9 @@
 			projectRoot = "";
 			targets = (
 				7C6091B42A6588C40062FF01 /* Dibivava */,
-				7C6091CA2A6588C50062FF01 /* DibivavaTests */,
 				7C6091D42A6588C50062FF01 /* DibivavaUITests */,
 				7C82EA6D2A93CAB2001AA3BE /* DibivavaUseCaseTest */,
+				7CAB72A12A9E4A33000BE625 /* DibivavaViewModelTest */,
 			);
 		};
 /* End PBXProject section */
@@ -660,13 +690,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7C6091C92A6588C50062FF01 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		7C6091D32A6588C50062FF01 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -675,6 +698,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		7C82EA6C2A93CAB2001AA3BE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7CAB72A02A9E4A33000BE625 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -737,13 +767,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7C6091C72A6588C50062FF01 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		7C6091D12A6588C50062FF01 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -763,14 +786,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7CAB729E2A9E4A33000BE625 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7CAB72A52A9E4A33000BE625 /* DibivavaViewModelTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		7C6091CD2A6588C50062FF01 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7C6091B42A6588C40062FF01 /* Dibivava */;
-			targetProxy = 7C6091CC2A6588C50062FF01 /* PBXContainerItemProxy */;
-		};
 		7C6091D72A6588C50062FF01 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 7C6091B42A6588C40062FF01 /* Dibivava */;
@@ -780,6 +806,11 @@
 			isa = PBXTargetDependency;
 			target = 7C6091B42A6588C40062FF01 /* Dibivava */;
 			targetProxy = 7C82EA722A93CAB2001AA3BE /* PBXContainerItemProxy */;
+		};
+		7CAB72A72A9E4A33000BE625 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7C6091B42A6588C40062FF01 /* Dibivava */;
+			targetProxy = 7CAB72A62A9E4A33000BE625 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -969,46 +1000,6 @@
 			};
 			name = Release;
 		};
-		7C6091E32A6588C50062FF01 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = J6Y6MSA68D;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = doongeunshin.DibivavaTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Dibivava.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Dibivava";
-			};
-			name = Debug;
-		};
-		7C6091E42A6588C50062FF01 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = J6Y6MSA68D;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = doongeunshin.DibivavaTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Dibivava.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Dibivava";
-			};
-			name = Release;
-		};
 		7C6091E62A6588C50062FF01 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1083,6 +1074,44 @@
 			};
 			name = Release;
 		};
+		7CAB72A82A9E4A33000BE625 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = J6Y6MSA68D;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = doongeunshin.DibivavaViewModelTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Dibivava.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Dibivava";
+			};
+			name = Debug;
+		};
+		7CAB72A92A9E4A33000BE625 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = J6Y6MSA68D;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = doongeunshin.DibivavaViewModelTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Dibivava.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Dibivava";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1104,15 +1133,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7C6091E22A6588C50062FF01 /* Build configuration list for PBXNativeTarget "DibivavaTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7C6091E32A6588C50062FF01 /* Debug */,
-				7C6091E42A6588C50062FF01 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		7C6091E52A6588C50062FF01 /* Build configuration list for PBXNativeTarget "DibivavaUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1127,6 +1147,15 @@
 			buildConfigurations = (
 				7C82EA752A93CAB2001AA3BE /* Debug */,
 				7C82EA762A93CAB2001AA3BE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7CAB72AA2A9E4A33000BE625 /* Build configuration list for PBXNativeTarget "DibivavaViewModelTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7CAB72A82A9E4A33000BE625 /* Debug */,
+				7CAB72A92A9E4A33000BE625 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1219,6 +1248,31 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 09FEB4312A66ABD400DD1CC5 /* XCRemoteSwiftPackageReference "ImageSlideshow" */;
 			productName = ImageSlideshow/Kingfisher;
+		};
+		7CAB72982A9E219D000BE625 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 09FEB42B2A66A73500DD1CC5 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		7CAB729A2A9E256E000BE625 /* RxBlocking */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 09FEB42B2A66A73500DD1CC5 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxBlocking;
+		};
+		7CAB729C2A9E27E3000BE625 /* RxTest */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 09FEB42B2A66A73500DD1CC5 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxTest;
+		};
+		7CAB72AB2A9E4B0B000BE625 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 09FEB42B2A66A73500DD1CC5 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		7CB23BE02A9D1F7C004B7795 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 09FEB42B2A66A73500DD1CC5 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
 		};
 		7CC9524D2A6A6F3B00E2F739 /* RxSwift */ = {
 			isa = XCSwiftPackageProductDependency;
