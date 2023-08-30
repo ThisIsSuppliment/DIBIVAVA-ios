@@ -98,7 +98,7 @@ private extension RecommendationView {
         }
         
         self.collectionView.snp.makeConstraints { make in
-            make.top.equalTo(self.titleLabel.snp.bottom).offset(5)
+            make.top.equalTo(self.titleLabel.snp.bottom).offset(10)
             make.horizontalEdges.equalToSuperview()
             make.bottom.equalToSuperview().inset(10)
         }

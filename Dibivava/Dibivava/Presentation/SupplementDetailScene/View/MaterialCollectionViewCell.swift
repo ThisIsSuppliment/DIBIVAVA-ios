@@ -157,12 +157,12 @@ private extension MaterialCollectionViewCell {
             make.top.equalTo(self.titleLabel.snp.bottom).offset(20)
             make.leading.equalTo(self.titleLabel.snp.leading)
             make.trailing.equalTo(self.chevronButton.snp.leading).offset(-15)
-            make.bottom.equalToSuperview().inset(10).priority(.low)
+            make.bottom.equalToSuperview().inset(10)
         }
         
         self.toggleButton.snp.makeConstraints { make in
             make.top.horizontalEdges.equalToSuperview()
-            make.bottom.equalTo(self.termLabel.snp.bottom)
+            make.bottom.equalToSuperview()
         }
     }
     
