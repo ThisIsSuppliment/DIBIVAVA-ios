@@ -102,7 +102,7 @@ private extension SupplementDetailViewController {
         self.recommendationView.snp.makeConstraints { make in
             make.top.equalTo(self.materialView.snp.bottom).offset(7)
             make.horizontalEdges.equalToSuperview()
-            make.height.equalTo(290)
+            make.height.equalTo(0)
         }
         
         self.resourceView.snp.makeConstraints { make in
@@ -175,12 +175,12 @@ private extension SupplementDetailViewController {
         self.viewModel.recommendSupplement
             .compactMap { $0 }
             .drive(onNext: { [weak self] recommendations in
-                guard let self
+                guard let self,
+                      !recommendations.isEmpty
                 else {
-                    self?.recommendationView.snp.updateConstraints { $0.height.equalTo(0) }
                     return
                 }
-                print("<<")
+                self.recommendationView.snp.updateConstraints { $0.height.equalTo(280) }
                 self.recommendationView.applySnapshot(recommendations)
             })
             .disposed(by: self.disposeBag)
