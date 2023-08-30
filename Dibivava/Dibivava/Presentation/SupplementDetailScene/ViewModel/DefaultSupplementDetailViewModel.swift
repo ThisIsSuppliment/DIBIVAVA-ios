@@ -64,7 +64,6 @@ extension DefaultSupplementDetailViewModel: SupplementDetailViewModel {
     
     func viewWillAppear() {
         self.fetchSupplement(with: String(self.id))
-        self.fetchRecommendSupplement(with: String(self.id))
     }
 }
 
@@ -92,6 +91,7 @@ private extension DefaultSupplementDetailViewModel {
                 
                 // 첨가제 데이터 요청
                 self.fetchAdditiveMaterial(with: supplement.additive)
+                self.fetchRecommendSupplement(with: supplement.keyword)
                 
             }, onFailure: {
                 print("Error: Fetch supplementDetail - \($0)")
@@ -117,8 +117,10 @@ private extension DefaultSupplementDetailViewModel {
             .disposed(by: self.disposeBag)
     }
     
-    func fetchRecommendSupplement(with id: String) {
-        self.supplementUseCase.fetchRecommendSupplement(id: id)
+    func fetchRecommendSupplement(with keyword: String?) {
+        guard let keyword = keyword else { return }
+        
+        self.supplementUseCase.fetchRecommendSupplement(keyword: keyword)
             .subscribe(onSuccess: { [weak self] supplements in
                 guard let self
                 else {
@@ -126,6 +128,10 @@ private extension DefaultSupplementDetailViewModel {
                 }
                 
                 self.recommendSupplementRelay.accept(supplements)
+                
+                self.recommendSupplementRelay.accept(supplements)
+            }, onFailure: { error in
+                print("ERROR: fetchRecommendSupplement - ", error)
             })
             .disposed(by: self.disposeBag)
     }
