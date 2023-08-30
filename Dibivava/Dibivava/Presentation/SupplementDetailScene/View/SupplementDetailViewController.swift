@@ -156,7 +156,6 @@ private extension SupplementDetailViewController {
                     return
                 }
                 self.materialView.applySnapshot(material)
-                self.indicatorView.stopAnimating()
             })
             .disposed(by: self.disposeBag)
         
@@ -169,6 +168,8 @@ private extension SupplementDetailViewController {
                 self.materialView.main.count = numOfMain
                 self.materialView.sub.count = numOfSub
                 self.materialView.add.count = numOfAdd
+                
+                self.indicatorView.stopAnimating()
             })
             .disposed(by: self.disposeBag)
         
@@ -180,7 +181,12 @@ private extension SupplementDetailViewController {
                 else {
                     return
                 }
-                self.recommendationView.snp.updateConstraints { $0.height.equalTo(280) }
+                
+                self.recommendationView.snp.updateConstraints { make in
+                    make.height.equalTo(280)
+                    make.top.equalTo(self.materialView.snp.bottom)
+                }
+                
                 self.recommendationView.applySnapshot(recommendations)
             })
             .disposed(by: self.disposeBag)
