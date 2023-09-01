@@ -92,6 +92,9 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
        didSet {
            if !isAddictiveMaterial {
                self.chevronButton.isHidden = true
+               self.termLabel.isHidden = true
+               self.rankLabel.isHidden = true
+               self.termLabel.snp.removeConstraints()
                self.updateAddictiveTitleLabel()
            }
        }
@@ -118,9 +121,9 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        self.titleLabel.text = ""
-        self.rankLabel.text = ""
-        self.termLabel.text = ""
+        self.titleLabel.text = nil
+        self.rankLabel.text = nil
+        self.termLabel.text = nil
         self.chevronButton.isHidden = false
         self.chevronButton.isSelected = false
     }
@@ -154,15 +157,15 @@ private extension MaterialCollectionViewCell {
         }
         
         self.termLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.titleLabel.snp.bottom).offset(20)
+            make.top.greaterThanOrEqualTo(self.titleLabel.snp.bottom).offset(20)
             make.leading.equalTo(self.titleLabel.snp.leading)
             make.trailing.equalTo(self.chevronButton.snp.leading).offset(-15)
-            make.bottom.equalToSuperview().inset(10).priority(.low)
+            make.bottom.equalToSuperview().inset(10)
         }
         
         self.toggleButton.snp.makeConstraints { make in
             make.top.horizontalEdges.equalToSuperview()
-            make.bottom.equalTo(self.termLabel.snp.bottom)
+            make.bottom.equalToSuperview()
         }
     }
     
@@ -212,7 +215,8 @@ private extension MaterialCollectionViewCell {
         self.titleLabel.textAlignment = .center
         
         self.titleLabel.snp.makeConstraints { make in
-            make.center.equalToSuperview()
+            make.bottom.equalToSuperview().inset(10)
+            make.trailing.equalToSuperview().inset(10)
         }
     }
 }
