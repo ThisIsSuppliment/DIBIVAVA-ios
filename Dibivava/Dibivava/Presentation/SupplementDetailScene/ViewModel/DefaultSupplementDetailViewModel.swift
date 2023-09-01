@@ -17,8 +17,8 @@ final class DefaultSupplementDetailViewModel {
     private let numOfMainMaterialRelay: PublishRelay<Int?> = .init()
     private let numOfSubMaterialRelay: PublishRelay<Int?> = .init()
     private let numOfAdditiveRelay: PublishRelay<Int?> = .init()
-    private let recommendSupplementRelay: BehaviorRelay<[SupplementObject]?> = .init(value: nil)
-    private let materialByTypeRelay: BehaviorRelay<[MaterialType:[Material]]?> = .init(value: [.main: [], .sub: [], .addictive: []])
+    private let recommendSupplementRelay: PublishRelay<[SupplementObject]?> = .init()
+    private let materialByTypeRelay: PublishRelay<[MaterialType:[Material]]?> = .init()
     
     private var material: [MaterialType:[Material]]
     private let disposeBag = DisposeBag()
@@ -27,7 +27,7 @@ final class DefaultSupplementDetailViewModel {
          supplementUseCase: SupplementUseCase
     ) {
         self.id = id
-        self.material = [:]
+        self.material = [.main: [], .sub: [], .addictive: []]
         self.supplementUseCase = supplementUseCase
         self.supplementUseCase.fetchTerm()
             .subscribe(onError: { error in
@@ -118,7 +118,11 @@ private extension DefaultSupplementDetailViewModel {
     }
     
     func fetchRecommendSupplement(with keyword: String?) {
-        guard let keyword = keyword else { return }
+        guard let keyword = keyword
+        else {
+            self.recommendSupplementRelay.accept(nil)
+            return
+        }
         
         self.supplementUseCase.fetchRecommendSupplement(keyword: keyword)
             .subscribe(onSuccess: { [weak self] supplements in
@@ -126,8 +130,6 @@ private extension DefaultSupplementDetailViewModel {
                 else {
                     return
                 }
-                
-                self.recommendSupplementRelay.accept(supplements)
                 
                 self.recommendSupplementRelay.accept(supplements)
             }, onFailure: { error in
