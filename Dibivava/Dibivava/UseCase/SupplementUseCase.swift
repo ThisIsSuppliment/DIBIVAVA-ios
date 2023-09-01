@@ -10,10 +10,17 @@ import RxSwift
 import RxRelay
 
 protocol SupplementUseCase {
-    func fetchTerm()
+    /// key는 첨가제 이름, value는 설명이 저장된 딕셔너리  불러오기
+    func fetchTerm() -> Completable
+    
+    /// 건강기능 식품 데이터 불러오기
     func fetchSupplement(id: String) -> Single<SupplementObject>
+    
+    /// 첨가제 설명이 포함된 건강기능 식품 원재료 데이터 불러오기
     func fetchMaterials(id: [String]?) -> Single<[Material]?>
-    func fetchRecommendSupplement(id: String) -> Single<[SupplementObject]>
+    
+    /// 검색한 건강기능 식품의 카테고리 중 첨가제가 적거나 같은  건강기능 식품 불러오기
+    func fetchRecommendSupplement(keyword: String) -> Single<[SupplementObject]>
 }
 
 class DefaultSupplementUseCase: SupplementUseCase {
@@ -32,19 +39,25 @@ class DefaultSupplementUseCase: SupplementUseCase {
         self.supplementRepository = supplementRepository
     }
     
-    func fetchTerm() {
-        self.supplementRepository.fetchTerm()
-            .subscribe(onSuccess: { [weak self] terms in
+    func fetchTerm() -> Completable {
+        return self.supplementRepository.fetchTerm()
+            .flatMapCompletable { [weak self] terms in
                 guard let self
                 else {
-                    return
+                    return Completable.error(NSError(domain: "Self is deallocated", code: 0, userInfo: nil))
                 }
+                
                 var termsByName: [String: String] = [:]
                 terms.forEach { termsByName[$0.name] = $0.description }
                 self.termsRelay.accept(termsByName)
-            })
-            .disposed(by: self.disposeBag)
+                
+                return Completable.empty()
+            }
+            .catch { error in
+                return Completable.error(error)
+            }
     }
+
     
     func fetchSupplement(id: String) -> Single<SupplementObject> {
         self.supplementRepository.fetchSupplement(with: id)
@@ -59,16 +72,16 @@ class DefaultSupplementUseCase: SupplementUseCase {
                 }
                 
                 return additives.map { additive in
-                    let termDescription = additive.termIds?.map { id in
-                        "\(id) - " + (self.termsRelay.value[id] ?? "설명 준비중입니다") + "\n"
+                    let termDescription = additive.termIds?.map { term in
+                        "\(term) - " + (self.termsRelay.value[term] ?? "설명 준비중입니다") + "\n"
                     }.joined(separator: "\n")
                     
-                    return additive.setTermDescription(termDescription)
+                    return additive.setTermsWithDescription(termDescription)
                 }
         }
     }
     
-    func fetchRecommendSupplement(id: String) -> RxSwift.Single<[SupplementObject]> {
-        self.supplementRepository.fetchRecommendSupplement(with: id)
+    func fetchRecommendSupplement(keyword: String) -> RxSwift.Single<[SupplementObject]> {
+        self.supplementRepository.fetchRecommendSupplement(with: keyword)
     }
 }

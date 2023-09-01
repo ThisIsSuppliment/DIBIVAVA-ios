@@ -15,4 +15,5 @@ struct SupplementObject: Hashable {
     let subMaterial, additive: [String]?
     let imageLink: String?
     let gmpCheck: Int?
+    let keyword: String?
 }

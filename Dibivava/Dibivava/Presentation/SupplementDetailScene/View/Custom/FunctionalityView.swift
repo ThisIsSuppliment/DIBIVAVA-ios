@@ -11,7 +11,7 @@ import RxSwift
 import SnapKit
 import Then
 
-class FunctionalityView: UIView, UICollectionViewDelegate {
+final class FunctionalityView: UIView, UICollectionViewDelegate {
     typealias Snapshot = NSDiffableDataSourceSnapshot<Section, String>
     typealias DataSource = UICollectionViewDiffableDataSource<Section, String>
     

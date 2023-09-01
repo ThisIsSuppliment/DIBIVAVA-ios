@@ -19,7 +19,7 @@ protocol SupplementNetworkService {
     func fetchSupplement(by id: String) -> Single<SupplementResponse>
     func fetchMaterial(by id: [String]?) -> Single<[MaterialResponse]?>
     func fetchTermDescription() -> Single<[Term]>
-    func fetchRecommendSupplement(by id: String) -> Single<[SupplementResponse]>
+    func fetchRecommendSupplement(by keyword: String) -> Single<RecommendSupplementResponse>
 }
 
 final class DefaultSupplementNetworkService: SupplementNetworkService {
@@ -44,8 +44,9 @@ final class DefaultSupplementNetworkService: SupplementNetworkService {
         return Single.zip(result).map { $0 }
     }
     
-    func fetchRecommendSupplement(by id: String) -> RxSwift.Single<[SupplementResponse]> {
-        self.request(with: EndpointCases.supplement(id: id), T: [SupplementResponse].self)
+    func fetchRecommendSupplement(by keyword: String) -> Single<RecommendSupplementResponse> {
+        self.request(with: EndpointCases.recommendation(keyword: keyword, req: 1),
+                     T: RecommendSupplementResponse.self)
     }
 }
 

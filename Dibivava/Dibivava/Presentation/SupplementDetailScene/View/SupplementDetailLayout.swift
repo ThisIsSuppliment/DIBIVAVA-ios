@@ -22,8 +22,10 @@ enum SupplementDetailLayout {
             return self.createRecommendationLayout()
         }
     }
-    
-    private func createFunctionalityLayout() -> UICollectionViewCompositionalLayout {
+}
+
+private extension SupplementDetailLayout {
+    func createFunctionalityLayout() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { (sectionNumber, env) -> NSCollectionLayoutSection? in
             let itemSize = NSCollectionLayoutSize(
                 widthDimension: .estimated(100),
@@ -46,7 +48,7 @@ enum SupplementDetailLayout {
         }
     }
     
-    private func createMaterialLayout(itemCount: Int) -> UICollectionViewCompositionalLayout {
+    func createMaterialLayout(itemCount: Int) -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { (sectionNumber, env) -> NSCollectionLayoutSection? in
             // 새로 배치
             let itemSize = NSCollectionLayoutSize(
@@ -82,7 +84,7 @@ enum SupplementDetailLayout {
         }
     }
     
-    private func createRecommendationLayout() -> UICollectionViewCompositionalLayout {
+    func createRecommendationLayout() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { (sectionNumber, env) -> NSCollectionLayoutSection? in
             let itemSize = NSCollectionLayoutSize(
                 widthDimension: .absolute(150),

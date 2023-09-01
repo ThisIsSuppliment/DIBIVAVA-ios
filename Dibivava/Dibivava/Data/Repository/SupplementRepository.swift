@@ -9,10 +9,17 @@ import Foundation
 import RxSwift
 
 protocol SupplementRepository {
-    func fetchSupplement(with id: String) -> Single<SupplementObject>
-    func fetchMaterial(with id: [String]?) -> Single<[Material]?>
+    /// 첨가제 설명 데이터  불러오기
     func fetchTerm() -> Single<[Term]>
-    func fetchRecommendSupplement(with id: String) -> RxSwift.Single<[SupplementObject]>
+    
+    /// 건강기능 식품 데이터 불러오기
+    func fetchSupplement(with id: String) -> Single<SupplementObject>
+    
+    /// 건강기능 식품 원재료 데이터 불러오기
+    func fetchMaterial(with id: [String]?) -> Single<[Material]?>
+    
+    /// 검색한 건강기능 식품보다 첨가제가 적거나 같은  건강기능 식품 불러오기
+    func fetchRecommendSupplement(with keyword: String) -> RxSwift.Single<[SupplementObject]>
 }
 
 final class DefaultSupplementRepository: SupplementRepository {
@@ -39,12 +46,12 @@ final class DefaultSupplementRepository: SupplementRepository {
             }
     }
     
-    func fetchTerm() -> Single<[Term]> {
+    func fetchTerm() -> RxSwift.Single<[Term]> {
         self.supplementNetworkService.fetchTermDescription()
     }
     
-    func fetchRecommendSupplement(with id: String) -> RxSwift.Single<[SupplementObject]> {
-        self.supplementNetworkService.fetchRecommendSupplement(by: id)
-            .map { $0.map{ $0.toDomain() } }
+    func fetchRecommendSupplement(with keyword: String) -> RxSwift.Single<[SupplementObject]> {
+        self.supplementNetworkService.fetchRecommendSupplement(by: keyword)
+            .map { $0.toDomain() }
     }
 }

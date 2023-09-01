@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
-class SupplementDetailViewController: UIViewController {
+final class SupplementDetailViewController: UIViewController {
     // MARK: - UI
     
     private let scrollView: UIScrollView = UIScrollView(frame: .zero).then {
@@ -100,13 +100,13 @@ private extension SupplementDetailViewController {
         }
         
         self.recommendationView.snp.makeConstraints { make in
-            make.top.equalTo(self.materialView.snp.bottom).offset(7)
+            make.top.equalTo(self.materialView.snp.bottom)
             make.horizontalEdges.equalToSuperview()
-            make.height.equalTo(250)
+            make.height.equalTo(0)
         }
         
         self.resourceView.snp.makeConstraints { make in
-            make.top.equalTo(self.recommendationView.snp.bottom)//.offset(7)
+            make.top.equalTo(self.recommendationView.snp.bottom).offset(7)
             make.horizontalEdges.equalToSuperview()
             make.bottom.equalToSuperview().priority(.low)
         }
@@ -156,7 +156,6 @@ private extension SupplementDetailViewController {
                     return
                 }
                 self.materialView.applySnapshot(material)
-                self.indicatorView.stopAnimating()
             })
             .disposed(by: self.disposeBag)
         
@@ -175,13 +174,22 @@ private extension SupplementDetailViewController {
         self.viewModel.recommendSupplement
             .drive(onNext: { [weak self] recommendations in
                 guard let self,
-                      let recommendations = recommendations
+                      let recommendations = recommendations,
+                      !recommendations.isEmpty
                 else {
-                    self?.recommendationView.snp.updateConstraints { $0.height.equalTo(0) }
+                    self?.recommendationView.isHidden = true
+                    self?.indicatorView.stopAnimating()
                     return
                 }
                 
+                self.recommendationView.snp.updateConstraints { make in
+                    make.top.equalTo(self.materialView.snp.bottom).offset(7)
+                    make.height.equalTo(280)
+                }
+                
                 self.recommendationView.applySnapshot(recommendations)
+                
+                self.indicatorView.stopAnimating()
             })
             .disposed(by: self.disposeBag)
     }

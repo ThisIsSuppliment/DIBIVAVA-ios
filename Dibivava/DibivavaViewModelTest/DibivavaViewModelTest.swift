@@ -1,14 +1,13 @@
 //
-//  DibivavaTests.swift
-//  DibivavaTests
+//  DibivavaViewModelTest.swift
+//  DibivavaViewModelTest
 //
-//  Created by dong eun shin on 2023/07/17.
+//  Created by dong eun shin on 2023/08/30.
 //
 
 import XCTest
-@testable import Dibivava
 
-final class DibivavaTests: XCTestCase {
+final class DibivavaViewModelTest: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -28,7 +27,7 @@ final class DibivavaTests: XCTestCase {
 
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
-        self.measure {
+        measure {
             // Put the code you want to measure the time of here.
         }
     }

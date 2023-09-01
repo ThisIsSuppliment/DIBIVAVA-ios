@@ -22,10 +22,11 @@ enum EndpointCases: Endpoint {
     case supplement(id: String)
     case material(id: String)
     case term
+    case recommendation(keyword: String, req: Int)
     
     var url: URL? {
         switch self {
-        case .supplement, .material:
+        case .supplement, .material, .recommendation:
             guard let baseURL = baseURL,
                   let path = path
             else {
@@ -40,7 +41,7 @@ enum EndpointCases: Endpoint {
     
     var baseURL: String? {
         switch self {
-        case .supplement, .material:
+        case .supplement, .material, .recommendation:
             return "https://nb548yprx4.execute-api.ap-northeast-2.amazonaws.com/production/"
         case .term:
             return nil
@@ -55,6 +56,8 @@ enum EndpointCases: Endpoint {
             return "getMaterialById?"
         case .term:
             return nil
+        case .recommendation:
+            return "getRecommendList"
         }
     }
     
@@ -66,14 +69,9 @@ enum EndpointCases: Endpoint {
             return [URLQueryItem(name: "id", value: id)]
         case .term:
             return nil
+        case .recommendation(keyword: let keyword, req: let req):
+            return [URLQueryItem(name: "keyword", value: keyword),
+                    URLQueryItem(name: "req", value: String(req))]
         }
-    }
-}
-
-extension URL {
-    func appendQueryItems(_ queries: [URLQueryItem]?) -> URL? {
-        var components = URLComponents(string: self.absoluteString)
-        components?.queryItems = queries
-        return components?.url
     }
 }
