@@ -54,6 +54,12 @@ final class RecommendationView: UIView, UICollectionViewDelegate {
         self.configureDataSource()
         
         self.backgroundColor = .white
+        
+        self.collectionView.rx.itemSelected
+            .subscribe(onNext: { [weak self] indexPath in
+                print(">>>", indexPath)
+            })
+            .disposed(by: self.disposeBag)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -94,7 +100,7 @@ private extension RecommendationView {
     
     func configureConstraints() {
         self.titleLabel.snp.makeConstraints { make in
-            make.top.horizontalEdges.equalToSuperview().inset(15)
+            make.top.horizontalEdges.equalToSuperview().inset(15).priority(.low)
         }
         
         self.collectionView.snp.makeConstraints { make in

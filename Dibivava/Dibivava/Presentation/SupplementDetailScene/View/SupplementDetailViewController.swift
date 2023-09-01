@@ -100,7 +100,7 @@ private extension SupplementDetailViewController {
         }
         
         self.recommendationView.snp.makeConstraints { make in
-            make.top.equalTo(self.materialView.snp.bottom).offset(7)
+            make.top.equalTo(self.materialView.snp.bottom)
             make.horizontalEdges.equalToSuperview()
             make.height.equalTo(0)
         }
@@ -168,26 +168,28 @@ private extension SupplementDetailViewController {
                 self.materialView.main.count = numOfMain
                 self.materialView.sub.count = numOfSub
                 self.materialView.add.count = numOfAdd
-                
-                self.indicatorView.stopAnimating()
             })
             .disposed(by: self.disposeBag)
         
         self.viewModel.recommendSupplement
-            .compactMap { $0 }
             .drive(onNext: { [weak self] recommendations in
                 guard let self,
+                      let recommendations = recommendations,
                       !recommendations.isEmpty
                 else {
+                    self?.recommendationView.isHidden = true
+                    self?.indicatorView.stopAnimating()
                     return
                 }
                 
                 self.recommendationView.snp.updateConstraints { make in
+                    make.top.equalTo(self.materialView.snp.bottom).offset(7)
                     make.height.equalTo(280)
-                    make.top.equalTo(self.materialView.snp.bottom)
                 }
                 
                 self.recommendationView.applySnapshot(recommendations)
+                
+                self.indicatorView.stopAnimating()
             })
             .disposed(by: self.disposeBag)
     }
