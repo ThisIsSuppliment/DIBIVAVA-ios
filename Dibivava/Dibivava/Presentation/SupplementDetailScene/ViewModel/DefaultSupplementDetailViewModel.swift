@@ -18,7 +18,6 @@ final class DefaultSupplementDetailViewModel {
     private let numOfSubMaterialRelay: PublishRelay<Int?> = .init()
     private let numOfAdditiveRelay: PublishRelay<Int?> = .init()
     private let recommendSupplementRelay: BehaviorRelay<[SupplementObject]?> = .init(value: nil)
-    private let selectedRecommendSupplementRelay: PublishRelay<SupplementObject?> = .init()
     private let materialByTypeRelay: PublishRelay<[MaterialType:[Material]]?> = .init()
     
     private var material: [MaterialType:[Material]]
@@ -39,10 +38,6 @@ final class DefaultSupplementDetailViewModel {
 }
 
 extension DefaultSupplementDetailViewModel: SupplementDetailViewModel {
-    var selectedRecommendSupplement: Driver<SupplementObject?> {
-        return self.selectedRecommendSupplementRelay.asDriver(onErrorJustReturn: nil)
-    }
-    
     var recommendSupplement: Driver<[SupplementObject]?> {
         return self.recommendSupplementRelay.asDriver(onErrorJustReturn: nil)
     }
@@ -71,14 +66,25 @@ extension DefaultSupplementDetailViewModel: SupplementDetailViewModel {
         self.fetchSupplement(with: String(self.id))
     }
     
-    func getSelectedRecommendSupplement(with index: Int) {
+    func showSelectedRecommendSupplement(with indexPath: IndexPath) {
         guard let recommendSupplements: [SupplementObject] = self.recommendSupplementRelay.value,
-              index < recommendSupplements.count
+              indexPath[1] < recommendSupplements.count
         else {
             return
         }
+        let index = indexPath[1]
+        let supplementID = recommendSupplements[index].supplementID
         
-        self.selectedRecommendSupplementRelay.accept(recommendSupplements[index])
+        print(">> showSelectedRecommendSupplement", index)
+        
+        // 화면 전환
+        let vc = SupplementDetailViewController(
+            supplementDetailViewModel: DefaultSupplementDetailViewModel(
+                id: supplementID,
+                supplementUseCase: DefaultSupplementUseCase(supplementRepository: DefaultSupplementRepository(supplementNetworkService: DefaultSupplementNetworkService())))
+        )
+
+//        self.navigationController?.pushViewController(vc, animated: false)
     }
 }
 
@@ -136,6 +142,7 @@ private extension DefaultSupplementDetailViewModel {
         guard let keyword = keyword
         else {
             self.recommendSupplementRelay.accept(nil)
+            print("unkn keyword")
             return
         }
         

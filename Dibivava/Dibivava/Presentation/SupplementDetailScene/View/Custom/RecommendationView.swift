@@ -9,6 +9,7 @@ import UIKit
 import RxSwift
 import SnapKit
 import Then
+import RxRelay
 
 final class RecommendationView: UIView, UICollectionViewDelegate {
     typealias Snapshot = NSDiffableDataSourceSnapshot<Section, SupplementObject>
@@ -40,9 +41,13 @@ final class RecommendationView: UIView, UICollectionViewDelegate {
     }
     
     // MARK: - Property
-    
+    private let itemSelectedSubject: PublishRelay<IndexPath> = .init()
     private let disposeBag: DisposeBag = DisposeBag()
     private var dataSource: DataSource?
+    
+    var itemSelected: Observable<IndexPath> {
+        return itemSelectedSubject.asObservable()
+    }
     
     // MARK: - Init
     
@@ -57,7 +62,8 @@ final class RecommendationView: UIView, UICollectionViewDelegate {
         
         self.collectionView.rx.itemSelected
             .subscribe(onNext: { [weak self] indexPath in
-                print(">>>", indexPath)
+                guard let self else { return }
+                self.itemSelectedSubject.accept(indexPath)
             })
             .disposed(by: self.disposeBag)
     }
