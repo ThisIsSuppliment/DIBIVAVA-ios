@@ -77,12 +77,12 @@ extension DefaultSupplementDetailViewModel: SupplementDetailViewModel {
         
         print(">> showSelectedRecommendSupplement", index)
         
-        // 화면 전환
-        let vc = SupplementDetailViewController(
-            supplementDetailViewModel: DefaultSupplementDetailViewModel(
-                id: supplementID,
-                supplementUseCase: DefaultSupplementUseCase(supplementRepository: DefaultSupplementRepository(supplementNetworkService: DefaultSupplementNetworkService())))
-        )
+        // TODO: - 화면 전환
+//        let vc = SupplementDetailViewController(
+//            supplementDetailViewModel: DefaultSupplementDetailViewModel(
+//                id: supplementID,
+//                supplementUseCase: DefaultSupplementUseCase(supplementRepository: DefaultSupplementRepository(supplementNetworkService: DefaultSupplementNetworkService())))
+//        )
 
 //        self.navigationController?.pushViewController(vc, animated: false)
     }
