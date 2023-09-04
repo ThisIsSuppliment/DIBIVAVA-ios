@@ -11,6 +11,9 @@ import RxCocoa
 protocol SupplementDetailViewModelInput {
     /// 검색한 건강기능식품에 관한 데이터 요청
     func viewWillAppear()
+    
+    /// 선택한 추천 건강기능 식품으로 화면 전환
+    func showSelectedRecommendSupplement(with indexPath: IndexPath)
 }
 
 protocol SupplementDetailViewModelOutput {

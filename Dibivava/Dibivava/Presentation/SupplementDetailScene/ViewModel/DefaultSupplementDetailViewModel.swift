@@ -17,7 +17,7 @@ final class DefaultSupplementDetailViewModel {
     private let numOfMainMaterialRelay: PublishRelay<Int?> = .init()
     private let numOfSubMaterialRelay: PublishRelay<Int?> = .init()
     private let numOfAdditiveRelay: PublishRelay<Int?> = .init()
-    private let recommendSupplementRelay: PublishRelay<[SupplementObject]?> = .init()
+    private let recommendSupplementRelay: BehaviorRelay<[SupplementObject]?> = .init(value: nil)
     private let materialByTypeRelay: PublishRelay<[MaterialType:[Material]]?> = .init()
     
     private var material: [MaterialType:[Material]]
@@ -64,6 +64,27 @@ extension DefaultSupplementDetailViewModel: SupplementDetailViewModel {
     
     func viewWillAppear() {
         self.fetchSupplement(with: String(self.id))
+    }
+    
+    func showSelectedRecommendSupplement(with indexPath: IndexPath) {
+        guard let recommendSupplements: [SupplementObject] = self.recommendSupplementRelay.value,
+              indexPath[1] < recommendSupplements.count
+        else {
+            return
+        }
+        let index = indexPath[1]
+        let supplementID = recommendSupplements[index].supplementID
+        
+        print(">> showSelectedRecommendSupplement", index)
+        
+        // TODO: - 화면 전환
+//        let vc = SupplementDetailViewController(
+//            supplementDetailViewModel: DefaultSupplementDetailViewModel(
+//                id: supplementID,
+//                supplementUseCase: DefaultSupplementUseCase(supplementRepository: DefaultSupplementRepository(supplementNetworkService: DefaultSupplementNetworkService())))
+//        )
+
+//        self.navigationController?.pushViewController(vc, animated: false)
     }
 }
 
@@ -121,6 +142,7 @@ private extension DefaultSupplementDetailViewModel {
         guard let keyword = keyword
         else {
             self.recommendSupplementRelay.accept(nil)
+            print("unkn keyword")
             return
         }
         
