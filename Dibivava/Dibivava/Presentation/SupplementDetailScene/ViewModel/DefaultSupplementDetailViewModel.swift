@@ -17,7 +17,8 @@ final class DefaultSupplementDetailViewModel {
     private let numOfMainMaterialRelay: PublishRelay<Int?> = .init()
     private let numOfSubMaterialRelay: PublishRelay<Int?> = .init()
     private let numOfAdditiveRelay: PublishRelay<Int?> = .init()
-    private let recommendSupplementRelay: PublishRelay<[SupplementObject]?> = .init()
+    private let recommendSupplementRelay: BehaviorRelay<[SupplementObject]?> = .init(value: nil)
+    private let selectedRecommendSupplementRelay: PublishRelay<SupplementObject?> = .init()
     private let materialByTypeRelay: PublishRelay<[MaterialType:[Material]]?> = .init()
     
     private var material: [MaterialType:[Material]]
@@ -38,6 +39,10 @@ final class DefaultSupplementDetailViewModel {
 }
 
 extension DefaultSupplementDetailViewModel: SupplementDetailViewModel {
+    var selectedRecommendSupplement: Driver<SupplementObject?> {
+        return self.selectedRecommendSupplementRelay.asDriver(onErrorJustReturn: nil)
+    }
+    
     var recommendSupplement: Driver<[SupplementObject]?> {
         return self.recommendSupplementRelay.asDriver(onErrorJustReturn: nil)
     }
@@ -64,6 +69,16 @@ extension DefaultSupplementDetailViewModel: SupplementDetailViewModel {
     
     func viewWillAppear() {
         self.fetchSupplement(with: String(self.id))
+    }
+    
+    func getSelectedRecommendSupplement(with index: Int) {
+        guard let recommendSupplements: [SupplementObject] = self.recommendSupplementRelay.value,
+              index < recommendSupplements.count
+        else {
+            return
+        }
+        
+        self.selectedRecommendSupplementRelay.accept(recommendSupplements[index])
     }
 }
 
