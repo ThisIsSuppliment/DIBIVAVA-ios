@@ -18,7 +18,7 @@ final class DefaultSupplementDetailViewModel {
     private let numOfSubMaterialRelay: PublishRelay<Int?> = .init()
     private let numOfAdditiveRelay: PublishRelay<Int?> = .init()
     private let recommendSupplementRelay: BehaviorRelay<[SupplementObject]?> = .init(value: nil)
-    private let materialByTypeRelay: PublishRelay<[MaterialType:[Material]]?> = .init()
+    private let materialByTypeRelay: BehaviorRelay<[MaterialType:[Material]]?> = .init(value: nil)
     
     private var material: [MaterialType:[Material]]
     private let disposeBag = DisposeBag()
@@ -27,7 +27,7 @@ final class DefaultSupplementDetailViewModel {
          supplementUseCase: SupplementUseCase
     ) {
         self.id = id
-        self.material = [.main: [], .sub: [], .addictive: []]
+        self.material = [:]
         self.supplementUseCase = supplementUseCase
         self.supplementUseCase.fetchTerm()
             .subscribe(onError: { error in
@@ -163,7 +163,38 @@ private extension DefaultSupplementDetailViewModel {
     }
         
     func addMaterialByType(category: MaterialType, materials: [Material]?) {
-        self.material[category] = materials ?? [Material(category: category.rawValue, name: "없음")]
-        self.materialByTypeRelay.accept(self.material)
+        self.material[category, default: []] = materials ?? [Material(category: category.rawValue, name: "없음")]
+        
+//        self.materialByTypeRelay.accept(self.material)
+        
+        if category == .addictive {
+            self.materialByTypeRelay.accept(self.material)
+        }
     }
 }
+//-------------------------------------------------ID 336
+//++configureDataSource false Optional("없음") addictive 1
+//
+//==========updateCollectionViewHeight============
+//>>height 421.33333333333337
+//++configureDataSource false Optional("없음") addictive 1
+//
+//==========updateCollectionViewHeight============
+//>>height 421.33333333333337
+//++configureDataSource false Optional("없음") main 1
+//++configureDataSource false Optional("없음") sub 1
+//++configureDataSource false Optional("없음") sub 1
+//++configureDataSource false Optional("없음") addictive 1
+//++configureDataSource false Optional("없음") main 1
+//
+//==========updateCollectionViewHeight============
+//>>height 304.0
+
+
+//-------------------------------------------------ID 336
+//++configureDataSource false Optional("없음") addictive 1
+//
+//==========updateCollectionViewHeight============
+//>>height 421.33333333333337
+//++configureDataSource false Optional("없음") main 1
+//++configureDataSource false Optional("없음") sub 1

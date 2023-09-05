@@ -177,7 +177,6 @@ private extension SupplementDetailViewController {
                 guard let self,
                       !recommendations.isEmpty
                 else {
-                    print("<M<")
                     self?.recommendationView.isHidden = true
                     self?.indicatorView.stopAnimating()
                     return

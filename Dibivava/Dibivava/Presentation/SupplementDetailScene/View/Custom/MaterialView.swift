@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 import RxSwift
 import RxCocoa
+import RxRelay
 
 
 final class MaterialView: UIView, UICollectionViewDelegate {
@@ -112,17 +113,18 @@ final class MaterialView: UIView, UICollectionViewDelegate {
     
     func applySnapshot(_ materialByType: [MaterialType: [Material]]) {
         var snapshot = Snapshot()
-        
+
         for section in Section.allCases {
             if let materials = materialByType[section.materialType] {
                 snapshot.appendSections([section])
                 snapshot.appendItems(materials)
             }
         }
-        
-        self.dataSource?.apply(snapshot, animatingDifferences: false)
-                
-        self.updateCollectionViewHeight(self.collectionView.contentSize.height)
+
+        self.dataSource?.apply(snapshot, animatingDifferences: false) {
+            let newHeight = self.collectionView.collectionViewLayout.collectionViewContentSize.height
+            self.updateCollectionViewHeight(newHeight)
+        }
     }
 }
 
@@ -168,12 +170,12 @@ private extension MaterialView {
                 withReuseIdentifier: MaterialCollectionViewCell.identifier,
                 for: indexPath
             ) as! MaterialCollectionViewCell
-
+            print("++configureDataSource",(item.category == "additive" && item.name != "없음"), item.name, item.category)
             cell.delegate = self
             cell.title = item.name
             cell.terms = item.termsWithDescription
             cell.level = item.level
-            cell.isAddictiveMaterial = (item.category == "additive")
+            cell.isAddictiveMaterial = (item.category == "additive" && item.name != "없음") // && item.name != "없음"
             
             return cell
         }
@@ -191,7 +193,7 @@ private extension MaterialView {
             else {
                 return UICollectionReusableView()
             }
-            
+            print("@@@")
             let section = self.dataSource?.snapshot().sectionIdentifiers[indexPath.section]
             headerView.configure(title: section?.inKorean ?? "") // 추후 수정
             
@@ -200,6 +202,7 @@ private extension MaterialView {
     }
     
     func updateCollectionViewHeight(_ height: Double) {
+        print("\n==========updateCollectionViewHeight==============", height)
         self.collectionView.snp.updateConstraints { make in
             make.height.greaterThanOrEqualTo(height)
         }
@@ -212,8 +215,9 @@ extension MaterialView: MaterialCollectionViewCellDelegate {
     func showToggleButtonTapped() {
         guard let snapshot = dataSource?.snapshot() else { return }
         
-        self.dataSource?.apply(snapshot, animatingDifferences: false)
-        
-        self.updateCollectionViewHeight(self.collectionView.contentSize.height)
+        self.dataSource?.apply(snapshot, animatingDifferences: false) {
+            let newHeight = self.collectionView.collectionViewLayout.collectionViewContentSize.height
+            self.updateCollectionViewHeight(newHeight)
+        }
     }
 }
