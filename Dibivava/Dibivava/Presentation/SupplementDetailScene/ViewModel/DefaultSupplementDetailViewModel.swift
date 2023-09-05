@@ -106,9 +106,9 @@ private extension DefaultSupplementDetailViewModel {
                 self.numOfSubMaterialRelay.accept(subMaterial?.count)
 
                 self.addMaterialByType(category: .main,
-                                       materials: (mainMaterial ?? ["없음"]).map { $0.toMaterial(with: .main) } )
+                                       materials: mainMaterial?.compactMap { $0.toMaterial(with: .main) } )
                 self.addMaterialByType(category: .sub,
-                                       materials: (subMaterial ?? ["없음"]).map { $0.toMaterial(with: .sub) })
+                                       materials: subMaterial?.compactMap { $0.toMaterial(with: .sub) })
                 
                 // 첨가제 데이터 요청
                 self.fetchAdditiveMaterial(with: supplement.additive)
@@ -141,15 +141,17 @@ private extension DefaultSupplementDetailViewModel {
     func fetchRecommendSupplement(with keyword: String?) {
         guard let keyword = keyword
         else {
-            self.recommendSupplementRelay.accept(nil)
+            self.recommendSupplementRelay.accept([])
             print("unkn keyword")
             return
         }
         
         self.supplementUseCase.fetchRecommendSupplement(keyword: keyword)
             .subscribe(onSuccess: { [weak self] supplements in
-                guard let self
+                guard let self,
+                      let supplements = supplements
                 else {
+                    self?.recommendSupplementRelay.accept([])
                     return
                 }
                 
