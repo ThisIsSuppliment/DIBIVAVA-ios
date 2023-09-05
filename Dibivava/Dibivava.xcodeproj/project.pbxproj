@@ -15,6 +15,8 @@
 		090E82322A67CB9D00944DC2 /* HomeSupplement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090E82312A67CB9D00944DC2 /* HomeSupplement.swift */; };
 		0977E2842A690FF00007DCFA /* SearchAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0977E2832A690FF00007DCFA /* SearchAPI.swift */; };
 		0977E2862A6938900007DCFA /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0977E2852A6938900007DCFA /* SearchTableViewCell.swift */; };
+		09A5DF9A2AA7447B0019D550 /* HotCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A5DF992AA7447B0019D550 /* HotCollectionViewCell.swift */; };
+		09A5DF9C2AA766B90019D550 /* RecommandAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A5DF9B2AA766B90019D550 /* RecommandAPI.swift */; };
 		09F8BADE2A682D920087DDA9 /* SearchresultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F8BADD2A682D920087DDA9 /* SearchresultViewController.swift */; };
 		09FEB4272A66A6F000DD1CC5 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 09FEB4262A66A6F000DD1CC5 /* SnapKit */; };
 		09FEB42A2A66A6FB00DD1CC5 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 09FEB4292A66A6FB00DD1CC5 /* Alamofire */; };
@@ -118,6 +120,8 @@
 		090E82312A67CB9D00944DC2 /* HomeSupplement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSupplement.swift; sourceTree = "<group>"; };
 		0977E2832A690FF00007DCFA /* SearchAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAPI.swift; sourceTree = "<group>"; };
 		0977E2852A6938900007DCFA /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
+		09A5DF992AA7447B0019D550 /* HotCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotCollectionViewCell.swift; sourceTree = "<group>"; };
+		09A5DF9B2AA766B90019D550 /* RecommandAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommandAPI.swift; sourceTree = "<group>"; };
 		09F8BADD2A682D920087DDA9 /* SearchresultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchresultViewController.swift; sourceTree = "<group>"; };
 		09FEB4392A66AFE300DD1CC5 /* Fonts+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Fonts+.swift"; sourceTree = "<group>"; };
 		09FEB43B2A66AFED00DD1CC5 /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
@@ -257,6 +261,7 @@
 				7C8217382A69B928001DB57D /* SupplementNetworkService.swift */,
 				7C0601BB2A66676C004FB30B /* API.swift */,
 				0977E2832A690FF00007DCFA /* SearchAPI.swift */,
+				09A5DF9B2AA766B90019D550 /* RecommandAPI.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -426,11 +431,12 @@
 		7C6091EF2A658B0D0062FF01 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				7C6091EB2A6589DE0062FF01 /* HomeViewController.swift */,
-				090E822D2A678B1600944DC2 /* recommendCollectionViewCell.swift */,
 				0977E2852A6938900007DCFA /* SearchTableViewCell.swift */,
 				090E822F2A6791E400944DC2 /* PopUpViewController.swift */,
 				09017D3D2A6CC3E400A8528A /* IntroViewController.swift */,
+				7C6091EB2A6589DE0062FF01 /* HomeViewController.swift */,
+				090E822D2A678B1600944DC2 /* recommendCollectionViewCell.swift */,
+				09A5DF992AA7447B0019D550 /* HotCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -731,6 +737,7 @@
 				090E82322A67CB9D00944DC2 /* HomeSupplement.swift in Sources */,
 				7C0601BA2A666753004FB30B /* SupplementResponse.swift in Sources */,
 				0977E2842A690FF00007DCFA /* SearchAPI.swift in Sources */,
+				09A5DF9C2AA766B90019D550 /* RecommandAPI.swift in Sources */,
 				7C0B96912A927F340053B5AB /* Endpoint.swift in Sources */,
 				7C23FF2A2A72591100F047A6 /* MyImageCacheManager.swift in Sources */,
 				7C6300782A6D616B00C31E93 /* MaterialResponse.swift in Sources */,
@@ -757,6 +764,7 @@
 				7C14AAC92A72A08100FD74C9 /* GMPView.swift in Sources */,
 				0977E2862A6938900007DCFA /* SearchTableViewCell.swift in Sources */,
 				7C6300862A716C8800C31E93 /* Material.swift in Sources */,
+				09A5DF9A2AA7447B0019D550 /* HotCollectionViewCell.swift in Sources */,
 				7C6091EC2A6589DE0062FF01 /* HomeViewController.swift in Sources */,
 				7C1AF2392A84B9100025FBC3 /* RecommendationCollectionViewCell.swift in Sources */,
 				7C6300882A716D7600C31E93 /* MaterialType.swift in Sources */,
@@ -948,7 +956,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 4R5C955ZY2;
+				DEVELOPMENT_TEAM = JA7UDVTQBU;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Dibivava/Resource/Info.plist;
 				"INFOPLIST_KEY_CFBundleDisplayName[sdk=*]" = "낄끼빠빠";
@@ -978,7 +986,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 4R5C955ZY2;
+				DEVELOPMENT_TEAM = JA7UDVTQBU;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Dibivava/Resource/Info.plist;
 				"INFOPLIST_KEY_CFBundleDisplayName[sdk=*]" = "낄끼빠빠";

@@ -56,13 +56,23 @@ class HomeViewController: UIViewController {
         $0.backgroundColor = .white
         }
     private let scrollView = UIScrollView()
-    private let backView = UIView().then {
-        $0.backgroundColor = .red
-    }
+
     private let searchTableview = UITableView(frame: CGRect.zero, style: .grouped).then{
         $0.backgroundColor = UIColor(red: 0, green: 0, blue: 0,alpha: 0.4)
         $0.register(SearchTableViewCell.self, forCellReuseIdentifier: SearchTableViewCell.identifier)
     }
+    private let hotCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
+        $0.register(HotCollectionViewCell.self, forCellWithReuseIdentifier: HotCollectionViewCell.identifier)
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        $0.collectionViewLayout = layout
+        $0.backgroundColor = .clear
+        $0.isScrollEnabled = true
+        $0.decelerationRate = .fast
+        $0.showsHorizontalScrollIndicator = false
+        layout.minimumLineSpacing = 10
+    }
+
     private let recommendCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
         $0.register(recommendCollectionViewCell.self, forCellWithReuseIdentifier: recommendCollectionViewCell.identifier)
         let layout = UICollectionViewFlowLayout()
@@ -71,14 +81,14 @@ class HomeViewController: UIViewController {
         $0.decelerationRate = .fast
         $0.backgroundColor = .clear
         $0.isScrollEnabled = false
-        layout.minimumLineSpacing = 30
+//        layout.minimumLineSpacing = 10
     }
     private let hotLabel = UILabel().then{
-        $0.text = "WHO IARC 발암유발물질 기준"
+        $0.text = "인기있는 영양제들!"
         $0.font = .pretendard(.ExtraBold, size: 18)
         $0.textColor = UIColor(rgb: 0x666666)
         let attributedStr = NSMutableAttributedString(string: $0.text!)
-        attributedStr.addAttribute(.foregroundColor, value: UIColor.mainred, range: ($0.text! as NSString).range(of: "발암유발물질"))
+        attributedStr.addAttribute(.foregroundColor, value: UIColor.mainred, range: ($0.text! as NSString).range(of: "인기있는"))
         $0.attributedText = attributedStr
 
     }
@@ -105,7 +115,8 @@ class HomeViewController: UIViewController {
         }
         self.warningView.snp.makeConstraints{
             $0.top.equalTo(recommendCollectionView.snp.bottom).offset(30)
-            $0.leading.trailing.bottom.equalTo(self.view).offset(0)
+            $0.leading.trailing.equalTo(contentView).offset(0)
+            $0.bottom.equalTo(contentView.safeAreaLayoutGuide.snp.bottom)
             
         }
         self.searhbarSV.snp.makeConstraints{
@@ -125,11 +136,17 @@ class HomeViewController: UIViewController {
             $0.leading.bottom.trailing.equalToSuperview().offset(0)
             $0.top.equalTo(searchbar.snp.bottom)
         }
-        self.recommendCollectionView.snp.makeConstraints{
+        self.hotCollectionView.snp.makeConstraints{
             $0.top.equalTo(self.hotLabel.snp.bottom).offset(15)
+            $0.leading.equalToSuperview().offset(0)
+            $0.trailing.equalToSuperview().offset(0)
+            $0.height.equalTo(410)
+        }
+        self.recommendCollectionView.snp.makeConstraints{
+            $0.top.equalTo(self.hotCollectionView.snp.bottom).offset(15)
             $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview().offset(-16)
-            $0.height.equalTo(550)
+            $0.height.equalTo(400)
         }
         self.hotLabel.snp.makeConstraints{
             $0.top.equalToSuperview().offset(25)
@@ -145,8 +162,8 @@ class HomeViewController: UIViewController {
         self.contentView.snp.makeConstraints{
             $0.top.equalToSuperview()
             $0.width.equalToSuperview().offset(0)
-            $0.edges.equalToSuperview().offset(0)
-            $0.height.equalTo(950)
+            $0.left.right.bottom.equalToSuperview().offset(0)
+            $0.height.equalTo(1200)
         }
     }
     private func addsubView(){
@@ -155,6 +172,7 @@ class HomeViewController: UIViewController {
         self.contentView.addSubview(warningView)
         self.scrollView.addSubview(contentView)
         self.contentView.addSubview(hotLabel)
+        self.contentView.addSubview(hotCollectionView)
         self.contentView.addSubview(recommendCollectionView)
         self.view.addSubview(topView)
         self.searhbarSV.addArrangedSubview(logoImgView)
@@ -168,6 +186,8 @@ class HomeViewController: UIViewController {
         self.view.backgroundColor = .white
         self.recommendCollectionView.dataSource = self
         self.recommendCollectionView.delegate = self
+        self.hotCollectionView.delegate = self
+        self.hotCollectionView.dataSource = self
         self.searchbar.delegate = self
         self.searchTableview.delegate = self
         self.searchTableview.dataSource = self
@@ -178,6 +198,7 @@ class HomeViewController: UIViewController {
         fillSafeArea(position: .bottom, color: UIColor(rgb: 0xE5ECEC))
 
     }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configure()
@@ -205,24 +226,62 @@ class HomeViewController: UIViewController {
 }
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        if collectionView == hotCollectionView{
+            return 5
+        }
+        else {
+            return 9
+
+        }
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: recommendCollectionViewCell.identifier, for: indexPath) as! recommendCollectionViewCell
-        let image = HomeViewmodel.supplementImg(indexPath: indexPath.row)
-        cell.Img.image = image
-        cell.nameLabel.text = HomeViewmodel.supplementKor(indexPath: indexPath.row)
-        cell.roundview.backgroundColor = HomeViewmodel.supplementColor(indexPath: indexPath.row)
-        return cell
+        if collectionView == recommendCollectionView{
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: recommendCollectionViewCell.identifier, for: indexPath) as! recommendCollectionViewCell
+            let image = HomeViewmodel.supplementImg(indexPath: indexPath.row)
+            cell.Img.image = image
+            cell.nameLabel.text = HomeViewmodel.supplementKor(indexPath: indexPath.row)
+            cell.roundview.backgroundColor = HomeViewmodel.supplementColor(indexPath: indexPath.row)
+            return cell
+        }
+       else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HotCollectionViewCell.identifier, for: indexPath) as! HotCollectionViewCell
+           cell.titleLabel.text = "Top" + String(indexPath.row + 1)
+            return cell
+        }
+
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
-            let cellWidth: CGFloat = (collectionView.bounds.width - layout.minimumInteritemSpacing) / 1
-            let cellHeight: CGFloat = (collectionView.bounds.height - layout.minimumLineSpacing) / 5
-                return CGSize(width: cellWidth, height: cellHeight)
-            }
-        return CGSize(width: 0, height: 0)
+        if collectionView == recommendCollectionView{
+            if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
+                let cellWidth: CGFloat = (collectionView.bounds.width - layout.minimumInteritemSpacing) / 3.1
+                let cellHeight: CGFloat = (collectionView.bounds.height - layout.minimumLineSpacing) / 3.2
+                    return CGSize(width: cellWidth, height: cellHeight)
+                }
+        }
+        else{
+            if collectionViewLayout is UICollectionViewFlowLayout {
+                    return CGSize(width: self.view.frame.width - 48, height: 400)
+                }
+        }
+         return CGSize(width: 0, height: 0)
+     }
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        let cellWidthIncludingSpacing = self.view.frame.width - 48 + 12
+        
+        let estimatedIndex = scrollView.contentOffset.x / cellWidthIncludingSpacing
+        let index: Int
+        
+        if velocity.x > 0 {
+            index = Int(ceil(estimatedIndex))
+        } else if velocity.x < 0 {
+            index = Int(floor(estimatedIndex))
+        } else {
+            index = Int(round(estimatedIndex))
+        }
+    
+        targetContentOffset.pointee = CGPoint(x: CGFloat(index) * cellWidthIncludingSpacing, y: 0)
     }
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let popup = PopUpViewController()
         popup.modalPresentationStyle = .overFullScreen
@@ -236,6 +295,15 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         popup.recommaneLabel.attributedText = attributedStr
         self.present(popup,animated: true,completion: nil)
     }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        if collectionView == hotCollectionView {
+            return UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
+        }
+        
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+
+    }
+    
 }
 extension HomeViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

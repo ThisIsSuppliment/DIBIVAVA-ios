@@ -71,8 +71,8 @@ class PopUpViewController: UIViewController {
         self.contentView.snp.makeConstraints{
             $0.centerY.equalToSuperview()
             $0.centerX.equalToSuperview()
-            $0.height.equalTo(370)
-            $0.width.equalTo(300)
+            $0.height.equalTo(520)
+            $0.width.equalTo(350)
 
         }
         self.nameLabel.snp.makeConstraints{
