@@ -180,7 +180,7 @@ class HomeViewController: UIViewController {
                 print(searchresponse)
             case .failure(let error):
                 print("/name 오류:\(error)")
-            }
+            } 
         }
     }
 }
