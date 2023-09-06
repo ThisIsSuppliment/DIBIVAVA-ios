@@ -34,6 +34,8 @@ final class DefaultSupplementDetailViewModel {
                 print("ERROR: fetchTerm - ", error)
             })
             .disposed(by: self.disposeBag)
+        
+        print("-------------------------------------------------ID", id)
     }
 }
 
@@ -165,36 +167,8 @@ private extension DefaultSupplementDetailViewModel {
     func addMaterialByType(category: MaterialType, materials: [Material]?) {
         self.material[category, default: []] = materials ?? [Material(category: category.rawValue, name: "없음")]
         
-//        self.materialByTypeRelay.accept(self.material)
-        
         if category == .addictive {
             self.materialByTypeRelay.accept(self.material)
         }
     }
 }
-//-------------------------------------------------ID 336
-//++configureDataSource false Optional("없음") addictive 1
-//
-//==========updateCollectionViewHeight============
-//>>height 421.33333333333337
-//++configureDataSource false Optional("없음") addictive 1
-//
-//==========updateCollectionViewHeight============
-//>>height 421.33333333333337
-//++configureDataSource false Optional("없음") main 1
-//++configureDataSource false Optional("없음") sub 1
-//++configureDataSource false Optional("없음") sub 1
-//++configureDataSource false Optional("없음") addictive 1
-//++configureDataSource false Optional("없음") main 1
-//
-//==========updateCollectionViewHeight============
-//>>height 304.0
-
-
-//-------------------------------------------------ID 336
-//++configureDataSource false Optional("없음") addictive 1
-//
-//==========updateCollectionViewHeight============
-//>>height 421.33333333333337
-//++configureDataSource false Optional("없음") main 1
-//++configureDataSource false Optional("없음") sub 1

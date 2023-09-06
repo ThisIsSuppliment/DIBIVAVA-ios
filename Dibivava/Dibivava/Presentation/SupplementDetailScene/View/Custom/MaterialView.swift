@@ -93,6 +93,7 @@ final class MaterialView: UIView, UICollectionViewDelegate {
     // MARK: - Property
     
     private var dataSource: DataSource?
+    private var supplementaryViewCounter = 0
     
     // MARK: - Init
     
@@ -121,10 +122,7 @@ final class MaterialView: UIView, UICollectionViewDelegate {
             }
         }
 
-        self.dataSource?.apply(snapshot, animatingDifferences: false) {
-            let newHeight = self.collectionView.collectionViewLayout.collectionViewContentSize.height
-            self.updateCollectionViewHeight(newHeight)
-        }
+        self.dataSource?.apply(snapshot, animatingDifferences: false)
     }
 }
 
@@ -170,12 +168,12 @@ private extension MaterialView {
                 withReuseIdentifier: MaterialCollectionViewCell.identifier,
                 for: indexPath
             ) as! MaterialCollectionViewCell
-            print("++configureDataSource",(item.category == "additive" && item.name != "없음"), item.name, item.category)
+            
             cell.delegate = self
             cell.title = item.name
             cell.terms = item.termsWithDescription
             cell.level = item.level
-            cell.isAddictiveMaterial = (item.category == "additive" && item.name != "없음") // && item.name != "없음"
+            cell.isAddictiveMaterial = (item.category == "additive" && item.name != "없음")
             
             return cell
         }
@@ -193,9 +191,16 @@ private extension MaterialView {
             else {
                 return UICollectionReusableView()
             }
-            print("@@@")
+            
             let section = self.dataSource?.snapshot().sectionIdentifiers[indexPath.section]
             headerView.configure(title: section?.inKorean ?? "") // 추후 수정
+            
+            self.supplementaryViewCounter += 1
+
+            if self.supplementaryViewCounter == Section.allCases.count {
+                let newHeight = self.collectionView.collectionViewLayout.collectionViewContentSize.height
+                self.updateCollectionViewHeight(newHeight)
+           }
             
             return headerView
         }
