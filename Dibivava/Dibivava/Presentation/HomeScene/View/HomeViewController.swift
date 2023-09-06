@@ -19,6 +19,8 @@ class HomeViewController: UIViewController {
     private var searchresult: [Supplement] = []
     private var searchInfo: [SupplementResponse] = []
     private let searchAPI = SearchAPI()
+    private let recommandAPI = getRecommendList()
+    private var recommandInfo: [getSupplement] = []
     private let warningLabel = UITextView().then{
         $0.font = .pretendard(.Light, size: 12)
         $0.textColor = UIColor(rgb: 0x878787)
@@ -222,12 +224,21 @@ class HomeViewController: UIViewController {
                 print("/search 오류:\(error)")
             }
         }
+        self.recommandAPI.getRecommendList(keyword: "키즈", req: 1) { response in
+            switch response {
+            case .success(let data):
+                self.recommandInfo = data
+                self.hotCollectionView.reloadData()
+            case .failure(let error):
+                print("/re 오류:\(error)")
+            }
+        }
     }
 }
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == hotCollectionView{
-            return 5
+            return self.recommandInfo.count
         }
         else {
             return 9
@@ -246,6 +257,13 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
        else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HotCollectionViewCell.identifier, for: indexPath) as! HotCollectionViewCell
            cell.titleLabel.text = "Top" + String(indexPath.row + 1)
+           cell.name.text = self.recommandInfo[indexPath.row].name
+           cell.des.text = self.recommandInfo[indexPath.row].functionality
+           cell.companyLabel.text = "| \(self.recommandInfo[indexPath.row].company)"
+
+           if let imageURL = URL(string: self.recommandInfo[indexPath.row].imageLink ) {
+               cell.ImageView.kf.setImage(with:imageURL)
+           }
             return cell
         }
 
