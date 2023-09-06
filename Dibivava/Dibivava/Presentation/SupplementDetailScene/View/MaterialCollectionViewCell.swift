@@ -61,13 +61,12 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
     
     private var isToggle: Bool = false {
        didSet {
+           guard self.isAddictiveMaterial else { return }
            self.termLabel.numberOfLines = isToggle ? 0 : 1
            self.chevronButton.isSelected.toggle()
            self.delegate?.showToggleButtonTapped()
        }
     }
-    
-    weak var delegate: MaterialCollectionViewCellDelegate?
     
     var title: String? = nil {
        didSet {
@@ -88,7 +87,7 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
         }
      }
     
-    var isAddictiveMaterial: Bool = true {
+    var isAddictiveMaterial: Bool = false {
        didSet {
            if !isAddictiveMaterial {
                self.chevronButton.isHidden = true
@@ -99,6 +98,8 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
            }
        }
     }
+    
+    weak var delegate: MaterialCollectionViewCellDelegate?
     
     // MARK: - Init
     
@@ -124,8 +125,11 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
         self.titleLabel.text = nil
         self.rankLabel.text = nil
         self.termLabel.text = nil
+        self.termLabel.numberOfLines = 1
         self.chevronButton.isHidden = false
         self.chevronButton.isSelected = false
+        self.isAddictiveMaterial = false
+        self.isToggle = false
     }
 }
 

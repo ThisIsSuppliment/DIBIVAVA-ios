@@ -172,9 +172,9 @@ private extension SupplementDetailViewController {
             .disposed(by: self.disposeBag)
         
         self.viewModel.recommendSupplement
+            .compactMap { $0 }
             .drive(onNext: { [weak self] recommendations in
                 guard let self,
-                      let recommendations = recommendations,
                       !recommendations.isEmpty
                 else {
                     self?.recommendationView.isHidden = true
@@ -190,6 +190,13 @@ private extension SupplementDetailViewController {
                 self.recommendationView.applySnapshot(recommendations)
                 
                 self.indicatorView.stopAnimating()
+            })
+            .disposed(by: self.disposeBag)
+        
+        self.recommendationView.itemSelected
+            .drive(onNext: { [weak self] indexPath in
+                guard let self else { return }
+                self.viewModel.showSelectedRecommendSupplement(with: indexPath)
             })
             .disposed(by: self.disposeBag)
     }

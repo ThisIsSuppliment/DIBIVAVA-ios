@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxCocoa
 import RxSwift
 import SnapKit
 import Then
@@ -40,9 +41,13 @@ final class RecommendationView: UIView, UICollectionViewDelegate {
     }
     
     // MARK: - Property
-    
+    private let itemSelectedSubject: PublishRelay<IndexPath> = .init()
     private let disposeBag: DisposeBag = DisposeBag()
     private var dataSource: DataSource?
+    
+    var itemSelected: Driver<IndexPath> {
+        return itemSelectedSubject.asDriver(onErrorDriveWith: .never())
+    }
     
     // MARK: - Init
     
@@ -57,7 +62,8 @@ final class RecommendationView: UIView, UICollectionViewDelegate {
         
         self.collectionView.rx.itemSelected
             .subscribe(onNext: { [weak self] indexPath in
-                print(">>>", indexPath)
+                guard let self else { return }
+                self.itemSelectedSubject.accept(indexPath)
             })
             .disposed(by: self.disposeBag)
     }
