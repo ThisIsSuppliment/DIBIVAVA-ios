@@ -9,12 +9,12 @@ import Foundation
 
 struct RecommendSupplementResponse: Decodable {
     let message: String
-    let result: [RecommendSupplementDTO]
+    let result: [RecommendSupplementDTO]?
 }
 
 // MARK: - SupplementDetail
 struct RecommendSupplementDTO: Decodable {
-    let supplementID: Int
+    let supplementID: Int?
     let name, company, expireDate, intakeMethod: String?
     let functionality, mainMaterial, subMaterial, additive: String?
     let imageLink: String?
@@ -41,10 +41,19 @@ struct RecommendSupplementDTO: Decodable {
 }
 
 extension RecommendSupplementResponse {
-    func toDomain() -> [SupplementObject]? {
-        result.map { supplement in
-            SupplementObject(
-                supplementID: supplement.supplementID,
+    func toDomain() -> [SupplementObject?]? {
+        guard let result = result
+        else {
+            return nil
+        }
+        
+        return result.map { supplement in
+            guard let id = supplement.supplementID
+            else {
+                return nil
+            }
+            return SupplementObject(
+                supplementID: String(id),
                 name: supplement.name,
                 company: supplement.company,
                 expireDate: supplement.expireDate,

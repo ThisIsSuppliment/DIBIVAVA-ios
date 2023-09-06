@@ -19,7 +19,7 @@ protocol SupplementRepository {
     func fetchMaterial(with id: [String]?) -> Single<[Material]?>
     
     /// 검색한 건강기능 식품보다 첨가제가 적거나 같은  건강기능 식품 불러오기
-    func fetchRecommendSupplement(with keyword: String) -> RxSwift.Single<[SupplementObject]?>
+    func fetchRecommendSupplement(with keyword: String) -> RxSwift.Single<[SupplementObject?]?>
 }
 
 final class DefaultSupplementRepository: SupplementRepository {
@@ -50,7 +50,7 @@ final class DefaultSupplementRepository: SupplementRepository {
         self.supplementNetworkService.fetchTermDescription()
     }
     
-    func fetchRecommendSupplement(with keyword: String) -> RxSwift.Single<[SupplementObject]?> {
+    func fetchRecommendSupplement(with keyword: String) -> RxSwift.Single<[SupplementObject?]?> {
         self.supplementNetworkService.fetchRecommendSupplement(by: keyword)
             .map { $0.toDomain() }
     }

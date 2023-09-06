@@ -123,6 +123,11 @@ final class MaterialView: UIView, UICollectionViewDelegate {
         }
 
         self.dataSource?.apply(snapshot, animatingDifferences: false)
+        
+        self.collectionView.layoutIfNeeded()
+
+        let collectionViewHeight = collectionView.collectionViewLayout.collectionViewContentSize.height
+        self.updateCollectionViewHeight(collectionViewHeight)
     }
 }
 
@@ -198,16 +203,16 @@ private extension MaterialView {
             self.supplementaryViewCounter += 1
 
             if self.supplementaryViewCounter == Section.allCases.count {
-                let newHeight = self.collectionView.collectionViewLayout.collectionViewContentSize.height
+                let newHeight = collectionView.collectionViewLayout.collectionViewContentSize.height
                 self.updateCollectionViewHeight(newHeight)
            }
-            
+
             return headerView
         }
     }
     
     func updateCollectionViewHeight(_ height: Double) {
-        print("\n==========updateCollectionViewHeight==============", height)
+        print(">> updateCollectionViewHeight", height, self.supplementaryViewCounter)
         self.collectionView.snp.updateConstraints { make in
             make.height.greaterThanOrEqualTo(height)
         }
