@@ -20,7 +20,7 @@ protocol SupplementUseCase {
     func fetchMaterials(id: [String]?) -> Single<[Material]?>
     
     /// 검색한 건강기능 식품의 카테고리 중 첨가제가 적거나 같은  건강기능 식품 불러오기
-    func fetchRecommendSupplement(keyword: String) -> Single<[SupplementObject]?>
+    func fetchRecommendSupplement(keyword: String) -> Single<[SupplementObject?]?>
 }
 
 class DefaultSupplementUseCase: SupplementUseCase {
@@ -81,7 +81,7 @@ class DefaultSupplementUseCase: SupplementUseCase {
         }
     }
     
-    func fetchRecommendSupplement(keyword: String) -> RxSwift.Single<[SupplementObject]?> {
+    func fetchRecommendSupplement(keyword: String) -> RxSwift.Single<[SupplementObject?]?> {
         self.supplementRepository.fetchRecommendSupplement(with: keyword)
     }
 }

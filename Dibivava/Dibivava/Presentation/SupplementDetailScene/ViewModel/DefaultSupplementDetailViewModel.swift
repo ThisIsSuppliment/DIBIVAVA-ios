@@ -157,7 +157,7 @@ private extension DefaultSupplementDetailViewModel {
                     return
                 }
                 
-                self.recommendSupplementRelay.accept(supplements)
+                self.recommendSupplementRelay.accept(supplements.compactMap{ $0 })
             }, onFailure: { error in
                 print("ERROR: fetchRecommendSupplement - ", error)
             })
