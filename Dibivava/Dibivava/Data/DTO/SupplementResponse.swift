@@ -41,7 +41,7 @@ struct SupplementDTO: Decodable {
 
 extension SupplementResponse {
     func toDomain() -> SupplementObject {
-        SupplementObject(supplementID: result.supplementID,
+        SupplementObject(supplementID: String(result.supplementID),
                          name: result.name,
                          company: result.company,
                          expireDate: result.expireDate,
