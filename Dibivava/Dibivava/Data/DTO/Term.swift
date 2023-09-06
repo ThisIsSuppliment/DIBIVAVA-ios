@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct Term: Codable {
+struct Term: Decodable {
     let name, description: String
 }

@@ -18,7 +18,7 @@ final class DefaultSupplementDetailViewModel {
     private let numOfSubMaterialRelay: PublishRelay<Int?> = .init()
     private let numOfAdditiveRelay: PublishRelay<Int?> = .init()
     private let recommendSupplementRelay: BehaviorRelay<[SupplementObject]?> = .init(value: nil)
-    private let materialByTypeRelay: PublishRelay<[MaterialType:[Material]]?> = .init()
+    private let materialByTypeRelay: BehaviorRelay<[MaterialType:[Material]]?> = .init(value: nil)
     
     private var material: [MaterialType:[Material]]
     private let disposeBag = DisposeBag()
@@ -27,13 +27,15 @@ final class DefaultSupplementDetailViewModel {
          supplementUseCase: SupplementUseCase
     ) {
         self.id = id
-        self.material = [.main: [], .sub: [], .addictive: []]
+        self.material = [:]
         self.supplementUseCase = supplementUseCase
         self.supplementUseCase.fetchTerm()
             .subscribe(onError: { error in
                 print("ERROR: fetchTerm - ", error)
             })
             .disposed(by: self.disposeBag)
+        
+        print("-------------------------------------------------ID", id)
     }
 }
 
@@ -106,9 +108,9 @@ private extension DefaultSupplementDetailViewModel {
                 self.numOfSubMaterialRelay.accept(subMaterial?.count)
 
                 self.addMaterialByType(category: .main,
-                                       materials: (mainMaterial ?? ["없음"]).map { $0.toMaterial(with: .main) } )
+                                       materials: mainMaterial?.compactMap { $0.toMaterial(with: .main) } )
                 self.addMaterialByType(category: .sub,
-                                       materials: (subMaterial ?? ["없음"]).map { $0.toMaterial(with: .sub) })
+                                       materials: subMaterial?.compactMap { $0.toMaterial(with: .sub) })
                 
                 // 첨가제 데이터 요청
                 self.fetchAdditiveMaterial(with: supplement.additive)
@@ -141,15 +143,17 @@ private extension DefaultSupplementDetailViewModel {
     func fetchRecommendSupplement(with keyword: String?) {
         guard let keyword = keyword
         else {
-            self.recommendSupplementRelay.accept(nil)
+            self.recommendSupplementRelay.accept([])
             print("unkn keyword")
             return
         }
         
         self.supplementUseCase.fetchRecommendSupplement(keyword: keyword)
             .subscribe(onSuccess: { [weak self] supplements in
-                guard let self
+                guard let self,
+                      let supplements = supplements
                 else {
+                    self?.recommendSupplementRelay.accept([])
                     return
                 }
                 
@@ -161,7 +165,10 @@ private extension DefaultSupplementDetailViewModel {
     }
         
     func addMaterialByType(category: MaterialType, materials: [Material]?) {
-        self.material[category] = materials ?? [Material(category: category.rawValue, name: "없음")]
-        self.materialByTypeRelay.accept(self.material)
+        self.material[category, default: []] = materials ?? [Material(category: category.rawValue, name: "없음")]
+        
+        if category == .addictive {
+            self.materialByTypeRelay.accept(self.material)
+        }
     }
 }

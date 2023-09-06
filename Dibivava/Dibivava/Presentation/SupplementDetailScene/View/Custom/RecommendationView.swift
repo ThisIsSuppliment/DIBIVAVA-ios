@@ -6,10 +6,10 @@
 //
 
 import UIKit
+import RxCocoa
 import RxSwift
 import SnapKit
 import Then
-import RxRelay
 
 final class RecommendationView: UIView, UICollectionViewDelegate {
     typealias Snapshot = NSDiffableDataSourceSnapshot<Section, SupplementObject>
@@ -45,8 +45,8 @@ final class RecommendationView: UIView, UICollectionViewDelegate {
     private let disposeBag: DisposeBag = DisposeBag()
     private var dataSource: DataSource?
     
-    var itemSelected: Observable<IndexPath> {
-        return itemSelectedSubject.asObservable()
+    var itemSelected: Driver<IndexPath> {
+        return itemSelectedSubject.asDriver(onErrorDriveWith: .never())
     }
     
     // MARK: - Init

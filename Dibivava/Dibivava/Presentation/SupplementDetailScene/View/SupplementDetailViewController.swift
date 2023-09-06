@@ -177,7 +177,6 @@ private extension SupplementDetailViewController {
                 guard let self,
                       !recommendations.isEmpty
                 else {
-                    print("<M<")
                     self?.recommendationView.isHidden = true
                     self?.indicatorView.stopAnimating()
                     return
@@ -195,10 +194,10 @@ private extension SupplementDetailViewController {
             .disposed(by: self.disposeBag)
         
         self.recommendationView.itemSelected
-            .subscribe(onNext: { [weak self] indexPath in
+            .drive(onNext: { [weak self] indexPath in
                 guard let self else { return }
                 self.viewModel.showSelectedRecommendSupplement(with: indexPath)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: self.disposeBag)
     }
 }
