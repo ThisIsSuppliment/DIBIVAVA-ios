@@ -234,8 +234,18 @@ class HomeViewController: UIViewController {
             }
         }
     }
+    @objc func buttonAction(_ sender: UIButton){
+        let vc = SupplementDetailViewController(supplementDetailViewModel: DefaultSupplementDetailViewModel(
+            id:self.recommandInfo[sender.tag].supplementId,
+            supplementUseCase: DefaultSupplementUseCase(supplementRepository: DefaultSupplementRepository(supplementNetworkService: DefaultSupplementNetworkService())))
+        )
+        self.navigationController?.navigationBar.tintColor = UIColor.black
+        self.navigationController?.navigationBar.topItem?.title = ""
+        self.navigationController?.pushViewController(vc, animated: false)
+        }
 }
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == hotCollectionView{
             return self.recommandInfo.count
@@ -255,12 +265,14 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             return cell
         }
        else {
+           
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HotCollectionViewCell.identifier, for: indexPath) as! HotCollectionViewCell
            cell.titleLabel.text = "Top" + String(indexPath.row + 1)
            cell.name.text = self.recommandInfo[indexPath.row].name
            cell.des.text = self.recommandInfo[indexPath.row].functionality
            cell.companyLabel.text = "| \(self.recommandInfo[indexPath.row].company)"
-
+           cell.moreButton.addTarget(self, action: #selector(self.buttonAction), for: .touchUpInside)
+           cell.moreButton.tag = indexPath.row
            if let imageURL = URL(string: self.recommandInfo[indexPath.row].imageLink ) {
                cell.ImageView.kf.setImage(with:imageURL)
            }
@@ -301,17 +313,19 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let popup = PopUpViewController()
-        popup.modalPresentationStyle = .overFullScreen
-        popup.modalTransitionStyle = .crossDissolve
-        popup.infoLabel.text = HomeViewmodel.supplementdes(indexPath: indexPath.row)
-        popup.nameLabel.text = HomeViewmodel.supplementKor(indexPath: indexPath.row)
-        popup.recommaneLabel.text = HomeViewmodel.supplementre(indexPath: indexPath.row)! + " 지정된 물질들!"
-        popup.listLabel.text = HomeViewmodel.supplementEng(indexPath: indexPath.row)
-        let attributedStr = NSMutableAttributedString(string: popup.recommaneLabel.text!)
-        attributedStr.addAttribute(.foregroundColor, value: UIColor.mainred, range: (popup.recommaneLabel.text! as NSString).range(of: "지정된"))
-        popup.recommaneLabel.attributedText = attributedStr
-        self.present(popup,animated: true,completion: nil)
+        if collectionView == recommendCollectionView {
+            let popup = PopUpViewController()
+            popup.modalPresentationStyle = .overFullScreen
+            popup.modalTransitionStyle = .crossDissolve
+            popup.infoLabel.text = HomeViewmodel.supplementdes(indexPath: indexPath.row)
+            popup.nameLabel.text = HomeViewmodel.supplementKor(indexPath: indexPath.row)
+            popup.recommaneLabel.text = HomeViewmodel.supplementre(indexPath: indexPath.row)! + " 지정된 물질들!"
+            popup.listLabel.text = HomeViewmodel.supplementEng(indexPath: indexPath.row)
+            let attributedStr = NSMutableAttributedString(string: popup.recommaneLabel.text!)
+            attributedStr.addAttribute(.foregroundColor, value: UIColor.mainred, range: (popup.recommaneLabel.text! as NSString).range(of: "지정된"))
+            popup.recommaneLabel.attributedText = attributedStr
+            self.present(popup,animated: true,completion: nil)
+        }
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         if collectionView == hotCollectionView {
