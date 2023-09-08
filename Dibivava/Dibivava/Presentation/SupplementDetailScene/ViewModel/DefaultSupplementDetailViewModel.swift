@@ -18,7 +18,7 @@ final class DefaultSupplementDetailViewModel {
     private let numOfSubMaterialRelay: PublishRelay<Int?> = .init()
     private let numOfAdditiveRelay: PublishRelay<Int?> = .init()
     private let recommendSupplementRelay: BehaviorRelay<[SupplementObject]?> = .init(value: nil)
-    private let materialByTypeRelay: BehaviorRelay<[MaterialType:[Material]]?> = .init(value: nil)
+    private let materialByTypeRelay: PublishRelay<[MaterialType:[Material]]?> = .init()
     
     private var material: [MaterialType:[Material]]
     private let disposeBag = DisposeBag()
