@@ -65,13 +65,11 @@ private extension DefaultSupplementNetworkService {
                     do {
                         let decoder = JSONDecoder()
                         let decodedData = try decoder.decode(T.self, from: data)
-//                        print(">>requestURL", requestURL, "\n")
                         single(.success(decodedData))
                     } catch let DecodingError.dataCorrupted(context) {
                         print(context)
                     } catch let DecodingError.keyNotFound(key, context) {
                         print("++Key '\(key)' not found:", context.debugDescription)
-//                        print("codingPath:", context.codingPath)
                         print("++requestURL", requestURL, "\n")
                     } catch let DecodingError.valueNotFound(value, context) {
                         print("Value '\(value)' not found:", context.debugDescription)
