@@ -9,7 +9,7 @@ import Foundation
 
 struct SupplementResponse: Decodable {
     let message: String
-    let result: SupplementDTO
+    let result: SupplementDTO?
 }
 
 // MARK: - SupplementDetail
@@ -40,8 +40,13 @@ struct SupplementDTO: Decodable {
 }
 
 extension SupplementResponse {
-    func toDomain() -> SupplementObject {
-        SupplementObject(supplementID: String(result.supplementID),
+    func toDomain() -> SupplementObject? {
+        guard let result = result
+        else {
+            return nil
+        }
+        
+        return SupplementObject(supplementID: String(result.supplementID),
                          name: result.name,
                          company: result.company,
                          expireDate: result.expireDate,

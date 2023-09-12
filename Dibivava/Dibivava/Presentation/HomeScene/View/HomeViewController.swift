@@ -357,7 +357,7 @@ extension HomeViewController: UISearchBarDelegate {
                 switch response {
                 case .success(let searchresponse):
                     let vc = SupplementDetailViewController(supplementDetailViewModel: DefaultSupplementDetailViewModel(
-                        id:searchresponse.result.supplementID ,
+                        id:searchresponse.result?.supplementID ,
                         supplementUseCase: DefaultSupplementUseCase(supplementRepository: DefaultSupplementRepository(supplementNetworkService: DefaultSupplementNetworkService())))
                     )
                     self.navigationController?.navigationBar.tintColor = UIColor.black

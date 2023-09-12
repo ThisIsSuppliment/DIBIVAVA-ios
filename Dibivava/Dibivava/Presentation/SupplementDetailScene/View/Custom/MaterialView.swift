@@ -6,7 +6,6 @@
 //
 
 import UIKit
-
 import SnapKit
 import RxSwift
 import RxCocoa
@@ -122,12 +121,11 @@ final class MaterialView: UIView, UICollectionViewDelegate {
             }
         }
 
-        self.dataSource?.apply(snapshot, animatingDifferences: false)
-        
-        self.collectionView.layoutIfNeeded()
-
-        let collectionViewHeight = collectionView.collectionViewLayout.collectionViewContentSize.height
-        self.updateCollectionViewHeight(collectionViewHeight)
+        self.dataSource?.apply(snapshot, animatingDifferences: false) {
+            let collectionViewHeight = self.collectionView.collectionViewLayout.collectionViewContentSize.height
+            self.updateCollectionViewHeight(collectionViewHeight)
+            self.collectionView.layoutIfNeeded()
+        }
     }
 }
 

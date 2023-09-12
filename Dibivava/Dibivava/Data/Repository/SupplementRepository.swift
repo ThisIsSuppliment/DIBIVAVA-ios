@@ -13,7 +13,7 @@ protocol SupplementRepository {
     func fetchTerm() -> Single<[Term]>
     
     /// 건강기능 식품 데이터 불러오기
-    func fetchSupplement(with id: String) -> Single<SupplementObject>
+    func fetchSupplement(with id: String) -> Single<SupplementObject?>
     
     /// 건강기능 식품 원재료 데이터 불러오기
     func fetchMaterial(with id: [String]?) -> Single<[Material]?>
@@ -29,7 +29,7 @@ final class DefaultSupplementRepository: SupplementRepository {
         self.supplementNetworkService = supplementNetworkService
     }
     
-    func fetchSupplement(with id: String) -> RxSwift.Single<SupplementObject> {
+    func fetchSupplement(with id: String) -> RxSwift.Single<SupplementObject?> {
         self.supplementNetworkService.fetchSupplement(by: id)
             .map { $0.toDomain() }
     }
