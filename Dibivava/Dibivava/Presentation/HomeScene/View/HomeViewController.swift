@@ -203,12 +203,25 @@ class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.recommandAPI.getRecommendList(keyword: "키즈", req: 1) { response in
+            switch response {
+            case .success(let data):
+                self.recommandInfo = data
+                DispatchQueue.main.async {
+                    self.hotCollectionView.reloadData()
+                }
+            case .failure(let error):
+                print("/re 오류:\(error)")
+            }
+        }
         self.configure()
         self.addsubView()
         self.layout()
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = true
+
     }
     override func viewDidAppear(_ animated: Bool) {
         if UserDefaults.standard.bool(forKey: "key") != true {
@@ -216,6 +229,7 @@ class HomeViewController: UIViewController {
              vc.modalPresentationStyle = .overFullScreen
              self.present(vc,animated: false,completion: nil)
         }
+
         self.searchAPI.getSearchResult(name: "ㄱ",limit: 0) { response in
             switch response {
             case .success(_):
@@ -224,15 +238,7 @@ class HomeViewController: UIViewController {
                 print("/search 오류:\(error)")
             }
         }
-        self.recommandAPI.getRecommendList(keyword: "키즈", req: 1) { response in
-            switch response {
-            case .success(let data):
-                self.recommandInfo = data
-                self.hotCollectionView.reloadData()
-            case .failure(let error):
-                print("/re 오류:\(error)")
-            }
-        }
+
     }
     @objc func buttonAction(_ sender: UIButton){
         let vc = SupplementDetailViewController(supplementDetailViewModel: DefaultSupplementDetailViewModel(
