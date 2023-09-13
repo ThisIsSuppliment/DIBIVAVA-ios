@@ -44,6 +44,10 @@ final class FunctionalityCollectionViewCell: UICollectionViewCell {
             self.titleLabel.text = title
         }
     }
+    
+    override func prepareForReuse() {
+        self.titleLabel.text = ""
+    }
 }
 
 private extension FunctionalityCollectionViewCell {
