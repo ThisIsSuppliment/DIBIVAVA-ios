@@ -68,15 +68,19 @@ private extension DefaultSupplementNetworkService {
                         single(.success(decodedData))
                     } catch let DecodingError.dataCorrupted(context) {
                         print(context)
+                        single(.failure(NetworkError.failedDecode))
                     } catch let DecodingError.keyNotFound(key, context) {
                         print("++Key '\(key)' not found:", context.debugDescription)
                         print("++requestURL", requestURL, "\n")
+                        single(.failure(NetworkError.failedDecode))
                     } catch let DecodingError.valueNotFound(value, context) {
                         print("Value '\(value)' not found:", context.debugDescription)
                         print("codingPath:", context.codingPath)
+                        single(.failure(NetworkError.failedDecode))
                     } catch let DecodingError.typeMismatch(type, context)  {
                         print("Type '\(type)' mismatch:", context.debugDescription)
                         print("codingPath:", context.codingPath)
+                        single(.failure(NetworkError.failedDecode))
                     } catch let error {
                         print("Error: DefaultSupplementNetworkService - \(error.localizedDescription)")
                         print("requestURL", requestURL)
