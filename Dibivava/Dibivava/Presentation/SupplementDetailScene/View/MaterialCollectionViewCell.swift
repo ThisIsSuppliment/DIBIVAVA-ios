@@ -61,7 +61,11 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
     
     private var isToggle: Bool = false {
        didSet {
-           guard self.isAddictiveMaterial else { return }
+           guard self.isAddictiveMaterial
+           else {
+               return
+           }
+           
            self.termLabel.numberOfLines = isToggle ? 0 : 1
            self.chevronButton.isSelected.toggle()
            self.delegate?.showToggleButtonTapped()
