@@ -108,7 +108,7 @@ private extension SupplementDetailViewController {
         self.resourceView.snp.makeConstraints { make in
             make.top.equalTo(self.recommendationView.snp.bottom).offset(7)
             make.horizontalEdges.equalToSuperview()
-            make.bottom.equalToSuperview().priority(.low)
+            make.bottom.equalToSuperview()//.priority(.low)
         }
     }
     
@@ -125,7 +125,7 @@ private extension SupplementDetailViewController {
                 self.supplementDetailView.imageURL = items.imageLink
                 self.supplementDetailView.nameLabel.text = items.name
                 self.supplementDetailView.companyLabel.text = items.company ?? "제조사를 알수없습니다."
-                self.supplementDetailView.descriptionLabel.text = (items.expireDate  ?? "제조일부터의 유통기한을 알수없습니다.") + " | " + (items.intakeMethod ?? "섭취량를 알수없습니다.")
+                self.supplementDetailView.descriptionLabel.text = (items.category ?? "카테고리를 알수없습니다") + " | " + (items.intakeMethod ?? "섭취량를 알수없습니다.")
                 
                 // TODO: - 개선 필요
                 // 단어 후보 추가해야함

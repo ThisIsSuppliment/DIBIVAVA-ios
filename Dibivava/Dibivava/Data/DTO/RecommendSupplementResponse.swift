@@ -22,6 +22,7 @@ struct RecommendSupplementDTO: Decodable {
     let keyword: String?
     let mainMaterialFromOpenAPI: String?
     let createdAt, updatedAt: String?
+    let category: String?
 
     enum CodingKeys: String, CodingKey {
         case supplementID = "supplement_id"
@@ -36,7 +37,7 @@ struct RecommendSupplementDTO: Decodable {
         case gmpCheck = "gmp_check"
         case keyword
         case mainMaterialFromOpenAPI = "main_material_from_open_api"
-        case createdAt, updatedAt
+        case createdAt, updatedAt, category
     }
 }
 
@@ -64,7 +65,8 @@ extension RecommendSupplementResponse {
                 additive: nil,
                 imageLink: supplement.imageLink,
                 gmpCheck: supplement.gmpCheck,
-                keyword: supplement.keyword
+                keyword: supplement.keyword,
+                category: supplement.category
             )
         }
     }

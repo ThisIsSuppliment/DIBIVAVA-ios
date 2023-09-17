@@ -58,7 +58,7 @@ private extension DefaultSupplementNetworkService {
                 single(.failure(NetworkError.invalidURL))
                 return Disposables.create()
             }
-
+            print(">>", requestURL)
             AF.request(requestURL).responseData { response in
                 switch response.result {
                 case .success(let data):
