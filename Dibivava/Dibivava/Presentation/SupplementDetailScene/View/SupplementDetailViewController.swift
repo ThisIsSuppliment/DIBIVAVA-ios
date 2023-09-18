@@ -123,9 +123,9 @@ private extension SupplementDetailViewController {
                 
                 self.supplementDetailView.isGMP = items.gmpCheck
                 self.supplementDetailView.imageURL = items.imageLink
-                self.supplementDetailView.nameLabel.text = items.name
-                self.supplementDetailView.companyLabel.text = items.company ?? "제조사를 알수없습니다."
-                self.supplementDetailView.descriptionLabel.text = (items.category ?? "카테고리를 알수없습니다") + " | " + (items.intakeMethod ?? "섭취량를 알수없습니다.")
+                self.supplementDetailView.name = items.name
+                self.supplementDetailView.company = items.company ?? "제조사를 알수없습니다."
+                self.supplementDetailView.categoryAndIntakeMethod = (items.category ?? "카테고리를 알수없습니다") + " | " + (items.intakeMethod ?? "섭취량를 알수없습니다.")
                 
                 // TODO: - 개선 필요
                 // 단어 후보 추가해야함

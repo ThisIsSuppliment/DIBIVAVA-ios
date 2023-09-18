@@ -9,7 +9,7 @@ import UIKit
 
 final class SupplementDetailView: UIView {
     
-    let imageView: UIImageView = UIImageView().then {
+    private let imageView: UIImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
     }
 
@@ -19,33 +19,35 @@ final class SupplementDetailView: UIView {
         $0.spacing = 3
     }
     
-    let gmp: GMPView = GMPView().then {
+    private let gmp: GMPView = GMPView().then {
         $0.gmpLabel.text = "GMP 인증"
     }
     
-    let allergy: UILabel = UILabel().then {
+    private let allergy: UILabel = UILabel().then {
+        $0.font = .pretendard(.Regular, size: 14)
         $0.text = "알레르기 유발"
     }
     
-    let c: UILabel = UILabel().then {
+    private let c: UILabel = UILabel().then {
+        $0.font = .pretendard(.Regular, size: 14)
         $0.text = "발암 유발 물질"
     }
     
-    let nameLabel: UILabel = UILabel().then {
+    private let nameLabel: UILabel = UILabel().then {
         $0.textColor = .black
         $0.textAlignment = .center
         $0.text = " "
         $0.font = .pretendard(.Regular, size: 18)
     }
     
-    let companyLabel: UILabel = UILabel().then {
+    private let companyLabel: UILabel = UILabel().then {
         $0.textColor = .systemGray
         $0.textAlignment = .center
         $0.text = " "
         $0.font = .pretendard(.Regular, size: 14)
     }
     
-    let descriptionLabel: UILabel = UILabel().then {
+    private let descriptionLabel: UILabel = UILabel().then {
         $0.textColor = .black
         $0.textAlignment = .center
         $0.text = " "
@@ -53,7 +55,6 @@ final class SupplementDetailView: UIView {
     }
     
 //    private let functionalityView: FunctionalityView = FunctionalityView()
-//    private let gmpView: GMPView = GMPView()
     
     var imageURL: String? {
         didSet {
@@ -67,26 +68,46 @@ final class SupplementDetailView: UIView {
         }
     }
     
+    var name: String? {
+        didSet {
+            guard let name = name else { return }
+            self.nameLabel.text = name
+        }
+    }
+    
+    var company: String? {
+        didSet {
+            guard let company = company else { return }
+            self.companyLabel.text = company
+        }
+    }
+    
+    var categoryAndIntakeMethod: String? {
+        didSet {
+            guard let categoryAndIntakeMethod = categoryAndIntakeMethod else { return }
+            self.descriptionLabel.text = categoryAndIntakeMethod
+        }
+    }
+    
     var isGMP: Int? = 0 {
         didSet {
             guard let isGMP = isGMP
             else {
                 return
             }
-//            self.gmpView.isHidden = isGMP == 0 ? true : false
-            self.gmp.gmpImageView.isSelected = isGMP == 1 ? true : false
+            self.gmp.isHidden = isGMP == 0 ? true : false
         }
     }
     
     var isA: Int = 0 {
         didSet {
-            self.allergy.text = "알레르기 유발 \(isA)개"
+            self.allergy.text = "알레르기 유발 물질    \(isA)개"
         }
     }
     
     var isC: Int = 0 {
         didSet {
-            self.c.text = "발암 유발 물질 \(isC)개"
+            self.c.text = "발암 유발 물질    \(isC)개"
         }
     }
 
@@ -109,11 +130,11 @@ final class SupplementDetailView: UIView {
 
 private extension SupplementDetailView {
     func configureSubviews() {
-        [companyLabel, nameLabel, descriptionLabel, gmp, allergy, c].forEach {
+        [companyLabel, nameLabel, descriptionLabel, allergy, c].forEach {
             self.labelStack.addArrangedSubview($0)
         }
         
-        [imageView, labelStack].forEach {
+        [imageView, labelStack, gmp].forEach {
             self.addSubview($0)
         }
     }
@@ -128,27 +149,21 @@ private extension SupplementDetailView {
         self.labelStack.snp.makeConstraints { make in
             make.top.equalTo(self.imageView.snp.bottom).offset(10)
             make.leading.equalToSuperview().inset(10)
-            make.bottom.equalToSuperview()
+            make.bottom.equalToSuperview().inset(10)
         }
         
-//        self.gmpView.snp.makeConstraints { make in
-//            make.top.equalTo(self.labelStack.snp.top)
-//            make.leading.equalTo(self.labelStack.snp.trailing).offset(10)
-//            make.trailing.equalToSuperview().inset(10)
-//            make.height.equalTo(20)
-//        }
+        self.gmp.snp.makeConstraints { make in
+            make.top.equalTo(self.labelStack.snp.top)
+            make.leading.equalTo(self.labelStack.snp.trailing).offset(10)
+            make.trailing.equalToSuperview().inset(10)
+            make.height.equalTo(20)
+        }
 
 //        self.functionalityView.snp.makeConstraints { make in
 //            make.top.equalTo(self.labelStack.snp.bottom).offset(10)
 //            make.horizontalEdges.width.equalToSuperview()
 //            make.height.equalTo(self.functionalityView.collectionView.snp.height)
 //            make.bottom.equalToSuperview().priority(.low)
-//        }
-//        self.markStack.snp.makeConstraints { make in
-//            make.top.equalTo(self.labelStack.snp.bottom).offset(5)
-//            make.left.equalToSuperview().inset(10)
-////            make.height.equalTo(self.functionalityView.collectionView.snp.height)
-//            make.bottom.equalToSuperview().inset(10)
 //        }
     }
 }

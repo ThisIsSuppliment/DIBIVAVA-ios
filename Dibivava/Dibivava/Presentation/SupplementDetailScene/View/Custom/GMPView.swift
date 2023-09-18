@@ -8,10 +8,15 @@
 import UIKit
 
 final class GMPView: UIView {
-    let gmpImageView: UIButton = UIButton().then {
-        $0.setImage(UIImage(named: "GrayMark"), for: .normal)
-        $0.setImage(UIImage(named: "GMP"), for: .selected)
+//    let gmpImageView: UIButton = UIButton().then {
+//        $0.setImage(UIImage(named: "GrayMark"), for: .normal)
+//        $0.setImage(UIImage(named: "GMP"), for: .selected)
+//        $0.contentMode = .scaleAspectFit
+//    }
+    
+    let gmpImageView: UIImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
+        $0.image = UIImage(named: "GMP")
     }
     
     let gmpLabel: UILabel = UILabel().then {
