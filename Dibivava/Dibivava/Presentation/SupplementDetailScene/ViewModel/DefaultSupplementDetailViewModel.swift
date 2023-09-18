@@ -21,6 +21,9 @@ final class DefaultSupplementDetailViewModel {
     private let recommendSupplementRelay: BehaviorRelay<[SupplementObject]?> = .init(value: nil)
     private let materialByTypeRelay: PublishRelay<[MaterialType:[Material]]?> = .init()
     
+    private let isARelay: PublishRelay<Int?> = .init()
+    private let isCRelay: PublishRelay<Int?> = .init()
+    
     private var material: [MaterialType:[Material]]
     private let disposeBag = DisposeBag()
     
@@ -39,6 +42,14 @@ final class DefaultSupplementDetailViewModel {
 }
 
 extension DefaultSupplementDetailViewModel: SupplementDetailViewModel {
+    var isA: RxCocoa.Driver<Int?> {
+        self.isARelay.asDriver(onErrorJustReturn: nil)
+    }
+    
+    var isC: RxCocoa.Driver<Int?> {
+        self.isCRelay.asDriver(onErrorJustReturn: nil)
+    }
+    
     var recommendSupplement: Driver<[SupplementObject]?> {
         return self.recommendSupplementRelay.asDriver(onErrorJustReturn: nil)
     }
@@ -137,7 +148,10 @@ private extension DefaultSupplementDetailViewModel {
                 
                 self.numOfAdditiveRelay.accept(additives?.count)
                 self.addMaterialByType(category: .addictive,
-                                       materials: additives)
+                                           materials: additives)
+                
+                self.isARelay.accept(additives?.filter({$0.allergen == 1}).count)
+                self.isCRelay.accept(additives?.filter({$0.level != nil && $0.level != ""}).count)
 
             }, onFailure: {
                 print("Error: Fetch Additives - \($0)")

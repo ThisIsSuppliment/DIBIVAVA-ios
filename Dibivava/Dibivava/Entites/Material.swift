@@ -15,13 +15,17 @@ struct Material: Hashable {
     let level: String?
     var numberOfLines: Int
     var termsWithDescription: String?
+    let allergen: Int?
+    let allergen_description: String?
     
     init(id: String? = UUID().uuidString,
          category: String,
          name: String? = nil,
          termIds: [String]? = nil,
          level: String? = nil,
-         termsWithDescription: String? = nil
+         termsWithDescription: String? = nil,
+         allergen: Int? = nil,
+         allergen_description: String? = nil
     ) {
         self.id = id
         self.category = category
@@ -30,6 +34,8 @@ struct Material: Hashable {
         self.level = level
         self.numberOfLines = 1
         self.termsWithDescription = termsWithDescription
+        self.allergen = allergen
+        self.allergen_description = allergen_description
     }
 }
 
@@ -48,6 +54,8 @@ extension Material {
                  name: self.name,
                  termIds: self.termIds,
                  level: self.level,
-                 termsWithDescription: terms + "\n\n" + termDescription)
+                        termsWithDescription: terms + "\n--\n" + termDescription,
+                        allergen: self.allergen,
+                        allergen_description: self.allergen_description)
     }
 }

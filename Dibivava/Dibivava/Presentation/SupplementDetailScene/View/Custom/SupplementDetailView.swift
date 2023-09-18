@@ -19,6 +19,18 @@ final class SupplementDetailView: UIView {
         $0.spacing = 3
     }
     
+    let gmp: GMPView = GMPView().then {
+        $0.gmpLabel.text = "GMP 인증"
+    }
+    
+    let allergy: UILabel = UILabel().then {
+        $0.text = "알레르기 유발"
+    }
+    
+    let c: UILabel = UILabel().then {
+        $0.text = "발암 유발 물질"
+    }
+    
     let nameLabel: UILabel = UILabel().then {
         $0.textColor = .black
         $0.textAlignment = .center
@@ -40,8 +52,8 @@ final class SupplementDetailView: UIView {
         $0.font = .pretendard(.Regular, size: 14)
     }
     
-    private let functionalityView: FunctionalityView = FunctionalityView()
-    private let gmpView: GMPView = GMPView()
+//    private let functionalityView: FunctionalityView = FunctionalityView()
+//    private let gmpView: GMPView = GMPView()
     
     var imageURL: String? {
         didSet {
@@ -61,7 +73,20 @@ final class SupplementDetailView: UIView {
             else {
                 return
             }
-            self.gmpView.isHidden = isGMP == 0 ? true : false
+//            self.gmpView.isHidden = isGMP == 0 ? true : false
+            self.gmp.gmpImageView.isSelected = isGMP == 1 ? true : false
+        }
+    }
+    
+    var isA: Int = 0 {
+        didSet {
+            self.allergy.text = "알레르기 유발 \(isA)개"
+        }
+    }
+    
+    var isC: Int = 0 {
+        didSet {
+            self.c.text = "발암 유발 물질 \(isC)개"
         }
     }
 
@@ -78,17 +103,17 @@ final class SupplementDetailView: UIView {
     }
     
     func apply(_ functionalities: [String]) {
-        self.functionalityView.applySnapshot(functionalities)
+//        self.functionalityView.applySnapshot(functionalities)
     }
 }
 
 private extension SupplementDetailView {
     func configureSubviews() {
-        [companyLabel, nameLabel, descriptionLabel].forEach {
+        [companyLabel, nameLabel, descriptionLabel, gmp, allergy, c].forEach {
             self.labelStack.addArrangedSubview($0)
         }
         
-        [imageView, labelStack, gmpView, functionalityView].forEach {
+        [imageView, labelStack].forEach {
             self.addSubview($0)
         }
     }
@@ -103,20 +128,27 @@ private extension SupplementDetailView {
         self.labelStack.snp.makeConstraints { make in
             make.top.equalTo(self.imageView.snp.bottom).offset(10)
             make.leading.equalToSuperview().inset(10)
+            make.bottom.equalToSuperview()
         }
         
-        self.gmpView.snp.makeConstraints { make in
-            make.top.equalTo(self.labelStack.snp.top)
-            make.leading.equalTo(self.labelStack.snp.trailing).offset(10)
-            make.trailing.equalToSuperview().inset(10)
-            make.height.equalTo(20)
-        }
+//        self.gmpView.snp.makeConstraints { make in
+//            make.top.equalTo(self.labelStack.snp.top)
+//            make.leading.equalTo(self.labelStack.snp.trailing).offset(10)
+//            make.trailing.equalToSuperview().inset(10)
+//            make.height.equalTo(20)
+//        }
 
-        self.functionalityView.snp.makeConstraints { make in
-            make.top.equalTo(self.labelStack.snp.bottom).offset(10)
-            make.horizontalEdges.width.equalToSuperview()
-            make.height.equalTo(self.functionalityView.collectionView.snp.height)
-            make.bottom.equalToSuperview().priority(.low)
-        }
+//        self.functionalityView.snp.makeConstraints { make in
+//            make.top.equalTo(self.labelStack.snp.bottom).offset(10)
+//            make.horizontalEdges.width.equalToSuperview()
+//            make.height.equalTo(self.functionalityView.collectionView.snp.height)
+//            make.bottom.equalToSuperview().priority(.low)
+//        }
+//        self.markStack.snp.makeConstraints { make in
+//            make.top.equalTo(self.labelStack.snp.bottom).offset(5)
+//            make.left.equalToSuperview().inset(10)
+////            make.height.equalTo(self.functionalityView.collectionView.snp.height)
+//            make.bottom.equalToSuperview().inset(10)
+//        }
     }
 }

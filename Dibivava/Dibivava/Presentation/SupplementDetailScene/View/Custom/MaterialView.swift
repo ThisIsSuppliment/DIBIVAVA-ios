@@ -173,9 +173,13 @@ private extension MaterialView {
             ) as! MaterialCollectionViewCell
             
             cell.delegate = self
+            
+            let d = item.allergen_description != nil ? "\n알레르기 유발\n\(item.allergen_description!)" : ""
+            
             cell.title = item.name
-            cell.terms = item.termsWithDescription
+            cell.terms = (item.termsWithDescription ?? "") +  d
             cell.level = item.level
+            cell.allergy = item.allergen
             cell.isAddictiveMaterial = (item.category == "additive" && item.name != "없음")
             
             return cell

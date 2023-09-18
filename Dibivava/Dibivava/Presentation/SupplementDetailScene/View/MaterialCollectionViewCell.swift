@@ -34,6 +34,17 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
         $0.font = .pretendard(.Regular, size: 15)
     }
     
+    private let allergyLabel: BasePaddingLabel = BasePaddingLabel().then {
+        $0.textColor = .black
+        $0.textAlignment = .center
+        $0.layer.cornerRadius = 10
+        $0.clipsToBounds = true
+        $0.font = .pretendard(.Regular, size: 15)
+        $0.backgroundColor = UIColor(rgb: 0x6785EF)
+        $0.textColor = .white
+        $0.text = "알레르기"
+    }
+    
     private let termLabel: UILabel = UILabel().then {
         $0.textColor = .black
         $0.textAlignment = .left
@@ -91,12 +102,21 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
         }
      }
     
+    var allergy: Int? = nil {
+        didSet {
+            if allergy == 0 {
+                self.allergyLabel.isHidden = true
+            }
+        }
+     }
+    
     var isAddictiveMaterial: Bool = false {
        didSet {
            if !isAddictiveMaterial {
                self.chevronButton.isHidden = true
                self.termLabel.isHidden = true
                self.rankLabel.isHidden = true
+               self.allergyLabel.isHidden = true
                self.termLabel.snp.removeConstraints()
                self.updateAddictiveTitleLabel()
            }
@@ -141,7 +161,7 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
 
 private extension MaterialCollectionViewCell {
     func configureSubviews() {
-        [titleLabel, chevronButton, rankLabel, termLabel, toggleButton].forEach {
+        [titleLabel, chevronButton, allergyLabel, rankLabel, termLabel, toggleButton].forEach {
             self.contentView.addSubview($0)
         }
     }
@@ -157,10 +177,16 @@ private extension MaterialCollectionViewCell {
             make.trailing.equalToSuperview().inset(10)
             make.bottom.equalToSuperview().inset(10)
         }
+        
+        self.allergyLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(10)
+            make.leading.equalTo(self.titleLabel.snp.trailing).inset(5).priority(.low)
+            make.trailing.equalTo(self.chevronButton.snp.trailing).priority(.high)
+        }
       
         self.rankLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(10)
-            make.leading.equalTo(self.titleLabel.snp.trailing)
+            make.leading.equalTo(self.allergyLabel.snp.trailing).offset(5)
             make.trailing.equalTo(self.chevronButton.snp.trailing)
         }
         
@@ -225,6 +251,12 @@ private extension MaterialCollectionViewCell {
         self.titleLabel.snp.makeConstraints { make in
             make.bottom.equalToSuperview().inset(10)
             make.trailing.equalToSuperview().inset(10)
+        }
+    }
+    
+    func update() {
+        self.allergyLabel.snp.updateConstraints { make in
+            make.trailing.equalTo(self.chevronButton.snp.trailing).priority(.high)
         }
     }
 }

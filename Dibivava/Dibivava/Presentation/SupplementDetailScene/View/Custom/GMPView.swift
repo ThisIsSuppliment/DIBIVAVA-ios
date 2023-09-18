@@ -8,16 +8,17 @@
 import UIKit
 
 final class GMPView: UIView {
-    let gmpImageView: UIImageView = UIImageView().then {
+    let gmpImageView: UIButton = UIButton().then {
+        $0.setImage(UIImage(named: "GrayMark"), for: .normal)
+        $0.setImage(UIImage(named: "GMP"), for: .selected)
         $0.contentMode = .scaleAspectFit
-        $0.image = UIImage(named: "GMP")
     }
     
-    private let gmpLabel: UILabel = UILabel().then {
+    let gmpLabel: UILabel = UILabel().then {
         $0.textColor = .black
         $0.textAlignment = .center
         $0.text = "GMP 인증"
-        $0.font = .pretendard(.Regular, size: 14)
+        $0.font = .pretendard(.Regular, size: 12)
     }
 
     override init(frame: CGRect) {

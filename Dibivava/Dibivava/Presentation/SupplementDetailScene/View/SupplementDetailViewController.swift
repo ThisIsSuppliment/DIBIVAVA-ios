@@ -159,6 +159,30 @@ private extension SupplementDetailViewController {
             })
             .disposed(by: self.disposeBag)
         
+        self.viewModel.isA
+            .compactMap { $0 }
+            .drive(onNext: { [weak self] isA in
+                guard let self
+                else {
+                    return
+                }
+                print("isA", isA)
+                self.supplementDetailView.isA = isA
+            })
+            .disposed(by: self.disposeBag)
+        
+        self.viewModel.isC
+            .compactMap { $0 }
+            .drive(onNext: { [weak self] isC in
+                guard let self
+                else {
+                    return
+                }
+                print("isC", isC)
+                self.supplementDetailView.isC = isC
+            })
+            .disposed(by: self.disposeBag)
+        
         Driver.zip(self.viewModel.numOfMainMaterial, self.viewModel.numOfSubMaterial, self.viewModel.numOfAddMaterial)
             .drive(onNext: { [weak self] (numOfMain, numOfSub, numOfAdd) in
                 guard let self
