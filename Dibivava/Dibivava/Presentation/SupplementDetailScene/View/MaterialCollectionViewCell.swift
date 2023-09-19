@@ -170,6 +170,7 @@ private extension MaterialCollectionViewCell {
         self.titleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(10)
             make.leading.equalToSuperview().inset(10)
+//            make.trailing.equalTo(self.allergyLabel.snp.leading).offset(-10)
         }
         
         self.chevronButton.snp.makeConstraints { make in
@@ -180,14 +181,13 @@ private extension MaterialCollectionViewCell {
         
         self.allergyLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(10)
-            make.leading.equalTo(self.titleLabel.snp.trailing).inset(5).priority(.low)
-            make.trailing.equalTo(self.chevronButton.snp.trailing).priority(.high)
+//            make.leading.equalTo(self.titleLabel.snp.trailing).offset(10)
         }
       
         self.rankLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(10)
             make.leading.equalTo(self.allergyLabel.snp.trailing).offset(5)
-            make.trailing.equalTo(self.chevronButton.snp.trailing)
+            make.trailing.equalToSuperview().inset(10)
         }
         
         self.termLabel.snp.makeConstraints { make in
@@ -224,8 +224,11 @@ private extension MaterialCollectionViewCell {
     }
     
     func setAddictiveLevelLabel(_ level: String?) {
-        guard let level = level
+        guard let level = level,
+              level != ""
         else {
+            self.rankLabel.isHidden = true
+            self.updateAllergyLabel()
             return
         }
         
@@ -241,7 +244,7 @@ private extension MaterialCollectionViewCell {
         case "3":
             self.rankLabel.backgroundColor = UIColor(rgb: 0x90CA9D)
         default:
-            print("알 수 없는 등급")
+            print("알 수 없는 등급, ", level)
         }
     }
     
@@ -254,9 +257,10 @@ private extension MaterialCollectionViewCell {
         }
     }
     
-    func update() {
-        self.allergyLabel.snp.updateConstraints { make in
-            make.trailing.equalTo(self.chevronButton.snp.trailing).priority(.high)
+    func updateAllergyLabel() {
+        self.rankLabel.snp.removeConstraints()
+        self.allergyLabel.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().inset(10)
         }
     }
 }
