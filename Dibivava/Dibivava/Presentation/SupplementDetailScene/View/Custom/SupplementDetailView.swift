@@ -26,13 +26,13 @@ final class SupplementDetailView: UIView {
     private let allergy: UILabel = UILabel().then {
         $0.textAlignment = .left
         $0.font = .pretendard(.Regular, size: 14)
-        $0.text = "✓ 알레르기 유발 물질\t0개"
+        $0.text = "✓ 알레르기 유발(가능) 물질\t0개"
     }
     
     private let c: UILabel = UILabel().then {
         $0.textAlignment = .left
         $0.font = .pretendard(.Regular, size: 14)
-        $0.text = "✓ 발암 유발 물질\t\t0개"
+        $0.text = "✓ 발암 유발(가능) 물질\t\t0개"
     }
     
     private let nameLabel: UILabel = UILabel().then {
@@ -103,13 +103,13 @@ final class SupplementDetailView: UIView {
     
     var isA: Int = 0 {
         didSet {
-            self.allergy.text = "✓ 알레르기 유발 물질\t\(isA)개"
+            self.allergy.text = "✓ 알레르기 유발(가능) 물질\t\(isA)개"
         }
     }
     
     var isC: Int = 0 {
         didSet {
-            self.c.text = "✓ 발암 유발 물질\t\t\(isC)개"
+            self.c.text = "✓ 발암 유발(가능) 물질\t\t\(isC)개"
         }
     }
 
