@@ -91,6 +91,7 @@ private extension SupplementDetailViewController {
         self.supplementDetailView.snp.makeConstraints { make in
             make.top.equalTo(self.scrollView.snp.top)
             make.horizontalEdges.width.equalToSuperview()
+            make.height.greaterThanOrEqualTo(300)
         }
 
         self.materialView.snp.makeConstraints { make in
