@@ -91,6 +91,7 @@ private extension SupplementDetailViewController {
         self.supplementDetailView.snp.makeConstraints { make in
             make.top.equalTo(self.scrollView.snp.top)
             make.horizontalEdges.width.equalToSuperview()
+            make.height.greaterThanOrEqualTo(300)
         }
 
         self.materialView.snp.makeConstraints { make in
@@ -108,7 +109,7 @@ private extension SupplementDetailViewController {
         self.resourceView.snp.makeConstraints { make in
             make.top.equalTo(self.recommendationView.snp.bottom).offset(7)
             make.horizontalEdges.equalToSuperview()
-            make.bottom.equalToSuperview().priority(.low)
+            make.bottom.equalToSuperview()//.priority(.low)
         }
     }
     
@@ -123,9 +124,9 @@ private extension SupplementDetailViewController {
                 
                 self.supplementDetailView.isGMP = items.gmpCheck
                 self.supplementDetailView.imageURL = items.imageLink
-                self.supplementDetailView.nameLabel.text = items.name
-                self.supplementDetailView.companyLabel.text = items.company ?? "제조사를 알수없습니다."
-                self.supplementDetailView.descriptionLabel.text = (items.expireDate  ?? "제조일부터의 유통기한을 알수없습니다.") + " | " + (items.intakeMethod ?? "섭취량를 알수없습니다.")
+                self.supplementDetailView.name = items.name
+                self.supplementDetailView.company = items.company ?? "제조사를 알수없습니다."
+                self.supplementDetailView.categoryAndIntakeMethod = (items.category ?? "카테고리를 알수없습니다") + " | " + (items.intakeMethod ?? "섭취량를 알수없습니다.")
                 
                 // TODO: - 개선 필요
                 // 단어 후보 추가해야함
@@ -156,6 +157,30 @@ private extension SupplementDetailViewController {
                     return
                 }
                 self.materialView.applySnapshot(material)
+            })
+            .disposed(by: self.disposeBag)
+        
+        self.viewModel.isA
+            .compactMap { $0 }
+            .drive(onNext: { [weak self] isA in
+                guard let self
+                else {
+                    return
+                }
+                print("isA", isA)
+                self.supplementDetailView.isA = isA
+            })
+            .disposed(by: self.disposeBag)
+        
+        self.viewModel.isC
+            .compactMap { $0 }
+            .drive(onNext: { [weak self] isC in
+                guard let self
+                else {
+                    return
+                }
+                print("isC", isC)
+                self.supplementDetailView.isC = isC
             })
             .disposed(by: self.disposeBag)
         
