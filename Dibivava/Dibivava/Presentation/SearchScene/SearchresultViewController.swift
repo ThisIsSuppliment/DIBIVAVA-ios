@@ -9,13 +9,15 @@ import UIKit
 
 class SearchresultViewController: UIViewController {
     private let resultLabel = UILabel().then{
-        $0.text = "해당 검색은 검색결과가 나오지 않습니다."
-        $0.font = .pretendard(.Bold, size: 15)
-        $0.textColor = .black
+        $0.text = "저희 낄끼빠빠는 약사님이 직접 제품 정보를 하나하나 검수 후 등록하고 있어요. \n 아래 '제품 등록 요청'을 눌러주시면 우선 검토할게요!"
+        $0.font = .pretendard(.SemiBold, size: 12)
+        $0.textColor = UIColor(hexString: "#666670")
+        $0.numberOfLines = 0
+        $0.textAlignment = .center
     }
     private let Img = UIImageView().then{
         $0.contentMode = .scaleAspectFit
-        $0.image = UIImage(named: "noresult")
+        $0.image = UIImage(named: "postLog")
         $0.layer.masksToBounds = true
         $0.backgroundColor = .clear
     }
@@ -23,9 +25,17 @@ class SearchresultViewController: UIViewController {
         $0.backgroundColor = .white
         $0.layer.cornerRadius = 20
     }
+    private let updateBtn = UIButton().then{
+        $0.setTitle("제품 등록 요청", for: .normal)
+        $0.setTitleColor(.mainred, for: .normal)
+        $0.titleLabel?.font = .pretendard(.ExtraBold, size: 15)
+        $0.layer.cornerRadius = 20
+        $0.layer.borderWidth = 1
+        $0.layer.borderColor = UIColor(hexString: "#FF4D4F").cgColor
+        $0.backgroundColor = .white
+    }
     private let closeBtn = UIButton().then{
         $0.setTitle("닫기", for: .normal)
-        $0.titleLabel?.textColor = .white
         $0.titleLabel?.font = .pretendard(.ExtraBold, size: 15)
         $0.layer.cornerRadius = 20
         $0.backgroundColor = .mainred
@@ -33,16 +43,23 @@ class SearchresultViewController: UIViewController {
     private func layout(){
         self.resultLabel.snp.makeConstraints{
             $0.top.equalTo(Img.snp.bottom).offset(22)
-            $0.centerX.equalToSuperview()
+            $0.leading.equalToSuperview().offset(10)
+            $0.trailing.equalToSuperview().offset(-10)
         }
         self.Img.snp.makeConstraints{
-            $0.bottom.equalTo(closeBtn.snp.top).offset(-110)
+            $0.bottom.equalTo(updateBtn.snp.top).offset(-110)
             $0.leading.equalToSuperview().offset(71)
             $0.trailing.equalToSuperview().offset(-72)
             $0.height.equalTo(134)
         }
         self.closeBtn.snp.makeConstraints{
             $0.bottom.equalToSuperview().offset(-19)
+            $0.leading.equalToSuperview().offset(15)
+            $0.trailing.equalToSuperview().offset(-15)
+            $0.height.equalTo(48)
+        }
+        self.updateBtn.snp.makeConstraints{
+            $0.bottom.equalTo(self.closeBtn.snp.top).offset(-10)
             $0.leading.equalToSuperview().offset(15)
             $0.trailing.equalToSuperview().offset(-15)
             $0.height.equalTo(48)
@@ -57,11 +74,15 @@ class SearchresultViewController: UIViewController {
     @objc private func closeBtnClick() {
         self.dismiss(animated: true)
     }
+    @objc private func updateBtnClick() {
+        self.dismiss(animated: true)
+    }
     private func addsubView(){
         self.view.addSubview(contentView)
         self.contentView.addSubview(closeBtn)
         self.contentView.addSubview(resultLabel)
         self.contentView.addSubview(Img)
+        self.contentView.addSubview(updateBtn)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,5 +91,7 @@ class SearchresultViewController: UIViewController {
         self.addsubView()
         self.layout()
         self.closeBtn.addTarget(self, action: #selector(closeBtnClick), for: .touchUpInside)
+        self.updateBtn.addTarget(self, action: #selector(updateBtnClick), for: .touchUpInside)
+
     }
 }
