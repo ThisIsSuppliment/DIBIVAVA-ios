@@ -15,6 +15,7 @@ import SafeAreaBrush
 import Kingfisher
 
 class HomeViewController: UIViewController {
+    private let postlog = postSearchLogAPI()
     private let HomeViewmodel = HomeViewModel()
     private var searchresult: [Supplement] = []
     private var searchInfo: [SupplementResponse] = []
@@ -374,6 +375,14 @@ extension HomeViewController: UISearchBarDelegate {
             }
         }
         if self.searchresult.count == 0 {
+            self.postlog.getSearchResult(log: "0", check: self.searchbar.text!) { response in
+                switch response {
+                case .success(_):
+                    print("로그 성공")
+                case .failure(_) :
+                    print("로그 실패")
+                }
+            }
             self.searchbar.text = ""
             let popup = SearchresultViewController()
             popup.modalPresentationStyle = .overFullScreen
