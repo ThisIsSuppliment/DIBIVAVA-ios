@@ -173,11 +173,9 @@ private extension MaterialView {
             ) as! MaterialCollectionViewCell
             
             cell.delegate = self
-            
-            let d = item.allergen_description != nil ? "\n알레르기 유발\n\(item.allergen_description!)" : ""
-            
             cell.title = item.name
-            cell.terms = (item.termsWithDescription ?? "") +  d
+            cell.terms = item.termsWithDescription
+            cell.allergyDescription = item.allergen_description
             cell.level = item.level
             cell.allergy = item.allergen
             cell.isAddictiveMaterial = (item.category == "additive" && item.name != "없음")
@@ -214,7 +212,7 @@ private extension MaterialView {
     }
     
     func updateCollectionViewHeight(_ height: Double) {
-        print(">> updateCollectionViewHeight", height, self.supplementaryViewCounter)
+//        print(">> updateCollectionViewHeight", height, self.supplementaryViewCounter)
         self.collectionView.snp.updateConstraints { make in
             make.height.greaterThanOrEqualTo(height)
         }

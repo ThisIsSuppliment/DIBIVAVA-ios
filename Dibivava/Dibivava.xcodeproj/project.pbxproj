@@ -38,6 +38,7 @@
 		7C23FF282A7258FF00F047A6 /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C23FF272A7258FF00F047A6 /* ImageCacheManager.swift */; };
 		7C23FF2A2A72591100F047A6 /* MyImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C23FF292A72591100F047A6 /* MyImageCacheManager.swift */; };
 		7C4221C02A6697FA00F5F53F /* SupplementDetailLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4221BF2A6697FA00F5F53F /* SupplementDetailLayout.swift */; };
+		7C4633442ABAD1D30082B220 /* AddictiveDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4633432ABAD1D30082B220 /* AddictiveDescriptionView.swift */; };
 		7C585BB32AA7684A0078F7DA /* RecommendSupplementResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C585BB22AA7684A0078F7DA /* RecommendSupplementResponse.swift */; };
 		7C6068362A66F8C9003B414B /* MaterialCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6068352A66F8C9003B414B /* MaterialCollectionViewCell.swift */; };
 		7C6068382A66FABB003B414B /* SupplementDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6068372A66FABB003B414B /* SupplementDetailView.swift */; };
@@ -138,6 +139,7 @@
 		7C23FF272A7258FF00F047A6 /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
 		7C23FF292A72591100F047A6 /* MyImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyImageCacheManager.swift; sourceTree = "<group>"; };
 		7C4221BF2A6697FA00F5F53F /* SupplementDetailLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementDetailLayout.swift; sourceTree = "<group>"; };
+		7C4633432ABAD1D30082B220 /* AddictiveDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddictiveDescriptionView.swift; sourceTree = "<group>"; };
 		7C585BB22AA7684A0078F7DA /* RecommendSupplementResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendSupplementResponse.swift; sourceTree = "<group>"; };
 		7C6068352A66F8C9003B414B /* MaterialCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialCollectionViewCell.swift; sourceTree = "<group>"; };
 		7C6068372A66FABB003B414B /* SupplementDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementDetailView.swift; sourceTree = "<group>"; };
@@ -344,6 +346,7 @@
 				7C14AAC82A72A08100FD74C9 /* GMPView.swift */,
 				7CA5856B2A88D35000296314 /* RecommendationView.swift */,
 				7CA5856D2A88DDE500296314 /* ResourceView.swift */,
+				7C4633432ABAD1D30082B220 /* AddictiveDescriptionView.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -728,6 +731,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7C0B969B2A932D5E0053B5AB /* SupplementRepository.swift in Sources */,
+				7C4633442ABAD1D30082B220 /* AddictiveDescriptionView.swift in Sources */,
 				7C6091F22A658B370062FF01 /* HomeViewModel.swift in Sources */,
 				7C6068402A67CC06003B414B /* FunctionalityView.swift in Sources */,
 				7C4221C02A6697FA00F5F53F /* SupplementDetailLayout.swift in Sources */,
@@ -972,7 +976,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = " 1.1.0";
+				MARKETING_VERSION = " 1.1.1";
 				PRODUCT_BUNDLE_IDENTIFIER = com.doongeunshin.Dibivava;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1002,7 +1006,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = " 1.1.0";
+				MARKETING_VERSION = " 1.1.1";
 				PRODUCT_BUNDLE_IDENTIFIER = com.doongeunshin.Dibivava;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

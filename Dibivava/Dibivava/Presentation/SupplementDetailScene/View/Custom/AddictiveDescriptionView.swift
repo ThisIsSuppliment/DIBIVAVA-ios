@@ -52,16 +52,14 @@ private extension AddictiveDescriptionView {
     
     func configureConstraints() {
         self.imageView.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(10)
-            make.centerY.equalToSuperview()
-            make.size.equalTo(30)
+            make.leading.equalToSuperview()
+            make.centerY.equalTo(self.label)
         }
         
         self.label.snp.makeConstraints { make in
-            make.left.equalTo(self.imageView.snp.right).offset(10)
-            make.right.equalToSuperview()
-            make.centerY.equalToSuperview()
-            make.verticalEdges.equalToSuperview().inset(10)
+            make.leading.equalTo(self.imageView.snp.trailing).offset(5)
+            make.trailing.lessThanOrEqualToSuperview()
+            make.verticalEdges.equalToSuperview()
         }
     }
 }
