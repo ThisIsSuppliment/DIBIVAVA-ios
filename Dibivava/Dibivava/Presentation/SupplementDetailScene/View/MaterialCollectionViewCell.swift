@@ -42,23 +42,27 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
         $0.descriptionType = .carcinogens
     }
     
-    private lazy var rankLabel: BasePaddingLabel = BasePaddingLabel().then {
-        $0.textColor = .black
-        $0.textAlignment = .center
-        $0.layer.cornerRadius = 10
-        $0.clipsToBounds = true
-        $0.font = .pretendard(.Regular, size: 15)
+    private lazy var rankLabel: UIImageView = UIImageView().then {
+//        $0.textColor = .black
+//        $0.textAlignment = .center
+//        $0.layer.cornerRadius = 10
+//        $0.clipsToBounds = true
+//        $0.font = .pretendard(.Regular, size: 15)
+        $0.image = UIImage(named: "GMP")
+        $0.contentMode = .scaleAspectFit
     }
     
-    private lazy var allergyLabel: BasePaddingLabel = BasePaddingLabel().then {
-        $0.textColor = .black
-        $0.textAlignment = .center
-        $0.layer.cornerRadius = 10
-        $0.clipsToBounds = true
-        $0.font = .pretendard(.Regular, size: 15)
-        $0.backgroundColor = UIColor(rgb: 0x6785EF)
-        $0.textColor = .white
-        $0.text = "알레르기"
+    private lazy var allergyLabel: UIImageView = UIImageView().then {
+//        $0.textColor = .black
+//        $0.textAlignment = .center
+//        $0.layer.cornerRadius = 10
+//        $0.clipsToBounds = true
+//        $0.font = .pretendard(.Regular, size: 15)
+//        $0.backgroundColor = UIColor(rgb: 0x6785EF)
+//        $0.textColor = .white
+//        $0.text = "알레르기"
+        $0.image = UIImage(named: "GMP")
+        $0.contentMode = .scaleAspectFit
     }
     
     private lazy var termLabel: UILabel = UILabel().then {
@@ -194,7 +198,7 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         self.titleLabel.text = nil
-        self.rankLabel.text = nil
+//        self.rankLabel.text = nil
         self.termLabel.text = nil
         self.termLabel.numberOfLines = 1
         self.chevronButton.isHidden = false
@@ -285,20 +289,20 @@ private extension MaterialCollectionViewCell {
             return
         }
         
-        switch level {
-        case "1":
-            self.rankLabel.backgroundColor = UIColor(rgb: 0xFA6363)
-        case "2A":
-            self.rankLabel.backgroundColor = UIColor(rgb: 0xFFB783)
-        case "2B":
-            self.rankLabel.backgroundColor =  UIColor(rgb: 0xEFDA67)
-        case "3":
-            self.rankLabel.backgroundColor = UIColor(rgb: 0x90CA9D)
-        default:
-            print("알 수 없는 등급, ", level)
-        }
+//        switch level {
+//        case "1":
+//            self.rankLabel.backgroundColor = UIColor(rgb: 0xFA6363)
+//        case "2A":
+//            self.rankLabel.backgroundColor = UIColor(rgb: 0xFFB783)
+//        case "2B":
+//            self.rankLabel.backgroundColor =  UIColor(rgb: 0xEFDA67)
+//        case "3":
+//            self.rankLabel.backgroundColor = UIColor(rgb: 0x90CA9D)
+//        default:
+//            print("알 수 없는 등급, ", level)
+//        }
         
-        self.rankLabel.text = level
+//        self.rankLabel.text = level
         self.carcinogensDescriptionView.textLabel = "WHO IARC 등급: \(level)\n설명"
         self.descriptionStackView.addArrangedSubview(self.carcinogensDescriptionView)
     }
