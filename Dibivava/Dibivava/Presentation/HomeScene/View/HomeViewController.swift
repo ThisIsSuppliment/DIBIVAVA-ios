@@ -201,6 +201,13 @@ class HomeViewController: UIViewController {
         fillSafeArea(position: .bottom, color: UIColor(rgb: 0xE5ECEC))
 
     }
+    private func resetSearchbar(){
+        self.searchTableview.isHidden = true
+        self.topView.backgroundColor = UIColor(rgb: 0xE5ECEC)
+        self.fillSafeArea(position: .top, color: UIColor(rgb: 0xE5ECEC))
+        self.logoImgView.isHidden = false
+        self.searchbar.text = ""
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -357,17 +364,14 @@ extension HomeViewController: UISearchBarDelegate {
             self.searchAPI.getSupplementName(name: self.searchbar.text ?? "") { response in
                 switch response {
                 case .success(let searchresponse):
+                    
                     let vc = SupplementDetailViewController(supplementDetailViewModel: DefaultSupplementDetailViewModel(
                         id:searchresponse.result?.supplementID ,
                         supplementUseCase: DefaultSupplementUseCase(supplementRepository: DefaultSupplementRepository(supplementNetworkService: DefaultSupplementNetworkService())))
                     )
+                    self.resetSearchbar()
                     self.navigationController?.navigationBar.tintColor = UIColor.black
                     self.navigationController?.navigationBar.topItem?.title = ""
-                    self.searchTableview.isHidden = true
-                    self.topView.backgroundColor = UIColor(rgb: 0xE5ECEC)
-                    self.fillSafeArea(position: .top, color: UIColor(rgb: 0xE5ECEC))
-                    self.logoImgView.isHidden = false
-                    self.searchbar.text = ""
                     self.navigationController?.pushViewController(vc, animated: false)
                 case .failure(let error):
                     print("/name 오류:\(error)")
@@ -375,7 +379,7 @@ extension HomeViewController: UISearchBarDelegate {
             }
         }
         if self.searchresult.count == 0 {
-            self.postlog.getSearchResult(log: "0", check: self.searchbar.text!) { response in
+            self.postlog.getSearchResult(log: 0, check: self.searchbar.text!, id:0 ) { response in
                 switch response {
                 case .success(_):
                     print("로그 성공")
@@ -396,8 +400,6 @@ extension HomeViewController: UISearchBarDelegate {
             self.topView.backgroundColor = UIColor(rgb: 0xE5ECEC)
                 self.fillSafeArea(position: .top, color: UIColor(rgb: 0xE5ECEC))
                 self.logoImgView.isHidden = false
-
-
         }else{
             self.searchAPI.getSearchResult(name: searchText,limit: 10) { response in
                 switch response {
@@ -447,18 +449,47 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // 화면 전환
-        let vc = SupplementDetailViewController(supplementDetailViewModel: DefaultSupplementDetailViewModel(
-            id:searchresult[indexPath.row].supplementId ,
-            supplementUseCase: DefaultSupplementUseCase(supplementRepository: DefaultSupplementRepository(supplementNetworkService: DefaultSupplementNetworkService())))
-        )
-        self.navigationController?.navigationBar.tintColor = UIColor.black
-        self.navigationController?.navigationBar.topItem?.title = ""
-        self.searchTableview.isHidden = true
-        self.topView.backgroundColor = UIColor(rgb: 0xE5ECEC)
-        self.fillSafeArea(position: .top, color: UIColor(rgb: 0xE5ECEC))
-        self.logoImgView.isHidden = false
-        self.searchbar.text = ""
-        self.navigationController?.pushViewController(vc, animated: false)
+        
+
+
+        print("여기",searchresult[indexPath.row].imagelink)
+        if searchresult[indexPath.row].imagelink == nil {
+            
+            
+            let popup = SearchresultViewController()
+            popup.modalPresentationStyle = .overFullScreen
+            popup.modalTransitionStyle = .crossDissolve
+            self.present(popup,animated: true,completion: nil)
+            
+            self.postlog.getSearchResult(log: 0, check: searchresult[indexPath.row].name, id: searchresult[indexPath.row].supplementId) { response in
+                switch response {
+                case .success(_):
+                    print("로그 성공")
+                case .failure(_) :
+                    print("로그 실패")
+                }
+            }
+            
+        }
+        else {
+            let vc = SupplementDetailViewController(supplementDetailViewModel: DefaultSupplementDetailViewModel(
+                id:searchresult[indexPath.row].supplementId ,
+                supplementUseCase: DefaultSupplementUseCase(supplementRepository: DefaultSupplementRepository(supplementNetworkService: DefaultSupplementNetworkService())))
+            )
+            self.navigationController?.navigationBar.tintColor = UIColor.black
+            self.navigationController?.navigationBar.topItem?.title = ""
+            self.navigationController?.pushViewController(vc, animated: false)
+            self.postlog.getSearchResult(log: 1, check: searchresult[indexPath.row].name, id: searchresult[indexPath.row].supplementId) { response in
+                switch response {
+                case .success(_):
+                    print("로그 성공")
+                case .failure(_) :
+                    print("로그 실패")
+                }
+            }
+        }
+        self.resetSearchbar()
+
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView()
