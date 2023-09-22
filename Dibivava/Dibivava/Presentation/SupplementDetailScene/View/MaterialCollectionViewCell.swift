@@ -27,8 +27,8 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
     
     private lazy var descriptionStackView: UIStackView = UIStackView().then {
         $0.spacing = 0
-        $0.alignment = .fill
         $0.axis = .vertical
+        $0.alignment = .fill
         $0.distribution = .fillEqually
         $0.backgroundColor = .yellow
     }
@@ -37,7 +37,7 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
         $0.backgroundColor = .green
     }
     
-    private lazy var levelDescriptionView: AddictiveDescriptionView = AddictiveDescriptionView().then {
+    private lazy var carcinogensDescriptionView: AddictiveDescriptionView = AddictiveDescriptionView().then {
         $0.backgroundColor = .red
     }
     
@@ -86,17 +86,17 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
     weak var delegate: MaterialCollectionViewCellDelegate?
     private let disposeBag: DisposeBag = DisposeBag()
     
-    private var isToggle: Bool = false {
+    private var toggleOpen: Bool = false {
        didSet {
            guard self.isAddictiveMaterial
            else {
                return
            }
-           self.termLabel.numberOfLines = isToggle ? 0 : 1
+           self.termLabel.numberOfLines = toggleOpen ? 0 : 1
            self.chevronButton.isSelected.toggle()
            self.delegate?.showToggleButtonTapped()
            
-           if isToggle {
+           if toggleOpen {
                self.descriptionStackView.isHidden = false
                
                if self.allergy == 1 {
@@ -104,7 +104,7 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
                }
                
                if self.level != nil && self.level != "" {
-                   self.descriptionStackView.addArrangedSubview(self.levelDescriptionView)
+                   self.descriptionStackView.addArrangedSubview(self.carcinogensDescriptionView)
                }
                
                self.descriptionStackView.snp.remakeConstraints { make in
@@ -115,7 +115,7 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
                    make.bottom.equalToSuperview().inset(10)
                }
                
-           } else if !isToggle {
+           } else if !toggleOpen {
                self.descriptionStackView.isHidden = true
                self.descriptionStackView.snp.remakeConstraints { make in
                    make.top.equalTo(self.termLabel.snp.bottom).offset(10)
@@ -205,7 +205,7 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
         self.chevronButton.isHidden = false
         self.chevronButton.isSelected = false
         self.isAddictiveMaterial = false
-        self.isToggle = false
+        self.toggleOpen = false
         self.allergyDescriptionView.isHidden = true
     }
 }
@@ -265,7 +265,7 @@ private extension MaterialCollectionViewCell {
         self.toggleButton.rx.tap
             .subscribe(onNext: { [weak self] in
                 guard let self else { return }
-                self.isToggle.toggle()
+                self.toggleOpen.toggle()
             })
             .disposed(by: disposeBag)
     }
