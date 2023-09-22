@@ -9,7 +9,7 @@ import UIKit
 
 class SearchresultViewController: UIViewController {
     private let resultLabel = UILabel().then{
-        $0.text = "저희 낄끼빠빠는 약사님이 직접 제품 정보를 하나하나 검수 후 등록하고 있어요. \n 아래 '제품 등록 요청'을 눌러주시면 우선 검토할게요!"
+        $0.text = "공공데이터와 실제 제품 정보간 차이로 인해 약사님이 직접 제품정보를 재검수중이에요.\n 아래 ‘우선 검수 요청’을 눌러주시면 우선 검토할게요!"
         $0.font = .pretendard(.SemiBold, size: 12)
         $0.textColor = UIColor(hexString: "#666670")
         $0.numberOfLines = 0
@@ -26,7 +26,7 @@ class SearchresultViewController: UIViewController {
         $0.layer.cornerRadius = 20
     }
     private let updateBtn = UIButton().then{
-        $0.setTitle("제품 등록 요청", for: .normal)
+        $0.setTitle("우선 검수 요청", for: .normal)
         $0.setTitleColor(.mainred, for: .normal)
         $0.titleLabel?.font = .pretendard(.ExtraBold, size: 15)
         $0.layer.cornerRadius = 20

@@ -12,16 +12,14 @@ struct Supplement: Codable {
     let supplementId: Int
     let name: String
     let company: String
-
+    let imagelink: String?
     enum CodingKeys: String, CodingKey {
         case supplementId = "supplement_id"
         case name
         case company
+        case imagelink = "image_link"
     }
 }
-
-
-
 struct SearchAPIResponse: Codable {
     let message: String
     let result: [Supplement]
@@ -37,6 +35,7 @@ class SearchAPI{
                   switch response.result {
                   case .success(let response):
                       completion(.success(response.result))
+                      print(response)
                   case .failure(let error):
                       completion(.failure(error))
                       print(error)
