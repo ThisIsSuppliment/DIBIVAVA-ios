@@ -78,6 +78,7 @@
 		7CAB72A52A9E4A33000BE625 /* DibivavaViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAB72A42A9E4A33000BE625 /* DibivavaViewModelTest.swift */; };
 		7CAB72AC2A9E4B0B000BE625 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7CAB72AB2A9E4B0B000BE625 /* RxSwift */; };
 		7CB23BE12A9D1F7C004B7795 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7CB23BE02A9D1F7C004B7795 /* RxSwift */; };
+		7CBCB8022ABDA2C300BAB47C /* IarcGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBCB8012ABDA2C300BAB47C /* IarcGroup.swift */; };
 		7CC9524E2A6A6F3B00E2F739 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7CC9524D2A6A6F3B00E2F739 /* RxSwift */; };
 		7CC952502A6A6F4300E2F739 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 7CC9524F2A6A6F4300E2F739 /* RxCocoa */; };
 		7CC9525A2A6A6FCE00E2F739 /* SUIT-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7CC952512A6A6FCE00E2F739 /* SUIT-ExtraBold.ttf */; };
@@ -180,6 +181,7 @@
 		7CA5856D2A88DDE500296314 /* ResourceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceView.swift; sourceTree = "<group>"; };
 		7CAB72A22A9E4A33000BE625 /* DibivavaViewModelTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DibivavaViewModelTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CAB72A42A9E4A33000BE625 /* DibivavaViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DibivavaViewModelTest.swift; sourceTree = "<group>"; };
+		7CBCB8012ABDA2C300BAB47C /* IarcGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IarcGroup.swift; sourceTree = "<group>"; };
 		7CC952512A6A6FCE00E2F739 /* SUIT-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-ExtraBold.ttf"; sourceTree = "<group>"; };
 		7CC952522A6A6FCE00E2F739 /* SUIT-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-Regular.ttf"; sourceTree = "<group>"; };
 		7CC952532A6A6FCE00E2F739 /* SUIT-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-SemiBold.ttf"; sourceTree = "<group>"; };
@@ -430,6 +432,7 @@
 			children = (
 				7C6091F32A658B400062FF01 /* ViewModel */,
 				7C6091F42A658B480062FF01 /* View */,
+				7CBCB8012ABDA2C300BAB47C /* IarcGroup.swift */,
 			);
 			path = SupplementDetailScene;
 			sourceTree = "<group>";
@@ -731,6 +734,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7C0B969B2A932D5E0053B5AB /* SupplementRepository.swift in Sources */,
+				7CBCB8022ABDA2C300BAB47C /* IarcGroup.swift in Sources */,
 				7C4633442ABAD1D30082B220 /* AddictiveDescriptionView.swift in Sources */,
 				7C6091F22A658B370062FF01 /* HomeViewModel.swift in Sources */,
 				7C6068402A67CC06003B414B /* FunctionalityView.swift in Sources */,
