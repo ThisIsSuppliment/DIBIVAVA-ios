@@ -9,6 +9,10 @@ import UIKit
 import SnapKit
 
 final class AddictiveDescriptionView: UIView {
+    enum descriptionType {
+        case allergy
+        case carcinogens
+    }
     
     private let imageView: UIImageView = UIImageView().then {
         $0.image = UIImage(named: "GMP")
@@ -20,7 +24,8 @@ final class AddictiveDescriptionView: UIView {
         $0.textColor = .black
         $0.textAlignment = .left
         $0.font = .pretendard(.Regular, size: 12)
-        $0.text = "설명"
+        $0.text = "설명설명설명설명"
+        $0.backgroundColor = .blue
     }
     
     var textLabel: String? {
@@ -30,10 +35,23 @@ final class AddictiveDescriptionView: UIView {
         }
     }
     
+    var descriptionType: descriptionType? {
+        didSet {
+            switch self.descriptionType {
+            case .allergy:
+                self.imageView.image = UIImage(named: "GMP")
+            case .carcinogens:
+                self.imageView.image = UIImage(named: "GMP")
+            default:
+                break
+            }
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.backgroundColor = .green
+        self.backgroundColor = .white
         self.configureSubView()
         self.configureConstraints()
     }
@@ -58,8 +76,7 @@ private extension AddictiveDescriptionView {
         
         self.label.snp.makeConstraints { make in
             make.leading.equalTo(self.imageView.snp.trailing).offset(5)
-            make.trailing.lessThanOrEqualToSuperview()
-            make.verticalEdges.equalToSuperview()
+            make.verticalEdges.trailing.equalToSuperview()
         }
     }
 }

@@ -19,18 +19,29 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
     static let identifier: String = String(describing: MaterialCollectionViewCell.self)
     
     // MARK: - UI
-    
-    private lazy var addictiveDescriptionView: AddictiveDescriptionView = AddictiveDescriptionView().then {
-        $0.isHidden = true
-    }
-    
     private let titleLabel: UILabel = UILabel().then {
         $0.textColor = .black
         $0.textAlignment = .left
         $0.font = .pretendard(.Regular, size: 17)
     }
     
-    private let rankLabel: BasePaddingLabel = BasePaddingLabel().then {
+    private lazy var descriptionStackView: UIStackView = UIStackView().then {
+        $0.spacing = 0
+        $0.alignment = .fill
+        $0.axis = .vertical
+        $0.distribution = .fillEqually
+        $0.backgroundColor = .yellow
+    }
+    
+    private lazy var allergyDescriptionView: AddictiveDescriptionView = AddictiveDescriptionView().then {
+        $0.backgroundColor = .green
+    }
+    
+    private lazy var levelDescriptionView: AddictiveDescriptionView = AddictiveDescriptionView().then {
+        $0.backgroundColor = .red
+    }
+    
+    private lazy var rankLabel: BasePaddingLabel = BasePaddingLabel().then {
         $0.textColor = .black
         $0.textAlignment = .center
         $0.layer.cornerRadius = 10
@@ -38,7 +49,7 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
         $0.font = .pretendard(.Regular, size: 15)
     }
     
-    private let allergyLabel: BasePaddingLabel = BasePaddingLabel().then {
+    private lazy var allergyLabel: BasePaddingLabel = BasePaddingLabel().then {
         $0.textColor = .black
         $0.textAlignment = .center
         $0.layer.cornerRadius = 10
@@ -49,14 +60,14 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
         $0.text = "알레르기"
     }
     
-    private let termLabel: UILabel = UILabel().then {
+    private lazy var termLabel: UILabel = UILabel().then {
         $0.textColor = .black
         $0.textAlignment = .left
         $0.font = .pretendard(.Regular, size: 12)
         $0.numberOfLines = 1
     }
     
-    private let chevronButton: UIButton = UIButton().then {
+    private lazy var chevronButton: UIButton = UIButton().then {
         $0.tintColor = .darkGray
 
         let normalImage = UIImage(systemName: "chevron.down")
@@ -66,12 +77,13 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
         $0.setImage(selectedImage, for: .selected)
     }
     
-    private let toggleButton: UIButton = UIButton().then {
+    private lazy var toggleButton: UIButton = UIButton().then {
         $0.tintColor = .clear
     }
     
     // MARK: - Properties
     
+    weak var delegate: MaterialCollectionViewCellDelegate?
     private let disposeBag: DisposeBag = DisposeBag()
     
     private var isToggle: Bool = false {
@@ -84,31 +96,32 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
            self.chevronButton.isSelected.toggle()
            self.delegate?.showToggleButtonTapped()
            
-//           self.addictiveDescriptionView.isHidden = isToggle ? false : true
-           
-           if isToggle && self.allergy == 1 {
-               print("isToggle 열림")
-               self.addictiveDescriptionView.isHidden = false
-               self.termLabel.snp.remakeConstraints { make in
-                   make.top.greaterThanOrEqualTo(self.titleLabel.snp.bottom).offset(20)
-                   make.leading.equalTo(self.titleLabel.snp.leading)
-                   make.trailing.equalTo(self.chevronButton.snp.leading).offset(-10)
+           if isToggle {
+               self.descriptionStackView.isHidden = false
+               
+               if self.allergy == 1 {
+                   self.descriptionStackView.addArrangedSubview(self.allergyDescriptionView)
                }
-
-               self.addictiveDescriptionView.snp.makeConstraints { make in
+               
+               if self.level != nil && self.level != "" {
+                   self.descriptionStackView.addArrangedSubview(self.levelDescriptionView)
+               }
+               
+               self.descriptionStackView.snp.remakeConstraints { make in
                    make.top.equalTo(self.termLabel.snp.bottom).offset(10)
                    make.leading.equalTo(self.titleLabel.snp.leading)
                    make.trailing.equalTo(self.chevronButton.snp.leading).offset(-10)
-                   make.height.greaterThanOrEqualTo(30)
+                   make.height.greaterThanOrEqualTo(0)
                    make.bottom.equalToSuperview().inset(10)
                }
-           } else  if !isToggle && self.allergy == 1{
-               self.addictiveDescriptionView.isHidden = true
-               self.addictiveDescriptionView.snp.removeConstraints()
-               self.termLabel.snp.remakeConstraints { make in
-                   make.top.greaterThanOrEqualTo(self.titleLabel.snp.bottom).offset(20)
+               
+           } else if !isToggle {
+               self.descriptionStackView.isHidden = true
+               self.descriptionStackView.snp.remakeConstraints { make in
+                   make.top.equalTo(self.termLabel.snp.bottom).offset(10)
                    make.leading.equalTo(self.titleLabel.snp.leading)
                    make.trailing.equalTo(self.chevronButton.snp.leading).offset(-10)
+                   make.height.equalTo(0)
                    make.bottom.equalToSuperview().inset(10)
                }
            }
@@ -131,8 +144,7 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
     var allergyDescription: String? = nil {
        didSet {
            guard let allergyDescription = allergyDescription else { return }
-           print(allergyDescription)
-           self.addictiveDescriptionView.textLabel = "알르레기 유발\n" + allergyDescription
+           self.allergyDescriptionView.textLabel = "알르레기 유발\n" + allergyDescription
        }
     }
     
@@ -144,12 +156,9 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
     
     var allergy: Int? = nil {
         didSet {
-            if allergy == 0 {
-                self.addictiveDescriptionView.removeFromSuperview()
+            if allergy == 0 { // allergy가 없다면
+                self.allergyDescriptionView.removeFromSuperview()
                 self.allergyLabel.isHidden = true
-            } else {
-                // 알러지가 있다면
-                
             }
         }
      }
@@ -157,7 +166,7 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
     var isAddictiveMaterial: Bool = false {
        didSet {
            if !isAddictiveMaterial {
-               self.addictiveDescriptionView.isHidden = true
+               self.allergyDescriptionView.isHidden = true
                self.chevronButton.isHidden = true
                self.termLabel.isHidden = true
                self.rankLabel.isHidden = true
@@ -167,8 +176,6 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
            }
        }
     }
-    
-    weak var delegate: MaterialCollectionViewCellDelegate?
     
     // MARK: - Init
     
@@ -199,7 +206,7 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
         self.chevronButton.isSelected = false
         self.isAddictiveMaterial = false
         self.isToggle = false
-        self.addictiveDescriptionView.isHidden = true
+        self.allergyDescriptionView.isHidden = true
     }
 }
 
@@ -207,7 +214,7 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
 
 private extension MaterialCollectionViewCell {
     func configureSubviews() {
-        [titleLabel, chevronButton, allergyLabel, rankLabel, termLabel, toggleButton, addictiveDescriptionView].forEach {
+        [titleLabel, chevronButton, allergyLabel, rankLabel, termLabel, descriptionStackView, toggleButton].forEach {
             self.contentView.addSubview($0)
         }
     }
@@ -216,7 +223,6 @@ private extension MaterialCollectionViewCell {
         self.titleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(10)
             make.leading.equalToSuperview().inset(10)
-//            make.trailing.equalTo(self.allergyLabel.snp.leading).offset(-10)
         }
         
         self.chevronButton.snp.makeConstraints { make in
@@ -227,7 +233,6 @@ private extension MaterialCollectionViewCell {
         
         self.allergyLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(10)
-//            make.leading.equalTo(self.titleLabel.snp.trailing).offset(10)
         }
       
         self.rankLabel.snp.makeConstraints { make in
@@ -240,16 +245,15 @@ private extension MaterialCollectionViewCell {
             make.top.greaterThanOrEqualTo(self.titleLabel.snp.bottom).offset(20)
             make.leading.equalTo(self.titleLabel.snp.leading)
             make.trailing.equalTo(self.chevronButton.snp.leading).offset(-10)
+        }
+
+        self.descriptionStackView.snp.makeConstraints { make in
+            make.top.equalTo(self.termLabel.snp.bottom).offset(10)
+            make.leading.equalTo(self.titleLabel.snp.leading)
+            make.trailing.equalTo(self.chevronButton.snp.leading).offset(-10)
+            make.height.equalTo(0)
             make.bottom.equalToSuperview().inset(10)
         }
-        
-//        self.addictiveDescriptionView.snp.makeConstraints { make in
-//            make.top.equalTo(self.termLabel.snp.bottom).offset(20)
-//            make.leading.equalToSuperview()
-//            make.trailing.equalTo(self.chevronButton.snp.leading).offset(-15)
-//            make.height.equalTo(100)
-//            make.bottom.equalToSuperview().inset(10)
-//        }
         
         self.toggleButton.snp.makeConstraints { make in
             make.top.horizontalEdges.equalToSuperview()
