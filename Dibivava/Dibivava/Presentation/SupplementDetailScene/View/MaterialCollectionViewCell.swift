@@ -26,19 +26,20 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
     }
     
     private lazy var descriptionStackView: UIStackView = UIStackView().then {
-        $0.spacing = 0
+        $0.spacing = 0//0.2
         $0.axis = .vertical
         $0.alignment = .fill
         $0.distribution = .fillEqually
-        $0.backgroundColor = .yellow
+        $0.backgroundColor = .lightGray
+        $0.isHidden = true
     }
     
     private lazy var allergyDescriptionView: AddictiveDescriptionView = AddictiveDescriptionView().then {
-        $0.backgroundColor = .green
+        $0.descriptionType = .allergy
     }
     
     private lazy var carcinogensDescriptionView: AddictiveDescriptionView = AddictiveDescriptionView().then {
-        $0.backgroundColor = .red
+        $0.descriptionType = .carcinogens
     }
     
     private lazy var rankLabel: BasePaddingLabel = BasePaddingLabel().then {
@@ -99,14 +100,6 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
            if toggleOpen {
                self.descriptionStackView.isHidden = false
                
-               if self.allergy == 1 {
-                   self.descriptionStackView.addArrangedSubview(self.allergyDescriptionView)
-               }
-               
-               if self.level != nil && self.level != "" {
-                   self.descriptionStackView.addArrangedSubview(self.carcinogensDescriptionView)
-               }
-               
                self.descriptionStackView.snp.remakeConstraints { make in
                    make.top.equalTo(self.termLabel.snp.bottom).offset(10)
                    make.leading.equalTo(self.titleLabel.snp.leading)
@@ -159,6 +152,8 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
             if allergy == 0 { // allergy가 없다면
                 self.allergyDescriptionView.removeFromSuperview()
                 self.allergyLabel.isHidden = true
+            } else if allergy == 1 {
+                self.descriptionStackView.addArrangedSubview(self.allergyDescriptionView)
             }
         }
      }
@@ -248,7 +243,7 @@ private extension MaterialCollectionViewCell {
         }
 
         self.descriptionStackView.snp.makeConstraints { make in
-            make.top.equalTo(self.termLabel.snp.bottom).offset(10)
+            make.top.equalTo(self.termLabel.snp.bottom)
             make.leading.equalTo(self.titleLabel.snp.leading)
             make.trailing.equalTo(self.chevronButton.snp.leading).offset(-10)
             make.height.equalTo(0)
@@ -286,11 +281,9 @@ private extension MaterialCollectionViewCell {
               level != ""
         else {
             self.rankLabel.isHidden = true
-            self.updateAllergyLabel()
+            self.updateAllergyLabelConstraints()
             return
         }
-        
-        self.rankLabel.text = level
         
         switch level {
         case "1":
@@ -304,6 +297,10 @@ private extension MaterialCollectionViewCell {
         default:
             print("알 수 없는 등급, ", level)
         }
+        
+        self.rankLabel.text = level
+        self.carcinogensDescriptionView.textLabel = "WHO IARC 등급: \(level)\n설명"
+        self.descriptionStackView.addArrangedSubview(self.carcinogensDescriptionView)
     }
     
     func updateAddictiveTitleLabel() {
@@ -315,7 +312,7 @@ private extension MaterialCollectionViewCell {
         }
     }
     
-    func updateAllergyLabel() {
+    func updateAllergyLabelConstraints() {
         self.rankLabel.snp.removeConstraints()
         self.allergyLabel.snp.makeConstraints { make in
             make.trailing.equalToSuperview().inset(10)

@@ -24,8 +24,6 @@ final class AddictiveDescriptionView: UIView {
         $0.textColor = .black
         $0.textAlignment = .left
         $0.font = .pretendard(.Regular, size: 12)
-        $0.text = "설명설명설명설명"
-        $0.backgroundColor = .blue
     }
     
     var textLabel: String? {
@@ -43,7 +41,7 @@ final class AddictiveDescriptionView: UIView {
             case .carcinogens:
                 self.imageView.image = UIImage(named: "GMP")
             default:
-                break
+                print("ERROR: 알 수 없는 descriptionType")
             }
         }
     }
@@ -72,10 +70,11 @@ private extension AddictiveDescriptionView {
         self.imageView.snp.makeConstraints { make in
             make.leading.equalToSuperview()
             make.centerY.equalTo(self.label)
+            make.size.equalTo(30)
         }
         
         self.label.snp.makeConstraints { make in
-            make.leading.equalTo(self.imageView.snp.trailing).offset(5)
+            make.leading.equalTo(self.imageView.snp.trailing).offset(15)
             make.verticalEdges.trailing.equalToSuperview()
         }
     }
