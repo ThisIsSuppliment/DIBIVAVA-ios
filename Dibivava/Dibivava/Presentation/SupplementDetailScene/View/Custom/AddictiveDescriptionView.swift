@@ -75,7 +75,8 @@ private extension AddictiveDescriptionView {
         
         self.label.snp.makeConstraints { make in
             make.leading.equalTo(self.imageView.snp.trailing).offset(15)
-            make.verticalEdges.trailing.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.verticalEdges.equalToSuperview()//.inset(5)
         }
     }
 }

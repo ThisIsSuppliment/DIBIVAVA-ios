@@ -73,8 +73,8 @@ class DefaultSupplementUseCase: SupplementUseCase {
                 
                 return additives.map { additive in
                     let termDescription = additive.termIds?.map { term in
-                        "\(term) - " + (self.termsRelay.value[term] ?? "설명 준비중입니다") + "\n"
-                    }.joined(separator: "\n")
+                        "\(term) - " + (self.termsRelay.value[term] ?? "설명 준비중입니다")
+                    }.joined(separator: "\n\n")
                     
                     return additive.setTermsWithDescription(termDescription)
                 }
