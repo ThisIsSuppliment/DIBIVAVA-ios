@@ -103,13 +103,13 @@ final class SupplementDetailView: UIView {
     
     var isA: Int = 0 {
         didSet {
-            self.allergy.text = "✓ 알레르기 유발(가능) 물질\t\(isA)개"
+            self.allergy.text = "알레르기 유발 물질\t\(isA)개"
         }
     }
     
     var isC: Int = 0 {
         didSet {
-            self.carcinogens.text = "✓ 발암 유발(가능) 물질\t\t\(isC)개"
+            self.carcinogens.text = "발암 유발(가능) 물질\t\(isC)개"
         }
     }
 
@@ -168,13 +168,12 @@ private extension SupplementDetailView {
         
         self.allergy.snp.makeConstraints { make in
             make.top.equalTo(self.descriptionLabel.snp.bottom).offset(10)
-            make.horizontalEdges.equalToSuperview().inset(10)
+            make.leading.equalToSuperview().inset(10)
             make.bottom.equalToSuperview().inset(10)
         }
         
         self.carcinogens.snp.makeConstraints { make in
-            make.top.equalTo(self.allergy.snp.bottom).offset(5)
-            make.horizontalEdges.equalToSuperview().inset(10)
+            make.trailing.equalToSuperview().inset(10)
             make.centerY.equalTo(self.allergy).inset(10)
         }
 
