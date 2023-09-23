@@ -109,7 +109,7 @@ private extension SupplementDetailViewController {
         self.resourceView.snp.makeConstraints { make in
             make.top.equalTo(self.recommendationView.snp.bottom).offset(7)
             make.horizontalEdges.equalToSuperview()
-            make.bottom.equalToSuperview()//.priority(.low)
+            make.bottom.equalToSuperview()
         }
     }
     

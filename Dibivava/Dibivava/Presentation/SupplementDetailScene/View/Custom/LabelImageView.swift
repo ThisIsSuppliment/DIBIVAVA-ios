@@ -8,11 +8,6 @@
 import UIKit
 
 final class LabelImageView: UIView {
-//    let checkImageView: UIButton = UIButton().then {
-//        $0.setImage(UIImage(named: "GrayMark"), for: .normal)
-//        $0.setImage(UIImage(named: "GMP"), for: .selected)
-//        $0.contentMode = .scaleAspectFit
-//    }
     
     private let checkImageView: UIImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
@@ -21,27 +16,22 @@ final class LabelImageView: UIView {
     private let titleLabel: UILabel = UILabel().then {
         $0.textColor = .black
         $0.textAlignment = .center
-        $0.font = .pretendard(.Regular, size: 12)
+        $0.font = .pretendard(.Regular, size: 13)
     }
     
-    private var labelImageViewType: LabelImageViewType? {
+    var labelImageViewType: LabelImageViewType? {
         didSet {
             guard let labelImageViewType else { return }
             self.checkImageView.image = UIImage(named: labelImageViewType.imageName)
-        }
-    }
-    
-    var text: String? {
-        didSet {
-            guard let text = text else { return }
-            self.titleLabel.text = text
+            self.titleLabel.text = labelImageViewType.text
         }
     }
 
-    init(frame: CGRect, labelImageViewType: LabelImageViewType) {
-        super.init(frame: frame)
+    init(labelImageViewType: LabelImageViewType) {
+        super.init(frame: .zero)
+        
         self.labelImageViewType = labelImageViewType
-        setupUI()
+        self.setupUI()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -57,15 +47,14 @@ private extension LabelImageView {
         }
         
         self.titleLabel.snp.makeConstraints { make in
-            make.top.leading.equalToSuperview()
+            make.leading.centerY.equalToSuperview()
         }
         
         self.checkImageView.snp.makeConstraints { make in
-            make.size.equalTo(20)
-            make.verticalEdges.bottom.equalToSuperview()
+            make.size.equalTo(25)
             make.leading.equalTo(self.titleLabel.snp.trailing).offset(2)
             make.trailing.equalToSuperview()
-            make.centerY.equalTo(self.titleLabel)
+            make.centerY.equalToSuperview()
         }
     }
 }

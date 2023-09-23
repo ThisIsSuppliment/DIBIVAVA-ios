@@ -12,14 +12,25 @@ enum LabelImageViewType {
     case allergy(isSelected: Bool)
     case carcinogens(isSelected: Bool)
     
+    var text: String {
+        switch self{
+        case .gmp:
+            return "GMP 인증"
+        case .allergy:
+            return "알레르기 유발 물질"
+        case .carcinogens:
+            return "발암 유발(가능) 물질"
+        }
+    }
+    
     var imageName: String {
         switch self{
         case .gmp:
             return "GMP"
         case .allergy(let isSelected):
-            return isSelected ? "GMP" : "GMP"
+            return isSelected ? "GMP" : "GrayMark"
         case .carcinogens(let isSelected):
-            return isSelected ? "GMP" : "GMP"
+            return isSelected ? "GMP" : "GrayMark"
         }
     }
 }

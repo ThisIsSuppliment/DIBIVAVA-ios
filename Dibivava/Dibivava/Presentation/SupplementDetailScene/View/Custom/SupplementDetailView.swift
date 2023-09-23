@@ -9,42 +9,29 @@ import UIKit
 
 final class SupplementDetailView: UIView {
     
+    private var gmpLabelImageView: LabelImageView?
+    private var allergyLabelImageView: LabelImageView = LabelImageView(labelImageViewType: .allergy(isSelected: false))
+    private var carcinogensLabelImageView: LabelImageView = LabelImageView(labelImageViewType: .carcinogens(isSelected: false))
+    
     private let imageView: UIImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
-    }
-    
-    private let gmp: LabelImageView = LabelImageView(frame: .zero, labelImageViewType: .gmp).then {
-        $0.text = "GMP 인증"
-    }
-    
-    private let allergyLabelImageView: LabelImageView = LabelImageView(frame: .zero, labelImageViewType: .allergy(isSelected: true)).then {
-        $0.text = "알레르기 유발 물질"
-        $0.backgroundColor = .yellow
-    }
-    
-    private let carcinogensLabelImageView: LabelImageView = LabelImageView(frame: .zero, labelImageViewType: .carcinogens(isSelected: true)).then {
-        $0.text = "발암 유발(가능) 물질"
-        $0.backgroundColor = .orange
     }
     
     private let nameLabel: UILabel = UILabel().then {
         $0.textColor = .black
         $0.textAlignment = .left
-        $0.text = " "
         $0.font = .pretendard(.Regular, size: 18)
     }
     
     private let companyLabel: UILabel = UILabel().then {
         $0.textColor = .systemGray
         $0.textAlignment = .left
-        $0.text = " "
         $0.font = .pretendard(.Regular, size: 14)
     }
     
-    private let descriptionLabel: UILabel = UILabel().then {
+    private let categoryAndIntakeMethodLabel: UILabel = UILabel().then {
         $0.textColor = .black
         $0.textAlignment = .left
-        $0.text = " "
         $0.font = .pretendard(.Regular, size: 14)
     }
     
@@ -77,29 +64,33 @@ final class SupplementDetailView: UIView {
     var categoryAndIntakeMethod: String? {
         didSet {
             guard let categoryAndIntakeMethod = categoryAndIntakeMethod else { return }
-            self.descriptionLabel.text = categoryAndIntakeMethod
+            self.categoryAndIntakeMethodLabel.text = categoryAndIntakeMethod
         }
     }
     
     var isGMP: Int? = 0 {
         didSet {
-            guard let isGMP = isGMP
-            else {
-                return
-            }
-            self.gmp.isHidden = isGMP == 0 ? true : false
+            self.setGMPLabelImageView(isGMP: isGMP)
         }
     }
     
     var isA: Int = 0 {
         didSet {
-//            self.allergy.text = "알레르기 유발 물질\t\(isA)개"
+//            self.allergyLabelImageView = LabelImageView(
+//                frame: .zero,
+//                labelImageViewType: .allergy(isSelected: isA > 0 ? true : false)
+//            )
+            self.allergyLabelImageView.labelImageViewType = .allergy(isSelected: isA > 0 ? true : false)
         }
     }
     
     var isC: Int = 0 {
         didSet {
-//            self.carcinogens.text = "발암 유발(가능) 물질\t\(isC)개"
+//            self.carcinogensLabelImageView = LabelImageView(
+//                frame: .zero,
+//                labelImageViewType: .carcinogens(isSelected: isC > 0 ? true : false)
+//            )
+            self.carcinogensLabelImageView.labelImageViewType = .carcinogens(isSelected: isC > 0 ? true : false)
         }
     }
 
@@ -119,7 +110,7 @@ final class SupplementDetailView: UIView {
 
 private extension SupplementDetailView {
     func configureSubviews() {        
-        [gmp, imageView, companyLabel, nameLabel, descriptionLabel, allergyLabelImageView, carcinogensLabelImageView].forEach {
+        [imageView, companyLabel, nameLabel, categoryAndIntakeMethodLabel, allergyLabelImageView, carcinogensLabelImageView].forEach {
             self.addSubview($0)
         }
     }
@@ -129,13 +120,6 @@ private extension SupplementDetailView {
             make.top.equalToSuperview()
             make.centerX.equalToSuperview()
             make.size.equalTo(200)
-        }
-        
-        self.gmp.snp.makeConstraints { make in
-            make.top.equalTo(self.companyLabel.snp.top)
-            make.leading.equalTo(self.companyLabel.snp.trailing).offset(10).priority(.low)
-            make.trailing.equalToSuperview().inset(10)
-            make.height.equalTo(20)
         }
         
         self.companyLabel.snp.makeConstraints { make in
@@ -148,15 +132,15 @@ private extension SupplementDetailView {
             make.horizontalEdges.equalToSuperview().inset(10)
         }
         
-        self.descriptionLabel.snp.makeConstraints { make in
+        self.categoryAndIntakeMethodLabel.snp.makeConstraints { make in
             make.top.equalTo(self.nameLabel.snp.bottom).offset(5)
             make.horizontalEdges.equalToSuperview().inset(10)
         }
         
         self.allergyLabelImageView.snp.makeConstraints { make in
-            make.top.equalTo(self.descriptionLabel.snp.bottom).offset(10)
+            make.top.equalTo(self.categoryAndIntakeMethodLabel.snp.bottom).offset(20)
             make.leading.equalToSuperview().inset(10)
-            make.bottom.equalToSuperview().inset(10)
+            make.bottom.equalToSuperview().inset(20)
         }
         
         self.carcinogensLabelImageView.snp.makeConstraints { make in
@@ -164,5 +148,23 @@ private extension SupplementDetailView {
             make.trailing.equalToSuperview().inset(10).priority(.low)
             make.centerY.equalTo(self.allergyLabelImageView).inset(10)
         }
+    }
+    
+    func setGMPLabelImageView(isGMP: Int?) {
+        guard isGMP == 1 else { return }
+        
+        self.gmpLabelImageView = LabelImageView(labelImageViewType: .gmp)
+        
+        guard let gmpLabelImageView = self.gmpLabelImageView else { return }
+        
+        self.addSubview(gmpLabelImageView)
+        
+        gmpLabelImageView.snp.makeConstraints { make in
+            make.top.equalTo(self.companyLabel.snp.top)
+            make.trailing.equalToSuperview().inset(10)
+            make.height.equalTo(20)
+        }
+        
+        gmpLabelImageView.labelImageViewType = .gmp
     }
 }
