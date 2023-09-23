@@ -125,26 +125,8 @@ private extension SupplementDetailViewController {
                 self.supplementDetailView.isGMP = items.gmpCheck
                 self.supplementDetailView.imageURL = items.imageLink
                 self.supplementDetailView.name = items.name
-                self.supplementDetailView.company = items.company ?? "제조사를 알수없습니다."
-                self.supplementDetailView.categoryAndIntakeMethod = (items.category ?? "카테고리를 알수없습니다") + " | " + (items.intakeMethod ?? "섭취량를 알수없습니다.")
-                
-                // TODO: - 개선 필요
-                // 단어 후보 추가해야함
-                //혈행 - 혈핵 순환, 면역기능 - 면역력
-                let functionalityList = ["기억력 개선","혈행개선","간건강","체지방 감소", "갱년기여성 건강", "혈당조절", "눈건강", "면역기능", "관절/뼈건강", "전립선건강", "피로개선", "피부건강", "콜레스테롤 개선", "혈압조절", "긴장완화", "장건강", "칼슘흡수", "요로건강", "소화기능", "항산화", "혈중중성기방개선", "인지능력", "지구력항상", "치아건강", "배뇨기능 개선", "피부상태 개선", "갱년기 남성 건강", "월경전 상태 개선", "정자 운동성 개선", "여성의 질 건강", "어린이 키성장 개선"]
-                
-                var tmpFunctionality: [String] = []
-                
-                for f in items.functionality ?? [] {
-                    for functionality in functionalityList{
-                        if f.contains(functionality) {
-                            tmpFunctionality.append(functionality)
-                        }
-                    }
-                }
-//                print(">>>>> functionality", items.functionality?.forEach({print("- " + $0 + "\n") }))
-//                print(">>>>> 결과", tmpFunctionality)
-                self.supplementDetailView.apply(Set(tmpFunctionality).map {String($0)})
+                self.supplementDetailView.company = items.company ?? "제조사 알수없음"
+                self.supplementDetailView.categoryAndIntakeMethod = (items.category ?? "카테고리 알수없음") + " | " + (items.intakeMethod ?? "섭취량 알수없음")
             })
             .disposed(by: self.disposeBag)
         
@@ -167,7 +149,6 @@ private extension SupplementDetailViewController {
                 else {
                     return
                 }
-                print("isA", isA)
                 self.supplementDetailView.isA = isA
             })
             .disposed(by: self.disposeBag)
@@ -179,7 +160,6 @@ private extension SupplementDetailViewController {
                 else {
                     return
                 }
-                print("isC", isC)
                 self.supplementDetailView.isC = isC
             })
             .disposed(by: self.disposeBag)

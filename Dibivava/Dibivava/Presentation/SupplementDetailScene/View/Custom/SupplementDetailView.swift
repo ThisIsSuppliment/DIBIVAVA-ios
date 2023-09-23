@@ -12,27 +12,19 @@ final class SupplementDetailView: UIView {
     private let imageView: UIImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
     }
-
-//    private let labelStack: UIStackView = UIStackView().then {
-//        $0.alignment = .leading
-//        $0.axis = .vertical
-//        $0.spacing = 3
-//    }
     
     private let gmp: MarkView = MarkView().then {
         $0.titleLabel.text = "GMP 인증"
     }
     
-    private let allergy: UILabel = UILabel().then {
-        $0.textAlignment = .left
-        $0.font = .pretendard(.Regular, size: 14)
-        $0.text = "✓ 알레르기 유발(가능) 물질\t0개"
+    private let allergyMarkView: MarkView = MarkView().then {
+        $0.titleLabel.text = "알레르기 유발 물질"
+        $0.backgroundColor = .yellow
     }
     
-    private let carcinogens: UILabel = UILabel().then {
-        $0.textAlignment = .left
-        $0.font = .pretendard(.Regular, size: 14)
-        $0.text = "✓ 발암 유발(가능) 물질\t\t0개"
+    private let carcinogensMarkView: MarkView = MarkView().then {
+        $0.titleLabel.text = "발암 유발(가능) 물질"
+        $0.backgroundColor = .orange
     }
     
     private let nameLabel: UILabel = UILabel().then {
@@ -55,8 +47,6 @@ final class SupplementDetailView: UIView {
         $0.text = " "
         $0.font = .pretendard(.Regular, size: 14)
     }
-    
-//    private let functionalityView: FunctionalityView = FunctionalityView()
     
     var imageURL: String? {
         didSet {
@@ -103,13 +93,13 @@ final class SupplementDetailView: UIView {
     
     var isA: Int = 0 {
         didSet {
-            self.allergy.text = "알레르기 유발 물질\t\(isA)개"
+//            self.allergy.text = "알레르기 유발 물질\t\(isA)개"
         }
     }
     
     var isC: Int = 0 {
         didSet {
-            self.carcinogens.text = "발암 유발(가능) 물질\t\(isC)개"
+//            self.carcinogens.text = "발암 유발(가능) 물질\t\(isC)개"
         }
     }
 
@@ -124,15 +114,11 @@ final class SupplementDetailView: UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    func apply(_ functionalities: [String]) {
-//        self.functionalityView.applySnapshot(functionalities)
-    }
 }
 
 private extension SupplementDetailView {
     func configureSubviews() {        
-        [gmp, imageView, companyLabel, nameLabel, descriptionLabel, allergy, carcinogens].forEach {
+        [gmp, imageView, companyLabel, nameLabel, descriptionLabel, allergyMarkView, carcinogensMarkView].forEach {
             self.addSubview($0)
         }
     }
@@ -166,22 +152,16 @@ private extension SupplementDetailView {
             make.horizontalEdges.equalToSuperview().inset(10)
         }
         
-        self.allergy.snp.makeConstraints { make in
+        self.allergyMarkView.snp.makeConstraints { make in
             make.top.equalTo(self.descriptionLabel.snp.bottom).offset(10)
             make.leading.equalToSuperview().inset(10)
             make.bottom.equalToSuperview().inset(10)
         }
         
-        self.carcinogens.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().inset(10)
-            make.centerY.equalTo(self.allergy).inset(10)
+        self.carcinogensMarkView.snp.makeConstraints { make in
+            make.leading.equalTo(self.allergyMarkView.snp.trailing).offset(10)
+            make.trailing.equalToSuperview().inset(10).priority(.low)
+            make.centerY.equalTo(self.allergyMarkView).inset(10)
         }
-
-//        self.functionalityView.snp.makeConstraints { make in
-//            make.top.equalTo(self.labelStack.snp.bottom).offset(10)
-//            make.horizontalEdges.width.equalToSuperview()
-//            make.height.equalTo(self.functionalityView.collectionView.snp.height)
-//            make.bottom.equalToSuperview().priority(.low)
-//        }
     }
 }
