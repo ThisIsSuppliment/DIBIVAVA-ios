@@ -1,32 +1,46 @@
 //
-//  MarkView.swift
+//  LabelImageView.swift
 //  Dibivava
 //
-//  Created by dong eun shin on 2023/07/27.
+//  Created by dong eun shin on 2023/09/24.
 //
 
 import UIKit
 
-final class MarkView: UIView {
+final class LabelImageView: UIView {
 //    let checkImageView: UIButton = UIButton().then {
 //        $0.setImage(UIImage(named: "GrayMark"), for: .normal)
 //        $0.setImage(UIImage(named: "GMP"), for: .selected)
 //        $0.contentMode = .scaleAspectFit
 //    }
     
-    let checkImageView: UIImageView = UIImageView().then {
+    private let checkImageView: UIImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
-        $0.image = UIImage(named: "GMP")
     }
     
-    let titleLabel: UILabel = UILabel().then {
+    private let titleLabel: UILabel = UILabel().then {
         $0.textColor = .black
         $0.textAlignment = .center
         $0.font = .pretendard(.Regular, size: 12)
     }
+    
+    private var labelImageViewType: LabelImageViewType? {
+        didSet {
+            guard let labelImageViewType else { return }
+            self.checkImageView.image = UIImage(named: labelImageViewType.imageName)
+        }
+    }
+    
+    var text: String? {
+        didSet {
+            guard let text = text else { return }
+            self.titleLabel.text = text
+        }
+    }
 
-    override init(frame: CGRect) {
+    init(frame: CGRect, labelImageViewType: LabelImageViewType) {
         super.init(frame: frame)
+        self.labelImageViewType = labelImageViewType
         setupUI()
     }
 
@@ -34,8 +48,10 @@ final class MarkView: UIView {
         super.init(coder: aDecoder)
         setupUI()
     }
+}
 
-    private func setupUI() {
+private extension LabelImageView {
+    func setupUI() {
         [checkImageView, titleLabel].forEach {
             self.addSubview($0)
         }
@@ -53,3 +69,5 @@ final class MarkView: UIView {
         }
     }
 }
+
+

@@ -13,17 +13,17 @@ final class SupplementDetailView: UIView {
         $0.contentMode = .scaleAspectFit
     }
     
-    private let gmp: MarkView = MarkView().then {
-        $0.titleLabel.text = "GMP 인증"
+    private let gmp: LabelImageView = LabelImageView(frame: .zero, labelImageViewType: .gmp).then {
+        $0.text = "GMP 인증"
     }
     
-    private let allergyMarkView: MarkView = MarkView().then {
-        $0.titleLabel.text = "알레르기 유발 물질"
+    private let allergyLabelImageView: LabelImageView = LabelImageView(frame: .zero, labelImageViewType: .allergy(isSelected: true)).then {
+        $0.text = "알레르기 유발 물질"
         $0.backgroundColor = .yellow
     }
     
-    private let carcinogensMarkView: MarkView = MarkView().then {
-        $0.titleLabel.text = "발암 유발(가능) 물질"
+    private let carcinogensLabelImageView: LabelImageView = LabelImageView(frame: .zero, labelImageViewType: .carcinogens(isSelected: true)).then {
+        $0.text = "발암 유발(가능) 물질"
         $0.backgroundColor = .orange
     }
     
@@ -105,6 +105,7 @@ final class SupplementDetailView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         self.configureSubviews()
         self.configureConstraints()
         
@@ -118,7 +119,7 @@ final class SupplementDetailView: UIView {
 
 private extension SupplementDetailView {
     func configureSubviews() {        
-        [gmp, imageView, companyLabel, nameLabel, descriptionLabel, allergyMarkView, carcinogensMarkView].forEach {
+        [gmp, imageView, companyLabel, nameLabel, descriptionLabel, allergyLabelImageView, carcinogensLabelImageView].forEach {
             self.addSubview($0)
         }
     }
@@ -152,16 +153,16 @@ private extension SupplementDetailView {
             make.horizontalEdges.equalToSuperview().inset(10)
         }
         
-        self.allergyMarkView.snp.makeConstraints { make in
+        self.allergyLabelImageView.snp.makeConstraints { make in
             make.top.equalTo(self.descriptionLabel.snp.bottom).offset(10)
             make.leading.equalToSuperview().inset(10)
             make.bottom.equalToSuperview().inset(10)
         }
         
-        self.carcinogensMarkView.snp.makeConstraints { make in
-            make.leading.equalTo(self.allergyMarkView.snp.trailing).offset(10)
+        self.carcinogensLabelImageView.snp.makeConstraints { make in
+            make.leading.equalTo(self.allergyLabelImageView.snp.trailing).offset(10)
             make.trailing.equalToSuperview().inset(10).priority(.low)
-            make.centerY.equalTo(self.allergyMarkView).inset(10)
+            make.centerY.equalTo(self.allergyLabelImageView).inset(10)
         }
     }
 }
