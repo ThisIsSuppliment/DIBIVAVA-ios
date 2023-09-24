@@ -26,14 +26,12 @@ final class AddictiveDescriptionView: UIView {
     
     var textLabel: String? {
         didSet {
-            guard var textLabel = textLabel else { return }
-
-            let attributedText = NSMutableAttributedString(string: textLabel)
-            let boldFont = UIFont.boldSystemFont(ofSize: 14)
-
-            guard let range = labelImageViewType.boldRange else { return }
+            guard let textLabel = textLabel else { return }
             
-            attributedText.addAttribute(.font, value: boldFont, range: range)
+            let attributedText = NSMutableAttributedString(string: textLabel)
+            attributedText.addAttribute(.font,
+                                        value: UIFont.pretendard(.Bold, size: 14),
+                                        range: labelImageViewType.boldRange ?? NSRange())
             
             self.label.attributedText = attributedText
         }
