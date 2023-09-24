@@ -10,6 +10,8 @@ import UIKit
 final class FunctionalityCollectionViewCell: UICollectionViewCell {
     static let identifier: String = String(describing: FunctionalityCollectionViewCell.self)
     
+    // MARK: - UI
+    
     private let titleLabel: UILabel = UILabel().then {
         $0.numberOfLines = 0
         $0.textColor = .black
@@ -33,8 +35,18 @@ final class FunctionalityCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(title: String) {
-        self.titleLabel.text = title
+    var title: String? = nil {
+        didSet {
+            guard let title = title
+            else {
+                return
+            }
+            self.titleLabel.text = title
+        }
+    }
+    
+    override func prepareForReuse() {
+        self.titleLabel.text = ""
     }
 }
 

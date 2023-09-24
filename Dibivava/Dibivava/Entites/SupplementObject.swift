@@ -16,6 +16,7 @@ struct SupplementObject: Hashable {
     let imageLink: String?
     let gmpCheck: Int?
     let keyword: String?
+    let category: String?
     
     init(supplementID: String? = UUID().uuidString,
          name: String?,
@@ -28,7 +29,8 @@ struct SupplementObject: Hashable {
          additive: [String]?,
          imageLink: String?,
          gmpCheck: Int?,
-         keyword: String?
+         keyword: String?,
+         category: String?
     ) {
         self.supplementID = supplementID
         self.name = name
@@ -42,5 +44,6 @@ struct SupplementObject: Hashable {
         self.imageLink = imageLink
         self.gmpCheck = gmpCheck
         self.keyword = keyword
+        self.category = category
     }
 }

@@ -92,7 +92,7 @@ private extension FunctionalityView {
                 for: indexPath
             ) as! FunctionalityCollectionViewCell
             
-            cell.configure(title: item)
+            cell.title = item
 
             return cell
         }

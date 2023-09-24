@@ -34,6 +34,9 @@ protocol SupplementDetailViewModelOutput {
     
     /// 추천 건강기능 식품
     var recommendSupplement: Driver<[SupplementObject]?> { get }
+    
+    var isA: Driver<Int?> { get }
+    var isC: Driver<Int?> { get }
 }
 
 protocol SupplementDetailViewModel: SupplementDetailViewModelInput, SupplementDetailViewModelOutput {}

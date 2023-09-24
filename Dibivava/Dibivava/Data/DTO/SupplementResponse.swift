@@ -9,7 +9,7 @@ import Foundation
 
 struct SupplementResponse: Decodable {
     let message: String
-    let result: SupplementDTO
+    let result: SupplementDTO?
 }
 
 // MARK: - SupplementDetail
@@ -23,6 +23,7 @@ struct SupplementDTO: Decodable {
     let gmpCheck: Int?
     let keyword: String?
     let createdAt, updatedAt: String?
+    let category: String?
 
     enum CodingKeys: String, CodingKey {
         case supplementID = "supplement_id"
@@ -35,23 +36,29 @@ struct SupplementDTO: Decodable {
         case additive, createdAt, updatedAt
         case imageLink = "image_link"
         case gmpCheck = "gmp_check"
-        case keyword
+        case keyword, category
     }
 }
 
 extension SupplementResponse {
-    func toDomain() -> SupplementObject {
-        SupplementObject(supplementID: String(result.supplementID),
-                         name: result.name,
-                         company: result.company,
-                         expireDate: result.expireDate,
-                         intakeMethod: result.intakeMethod,
-                         functionality: result.functionality,
-                         mainMaterial: result.mainMaterial,
-                         subMaterial: result.subMaterial,
-                         additive: result.additive,
-                         imageLink: result.imageLink,
-                         gmpCheck: result.gmpCheck,
-                         keyword: result.keyword)
+    func toDomain() -> SupplementObject? {
+        guard let result = result
+        else {
+            return nil
+        }
+        
+        return SupplementObject(supplementID: String(result.supplementID),
+                                name: result.name,
+                                company: result.company,
+                                expireDate: result.expireDate,
+                                intakeMethod: result.intakeMethod,
+                                functionality: result.functionality,
+                                mainMaterial: result.mainMaterial,
+                                subMaterial: result.subMaterial,
+                                additive: result.additive,
+                                imageLink: result.imageLink,
+                                gmpCheck: result.gmpCheck,
+                                keyword: result.keyword,
+                                category: result.category)
     }
 }

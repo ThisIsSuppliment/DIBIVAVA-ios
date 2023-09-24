@@ -58,27 +58,29 @@ private extension DefaultSupplementNetworkService {
                 single(.failure(NetworkError.invalidURL))
                 return Disposables.create()
             }
-
+//            print(">>", requestURL)
             AF.request(requestURL).responseData { response in
                 switch response.result {
                 case .success(let data):
                     do {
                         let decoder = JSONDecoder()
                         let decodedData = try decoder.decode(T.self, from: data)
-//                        print(">>requestURL", requestURL, "\n")
                         single(.success(decodedData))
                     } catch let DecodingError.dataCorrupted(context) {
                         print(context)
+                        single(.failure(NetworkError.failedDecode))
                     } catch let DecodingError.keyNotFound(key, context) {
                         print("++Key '\(key)' not found:", context.debugDescription)
-//                        print("codingPath:", context.codingPath)
                         print("++requestURL", requestURL, "\n")
+                        single(.failure(NetworkError.failedDecode))
                     } catch let DecodingError.valueNotFound(value, context) {
                         print("Value '\(value)' not found:", context.debugDescription)
                         print("codingPath:", context.codingPath)
+                        single(.failure(NetworkError.failedDecode))
                     } catch let DecodingError.typeMismatch(type, context)  {
                         print("Type '\(type)' mismatch:", context.debugDescription)
                         print("codingPath:", context.codingPath)
+                        single(.failure(NetworkError.failedDecode))
                     } catch let error {
                         print("Error: DefaultSupplementNetworkService - \(error.localizedDescription)")
                         print("requestURL", requestURL)

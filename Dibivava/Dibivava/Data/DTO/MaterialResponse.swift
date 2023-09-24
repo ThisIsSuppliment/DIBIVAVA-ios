@@ -21,6 +21,8 @@ struct MaterialDTO: Decodable {
     let updatedAt: String?
     let level: String?
     let keyword: String?
+    let allergen: Int?
+    let allergen_description: String?
     
     enum CodingKeys: String, CodingKey {
         case materialId = "material_id"
@@ -28,6 +30,7 @@ struct MaterialDTO: Decodable {
         case termIds = "term_ids"
         case createdAt, updatedAt, keyword
         case level = "who_iarc_level"
+        case allergen, allergen_description
     }
 }
 
@@ -41,13 +44,12 @@ extension MaterialResponse {
         }
         
         return Material(id: String(id),
-                 category: category,
-                 name: result.name,
-                 termIds: result.termIds,
-                 level: result.level,
-                 termsWithDescription: nil)
+                        category: category,
+                        name: result.name,
+                        termIds: result.termIds,
+                        level: result.level,
+                        termsWithDescription: nil,
+                        allergen: result.allergen,
+                        allergen_description: result.allergen_description)
     }
 }
-// 고려은단 멀티비타민 이뮨샷
-// 루테인 지아잔틴 아스타잔틴
-// 보령

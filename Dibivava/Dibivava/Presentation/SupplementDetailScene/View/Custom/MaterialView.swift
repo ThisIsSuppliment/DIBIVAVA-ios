@@ -6,7 +6,6 @@
 //
 
 import UIKit
-
 import SnapKit
 import RxSwift
 import RxCocoa
@@ -122,12 +121,11 @@ final class MaterialView: UIView, UICollectionViewDelegate {
             }
         }
 
-        self.dataSource?.apply(snapshot, animatingDifferences: false)
-        
-        self.collectionView.layoutIfNeeded()
-
-        let collectionViewHeight = collectionView.collectionViewLayout.collectionViewContentSize.height
-        self.updateCollectionViewHeight(collectionViewHeight)
+        self.dataSource?.apply(snapshot, animatingDifferences: false) {
+            let collectionViewHeight = self.collectionView.collectionViewLayout.collectionViewContentSize.height
+            self.updateCollectionViewHeight(collectionViewHeight)
+            self.collectionView.layoutIfNeeded()
+        }
     }
 }
 
@@ -177,7 +175,9 @@ private extension MaterialView {
             cell.delegate = self
             cell.title = item.name
             cell.terms = item.termsWithDescription
+            cell.allergyDescription = item.allergen_description
             cell.level = item.level
+            cell.allergy = item.allergen
             cell.isAddictiveMaterial = (item.category == "additive" && item.name != "없음")
             
             return cell
@@ -212,7 +212,7 @@ private extension MaterialView {
     }
     
     func updateCollectionViewHeight(_ height: Double) {
-        print(">> updateCollectionViewHeight", height, self.supplementaryViewCounter)
+//        print(">> updateCollectionViewHeight", height, self.supplementaryViewCounter)
         self.collectionView.snp.updateConstraints { make in
             make.height.greaterThanOrEqualTo(height)
         }

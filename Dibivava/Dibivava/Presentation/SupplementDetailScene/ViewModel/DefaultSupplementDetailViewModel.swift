@@ -10,7 +10,8 @@ import RxSwift
 import RxCocoa
 
 final class DefaultSupplementDetailViewModel {
-    private var id: Int
+    // TODO: - id가 Nil일때 UI 처리하기
+    private var id: Int?
     private let supplementUseCase: SupplementUseCase
     
     private let supplementDetailRelay: PublishRelay<SupplementObject?> = .init()
@@ -18,12 +19,15 @@ final class DefaultSupplementDetailViewModel {
     private let numOfSubMaterialRelay: PublishRelay<Int?> = .init()
     private let numOfAdditiveRelay: PublishRelay<Int?> = .init()
     private let recommendSupplementRelay: BehaviorRelay<[SupplementObject]?> = .init(value: nil)
-    private let materialByTypeRelay: BehaviorRelay<[MaterialType:[Material]]?> = .init(value: nil)
+    private let materialByTypeRelay: PublishRelay<[MaterialType:[Material]]?> = .init()
+    
+    private let isARelay: PublishRelay<Int?> = .init()
+    private let isCRelay: PublishRelay<Int?> = .init()
     
     private var material: [MaterialType:[Material]]
     private let disposeBag = DisposeBag()
     
-    init(id: Int,
+    init(id: Int?,
          supplementUseCase: SupplementUseCase
     ) {
         self.id = id
@@ -34,12 +38,18 @@ final class DefaultSupplementDetailViewModel {
                 print("ERROR: fetchTerm - ", error)
             })
             .disposed(by: self.disposeBag)
-        
-        print("-------------------------------------------------ID", id)
     }
 }
 
 extension DefaultSupplementDetailViewModel: SupplementDetailViewModel {
+    var isA: RxCocoa.Driver<Int?> {
+        self.isARelay.asDriver(onErrorJustReturn: nil)
+    }
+    
+    var isC: RxCocoa.Driver<Int?> {
+        self.isCRelay.asDriver(onErrorJustReturn: nil)
+    }
+    
     var recommendSupplement: Driver<[SupplementObject]?> {
         return self.recommendSupplementRelay.asDriver(onErrorJustReturn: nil)
     }
@@ -65,7 +75,12 @@ extension DefaultSupplementDetailViewModel: SupplementDetailViewModel {
     }
     
     func viewWillAppear() {
-        self.fetchSupplement(with: String(self.id))
+        guard let id = self.id
+        else {
+            return
+        }
+        
+        self.fetchSupplement(with: String(id))
     }
     
     func showSelectedRecommendSupplement(with indexPath: IndexPath) {
@@ -94,7 +109,8 @@ private extension DefaultSupplementDetailViewModel {
     func fetchSupplement(with id: String) {
         self.supplementUseCase.fetchSupplement(id: id)
             .subscribe(onSuccess: { [weak self] supplement in
-                guard let self
+                guard let self,
+                      let supplement = supplement
                 else {
                     return
                 }
@@ -132,7 +148,10 @@ private extension DefaultSupplementDetailViewModel {
                 
                 self.numOfAdditiveRelay.accept(additives?.count)
                 self.addMaterialByType(category: .addictive,
-                                       materials: additives)
+                                           materials: additives)
+                
+                self.isARelay.accept(additives?.filter({$0.allergen == 1}).count)
+                self.isCRelay.accept(additives?.filter({$0.level != nil && $0.level != ""}).count)
 
             }, onFailure: {
                 print("Error: Fetch Additives - \($0)")

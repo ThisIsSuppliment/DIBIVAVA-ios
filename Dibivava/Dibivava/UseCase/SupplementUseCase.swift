@@ -14,7 +14,7 @@ protocol SupplementUseCase {
     func fetchTerm() -> Completable
     
     /// 건강기능 식품 데이터 불러오기
-    func fetchSupplement(id: String) -> Single<SupplementObject>
+    func fetchSupplement(id: String) -> Single<SupplementObject?>
     
     /// 첨가제 설명이 포함된 건강기능 식품 원재료 데이터 불러오기
     func fetchMaterials(id: [String]?) -> Single<[Material]?>
@@ -59,7 +59,7 @@ class DefaultSupplementUseCase: SupplementUseCase {
     }
 
     
-    func fetchSupplement(id: String) -> Single<SupplementObject> {
+    func fetchSupplement(id: String) -> Single<SupplementObject?> {
         self.supplementRepository.fetchSupplement(with: id)
     }
     
@@ -73,8 +73,8 @@ class DefaultSupplementUseCase: SupplementUseCase {
                 
                 return additives.map { additive in
                     let termDescription = additive.termIds?.map { term in
-                        "\(term) - " + (self.termsRelay.value[term] ?? "설명 준비중입니다") + "\n"
-                    }.joined(separator: "\n")
+                        "\(term) - " + (self.termsRelay.value[term] ?? "설명 준비중입니다")
+                    }.joined(separator: "\n\n")
                     
                     return additive.setTermsWithDescription(termDescription)
                 }
