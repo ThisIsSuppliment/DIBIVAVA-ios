@@ -149,7 +149,7 @@ private extension SupplementDetailViewController {
                 else {
                     return
                 }
-                self.supplementDetailView.isA = isA
+                self.supplementDetailView.isAllergy = isA
             })
             .disposed(by: self.disposeBag)
         

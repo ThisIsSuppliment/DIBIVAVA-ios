@@ -21,18 +21,21 @@ final class SupplementDetailView: UIView {
         $0.textColor = .black
         $0.textAlignment = .left
         $0.font = .pretendard(.Regular, size: 18)
+        $0.numberOfLines = 2
     }
     
     private let companyLabel: UILabel = UILabel().then {
         $0.textColor = .systemGray
         $0.textAlignment = .left
         $0.font = .pretendard(.Regular, size: 14)
+        $0.numberOfLines = 2
     }
     
     private let categoryAndIntakeMethodLabel: UILabel = UILabel().then {
         $0.textColor = .black
         $0.textAlignment = .left
         $0.font = .pretendard(.Regular, size: 14)
+        $0.numberOfLines = 2
     }
     
     var imageURL: String? {
@@ -74,13 +77,13 @@ final class SupplementDetailView: UIView {
         }
     }
     
-    var isA: Int = 0 {
+    var isAllergy: Int = 0 {
         didSet {
 //            self.allergyLabelImageView = LabelImageView(
 //                frame: .zero,
 //                labelImageViewType: .allergy(isSelected: isA > 0 ? true : false)
 //            )
-            self.allergyLabelImageView.labelImageViewType = .allergy(isSelected: isA > 0 ? true : false)
+            self.allergyLabelImageView.labelImageViewType = .allergy(isSelected: isAllergy > 0 ? true : false)
         }
     }
     
@@ -125,6 +128,7 @@ private extension SupplementDetailView {
         self.companyLabel.snp.makeConstraints { make in
             make.top.equalTo(self.imageView.snp.bottom).offset(5)
             make.leading.equalToSuperview().inset(10)
+            make.trailing.equalTo(self.snp.centerX)
         }
         
         self.nameLabel.snp.makeConstraints { make in
