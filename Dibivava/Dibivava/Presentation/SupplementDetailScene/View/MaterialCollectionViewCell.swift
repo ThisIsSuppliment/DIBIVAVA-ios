@@ -34,15 +34,13 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
         $0.isHidden = true
     }
     
-    private lazy var allergyDescriptionView: AddictiveDescriptionView = AddictiveDescriptionView().then {
-        $0.descriptionType = .allergy(isSelected: true)
-//        $0.backgroundColor = .systemBlue
-    }
+    private lazy var allergyDescriptionView: AddictiveDescriptionView = AddictiveDescriptionView(labelImageViewType: .allergy(isSelected: true))
     
-    private lazy var carcinogensDescriptionView: AddictiveDescriptionView = AddictiveDescriptionView().then {
-        $0.descriptionType = .carcinogens(isSelected: true)
+    private lazy var carcinogensDescriptionView: AddictiveDescriptionView = AddictiveDescriptionView(labelImageViewType: .carcinogens(isSelected: true))
+//        .then {
+//        $0.descriptionType = .carcinogens(isSelected: true)
 //        $0.backgroundColor = .orange
-    }
+//    }
     
     private lazy var rankLabel: UIImageView = UIImageView().then {
         $0.image = UIImage(named: LabelImageViewType.carcinogens(isSelected: true).imageName)
@@ -131,7 +129,7 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
     var allergyDescription: String? = nil {
        didSet {
            guard let allergyDescription = allergyDescription else { return }
-           self.allergyDescriptionView.textLabel = "\n알르레기 유발\n\(allergyDescription)\n"
+           self.allergyDescriptionView.textLabel = "\n알레르기 유발\n\(allergyDescription)\n"
        }
     }
     

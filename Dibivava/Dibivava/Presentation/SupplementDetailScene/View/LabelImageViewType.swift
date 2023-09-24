@@ -24,13 +24,24 @@ enum LabelImageViewType {
     }
     
     var imageName: String {
-        switch self{
+        switch self {
         case .gmp:
             return "GMP"
         case .allergy(let isSelected):
             return isSelected ? "Allergy1" : "Allergy0"
         case .carcinogens(let isSelected):
             return isSelected ? "Carcinogens1" : "Carcinogens0"
+        }
+    }
+    
+    var boldRange: NSRange? {
+        switch self {
+        case .gmp:
+            return nil
+        case .allergy:
+            return NSRange(location: 1, length: 7)
+        case .carcinogens:
+            return NSRange(location: 1, length: 12)
         }
     }
 }
