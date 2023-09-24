@@ -28,9 +28,9 @@ enum LabelImageViewType {
         case .gmp:
             return "GMP"
         case .allergy(let isSelected):
-            return isSelected ? "GMP" : "GrayMark"
+            return isSelected ? "Allergy1" : "Allergy0"
         case .carcinogens(let isSelected):
-            return isSelected ? "GMP" : "GrayMark"
+            return isSelected ? "Carcinogens1" : "Carcinogens0"
         }
     }
 }

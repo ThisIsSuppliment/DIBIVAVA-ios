@@ -87,13 +87,13 @@ final class SupplementDetailView: UIView {
         }
     }
     
-    var isC: Int = 0 {
+    var isCarcinogens: Int = 0 {
         didSet {
 //            self.carcinogensLabelImageView = LabelImageView(
 //                frame: .zero,
 //                labelImageViewType: .carcinogens(isSelected: isC > 0 ? true : false)
 //            )
-            self.carcinogensLabelImageView.labelImageViewType = .carcinogens(isSelected: isC > 0 ? true : false)
+            self.carcinogensLabelImageView.labelImageViewType = .carcinogens(isSelected: isCarcinogens > 0 ? true : false)
         }
     }
 

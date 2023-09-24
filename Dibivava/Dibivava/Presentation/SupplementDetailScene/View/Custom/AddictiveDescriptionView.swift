@@ -33,16 +33,10 @@ final class AddictiveDescriptionView: UIView {
         }
     }
     
-    var descriptionType: descriptionType? {
+    var descriptionType: LabelImageViewType? {
         didSet {
-            switch self.descriptionType {
-            case .allergy:
-                self.imageView.image = UIImage(named: "GMP")
-            case .carcinogens:
-                self.imageView.image = UIImage(named: "GMP")
-            default:
-                print("ERROR: 알 수 없는 descriptionType")
-            }
+            guard let descriptionType = self.descriptionType else { return }
+            self.imageView.image = UIImage(named: descriptionType.imageName)
         }
     }
     

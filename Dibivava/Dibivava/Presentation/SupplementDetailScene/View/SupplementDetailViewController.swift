@@ -160,7 +160,7 @@ private extension SupplementDetailViewController {
                 else {
                     return
                 }
-                self.supplementDetailView.isC = isC
+                self.supplementDetailView.isCarcinogens = isC
             })
             .disposed(by: self.disposeBag)
         

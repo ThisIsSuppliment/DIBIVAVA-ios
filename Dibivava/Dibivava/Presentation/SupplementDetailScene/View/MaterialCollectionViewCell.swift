@@ -35,22 +35,22 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
     }
     
     private lazy var allergyDescriptionView: AddictiveDescriptionView = AddictiveDescriptionView().then {
-        $0.descriptionType = .allergy
+        $0.descriptionType = .allergy(isSelected: true)
 //        $0.backgroundColor = .systemBlue
     }
     
     private lazy var carcinogensDescriptionView: AddictiveDescriptionView = AddictiveDescriptionView().then {
-        $0.descriptionType = .carcinogens
+        $0.descriptionType = .carcinogens(isSelected: true)
 //        $0.backgroundColor = .orange
     }
     
     private lazy var rankLabel: UIImageView = UIImageView().then {
-        $0.image = UIImage(named: "GMP")
+        $0.image = UIImage(named: LabelImageViewType.carcinogens(isSelected: true).imageName)
         $0.contentMode = .scaleAspectFit
     }
     
     private lazy var allergyLabel: UIImageView = UIImageView().then {
-        $0.image = UIImage(named: "GMP")
+        $0.image = UIImage(named: LabelImageViewType.allergy(isSelected: true).imageName)
         $0.contentMode = .scaleAspectFit
     }
     
@@ -220,11 +220,11 @@ private extension MaterialCollectionViewCell {
         }
         
         self.allergyLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(10)
+            make.centerY.equalTo(self.titleLabel)
         }
       
         self.rankLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(10)
+            make.centerY.equalTo(self.titleLabel)
             make.leading.equalTo(self.allergyLabel.snp.trailing).offset(5)
             make.trailing.equalToSuperview().inset(10)
         }
