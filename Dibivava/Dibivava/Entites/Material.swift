@@ -54,7 +54,7 @@ extension Material {
                  name: self.name,
                  termIds: self.termIds,
                  level: self.level,
-                        termsWithDescription: terms + "\n--\n" + termDescription,
+                        termsWithDescription: terms + "\n\n" + termDescription,
                         allergen: self.allergen,
                         allergen_description: self.allergen_description)
     }
