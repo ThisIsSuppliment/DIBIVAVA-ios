@@ -10,6 +10,8 @@ import SnapKit
 
 final class AddictiveDescriptionView: UIView {
     
+    private var labelImageViewType: LabelImageViewType
+    
     private let imageView: UIImageView = UIImageView().then {
         $0.image = UIImage(named: "GMP")
         $0.contentMode = .scaleAspectFit
@@ -21,8 +23,6 @@ final class AddictiveDescriptionView: UIView {
         $0.textAlignment = .left
         $0.font = .pretendard(.Regular, size: 12)
     }
-    
-    private var labelImageViewType: LabelImageViewType
     
     var textLabel: String? {
         didSet {

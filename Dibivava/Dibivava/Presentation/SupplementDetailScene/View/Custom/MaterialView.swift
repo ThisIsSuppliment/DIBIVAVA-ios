@@ -173,7 +173,7 @@ private extension MaterialView {
             ) as! MaterialCollectionViewCell
             
             cell.delegate = self
-            cell.title = item.name
+            cell.name = item.name
             cell.terms = item.termsWithDescription
             cell.allergyDescription = item.allergen_description
             cell.level = item.level
