@@ -7,12 +7,6 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
-	<key>UIUserInterfaceStyle</key>
-	<string>Light</string>
-	<key>CFBundleName</key>
-	<string>낄끼빠빠</string>
-	<key>CFBundleDisplayName</key>
-	<string>낄끼빠빠</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>SUIT-Bold.ttf</string>

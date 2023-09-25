@@ -211,41 +211,43 @@ class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.recommandAPI.getRecommendList(keyword: "키즈", req: 1) { response in
-            switch response {
-            case .success(let data):
-                self.recommandInfo = data
-                DispatchQueue.main.async {
-                    self.hotCollectionView.reloadData()
+        DispatchQueue.global().async {
+            self.recommandAPI.getRecommendList(keyword: "키즈", req: 1) { response in
+                switch response {
+                case .success(let data):
+                    self.recommandInfo = data
+                    DispatchQueue.main.async {
+                        self.hotCollectionView.reloadData()
+                        self.configure()
+                        self.addsubView()
+                        self.layout()
+                    }
+                case .failure(let error):
+                    print("/re 오류:\(error)")
                 }
-            case .failure(let error):
-                print("/re 오류:\(error)")
+                self.searchAPI.getSearchResult(name: "ㄱ",limit: 1) { response in
+                    switch response {
+                    case .success(_):
+                        print("깨움")
+                    case .failure(let error):
+                        print("/search 오류:\(error)")
+                    }
+                }
             }
-        }
-        self.configure()
-        self.addsubView()
-        self.layout()
-        
+        }        
     }
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = true
 
     }
     override func viewDidAppear(_ animated: Bool) {
-        if UserDefaults.standard.bool(forKey: "key") != true {
-            let vc = IntroViewController()
-             vc.modalPresentationStyle = .overFullScreen
-             self.present(vc,animated: false,completion: nil)
-        }
+//        if UserDefaults.standard.bool(forKey: "key") != true {
+//            let vc = IntroViewController()
+//             vc.modalPresentationStyle = .overFullScreen
+//             self.present(vc,animated: false,completion: nil)
+//        }
 
-        self.searchAPI.getSearchResult(name: "ㄱ",limit: 0) { response in
-            switch response {
-            case .success(_):
-                print("깨움")
-            case .failure(let error):
-                print("/search 오류:\(error)")
-            }
-        }
+
 
     }
     @objc func buttonAction(_ sender: UIButton){
