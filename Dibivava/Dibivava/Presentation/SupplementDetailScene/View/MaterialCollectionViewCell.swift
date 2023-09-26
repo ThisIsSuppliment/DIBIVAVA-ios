@@ -12,21 +12,22 @@ import SnapKit
 import Then
 
 protocol MaterialCollectionViewCellDelegate: AnyObject {
-    func showToggleButtonTapped()
+    func updateHeightWhenToggle()
 }
 
 final class MaterialCollectionViewCell: UICollectionViewCell {
     static let identifier: String = String(describing: MaterialCollectionViewCell.self)
     
     // MARK: - UI
-    private let titleLabel: UILabel = UILabel().then {
+    
+    private let nameLabel: UILabel = UILabel().then {
         $0.textColor = .black
-        $0.textAlignment = .left
+        $0.textAlignment = .center
         $0.font = .pretendard(.Regular, size: 17)
     }
     
     private lazy var descriptionStackView: UIStackView = UIStackView().then {
-        $0.spacing = 0//0.2
+        $0.spacing = 0
         $0.axis = .vertical
         $0.alignment = .fill
         $0.distribution = .fillEqually
@@ -34,22 +35,16 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
         $0.isHidden = true
     }
     
-    private lazy var allergyDescriptionView: AddictiveDescriptionView = AddictiveDescriptionView().then {
-        $0.descriptionType = .allergy(isSelected: true)
-//        $0.backgroundColor = .systemBlue
-    }
+    private lazy var allergyDescriptionView: AddictiveDescriptionView = AddictiveDescriptionView(labelImageViewType: .allergy(isSelected: true))
     
-    private lazy var carcinogensDescriptionView: AddictiveDescriptionView = AddictiveDescriptionView().then {
-        $0.descriptionType = .carcinogens(isSelected: true)
-//        $0.backgroundColor = .orange
-    }
+    private lazy var carcinogensDescriptionView: AddictiveDescriptionView = AddictiveDescriptionView(labelImageViewType: .carcinogens(isSelected: true))
     
-    private lazy var rankLabel: UIImageView = UIImageView().then {
+    private lazy var iarcGroupImageView: UIImageView = UIImageView().then {
         $0.image = UIImage(named: LabelImageViewType.carcinogens(isSelected: true).imageName)
         $0.contentMode = .scaleAspectFit
     }
     
-    private lazy var allergyLabel: UIImageView = UIImageView().then {
+    private lazy var allergyImageView: UIImageView = UIImageView().then {
         $0.image = UIImage(named: LabelImageViewType.allergy(isSelected: true).imageName)
         $0.contentMode = .scaleAspectFit
     }
@@ -59,7 +54,7 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
         $0.textAlignment = .left
         $0.font = .pretendard(.Regular, size: 12)
         $0.numberOfLines = 1
-//        $0.backgroundColor = .yellow
+        $0.setLineSpacing(spacing: 0.4)
     }
     
     private lazy var chevronButton: UIButton = UIButton().then {
@@ -83,89 +78,79 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
     
     private var toggleOpen: Bool = false {
        didSet {
-           guard self.isAddictiveMaterial
-           else {
-               return
-           }
+           guard self.isAddictiveMaterial else { return }
+           
            self.termLabel.numberOfLines = toggleOpen ? 0 : 1
            self.chevronButton.isSelected.toggle()
-           self.delegate?.showToggleButtonTapped()
-           
-           if toggleOpen {
-               self.descriptionStackView.isHidden = false
-               
-               self.descriptionStackView.snp.remakeConstraints { make in
-                   make.top.equalTo(self.termLabel.snp.bottom).offset(10)
-                   make.leading.equalTo(self.titleLabel.snp.leading)
-                   make.trailing.equalTo(self.chevronButton.snp.leading).offset(-10)
-                   make.height.greaterThanOrEqualTo(0)
-                   make.bottom.equalToSuperview().inset(10)
-               }
-               
-           } else if !toggleOpen {
-               self.descriptionStackView.isHidden = true
-               self.descriptionStackView.snp.remakeConstraints { make in
-                   make.top.equalTo(self.termLabel.snp.bottom).offset(10)
-                   make.leading.equalTo(self.titleLabel.snp.leading)
-                   make.trailing.equalTo(self.chevronButton.snp.leading).offset(-10)
-                   make.height.equalTo(0)
-                   make.bottom.equalToSuperview().inset(10)
-               }
-           }
+           self.descriptionStackView.isHidden = toggleOpen ? false : true
+           self.delegate?.updateHeightWhenToggle()
+           self.configureDescriptionStackViewConstraints()
        }
     }
     
-    var title: String? = nil {
+    var isAddictiveMaterial: Bool = false {
        didSet {
-           guard let title = title else { return }
-           self.titleLabel.text = title
+           self.configureSubviews(by: isAddictiveMaterial)
+       }
+    }
+    
+    var name: String? = nil {
+       didSet {
+           guard let name = name else { return }
+           self.nameLabel.text = name
        }
     }
     
     var terms: String? = nil {
        didSet {
-           self.setAddictiveTermsLabel(terms)
+           guard let terms = terms else { return }
+           self.termLabel.text = terms
        }
     }
     
     var allergyDescription: String? = nil {
        didSet {
            guard let allergyDescription = allergyDescription else { return }
-           self.allergyDescriptionView.textLabel = "\n알르레기 유발\n\(allergyDescription)\n"
-       }
-    }
-    
-    var level: String? = nil {
-        didSet {
-            self.setAddictiveLevelLabel(level)
-        }
-     }
-    
-    var allergy: Int? = nil {
-        didSet {
-            if allergy == 0 { // allergy가 없다면
-                self.allergyDescriptionView.removeFromSuperview()
-                self.allergyLabel.isHidden = true
-            } else if allergy == 1 {
-                self.descriptionStackView.addArrangedSubview(self.allergyDescriptionView)
-            }
-        }
-     }
-    
-    var isAddictiveMaterial: Bool = false {
-       didSet {
-           if !isAddictiveMaterial {
-               self.allergyDescriptionView.isHidden = true
-               self.chevronButton.isHidden = true
-               self.termLabel.isHidden = true
-               self.rankLabel.isHidden = true
-               self.allergyLabel.isHidden = true
-               self.termLabel.snp.removeConstraints()
-               self.updateAddictiveTitleLabel()
+           
+           self.contentView.addSubview(self.allergyImageView)
+           self.allergyImageView.snp.makeConstraints { make in
+               make.centerY.equalTo(self.nameLabel)
+               if iarcGroup != nil && iarcGroup != "" {
+                   make.trailing.equalTo(self.iarcGroupImageView.snp.leading).offset(-5)
+               } else {
+                   make.trailing.equalToSuperview().inset(10)
+               }
            }
+           
+           self.allergyDescriptionView.textLabel = "\n알레르기 유발\n\(allergyDescription)\n"
+           self.descriptionStackView.addArrangedSubview(self.allergyDescriptionView)
        }
     }
     
+    var iarcGroup: String? = nil {
+        didSet {
+            guard let iarcGroup = iarcGroup,
+                  iarcGroup != ""
+            else {
+                return
+            }
+            
+            self.contentView.addSubview(self.iarcGroupImageView)
+            self.iarcGroupImageView.snp.makeConstraints { make in
+                make.centerY.equalTo(self.nameLabel)
+                if self.allergyDescription != nil { // allergy가 있다면
+                    make.trailing.equalTo(self.allergyImageView.snp.leading).offset(-5)
+                } else {
+                    make.trailing.equalToSuperview().inset(10)
+                }
+            }
+            
+            let iarcGroupDescription = IarcGroup(rawValue: iarcGroup)?.description ?? ""
+            self.carcinogensDescriptionView.textLabel = "\nWHO IARC 등급: \(iarcGroup)\n\(iarcGroupDescription)\n"
+            self.descriptionStackView.addArrangedSubview(self.carcinogensDescriptionView)
+        }
+     }
+        
     // MARK: - Init
     
     override init(frame: CGRect) {
@@ -187,14 +172,10 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        self.titleLabel.text = nil
-        self.termLabel.text = nil
-        self.termLabel.numberOfLines = 1
-        self.chevronButton.isHidden = false
-        self.chevronButton.isSelected = false
-        self.isAddictiveMaterial = false
-        self.toggleOpen = false
-        self.allergyDescriptionView.isHidden = true
+        self.name = nil
+        self.terms = nil
+        self.allergyDescription = nil
+        self.iarcGroup = nil
     }
 }
 
@@ -202,50 +183,51 @@ final class MaterialCollectionViewCell: UICollectionViewCell {
 
 private extension MaterialCollectionViewCell {
     func configureSubviews() {
-        [titleLabel, chevronButton, allergyLabel, rankLabel, termLabel, descriptionStackView, toggleButton].forEach {
+        [nameLabel].forEach {
             self.contentView.addSubview($0)
         }
     }
     
     func configureConstraints() {
-        self.titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(10)
-            make.leading.equalToSuperview().inset(10)
+        self.nameLabel.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(10)
         }
-        
-        self.chevronButton.snp.makeConstraints { make in
-            make.size.equalTo(20)
-            make.trailing.equalToSuperview().inset(10)
-            make.bottom.equalToSuperview().inset(10)
-        }
-        
-        self.allergyLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(self.titleLabel)
-        }
-      
-        self.rankLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(self.titleLabel)
-            make.leading.equalTo(self.allergyLabel.snp.trailing).offset(5)
-            make.trailing.equalToSuperview().inset(10)
-        }
-        
-        self.termLabel.snp.makeConstraints { make in
-            make.top.greaterThanOrEqualTo(self.titleLabel.snp.bottom).offset(20)
-            make.leading.equalTo(self.titleLabel.snp.leading)
-            make.trailing.equalTo(self.chevronButton.snp.leading).offset(-10)
-        }
-
-        self.descriptionStackView.snp.makeConstraints { make in
-            make.top.equalTo(self.termLabel.snp.bottom)
-            make.leading.equalTo(self.titleLabel.snp.leading)
-            make.trailing.equalTo(self.chevronButton.snp.leading).offset(-10)
-            make.height.equalTo(0)
-            make.bottom.equalToSuperview().inset(10)
-        }
-        
-        self.toggleButton.snp.makeConstraints { make in
-            make.top.horizontalEdges.equalToSuperview()
-            make.bottom.equalToSuperview()
+    }
+    
+    func configureSubviews(by isAddictiveMaterial: Bool) {
+        if isAddictiveMaterial {
+            [termLabel, chevronButton, toggleButton, descriptionStackView].forEach {
+                self.contentView.addSubview($0)
+            }
+            
+            self.nameLabel.snp.remakeConstraints { make in
+                make.top.left.equalToSuperview().inset(10)
+            }
+            
+            self.termLabel.snp.makeConstraints { make in
+                make.top.greaterThanOrEqualTo(self.nameLabel.snp.bottom).offset(20)
+                make.leading.equalTo(self.nameLabel.snp.leading)
+                make.trailing.equalTo(self.chevronButton.snp.leading).offset(-10)
+            }
+            
+            self.chevronButton.snp.makeConstraints { make in
+                make.size.equalTo(20)
+                make.trailing.equalToSuperview().inset(10)
+                make.bottom.equalToSuperview().inset(10)
+            }
+            
+            self.toggleButton.snp.makeConstraints { make in
+                make.top.horizontalEdges.equalToSuperview()
+                make.bottom.equalToSuperview()
+            }
+            
+            self.descriptionStackView.snp.makeConstraints { make in
+                make.top.equalTo(self.termLabel.snp.bottom)
+                make.leading.equalTo(self.nameLabel.snp.leading)
+                make.trailing.equalTo(self.chevronButton.snp.leading).offset(-10)
+                make.height.equalTo(0)
+                make.bottom.equalToSuperview().inset(10)
+            }
         }
     }
     
@@ -258,44 +240,17 @@ private extension MaterialCollectionViewCell {
             .disposed(by: disposeBag)
     }
     
-    func setAddictiveTermsLabel(_ terms: String?) {
-        guard let terms = terms
-        else {
-            self.chevronButton.isHidden = true
-            return
-        }
-        
-        self.termLabel.text = terms
-        self.termLabel.setLineSpacing(spacing: 4.0)
-    }
-    
-    func setAddictiveLevelLabel(_ level: String?) {
-        guard let level = level,
-              level != ""
-        else {
-            self.rankLabel.isHidden = true
-            self.updateAllergyLabelConstraints()
-            return
-        }
-        
-        let iarcGroupDescription = iarcGroup(rawValue: level)?.description ?? ""
-        self.carcinogensDescriptionView.textLabel = "\nWHO IARC 등급: \(level)\n\(iarcGroupDescription)\n"
-        self.descriptionStackView.addArrangedSubview(self.carcinogensDescriptionView)
-    }
-    
-    func updateAddictiveTitleLabel() {
-        self.titleLabel.textAlignment = .center
-        
-        self.titleLabel.snp.makeConstraints { make in
+    func configureDescriptionStackViewConstraints() {
+        self.descriptionStackView.snp.remakeConstraints { make in
+            make.top.equalTo(self.termLabel.snp.bottom).offset(10)
+            make.leading.equalTo(self.nameLabel.snp.leading)
+            make.trailing.equalTo(self.chevronButton.snp.leading).offset(-10)
+            if self.toggleOpen {
+                make.height.greaterThanOrEqualTo(0)
+            } else if !self.toggleOpen {
+                make.height.equalTo(0)
+            }
             make.bottom.equalToSuperview().inset(10)
-            make.trailing.equalToSuperview().inset(10)
-        }
-    }
-    
-    func updateAllergyLabelConstraints() {
-        self.rankLabel.snp.removeConstraints()
-        self.allergyLabel.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().inset(10)
         }
     }
 }

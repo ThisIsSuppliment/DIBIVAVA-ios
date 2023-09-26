@@ -173,13 +173,13 @@ private extension MaterialView {
             ) as! MaterialCollectionViewCell
             
             cell.delegate = self
-            cell.title = item.name
-            cell.terms = item.termsWithDescription
-            cell.allergyDescription = item.allergen_description
-            cell.level = item.level
-            cell.allergy = item.allergen
-            cell.isAddictiveMaterial = (item.category == "additive" && item.name != "없음")
             
+            cell.isAddictiveMaterial = (item.category == "additive" && item.name != "없음")
+            cell.name = item.name
+            cell.terms = item.termsWithDescription
+            cell.iarcGroup = item.level
+            cell.allergyDescription = item.allergen_description
+
             return cell
         }
         
@@ -222,7 +222,7 @@ private extension MaterialView {
 // MARK: - MaterialCollectionViewCellDelegate
 
 extension MaterialView: MaterialCollectionViewCellDelegate {
-    func showToggleButtonTapped() {
+    func updateHeightWhenToggle() {
         guard let snapshot = dataSource?.snapshot() else { return }
         
         self.dataSource?.apply(snapshot, animatingDifferences: false) {

@@ -58,7 +58,7 @@ private extension DefaultSupplementNetworkService {
                 single(.failure(NetworkError.invalidURL))
                 return Disposables.create()
             }
-//            print(">>", requestURL)
+            print(">>", requestURL)
             AF.request(requestURL).responseData { response in
                 switch response.result {
                 case .success(let data):
@@ -70,8 +70,8 @@ private extension DefaultSupplementNetworkService {
                         print(context)
                         single(.failure(NetworkError.failedDecode))
                     } catch let DecodingError.keyNotFound(key, context) {
-                        print("++Key '\(key)' not found:", context.debugDescription)
-                        print("++requestURL", requestURL, "\n")
+                        print("Key '\(key)' not found:", context.debugDescription)
+                        print("requestURL", requestURL, "\n")
                         single(.failure(NetworkError.failedDecode))
                     } catch let DecodingError.valueNotFound(value, context) {
                         print("Value '\(value)' not found:", context.debugDescription)

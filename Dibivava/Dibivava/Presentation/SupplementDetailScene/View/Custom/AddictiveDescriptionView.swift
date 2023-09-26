@@ -9,10 +9,8 @@ import UIKit
 import SnapKit
 
 final class AddictiveDescriptionView: UIView {
-    enum descriptionType {
-        case allergy
-        case carcinogens
-    }
+    
+    private var labelImageViewType: LabelImageViewType
     
     private let imageView: UIImageView = UIImageView().then {
         $0.image = UIImage(named: "GMP")
@@ -29,23 +27,25 @@ final class AddictiveDescriptionView: UIView {
     var textLabel: String? {
         didSet {
             guard let textLabel = textLabel else { return }
-            self.label.text = textLabel
+            
+            let attributedText = NSMutableAttributedString(string: textLabel)
+            attributedText.addAttribute(.font,
+                                        value: UIFont.pretendard(.Bold, size: 14),
+                                        range: labelImageViewType.boldRange ?? NSRange())
+            
+            self.label.attributedText = attributedText
         }
     }
     
-    var descriptionType: LabelImageViewType? {
-        didSet {
-            guard let descriptionType = self.descriptionType else { return }
-            self.imageView.image = UIImage(named: descriptionType.imageName)
-        }
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(labelImageViewType: LabelImageViewType) {
+        self.labelImageViewType = labelImageViewType
+        
+        super.init(frame: .zero)
         
         self.backgroundColor = .white
         self.configureSubView()
         self.configureConstraints()
+        self.imageView.image = UIImage(named: labelImageViewType.imageName)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -64,7 +64,7 @@ private extension AddictiveDescriptionView {
         self.imageView.snp.makeConstraints { make in
             make.leading.equalToSuperview()
             make.centerY.equalTo(self.label)
-            make.size.equalTo(30)
+            make.size.equalTo(35)
         }
         
         self.label.snp.makeConstraints { make in

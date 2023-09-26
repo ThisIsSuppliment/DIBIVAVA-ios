@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum iarcGroup: String {
+enum IarcGroup: String {
     case group1 = "1"
     case group2A = "2A"
     case group2B = "2B"
