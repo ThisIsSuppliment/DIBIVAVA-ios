@@ -142,25 +142,25 @@ private extension SupplementDetailViewController {
             })
             .disposed(by: self.disposeBag)
         
-        self.viewModel.isA
+        self.viewModel.numOfAllergy
             .compactMap { $0 }
-            .drive(onNext: { [weak self] isA in
+            .drive(onNext: { [weak self] numOfAllergy in
                 guard let self
                 else {
                     return
                 }
-                self.supplementDetailView.isAllergy = isA
+                self.supplementDetailView.isAllergy = numOfAllergy
             })
             .disposed(by: self.disposeBag)
         
-        self.viewModel.isC
+        self.viewModel.numOfCarcinogens
             .compactMap { $0 }
-            .drive(onNext: { [weak self] isC in
+            .drive(onNext: { [weak self] numOfCarcinogens in
                 guard let self
                 else {
                     return
                 }
-                self.supplementDetailView.isCarcinogens = isC
+                self.supplementDetailView.isCarcinogens = numOfCarcinogens
             })
             .disposed(by: self.disposeBag)
         

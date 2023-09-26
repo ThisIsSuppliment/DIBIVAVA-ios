@@ -21,8 +21,8 @@ final class DefaultSupplementDetailViewModel {
     private let recommendSupplementRelay: BehaviorRelay<[SupplementObject]?> = .init(value: nil)
     private let materialByTypeRelay: PublishRelay<[MaterialType:[Material]]?> = .init()
     
-    private let isARelay: PublishRelay<Int?> = .init()
-    private let isCRelay: PublishRelay<Int?> = .init()
+    private let numOfAllergyRelay: PublishRelay<Int?> = .init()
+    private let numOfCarcinogensRelay: PublishRelay<Int?> = .init()
     
     private var material: [MaterialType:[Material]]
     private let disposeBag = DisposeBag()
@@ -42,12 +42,12 @@ final class DefaultSupplementDetailViewModel {
 }
 
 extension DefaultSupplementDetailViewModel: SupplementDetailViewModel {
-    var isA: RxCocoa.Driver<Int?> {
-        self.isARelay.asDriver(onErrorJustReturn: nil)
+    var numOfAllergy: RxCocoa.Driver<Int?> {
+        self.numOfAllergyRelay.asDriver(onErrorJustReturn: nil)
     }
     
-    var isC: RxCocoa.Driver<Int?> {
-        self.isCRelay.asDriver(onErrorJustReturn: nil)
+    var numOfCarcinogens: RxCocoa.Driver<Int?> {
+        self.numOfCarcinogensRelay.asDriver(onErrorJustReturn: nil)
     }
     
     var recommendSupplement: Driver<[SupplementObject]?> {
@@ -150,8 +150,8 @@ private extension DefaultSupplementDetailViewModel {
                 self.addMaterialByType(category: .addictive,
                                            materials: additives)
                 
-                self.isARelay.accept(additives?.filter({$0.allergen == 1}).count)
-                self.isCRelay.accept(additives?.filter({$0.level != nil && $0.level != ""}).count)
+                self.numOfAllergyRelay.accept(additives?.filter({$0.allergen == 1}).count)
+                self.numOfCarcinogensRelay.accept(additives?.filter({$0.level != nil && $0.level != ""}).count)
 
             }, onFailure: {
                 print("Error: Fetch Additives - \($0)")
