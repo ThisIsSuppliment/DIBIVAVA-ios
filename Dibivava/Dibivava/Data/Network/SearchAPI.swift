@@ -26,12 +26,9 @@ struct SearchAPIResponse: Codable {
 }
 class SearchAPI{
     func getSearchResult(name:String,limit:Int,completion: @escaping (Result<[Supplement], Error>) -> Void){
-        let url = APIConstants.baseURL + "search"
-        let parameters: Parameters = [
-            "name": name,
-            "limit": limit,
-        ]
-        AF.request(url, parameters: parameters).responseDecodable(of: SearchAPIResponse.self) { response in
+        let qureyName = name.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+        let url = "https://nb548yprx4.execute-api.ap-northeast-2.amazonaws.com/production/search?name=\(qureyName)&limit=\(limit)"
+        AF.request(url,method: .get, parameters: nil,headers: nil).responseDecodable(of: SearchAPIResponse.self) { response in
                   switch response.result {
                   case .success(let response):
                       completion(.success(response.result))
