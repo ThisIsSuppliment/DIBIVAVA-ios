@@ -79,20 +79,12 @@ final class SupplementDetailView: UIView {
     
     var isAllergy: Int = 0 {
         didSet {
-//            self.allergyLabelImageView = LabelImageView(
-//                frame: .zero,
-//                labelImageViewType: .allergy(isSelected: isA > 0 ? true : false)
-//            )
             self.allergyLabelImageView.labelImageViewType = .allergy(isSelected: isAllergy > 0 ? true : false)
         }
     }
     
     var isCarcinogens: Int = 0 {
         didSet {
-//            self.carcinogensLabelImageView = LabelImageView(
-//                frame: .zero,
-//                labelImageViewType: .carcinogens(isSelected: isC > 0 ? true : false)
-//            )
             self.carcinogensLabelImageView.labelImageViewType = .carcinogens(isSelected: isCarcinogens > 0 ? true : false)
         }
     }
@@ -168,7 +160,5 @@ private extension SupplementDetailView {
             make.trailing.equalToSuperview().inset(10)
             make.height.equalTo(20)
         }
-        
-        gmpLabelImageView.labelImageViewType = .gmp
     }
 }

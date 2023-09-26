@@ -31,6 +31,8 @@ final class LabelImageView: UIView {
         super.init(frame: .zero)
         
         self.labelImageViewType = labelImageViewType
+        self.checkImageView.image = UIImage(named: labelImageViewType.imageName)
+        self.titleLabel.text = labelImageViewType.text
         self.setupUI()
     }
 
